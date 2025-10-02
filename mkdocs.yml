@@ -19,8 +19,8 @@ theme:
 nav:
   - Guía de uso: 0_index.md
   - Contenido:
-    - 1. Introducción: 1_Ficheros.md
-    - 2. Bases de datos relacionales: 2_BD_relacionales.md
+    - 1. Acceso a ficheros: 1_Ficheros.md
+    - 2. Acceso a BD relacionales: 2_BD_relacionales.md
   - Material adicional:
     - DB Browser: db_browser_sqlite.md
 markdown_extensions:
