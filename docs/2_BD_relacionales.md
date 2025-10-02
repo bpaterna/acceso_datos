@@ -1,4 +1,6 @@
-# Introducción
+# Acceso a Bases de Datos relacionales
+
+## Introducción
 Las bases de datos relacionales son esenciales en el desarrollo de aplicaciones modernas. Su integración con una aplicación requiere realizar una  **conexión** al sistema gestor de base de datos (SGBD) desde el lenguaje de programación. Este tema se centra en cómo realizar esa conexión, cómo trabajar con datos mediante sentencias SQL y cómo aplicar buenas prácticas, como el cierre de recursos, el uso de transacciones y procedimientos almacenados.
 
 Una **base de datos relacional** es un sistema de almacenamiento de información que **organiza los datos en tablas**. Cada tabla representa una entidad (por ejemplo, clientes, productos, facturas) y está compuestas por filas y columnas, donde cada fila representa un registro único y cada columna contiene un atributo específico de ese registro. Estas bases de datos (BD) siguen el **Modelo Relacional**, desarrollado por Edgar F. Codd en la década de 1970, y permite establecer vínculos o **relaciones entre diferentes tablas** mediante **claves primarias y foráneas**, facilitando así la integridad, la coherencia y la eficiencia en el manejo de grandes volúmenes de datos.
@@ -61,7 +63,7 @@ Conocer qué **tipo de gestor de base de datos** se está utilizando es esencial
     3. Crea una carpeta **datos** dentro de tu proyecto y copia en ella el archivo **nombre_de_tu_BD.sqlite**.
 
 
-# Conexión a un SGBD
+## Conexión a un SGBD
 
 Cuando desarrollamos aplicaciones que trabajan con información persistente, necesitamos acceder a BD para consultar, insertar, modificar o eliminar datos. Existen dos formas principales de hacerlo desde el código: 
 
@@ -350,7 +352,7 @@ Lo primero será incluir las dependencia necesarias en **build.gradle.kts**
 
 -->
 
-# Operaciones sobre la BD
+## Operaciones sobre la BD
 
 En **JDBC** (Java Database Connectivity), las operaciones sobre la base de datos se realizan  utilizando los siguientes objetos y métodos:
 
@@ -863,7 +865,7 @@ El siguiente ejemplo elimina el instituto de prueba insertado.
 -->
 
 
-# Transacciones y excepciones
+## Transacciones y excepciones
 
 <span class="mi_h2">Transacciones</span>
 
@@ -999,7 +1001,7 @@ Si no se produce ningún error se hará el `commit` y en caso contrario el `roll
 
 
 
-# Funciones y procedimientos almacenados 
+## Funciones y procedimientos almacenados 
 
 Las funciones (FUNCTION) y los procedimientos (PROCEDURE) **no se crean desde el lenguaje Kotlin**, ya que son elementos propios del SGBD. Para definirlos, se utiliza **SQL** y se ejecutan **directamente sobre la base de datos** a través de un cliente SQL.
 
