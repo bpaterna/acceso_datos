@@ -58,9 +58,7 @@ Conocer qué **tipo de gestor de base de datos** se está utilizando es esencial
 - Casos de uso: aplicaciones de escritorio, móviles, prototipos, pruebas unitarias.
 
 !!! warning "Práctica 1: Crea tu base de datos" 
-    1. Crea un nuevo proyecto en Kotlin con Gradle.
-    2. A partir del fichero de información utilizado en el proyecto de la unidad anterior, crea una base de datos SQLite **nombre_de_tu_BD.sqlite** con una tabla que contenga la información del fichero.
-    3. Crea una carpeta **datos** dentro de tu proyecto y copia en ella el archivo **nombre_de_tu_BD.sqlite**.
+    A partir del fichero de información utilizado en el proyecto de la unidad anterior, crea una base de datos SQLite **nombre_de_tu_BD.sqlite** con una tabla que contenga la información del fichero.
 
 
 ## 2.2. Conexión a un SGBD
