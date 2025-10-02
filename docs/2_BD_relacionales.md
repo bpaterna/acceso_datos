@@ -57,7 +57,7 @@ Conocer qué **tipo de gestor de base de datos** se está utilizando es esencial
 - Fácil de configurar y desplegar, ya que la base de datos reside en un archivo local.
 - Casos de uso: aplicaciones de escritorio, móviles, prototipos, pruebas unitarias.
 
-!!! warning "Práctica 1: Crea tu proyecto y tu base de datos" 
+!!! warning "Práctica 1: Crea tu base de datos" 
     1. Crea un nuevo proyecto en Kotlin con Gradle.
     2. A partir del fichero de información utilizado en el proyecto de la unidad anterior, crea una base de datos SQLite **nombre_de_tu_BD.sqlite** con una tabla que contenga la información del fichero.
     3. Crea una carpeta **datos** dentro de tu proyecto y copia en ella el archivo **nombre_de_tu_BD.sqlite**.
@@ -187,9 +187,11 @@ fun main() {
         <span class="mi_consola">Conexión establecida correctamente con SQLite</span>
 
 
-!!! warning "Práctica 2: Conecta a tu base de datos" 
-    Replica el ejemplo anterior para que funcione con tu base de datos.
-
+!!! warning "Práctica 2: Crea tu proyecto Gradle y conecta a tu base de datos" 
+    1. Crea un nuevo proyecto en Kotlin con Gradle.
+    2. Añade las dependencias para trabajar con SQLite.
+    3. Crea una carpeta **datos** dentro de tu proyecto y copia en ella la base de datos creada en la práctica anterior.
+    4. Añade las líneas de código necesarias para conectar con la BD y muestra un mensaje indicando si se ha conectado correctamente con la BD.
 
 
 <span class="mi_h3">Organización del código</span>
@@ -262,7 +264,7 @@ fun main() {
     Prueba el código de ejemplo y verifica que funciona correctemente.
       
 !!! warning "Práctica 3: Organiza el código de tu aplicación" 
-    Replica el ejemplo anterior para que funcione con tu base de datos.
+    Añade a tu proyecto un fichero .kt (con el nombre que quieras) para crear un objeto que maneje la conexión a la BD, con las tres funciones que has visto en el ejemplo anterior.
 
 
 
@@ -696,7 +698,9 @@ fun main() {
     Prueba el código de ejemplo y verifica que funciona correctemente.
 
 !!! warning "Práctica 4: Trabaja con tu base de datos" 
-    Replica el ejemplo anterior para que funcione con tu base de datos.
+    1. Añade a tu proyecto un objetos de acceso a datos (DAO) para manejar las diferentes operaciones CRUD de tu aplicación.
+    2. Utiliza .use en todas tus operaciones para asegurarte de que se cierran correctamente todos los recursos.
+    3. Añade llamadas desde tu función **main** a todas las operaciones CRUD que acabas de crear y comrpueba que todas funcionan correctamente.
 
 
 
@@ -1001,7 +1005,7 @@ Si no se produce ningún error se hará el `commit` y en caso contrario el `roll
 
 
 
-## Funciones y procedimientos almacenados 
+## 2.5. Funciones y procedimientos almacenados 
 
 Las funciones (FUNCTION) y los procedimientos (PROCEDURE) **no se crean desde el lenguaje Kotlin**, ya que son elementos propios del SGBD. Para definirlos, se utiliza **SQL** y se ejecutan **directamente sobre la base de datos** a través de un cliente SQL.
 
