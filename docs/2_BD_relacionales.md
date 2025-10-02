@@ -189,7 +189,7 @@ fun main() {
     1. Crea un nuevo proyecto en Kotlin con Gradle.
     2. Añade las dependencias para trabajar con SQLite.
     3. Crea una carpeta **datos** dentro de tu proyecto y copia en ella la base de datos creada en la práctica anterior.
-    4. Añade las líneas de código necesarias para conectar con la BD y muestra un mensaje indicando si se ha conectado correctamente con la BD.
+    4. Añade las líneas de código necesarias para conectar con tu BD y muestra un mensaje indicando si se ha establecido la conexión correctamente o no.
 
 
 <span class="mi_h3">Organización del código</span>
