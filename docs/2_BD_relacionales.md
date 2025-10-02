@@ -1,6 +1,6 @@
-# Acceso a Bases de Datos relacionales
+# 2. Acceso a Bases de Datos relacionales
 
-## Introducción
+## 2.1. Introducción
 Las bases de datos relacionales son esenciales en el desarrollo de aplicaciones modernas. Su integración con una aplicación requiere realizar una  **conexión** al sistema gestor de base de datos (SGBD) desde el lenguaje de programación. Este tema se centra en cómo realizar esa conexión, cómo trabajar con datos mediante sentencias SQL y cómo aplicar buenas prácticas, como el cierre de recursos, el uso de transacciones y procedimientos almacenados.
 
 Una **base de datos relacional** es un sistema de almacenamiento de información que **organiza los datos en tablas**. Cada tabla representa una entidad (por ejemplo, clientes, productos, facturas) y está compuestas por filas y columnas, donde cada fila representa un registro único y cada columna contiene un atributo específico de ese registro. Estas bases de datos (BD) siguen el **Modelo Relacional**, desarrollado por Edgar F. Codd en la década de 1970, y permite establecer vínculos o **relaciones entre diferentes tablas** mediante **claves primarias y foráneas**, facilitando así la integridad, la coherencia y la eficiencia en el manejo de grandes volúmenes de datos.
@@ -40,7 +40,7 @@ Un ejemplo sencillo de consulta podría ser:
     SELECT nombre FROM clientes WHERE ciudad = 'Valencia';
 
 
-<span class="mi_h2">Tipos de SGBD relacionales</span>
+<span class="mi_h3">Tipos de SGBD relacionales</span>
 
 Conocer qué **tipo de gestor de base de datos** se está utilizando es esencial para poder **conectar** correctamente desde una aplicación, ya que cada uno necesita su propio conector o driver. Podemos encontrar:
 
@@ -63,7 +63,7 @@ Conocer qué **tipo de gestor de base de datos** se está utilizando es esencial
     3. Crea una carpeta **datos** dentro de tu proyecto y copia en ella el archivo **nombre_de_tu_BD.sqlite**.
 
 
-## Conexión a un SGBD
+## 2.2. Conexión a un SGBD
 
 Cuando desarrollamos aplicaciones que trabajan con información persistente, necesitamos acceder a BD para consultar, insertar, modificar o eliminar datos. Existen dos formas principales de hacerlo desde el código: 
 
@@ -71,7 +71,7 @@ Cuando desarrollamos aplicaciones que trabajan con información persistente, nec
   - Acceso mediante conectores.
 
 
-<span class="mi_h2">Acceso mediante ORM</span>
+<span class="mi_h3">Acceso mediante ORM</span>
 
 Un **ORM** es una herramienta que permite trabajar con la base de datos como si fuera un conjunto de objetos, evitando tener que escribir directamente SQL. El **ORM** se encarga de mapear las tablas a clases y los registros a objetos, y traduce automáticamente las operaciones del código a consultas SQL. Es ideal para trabajar de forma más productiva en aplicaciones complejas. Sus principales características son:
 
@@ -91,7 +91,7 @@ Room|	Java/Kotlin|	ORM oficial para bases de datos SQLite en Android
 **JPA** (Java Persistence API) es una especificación estándar de Java que define cómo se deben mapear objetos Java (o Kotlin) a tablas de bases de datos relacionales. Es decir, permite gestionar la persistencia de datos de forma orientada a objetos, sin necesidad de escribir SQL directamente. Es el estándar utilizado por las herramientas ORM como Hibernate, EclipseLink, o Spring Data JPA.
 
 
-<span class="mi_h2">Acceso mediante conectores</span>
+<span class="mi_h3">Acceso mediante conectores</span>
 
 Un **conector** (también llamado driver) es una librería software que permite que una aplicación se comunique con un gestor de base de datos (SGBD). Actúa como un puente entre nuestro código y la base de datos, traduciendo las instrucciones SQL a un lenguaje que el gestor puede entender y viceversa. Sin un conector, tu aplicación no podría comunicarse con la base de datos.
 
@@ -192,7 +192,7 @@ fun main() {
 
 
 
-<span class="mi_h2">Organización del código</span>
+<span class="mi_h3">Organización del código</span>
 
 Cuando se trabaja con bases de datos, una buena opción para organizar el código es tener el código que maneja toda la lógica de BD en un mismo sitio En Kotlin se puede crear un objeto con funciones para que estén disponibles de forma directa en otras partes del programa.
 
@@ -352,7 +352,7 @@ Lo primero será incluir las dependencia necesarias en **build.gradle.kts**
 
 -->
 
-## Operaciones sobre la BD
+## 2.3. Operaciones sobre la BD
 
 En **JDBC** (Java Database Connectivity), las operaciones sobre la base de datos se realizan  utilizando los siguientes objetos y métodos:
 
@@ -381,7 +381,7 @@ Método|	Uso principal|	Tipo de sentencia SQL|	Resultado que devuelve
 
 
 
-<span class="mi_h2">Buenas prácticas</span>
+<span class="mi_h3">Buenas prácticas</span>
 
 **Liberación de recursos**
 
@@ -865,9 +865,9 @@ El siguiente ejemplo elimina el instituto de prueba insertado.
 -->
 
 
-## Transacciones y excepciones
+## 2.4. Transacciones y excepciones
 
-<span class="mi_h2">Transacciones</span>
+<span class="mi_h3">Transacciones</span>
 
 Una transacción es una secuencia de una o más operaciones sobre una base de datos que deben ejecutarse como una unidad indivisible. El objetivo es asegurar que todas las operaciones se completen con éxito o, en caso de fallo, ninguna de ellas se aplique, manteniendo así la base de datos en un estado consistente. Por ejemplo, en una transferencia bancaria, si falla el abono en una cuenta, se cancela el débito en la otra.
 
@@ -899,7 +899,7 @@ Por defecto, muchas conexiones JDBC están en modo **auto-commit**, es decir, ca
         conexion.autoCommit = false
 
 
-<span class="mi_h2">Excepciones</span>
+<span class="mi_h3">Excepciones</span>
 
 El manejo de excepciones en las transacciones es absolutamente necesario para garantizar que los datos de la base de datos no queden en un estado inconsistente o corrupto cuando ocurre un error durante una operación.
 
