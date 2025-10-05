@@ -18,7 +18,6 @@ theme:
     - toc.integrate
 nav:
   - Presentación: index.md
-  - Guía de uso: guia.md
   - Contenido:
     - 1. Acceso a ficheros: 1_Ficheros.md
     - 2. Acceso a BD relacionales: 2_BD_relacionales.md
