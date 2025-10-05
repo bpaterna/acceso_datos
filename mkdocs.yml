@@ -17,8 +17,8 @@ theme:
     - search.suggest
     - toc.integrate
 nav:
-  - Presentación: 0_presentacion.md
-  - Guía de uso: 0_index.md
+  - Presentación: index.md
+  - Guía de uso: guia.md
   - Contenido:
     - 1. Acceso a ficheros: 1_Ficheros.md
     - 2. Acceso a BD relacionales: 2_BD_relacionales.md
@@ -39,6 +39,6 @@ extra_css:
 use_directory_urls: false
 plugins:
   - with-pdf:
-      output_path: pdf/AD_BD_REL.pdf
+      output_path: pdf/acceso_datos.pdf
       cover: true
       toc_title: "Índice"
