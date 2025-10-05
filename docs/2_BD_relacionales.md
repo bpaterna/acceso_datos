@@ -1,5 +1,12 @@
 # 2. Acceso a Bases de Datos relacionales
 
+<span class="mi_h3">Revisiones</span>
+
+|Revisión | Fecha| Descripción|
+|---------|------|-------------|
+|1.0 | 05-10-2025 | Adaptación de los materiales a markdown|
+
+
 ## 2.1. Introducción
 Las bases de datos relacionales son esenciales en el desarrollo de aplicaciones modernas. Su integración con una aplicación requiere realizar una  **conexión** al sistema gestor de base de datos (SGBD) desde el lenguaje de programación. Este tema se centra en cómo realizar esa conexión, cómo trabajar con datos mediante sentencias SQL y cómo aplicar buenas prácticas, como el cierre de recursos, el uso de transacciones y procedimientos almacenados.
 
