@@ -1009,6 +1009,7 @@ Si no se produce ningún error se hará el `commit` y en caso contrario el `roll
     Añade a tu aplicación alguna funcionalidad parecida a la del ejemplo para poder probar las transacciones sobre tu base de datos.
 
 
+<!--
 
 ## 2.5. Funciones y procedimientos almacenados 
 
@@ -1042,7 +1043,7 @@ Y desde Kotlin, se gestionan mediante objetos como **PreparedStatement** y **Cal
     **SQLite** no soporta funciones ni procedimientos almacenados como lo hacen bases de datos como PostgreSQL, MySQL u Oracle. Sin embargo, puedes simular su comportamiento mediante funciones definidas en la aplicación, o vistas y triggers.
 
 
-
+-->
 
 <!--
 ## 🔹Funciones (FUNCTION)
