@@ -14,6 +14,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 1. Habrás recibido un correo electrónico de invitación, haz clic en el enlace y crea tu cuenta.
 
 2. Entra al curso y haz clic en el enlace **Lanzamiento del laboratorio** (la primera vez que entres deberás aceptar los términos de uso). Para entrar en el futuro, utiliza el enlace: [https://www.awsacademy.com/vforcesite/LMS_Login](https://www.awsacademy.com/vforcesite/LMS_Login)
+    ![Imagen 0](img/AWS/imagen_000.jpg)
     ![Imagen 1](img/AWS/imagen_001.jpg)
     
 3. Haz clic en el botón **Start Lab** (el círculo cambiará a color amarillo mientras arranca el laboratorio).
