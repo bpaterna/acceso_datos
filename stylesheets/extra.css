@@ -1,0 +1,44 @@
+/*.mi_h2 {color: #ef5552; font-size:26pt;}*/
+
+h1{color: #ef5552 !important;}
+h2{color: #ef5552 !important;}
+
+img {margin-top: 20px; margin-bottom: 20px; border:#ef5552 solid 2px;}
+
+.mi_h2 {
+  color: #ef5552;
+  font-size: 1.5625em;
+  line-height: 1.4;
+  margin: 1.6em 0 .64em;
+  font-weight: lighter;
+}
+
+.mi_h3 {
+  color: #ef5552;
+  font-size: 1.3em;
+  line-height: 1.3;
+  margin: 1.6em 0 .64em;
+  font-weight: lighter;
+}
+
+.mi_consola {color: #999}
+
+.mis_ejemplos {
+  color: #ef5552;
+  font-size: 1.1em;
+  line-height: 1.1;
+  margin: 1.6em 0 .64em;
+  font-weight: lighter;
+}
+
+.mis_avisos{
+  background: #f8a19f;
+  padding: 10px;
+  margin-bottom: 30px !important;
+  border-radius: .2rem;
+}
+
+/*para la impresión del pdf*/
+.md-typeset .admonition-title::before {
+  left: 0.5rem;
+}
