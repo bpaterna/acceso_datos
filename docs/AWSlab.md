@@ -44,11 +44,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
 11. Verás que el navegador descarga la clave automáticamente:
     ![Imagen 11](img/AWS/imagen_011.jpg)
-
     <span class="mis_avisos">**Muy importante:** guarda el fichero de la clave en lugar seguro porque te hará falta para conectar a tu servidor por SSH.</span>
-
-.
-
 
 12. Deja el resto de opciones como están y, en la parte derecha dentro del apartado **Resumen**, haz clic en el botón **Lanzar instancia**. Cuando la instancia termine de lanzarse aparecerá:
     ![Imagen 12](img/AWS/imagen_012.jpg)
@@ -127,14 +123,6 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     exit
     ```
 
-
-<!--
-```bash
-sudo ufw allow 3306
-```
--->
-
-
 3. Añade una regla en el servidor para permitir el tráfico entrante del puerto 3306.
     -  Ve a la consola de AWS y encuentra tu instancia EC2.
     -  Haz clic en la pestaña "Security" y luego en el enlace del Security Group asociado.
@@ -149,6 +137,16 @@ sudo ufw allow 3306
 
 
 4. Prueba a conectar a tu base de datos.
+
+
+
+<!--
+```bash
+sudo ufw allow 3306
+```
+-->
+
+
 
 <!--
 ### ss -tulnp | grep 3306
