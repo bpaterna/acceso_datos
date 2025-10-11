@@ -7,69 +7,61 @@
 |1.0 | 11-10-2025 | Adaptación de los materiales a markdown|
 
 
-
 <span class="mi_h3">Instalar el servidor</span>
 
 A continuación se describen los pasos para crear un servidor Ubuntu en un laboratorio de aprendizaje de AWS Academy.
 
-1.  Habrás recibido un correo electrónico de invitación, haz clic en el enlace y crea tu cuenta.
+1. Habrás recibido un correo electrónico de invitación, haz clic en el enlace y crea tu cuenta.
 
-
-2.  Entra al curso y haz clic en el enlace **Lanzamiento del laboratorio** (la primera vez que entres deberás aceptar los términos de uso).
-
+2. Entra al curso y haz clic en el enlace **Lanzamiento del laboratorio** (la primera vez que entres deberás aceptar los términos de uso). Para entrar en el futuro, utiliza el enlace: [https://www.awsacademy.com/vforcesite/LMS_Login](https://www.awsacademy.com/vforcesite/LMS_Login)
     ![Imagen 1](img/AWS/imagen_001.jpg)
-
-    Para entrar en el futuro, utiliza el enlace: [https://www.awsacademy.com/vforcesite/LMS_Login](https://www.awsacademy.com/vforcesite/LMS_Login)
-
-
-3.  Haz clic en el botón **Start Lab** (el círculo cambiará a color amarillo mientras arranca el laboratorio).
-
+    
+3. Haz clic en el botón **Start Lab** (el círculo cambiará a color amarillo mientras arranca el laboratorio).
     ![Imagen 2](img/AWS/imagen_002.jpg)
 
-    Cuando el laboratorio haya arrancado, el círculo estará de color verde y aparecerá el saldo consumido y disponible.
-
+4. Cuando el laboratorio haya arrancado, el círculo estará de color verde y aparecerá el saldo consumido y disponible.
     ![Imagen 3](img/AWS/imagen_003.jpg)
 
-
-4.  Haz clic en AWS para acceder a la **Página de inicio de la Consola** cuya región es **North Virginia (us-east-1)**, la región por defecto de los laboratorios de aprendizaje.
+5. Haz clic en AWS para acceder a la **Página de inicio de la Consola** cuya región es **North Virginia (us-east-1)**, la región por defecto de los laboratorios de aprendizaje.
     ![Imagen 4](img/AWS/imagen_004.jpg)
 
-    Haz clic en **EC2** para acceder a la consola de instancias EC2.
+6. Haz clic en **EC2** para acceder a la consola de instancias EC2.
     ![Imagen 5](img/AWS/imagen_005.jpg)
 
-5.  Haz clic en **Lanzar la instancia**:
+7. Haz clic en **Lanzar la instancia**:
     ![Imagen 6](img/AWS/imagen_006.jpg)
 
-    Escribe el nombre de la instancia y elige una **Amazon Machine Image (AMI)** en este caso Ubuntu (al seleccionar ubuntu nos aparece la Ubuntu Server 24.04 LTS que es apta para utilizar de forma gratuita).
+8. Escribe el nombre de la instancia y elige una **Amazon Machine Image (AMI)** en este caso Ubuntu (al seleccionar ubuntu nos aparece la Ubuntu Server 24.04 LTS que es apta para utilizar de forma gratuita).
     ![Imagen 7](img/AWS/imagen_007.jpg)
 
-    Más abajo aparece el tipo de instancia:
+9. Más abajo aparece el tipo de instancia:
     ![Imagen 8](img/AWS/imagen_008.jpg)
 
-    Crea un par de claves:
+10. Crea un par de claves:
     ![Imagen 9](img/AWS/imagen_009.jpg)
     ![Imagen 10](img/AWS/imagen_010.jpg)
 
-    Verás que el navegador descarga la clave automáticamente:
+11. Verás que el navegador descarga la clave automáticamente:
     ![Imagen 11](img/AWS/imagen_011.jpg)
 
     !!!Note ""
         **Muy importante:** guarda el fichero de la clave en lugar seguro porque te hará falta para conectar a tu servidor por SSH.
 
 
-    Dejar el resto de opciones como están y, en la parte derecha dentro del apartado **Resumen**, hacer clic en el botón **Lanzar instancia**. Cuando la instancia termine de lanzarse aparecerá:
+12. Deja el resto de opciones como están y, en la parte derecha dentro del apartado **Resumen**, haz clic en el botón **Lanzar instancia**. Cuando la instancia termine de lanzarse aparecerá:
     ![Imagen 12](img/AWS/imagen_012.jpg)
 
-    Podemos hacer clic en el botón **Conectarse a la instancia** y ver las instrucciones para conectar a nuestro servidor en la pestaña SSH:
+13. Haz clic en el botón **Conectarse a la instancia** para ver las instrucciones de conexión al servidor en la pestaña SSH:
     ![Imagen 13](img/AWS/imagen_013.jpg)
 
-    Para conectar al servidor, escribir en una ventana de comandos el comando (el archivo .pem ha de estar en la carpeta desde la que lanzamos el comando):
+14. Prueba la conexión. Para ello escribe en una ventana de comandos (el archivo .pem ha de estar en la carpeta desde la que lanzamos el comando) lo siguiente (sustituye el nombre de tu archiv .pem y el nombre de tu servidor):
 
     ```bash
     ssh -i claveAWS.pem ubuntu@ec2-13-218-241-87.compute-1.amazonaws.com
     ```
 
     ![Imagen 14](img/AWS/imagen_014.jpg)
+
 
 
 <span class="mi_h3">Instalar mySQL</span>
