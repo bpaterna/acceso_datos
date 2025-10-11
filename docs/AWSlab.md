@@ -7,7 +7,7 @@
 |1.0 | 11-10-2025 | Adaptación de los materiales a markdown|
 
 
-<span class="mi_h3">Instalar el servidor</span>
+<span class="mi_h3">Instalación del servidor</span>
 
 A continuación se describen los pasos para crear un servidor Ubuntu en un laboratorio de aprendizaje de AWS Academy.
 
@@ -64,7 +64,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
 
 
-<span class="mi_h3">Instalar mySQL</span>
+<span class="mi_h3">Instalación de MySQL</span>
 
 1. Actualiza la lista de paquetes del servidor:
     ```bash
@@ -99,9 +99,9 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     ```
 
 
-<span class="mi_h3">Configurar un usuario MySQL</span>
+<span class="mi_h3">Configuración de un usuario MySQL</span>
 
-1. Entra al servidor mySQL (dejar la contraseña en blanco)
+1. Entra al servidor MySQL (dejar la contraseña en blanco)
     ```bash
     sudo mysql -u root -p 
     ```
