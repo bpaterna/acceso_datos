@@ -31,6 +31,10 @@ img {margin-top: 20px; margin-bottom: 20px; border:#ef5552 solid 2px;}
   font-weight: lighter;
 }
 
+.mis_avisos{
+  background: #f8a19f;
+  padding: 5px;
+}
 
 /*para la impresión del pdf*/
 .md-typeset .admonition-title::before {
