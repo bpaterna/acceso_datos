@@ -66,62 +66,75 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
 <span class="mi_h3">Instalar mySQL</span>
 
-
-1.  Actualiza tu lista de paquetes:
+1. Actualiza la lista de paquetes del servidor:
     ```bash
     sudo apt update
     ```
-2.  Instala el servidor MySQL y las dependencias necesarias:
+2. Instala el servidor MySQL y las dependencias necesarias:
     ```bash
     sudo apt install mysql-server
     ```
-3.  Ejecuta el script de seguridad para establecer una contraseña de usuario root, eliminar usuarios anónimos y deshabilitar el inicio de sesión remoto del usuario root:
+3. Ejecuta el script de seguridad para establecer una contraseña de usuario root, eliminar usuarios anónimos y deshabilitar el inicio de sesión remoto del usuario root:
     ```bash
     sudo mysql_secure_installation
     ```
-4.  Comprueba que el servicio de MySQL se esté ejecutando correctamente:
+    ![Imagen 15](img/AWS/imagen_015.jpg)
+    ![Imagen 16](img/AWS/imagen_016.jpg)
+
+4. Comprueba que el servicio de MySQL se esté ejecutando correctamente (si no está activo, puedes iniciarlo con `sudo systemctl start mysql`):
     ```bash
     sudo systemctl status mysql
     ```
-    Si no está activo, puedes iniciarlo con `sudo systemctl start mysql`
+    ![Imagen 17](img/AWS/imagen_017.jpg)
+    
+5. Permite conexiones externas. Para ello edita el fichero de configuración
+`sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf` y cambia lo siguiente:
+    - Comenta `bind-address = 127.0.0.1`
+    - Añade la línea `bind-address = 0.0.0.0`
+    ![Imagen 18](img/AWS/imagen_018.jpg)
 
-### Permitir conexiones externas
-`sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf`
+6. Reinicia el servicio:
+    ```bash
+    sudo systemctl restart mysql
+    ```
 
-comentar `bind-address = 127.0.0.1`
-y añadir `bind-address = 0.0.0.0`
 
-```bash
-sudo systemctl restart mysql
-```
+<span class="mi_h3">Configurar un usuario MySQL</span>
 
-### Configurar el usuario MySQL para conectar desde fuera:
-```bash
-sudo mysql -u root -p (dejar la contraseña en blanco)
-```
+1. Entra al servidor mySQL (dejar la contraseña en blanco)
+    ```bash
+    sudo mysql -u root -p 
+    ```
+2. Crea el usuario con su contraseña
+    ```sql
+    CREATE USER 'bpl2'@'%' IDENTIFIED BY 'holaHOLA01+';
+    GRANT ALL PRIVILEGES ON *.* TO 'bpl2'@'%';
+    FLUSH PRIVILEGES;
+    SHOW GRANTS FOR 'bpl2'@'%';
+    exit```
 
-```sql
-CREATE USER 'bpl2'@'%' IDENTIFIED BY 'holaHOLA01+';
-GRANT ALL PRIVILEGES ON *.* TO 'bpl2'@'%';
-FLUSH PRIVILEGES;
-SHOW GRANTS FOR 'bpl2'@'%';
-exit```
 
+<!--
 ```bash
 sudo ufw allow 3306
 ```
+-->
 
-### Configura los Security Groups de AWS
-
-1.  Ve a la consola de AWS y encuentra tu instancia EC2.
-2.  Haz clic en la pestaña "Security" y luego en el enlace del Security Group asociado.
-3.  Ve a la sección "Inbound rules" y haz clic en "Edit inbound rules".
-4.  Haz clic en "Add rule" y configura:
+3. Añade una regla en el servidor para permitir el tráfico entrante del puerto 3306.
+-  Ve a la consola de AWS y encuentra tu instancia EC2.
+-  Haz clic en la pestaña "Security" y luego en el enlace del Security Group asociado.
+-  Ve a la sección "Inbound rules" y haz clic en "Edit inbound rules".
+-  Haz clic en "Add rule" y configura:
     *   **Type**: Custom TCP
     *   **Port range**: 3306
     *   **Source**: Puedes especificar una IP concreta o `0.0.0.0/0` para permitir acceso desde cualquier lugar (menos seguro).
-5.  Guarda las reglas.
+-  Guarda las reglas.
 
+    ![Imagen 25](img/AWS/imagen_025.jpg)
+
+
+
+<!--
 ### ss -tulnp | grep 3306
 
 **antes de habilitar acceso externo**
@@ -135,14 +148,7 @@ tcp LISTEN 0 70 127.0.0.1:33060 0.0.0.0:*
 tcp LISTEN 0 70 127.0.0.1:33060 0.0.0.0:*
 tcp LISTEN 0 151 0.0.0.0:3306 0.0.0.0:*
 ```
+-->
 
-# Conectar con dbeaver
-
-**Error "Public Key Retrieval is not allowed" - how to fix**
-
-1.  Open DBeaver and navigate to your database connection. Right-click on the connection and select "Edit Connection".
-2.  Go to the “Driver Properties” section. Locate the property named "allowPublicKeyRetrieval”. By default, it is set to “false”. Change the value of "allowPublicKeyRetrieval” to “TRUE”.
-
-**otras herramientas: Workbench, Sequel Pro o DataGrip.**
 
 
