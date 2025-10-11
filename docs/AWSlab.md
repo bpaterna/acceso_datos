@@ -45,7 +45,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 11. Verás que el navegador descarga la clave automáticamente:
     ![Imagen 11](img/AWS/imagen_011.jpg)
 
-<span class="mis_avisos">**Muy importante:** guarda el fichero de la clave en lugar seguro porque te hará falta para conectar a tu servidor por SSH.</span>
+    <span class="mis_avisos">**Muy importante:** guarda el fichero de la clave en lugar seguro porque te hará falta para conectar a tu servidor por SSH.</span>
 
 
 12. Deja el resto de opciones como están y, en la parte derecha dentro del apartado **Resumen**, haz clic en el botón **Lanzar instancia**. Cuando la instancia termine de lanzarse aparecerá:
