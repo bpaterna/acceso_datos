@@ -90,6 +90,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 5. Permite conexiones externas. Para ello edita el fichero de configuración
 `sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf` y cambia lo siguiente:
     - Comenta `bind-address = 127.0.0.1`
+
     - Añade la línea `bind-address = 0.0.0.0`
 
     La configuración debe quedar como se ve en la siguiente imagen:
@@ -110,10 +111,15 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 2. Crea el usuario con su contraseña
     ```sql
     CREATE USER 'bpl2'@'%' IDENTIFIED BY 'holaHOLA01+';
+
     GRANT ALL PRIVILEGES ON *.* TO 'bpl2'@'%';
+    
     FLUSH PRIVILEGES;
+    
     SHOW GRANTS FOR 'bpl2'@'%';
-    exit```
+    
+    exit
+    ```
 
 
 <!--
