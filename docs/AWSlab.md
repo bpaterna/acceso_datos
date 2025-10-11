@@ -48,6 +48,8 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     <span class="mis_avisos">**Muy importante:** guarda el fichero de la clave en lugar seguro porque te hará falta para conectar a tu servidor por SSH.</span>
 
 
+
+
 12. Deja el resto de opciones como están y, en la parte derecha dentro del apartado **Resumen**, haz clic en el botón **Lanzar instancia**. Cuando la instancia termine de lanzarse aparecerá:
     ![Imagen 12](img/AWS/imagen_012.jpg)
 
@@ -94,7 +96,9 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     - Añade la línea `bind-address = 0.0.0.0`
 
 
-    La configuración debe quedar como se ve en la siguiente imagen:
+
+
+La configuración debe quedar como se ve en la siguiente imagen:
 ![Imagen 18](img/AWS/imagen_018.jpg)
 
 
