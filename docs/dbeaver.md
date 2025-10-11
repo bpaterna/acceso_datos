@@ -59,3 +59,18 @@ Desde allí puedes:
 
 ![ref](img/dbeaver6.jpg)
 
+
+
+
+
+
+
+
+## conectar a MySQL
+
+**Error "Public Key Retrieval is not allowed" - how to fix**
+
+1.  Open DBeaver and navigate to your database connection. Right-click on the connection and select "Edit Connection".
+2.  Go to the “Driver Properties” section. Locate the property named "allowPublicKeyRetrieval”. By default, it is set to “false”. Change the value of "allowPublicKeyRetrieval” to “TRUE”.
+
+**otras herramientas: Workbench, Sequel Pro o DataGrip.**
