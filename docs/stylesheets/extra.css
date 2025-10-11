@@ -34,8 +34,9 @@ img {margin-top: 20px; margin-bottom: 20px; border:#ef5552 solid 2px;}
 .mis_avisos{
   background: #f8a19f;
   padding: 10px;
-  margin-bottom: 30px !important;
+  margin-bottom: 30px;
   border-radius: .2rem;
+  display: block;
 }
 
 /*para la impresión del pdf*/
