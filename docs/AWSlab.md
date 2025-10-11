@@ -96,10 +96,8 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     - Añade la línea `bind-address = 0.0.0.0`
 
 
-
-
-La configuración debe quedar como se ve en la siguiente imagen:
-![Imagen 18](img/AWS/imagen_018.jpg)
+    Para que el fichero de configuración quede como se ve en la siguiente imagen:
+    ![Imagen 18](img/AWS/imagen_018.jpg)
 
 
 
@@ -107,7 +105,6 @@ La configuración debe quedar como se ve en la siguiente imagen:
     ```bash
     sudo systemctl restart mysql
     ```
-
 
 
 <span class="mi_h3">Configuración de un usuario MySQL</span>
@@ -151,6 +148,7 @@ sudo ufw allow 3306
     ![Imagen 25](img/AWS/imagen_025.jpg)
 
 
+4. Prueba a conectar a tu base de datos.
 
 <!--
 ### ss -tulnp | grep 3306
