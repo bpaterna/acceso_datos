@@ -91,6 +91,8 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 `sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf` y cambia lo siguiente:
     - Comenta `bind-address = 127.0.0.1`
     - Añade la línea `bind-address = 0.0.0.0`
+
+    La configuración debe quedar como se ve en la siguiente imagen:
     ![Imagen 18](img/AWS/imagen_018.jpg)
 
 6. Reinicia el servicio:
@@ -121,14 +123,14 @@ sudo ufw allow 3306
 -->
 
 3. Añade una regla en el servidor para permitir el tráfico entrante del puerto 3306.
--  Ve a la consola de AWS y encuentra tu instancia EC2.
--  Haz clic en la pestaña "Security" y luego en el enlace del Security Group asociado.
--  Ve a la sección "Inbound rules" y haz clic en "Edit inbound rules".
--  Haz clic en "Add rule" y configura:
-    *   **Type**: Custom TCP
-    *   **Port range**: 3306
-    *   **Source**: Puedes especificar una IP concreta o `0.0.0.0/0` para permitir acceso desde cualquier lugar (menos seguro).
--  Guarda las reglas.
+    -  Ve a la consola de AWS y encuentra tu instancia EC2.
+    -  Haz clic en la pestaña "Security" y luego en el enlace del Security Group asociado.
+    -  Ve a la sección "Inbound rules" y haz clic en "Edit inbound rules".
+    -  Haz clic en "Add rule" y configura:
+        *   **Type**: Custom TCP
+        *   **Port range**: 3306
+        *   **Source**: Puedes especificar una IP concreta o `0.0.0.0/0` para permitir acceso desde cualquier lugar (menos seguro).
+    -  Guarda las reglas.
 
     ![Imagen 25](img/AWS/imagen_025.jpg)
 
