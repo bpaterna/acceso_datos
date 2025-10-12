@@ -51,7 +51,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     ![Imagen 10](img/AWS/imagen_010r.jpg)
 
     Verás que el navegador descarga la clave automáticamente:
-    ![Imagen 11](img/AWS/imagen_011.jpg)
+    
     <span class="mis_avisos">**Muy importante:** guarda el fichero de la clave en lugar seguro porque te hará falta para conectar a tu servidor por SSH.</span>
 
 4. Deja el resto de opciones como están y, en la parte derecha dentro del apartado *Resumen*, haz clic en el botón *Lanzar instancia*. Cuando la instancia termine de lanzarse aparecerá la siguiente imagen:
@@ -84,6 +84,8 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     ```bash
     sudo apt install mysql-server
     ```
+
+<!-- 
 3. Ejecuta el script de seguridad para establecer una contraseña de usuario root, eliminar usuarios anónimos y deshabilitar el inicio de sesión remoto del usuario root:
     ```bash
     sudo mysql_secure_installation
@@ -91,31 +93,16 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     ![Imagen 15](img/AWS/imagen_015.jpg)
     ![Imagen 16](img/AWS/imagen_016.jpg)
 
-4. Comprueba que el servicio de MySQL se esté ejecutando correctamente (si no está activo, puedes iniciarlo con `sudo systemctl start mysql`):
+-->
+3. Comprueba que el servicio de MySQL se esté ejecutando correctamente (si no está activo, puedes iniciarlo con `sudo systemctl start mysql`):
     ```bash
     sudo systemctl status mysql
     ```
     ![Imagen 17](img/AWS/imagen_017.jpg)
     
-5. Permite conexiones externas. Para ello edita el fichero de configuración
-`sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf` y cambia lo siguiente:
-    - Comenta `bind-address = 127.0.0.1`
-
-    - Añade la línea `bind-address = 0.0.0.0`
 
 
-    Para que el fichero de configuración quede como se ve en la siguiente imagen:
-    ![Imagen 18](img/AWS/imagen_018.jpg)
-
-
-
-6. Reinicia el servicio:
-    ```bash
-    sudo systemctl restart mysql
-    ```
-
-
-<span class="mi_h3">Configuración de un usuario MySQL</span>
+<span class="mi_h3">Crea un usuario y una base de datos</span>
 
 1. Entra al servidor MySQL (dejar la contraseña en blanco)
     ```bash
@@ -124,16 +111,44 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
 2. Crea el usuario con su contraseña
     ```sql
-    CREATE USER 'bpl2'@'%' IDENTIFIED BY 'holaHOLA01+';
-
-    GRANT ALL PRIVILEGES ON *.* TO 'bpl2'@'%';
+    CREATE USER 'bpl3'@'%' IDENTIFIED BY 'holaHOLA01+';
+    GRANT ALL PRIVILEGES ON *.* TO 'bpl3'@'%';
     
     FLUSH PRIVILEGES;
     
-    SHOW GRANTS FOR 'bpl2'@'%';
-    
+    SHOW GRANTS FOR 'bpl3'@'%';
+    ```
+
+3. Crea la base de datos
+    ```sql
+    create database florabotanica;
+    ```
+
+4. Sal del servidor MySQL (dejar la contraseña en blanco)
+    ```bash
     exit
     ```
+
+
+<span class="mi_h3">Configura MySQL y el servidor para permtir conexiones externas</span>
+
+1. Edita el fichero de configuración
+`sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf`
+    - Comenta `bind-address = 127.0.0.1`
+
+    - Añade la línea `bind-address = 0.0.0.0`
+
+    Para que el fichero de configuración quede como se ve en la siguiente imagen:
+    ![Imagen 18](img/AWS/imagen_018.jpg)
+
+
+
+2. Reinicia el servicio y comprueba que ha arrancado correctamente:
+    ```bash
+    sudo systemctl restart mysql
+    sudo systemctl status mysql
+    ```
+
 
 3. Añade una regla en el servidor para permitir el tráfico entrante del puerto 3306.
     -  Ve a la consola de AWS y encuentra tu instancia EC2.
@@ -148,7 +163,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     ![Imagen 25](img/AWS/imagen_025.jpg)
 
 
-4. Prueba a conectar a tu base de datos.
+4. Prueba a conectar a tu base de datos desde DBeaver u otro programa
 
 
 
