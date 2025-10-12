@@ -21,7 +21,7 @@ nav:
   - Contenido:
     - Acceso a BD relacionales: 2_BD_relacionales.md
   - Material adicional:
-    - AWS Learner Lab: AWSlab.md
+    - 🧩 AWS Learner Lab: AWSlab.md
     - DB Browser SQLite: db_browser_sqlite.md
     - DBeaver: dbeaver.md
 markdown_extensions:
