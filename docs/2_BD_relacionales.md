@@ -65,7 +65,7 @@ Conocer qué **tipo de gestor de base de datos** se está utilizando es esencial
 - Casos de uso: aplicaciones de escritorio, móviles, prototipos, pruebas unitarias.
 
 !!! warning "Práctica 1: Crea tu base de datos" 
-    A partir del fichero de información utilizado en el proyecto de la unidad anterior, crea una base de datos SQLite **nombre_de_tu_BD.sqlite** con una tabla que contenga la información del fichero. Puedes utilizar [DB Browser for SQLite](/db_browser_sqlite.html)
+    A partir del fichero de información utilizado en el proyecto de la unidad anterior, crea una base de datos SQLite **nombre_de_tu_BD.sqlite** con una tabla que contenga la información del fichero. Puedes utilizar [DB Browser for SQLite](db_browser_sqlite.html)
 
 
 ## 2.2. Conexión a un SGBD
