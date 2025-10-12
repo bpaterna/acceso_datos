@@ -50,7 +50,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     ![Imagen 9](img/AWS/imagen_009.jpg)
     ![Imagen 10](img/AWS/imagen_010r.jpg)
 
-    <span class="mis_avisos">**Muy importante:** Verás que el navegador descarga la clave automáticamente. Guarda el fichero de la clave en lugar seguro porque te hará falta para conectar a tu servidor por SSH.</span>
+    <span class="mis_avisos">**Muy importante:** Verás que el navegador descarga el fichero .pem de tu clave automáticamente. Guárdalo en lugar seguro porque te hará falta para conectar a tu servidor por SSH.</span>
 
 4. Deja el resto de opciones como están y, en la parte derecha dentro del apartado `Resumen`, haz clic en el botón `Lanzar instancia`. Cuando la instancia termine de lanzarse aparecerá la siguiente imagen
     ![Imagen 12](img/AWS/imagen_012.jpg)
@@ -63,9 +63,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     ```bash
     ssh -i nombre_clave ubuntu@nombre_servidor
     ```
-    Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye `nombre_clave` por el de tu archivo .pem y `nombre_servidor`el nombre de tu servidor.
-
-    Si la conexión se ha establecido correctamente verás la siguiente información
+    Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye `nombre_clave` por el de tu archivo .pem y `nombre_servidor`el nombre de tu servidor. Si la conexión se ha establecido correctamente verás la siguiente información
     ![Imagen 14](img/AWS/imagen_014.jpg)
 
 
@@ -89,12 +87,13 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     ![Imagen 16](img/AWS/imagen_016.jpg)
 
 -->
-3. Comprueba que el servicio de MySQL se esté ejecutando correctamente (si no está activo, puedes iniciarlo con `sudo systemctl start mysql`)
+3. Comprueba que el servicio de MySQL se esté ejecutando correctamente
     ```bash
     sudo systemctl status mysql
     ```
     ![Imagen 17](img/AWS/imagen_017.jpg)
     
+    (Si no está activo, puedes iniciarlo con `sudo systemctl start mysql`)
 
 
 <span class="mi_h3">Crea un usuario y una base de datos</span>
@@ -104,7 +103,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     sudo mysql -u root -p 
     ```
 
-2. Crea el usuario con su contraseña (en este caso el usuario es `bpl`, la contraseña es `holaHOLA01+` y el `%` indica que el usuario podrá conectarse desde cualquier sitio)
+2. Crea el usuario con su contraseña. En el ejemplo el usuario es `bpl`, la contraseña es `holaHOLA01+` y el `%` indica que el usuario podrá conectarse desde cualquier sitio. Ejecuta los comandos siguientes cambiando el usuario y la contraseña de ejemplo por los tuyos
     ```sql
     CREATE USER 'bpl3'@'%' IDENTIFIED BY 'holaHOLA01+';
     GRANT ALL PRIVILEGES ON *.* TO 'bpl3'@'%';    
@@ -112,7 +111,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     SHOW GRANTS FOR 'bpl3'@'%';
     ```
 
-3. Crea la base de datos
+3. Crea la base de datos (cambia el nombre de ejemplo por el tuyo)
     ```sql
     create database florabotanica;
     ```
@@ -157,7 +156,8 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     ![Imagen 31](img/AWS/imagen_031.jpg)
 
 
-4. Prueba a conectar a tu base de datos desde DBeaver o desde otro programa.
+4. Prueba a conectar a tu base de datos desde DBeaver (consulta las instrucciones en [../dbeaber.html](../dbeaber.html)
+
 
 
 
