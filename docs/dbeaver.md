@@ -1,6 +1,15 @@
 # DBeaver
 
-![Imagen 1](img/dbeaver01.png)
+![Imagen 1](img/dbeaver/dbeaver01.png)
+
+<span class="mi_h3">Revisiones</span>
+
+|Revisión | Fecha| Descripción|
+|---------|------|-------------|
+|1.0 | 11-10-2025 | Adaptación de los materiales a markdown|
+
+
+<span class="mi_h3">Introducción</span>
 
 **DBeaver** es una herramienta gráfica y gratuita que permite gestionar múltiples bases de datos de forma visual. Algunas de las acciones que podemos realizar con esta herramienta son las siguientes:
 
@@ -12,44 +21,43 @@
 
 - Probar consultas antes de implementarlas en el programa.
 
-Los siguientes pasos ilustran como conectar a la BD de ejemplo **plantas.db** que ya tenemos copiada a la carpeta **resources** de nuestro proyecto.
-
-
-**1. Abre DBeaver**
-
-Inicia el programa y haz clic en el botón **"Nueva conexión"** (ícono de enchufe) o ve al menú `Archivo > Nueva conexión`.
-
-![Imagen 2](img/dbeaver02.png)
-
-
-**2. Selecciona el tipo de base de datos**
-
-En la ventana de selección, elige **SQlite** y pulsa **Siguiente**.
-
-![Imagen 3](img/dbeaver03.png)
 
 
 
-**3. Introduce la ruta donde se encuentra la BD y prueba conexión**
-
-![Imagen 4](img/dbeaver04.png)
-
-
-Haz clic en **"Probar conexión"**. Si todo está correcto, verás un mensaje de éxito.  
-Si DBeaver necesita un controlador (driver), te lo ofrecerá para descargar automáticamente.
-
-
-![Imagen 5](img/dbeaver05.png)
-
-Si la descarga falla, ve a https://github.com/xerial/sqlite-jdbc/releases y descarga el archivo **sqlite-jdbc-3.50.3.0.jar**
 
 
 
-![Imagen 6](img/dbeaver06.png)
+## Conexión a SQLite
 
-**5. Finaliza y explora**
+Los siguientes pasos ilustran como conectar a la BD **florabotanica.sqlite** de nuestro proyecto.
 
-Haz clic en **"Finalizar"**. La nueva conexión aparecerá en el panel lateral izquierdo.  
+Para conectar a una base de datos, una vez iniciado el programa hay que hacer clic en el botón **Nueva conexión** (ícono de enchufe) o ir al menú `Archivo > Nueva conexión`.
+
+![Imagen 2](img/dbeaver/dbeaver02.png)
+
+
+Luego hay que seleccionar el tipo de base de datos a la que se quiere conectar. A continuación de describen los pasos para conectar a SQLite y a MySQL.
+
+
+1. Selecciona el tipo de base de datos **SQlite** y pulsa **Siguiente**.
+![Imagen 3](img/dbeaver/dbeaver03.png)
+
+
+
+2. Introduce la ruta donde se encuentra la BD y haz clic en el botón *probar conexión*
+![Imagen 4](img/dbeaver/dbeaver04.png)
+
+
+    Si todo está correcto, verás un mensaje de éxito.  
+    
+    Si DBeaver necesita un controlador (driver), te lo ofrecerá para descargar automáticamente.
+    ![Imagen 5](img/dbeaver/dbeaver05.png)
+
+    Si la descarga falla, ve a https://github.com/xerial/sqlite-jdbc/releases y descarga el archivo **sqlite-jdbc-3.50.3.0.jar**
+
+    ![Imagen 6](img/dbeaver/dbeaver06.png)
+
+3. Haz clic en **Finalizar*. La nueva conexión aparecerá en el panel lateral izquierdo.  
 Desde allí puedes:
 
 - Ver tablas, vistas, funciones y procedimientos
@@ -60,17 +68,36 @@ Desde allí puedes:
 ![ref](img/dbeaver6.jpg)
 
 
+FALTA
 
 
 
+## Conexión a MySQL
+
+Para conectar a una base de datos *MySQL* sigue estos pasos:
+
+1. Haz clic en el botón `Nueva conexión` (ícono de enchufe) o entra al menú `Archivo > Nueva conexión`.
+
+![Imagen 2](img/dbeaver/dbeaver02.png)
 
 
+2. Selecciona `MySQL` y pulsa en el botón `Siguiente`
+![Imagen 8](img/dbeaver/dbeaver08.jpg)
 
-## conectar a MySQL
+2. Indica los datos del `servidor`, `usuario` y `contraseña`. Si quieres ver todas las bases de datos a las que el usuario puede acceder deja marcada la casilla `Show all database`y no indiques nada en la casilla `database`: 
+![Imagen 9](img/dbeaver/dbeaver09.jpg)
 
-**Error "Public Key Retrieval is not allowed" - how to fix**
+    Si aparece *Error "Public Key Retrieval is not allowed"* realizar lo siguiente:
 
-1.  Open DBeaver and navigate to your database connection. Right-click on the connection and select "Edit Connection".
-2.  Go to the “Driver Properties” section. Locate the property named "allowPublicKeyRetrieval”. By default, it is set to “false”. Change the value of "allowPublicKeyRetrieval” to “TRUE”.
+    - Open DBeaver and navigate to your database connection. Right-click on the connection and select "Edit Connection".
 
+    - Go to the “Driver Properties” section. Locate the property named "allowPublicKeyRetrieval”. By default, it is set to “false”. Change the value of "allowPublicKeyRetrieval” to “TRUE”.
+
+    Ya debería conectar correctamente al servidor.
+
+3. Como no Verás las bases de datos del servidor 
+
+<!--
 **otras herramientas: Workbench, Sequel Pro o DataGrip.**
+
+-->
