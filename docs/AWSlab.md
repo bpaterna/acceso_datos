@@ -14,13 +14,15 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 1. Habrás recibido un correo electrónico de invitación, haz clic en el enlace y crea tu cuenta. Una vez completado el registro se abrirá el curso automaticamente. Haz clic en *Contenidos* y luego en el enlace *Lanzamiento del laboratorio* como se muestra en la siguiente imagen (la primera vez que entres deberás aceptar los términos de uso).
     ![Imagen 1](img/AWS/imagen_001.jpg)
 
-    Si te aparece el siguiente mensaje: *This assignment is locked till you access it through your respective LMS once, please use your LMS to access/unlock this assignment* vuelve a hacer clic en *Contenidos* y en el enlace *Lanzamiento del laboratorio*.
+    !!!Note ""
+        Si te aparece el siguiente mensaje: *This assignment is locked till you access it through your respective LMS once, please use your LMS to access/unlock this assignment* vuelve a hacer clic en *Contenidos* y en el enlace *Lanzamiento del laboratorio*.
 
-    Para entrar al curso en el futuro hazlo desde: [https://www.awsacademy.com/vforcesite/LMS_Login](https://www.awsacademy.com/vforcesite/LMS_Login):
+    Para entrar al curso en el futuro hazlo desde: [https://www.awsacademy.com/vforcesite/LMS_Login](https://www.awsacademy.com/vforcesite/LMS_Login)
     ![Imagen 00](img/AWS/imagen_00r.jpg)
 
-    Luego haz clic en el nombre del curso y, una vez dentro, haz clic en *Contenidos* y luego en el enlace *Lanzamiento del laboratorio* como hiciste la primera vez que accediste a él.
+    Luego haz clic en el nombre del curso.
     ![Imagen 000](img/AWS/imagen_000.jpg)
+    Una vez dentro, haz clic en *Contenidos* y luego en el enlace *Lanzamiento del laboratorio* como hiciste la primera vez que accediste a él.
     ![Imagen 1](img/AWS/imagen_001.jpg)
 
     
@@ -28,7 +30,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     ![Imagen 2](img/AWS/imagen_002.jpg)
 
 3. Cuando el laboratorio haya arrancado, el círculo cambiará a color verde. Entonces haz clic en el enlace *AWS* para acceder a la *Página de inicio de la Consola* (puedes ver que la región es *North Virginia (us-east-1)* que es la región por defecto de los laboratorios de aprendizaje) y después haz clic en *EC2* para acceder a la consola de instancias EC2.
-    ![Imagen 4](img/AWS/imagen_004.jpg)
+    ![Imagen 4](img/AWS/imagen_004b.jpg)
 
 4. Haz clic en el botón *Lanzar la instancia*.
     ![Imagen 6](img/AWS/imagen_006.jpg)
