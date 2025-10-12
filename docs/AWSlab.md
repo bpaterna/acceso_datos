@@ -156,7 +156,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     ![Imagen 31](img/AWS/imagen_031.jpg)
 
 
-4. Prueba a conectar a tu base de datos desde DBeaver. Consulta las instrucciones [aquí](dbeaver.html)
+4. Prueba a conectar a tu base de datos desde [DBeaver](dbeaver.html)
 
 
 <!--
