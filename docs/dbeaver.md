@@ -87,6 +87,7 @@ Para conectar a una base de datos *MySQL* sigue estos pasos:
 
     !!!Note ""
         Si aparece `Error "Public Key Retrieval is not allowed"` realiza los siguientes pasos:
+
         Haz clic con el botón derecho en tu conexión y selecciona `Editar conexión` luego ve a la pestaña `Driver Properties` y cambia la propiedad `allowPublicKeyRetrieval` a `TRUE` (por defecto está a `false`). Luego haz clic en el botón `Aceptar`. (Ya debería establecerse la conexión con el servidor correctamente)
         ![Imagen 10](img/dbeaver/dbeaver10.jpg)
 
