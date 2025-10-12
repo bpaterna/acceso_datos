@@ -76,14 +76,12 @@ FALTA
 Para conectar a una base de datos *MySQL* sigue estos pasos:
 
 1. Haz clic en el botón `Nueva conexión` (ícono de enchufe) o entra al menú `Archivo > Nueva conexión`.
-
 ![Imagen 2](img/dbeaver/dbeaver02.png)
-
 
 2. Selecciona `MySQL` y pulsa en el botón `Siguiente`
 ![Imagen 8](img/dbeaver/dbeaver08.jpg)
 
-2. Indica los datos del `servidor`, `usuario` y `contraseña`. Si quieres ver todas las bases de datos a las que el usuario puede acceder deja marcada la casilla `Show all database`y no indiques nada en la casilla `database`: 
+3. Indica los datos del `servidor`, `usuario` y `contraseña`. Si quieres ver todas las bases de datos a las que el usuario puede acceder deja marcada la casilla `Show all database`y no indiques nada en la casilla `database`: 
 ![Imagen 9](img/dbeaver/dbeaver09.jpg)
 
 
@@ -94,7 +92,7 @@ Para conectar a una base de datos *MySQL* sigue estos pasos:
     ![Imagen 10](img/dbeaver/dbeaver10.jpg)
 
 
-3. Una vez conectado, verás las bases de datos del servidor:
+4. Una vez conectado, verás las bases de datos del servidor:
 ![Imagen 11](img/dbeaver/dbeaver11.jpg)
 
 
