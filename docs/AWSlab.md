@@ -7,9 +7,9 @@
 |1.0 | 11-10-2025 | Adaptación de los materiales a markdown|
 
 
-<span class="mi_h3">Instalación del servidor</span>
+<span class="mi_h3">Acceso al laboratorio</span>
 
-A continuación se describen los pasos para crear un servidor Ubuntu en un laboratorio de aprendizaje de AWS Academy.
+A continuación se describen los pasos para acceder al laboratorio de aprendizaje de AWS Academy.
 
 1. Habrás recibido un correo electrónico de invitación, haz clic en el enlace y crea tu cuenta. Una vez completado el registro se abrirá el curso automaticamente. Haz clic en *Contenidos* y luego en el enlace *Lanzamiento del laboratorio* como se muestra en la siguiente imagen (la primera vez que entres deberás aceptar los términos de uso).
     ![Imagen 1](img/AWS/imagen_001.jpg)
@@ -32,30 +32,35 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 3. Cuando el laboratorio haya arrancado, el círculo cambiará a color verde. Entonces haz clic en el enlace *AWS* para acceder a la *Página de inicio de la Consola* (puedes ver que la región es *North Virginia (us-east-1)* que es la región por defecto de los laboratorios de aprendizaje) y después haz clic en *EC2* para acceder a la consola de instancias EC2.
     ![Imagen 4](img/AWS/imagen_004b.jpg)
 
-4. Haz clic en el botón *Lanzar la instancia*.
+
+<span class="mi_h3">Instalación del servidor</span>
+
+A continuación se describen los pasos para crear un servidor Ubuntu en un laboratorio de aprendizaje de AWS Academy.
+
+1. Haz clic en el botón *Lanzar la instancia*.
     ![Imagen 6](img/AWS/imagen_006.jpg)
 
-5. Escribe el nombre de la instancia y elige una *Amazon Machine Image (AMI)* en este caso Ubuntu (al seleccionar ubuntu nos aparece la Ubuntu Server 24.04 LTS que es apta para utilizar de forma gratuita).
+2. Escribe el nombre de la instancia y elige una *Amazon Machine Image (AMI)* en este caso Ubuntu (al seleccionar ubuntu nos aparece la Ubuntu Server 24.04 LTS que es apta para utilizar de forma gratuita).
     ![Imagen 7](img/AWS/imagen_007.jpg)
 
-6. Más abajo aparece el tipo de instancia.
+    Más abajo aparece el tipo de instancia.
     ![Imagen 8](img/AWS/imagen_008.jpg)
 
-7. Crea un par de claves.
+3. Crea un par de claves.
     ![Imagen 9](img/AWS/imagen_009.jpg)
     ![Imagen 10](img/AWS/imagen_010r.jpg)
 
-8. Verás que el navegador descarga la clave automáticamente:
+    Verás que el navegador descarga la clave automáticamente:
     ![Imagen 11](img/AWS/imagen_011.jpg)
     <span class="mis_avisos">**Muy importante:** guarda el fichero de la clave en lugar seguro porque te hará falta para conectar a tu servidor por SSH.</span>
 
-9. Deja el resto de opciones como están y, en la parte derecha dentro del apartado *Resumen*, haz clic en el botón *Lanzar instancia*. Cuando la instancia termine de lanzarse aparecerá la siguiente imagen:
+4. Deja el resto de opciones como están y, en la parte derecha dentro del apartado *Resumen*, haz clic en el botón *Lanzar instancia*. Cuando la instancia termine de lanzarse aparecerá la siguiente imagen:
     ![Imagen 12](img/AWS/imagen_012.jpg)
 
-10. Puedes hacer clic en el botón *Conectarse a la instancia* para ver las instrucciones de conexión al servidor, por ejemplo en la pestaña SSH aparece lo siguiente:
+5. Puedes hacer clic en el botón *Conectarse a la instancia* para ver las instrucciones de conexión al servidor, por ejemplo en la pestaña SSH aparece lo siguiente:
     ![Imagen 13](img/AWS/imagen_013.jpg)
 
-11. Prueba la conexión. Para ello escribe en una ventana de comandos la instrucción siguiente::
+6. Prueba la conexión. Para ello escribe en una ventana de comandos la instrucción siguiente::
 
     ```bash
     ssh -i claveAWS.pem ubuntu@ec2-13-218-241-87.compute-1.amazonaws.com
@@ -63,7 +68,6 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye el nombre de tu archiv .pem y el nombre de tu servidor. Si la conexión se ha establecido correctamente verás la siguiente información:
 
     ![Imagen 14](img/AWS/imagen_014.jpg)
-
 
 
 <span class="mi_h3">Instalación de MySQL</span>
