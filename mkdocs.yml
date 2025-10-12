@@ -19,10 +19,10 @@ theme:
 nav:
   - Presentación: index.md
   - Contenido:
-    - 1. Acceso a ficheros: 1_Ficheros.md
-    - 2. Acceso a BD relacionales: 2_BD_relacionales.md
+    - Acceso a BD relacionales: 2_BD_relacionales.md
   - Material adicional:
-    - DB Browser: db_browser_sqlite.md
+    - AWS Learner Lab: AWSlab.md
+    - DB Browser SQLite: db_browser_sqlite.md
     - DBeaver: dbeaver.md
 markdown_extensions:
   - attr_list
