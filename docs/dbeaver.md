@@ -71,7 +71,7 @@ FALTA
 -->
 
 
-## Conexión a MySQL
+<span class="mi_h3">Conexión a MySQL</span>
 
 Para conectar a una base de datos *MySQL* sigue estos pasos:
 
