@@ -24,8 +24,7 @@
 
 
 
-
-
+<!--
 
 ## Conexión a SQLite
 
@@ -69,7 +68,7 @@ Desde allí puedes:
 
 
 FALTA
-
+-->
 
 
 ## Conexión a MySQL
@@ -87,15 +86,18 @@ Para conectar a una base de datos *MySQL* sigue estos pasos:
 2. Indica los datos del `servidor`, `usuario` y `contraseña`. Si quieres ver todas las bases de datos a las que el usuario puede acceder deja marcada la casilla `Show all database`y no indiques nada en la casilla `database`: 
 ![Imagen 9](img/dbeaver/dbeaver09.jpg)
 
-    Si aparece *Error "Public Key Retrieval is not allowed"* realizar lo siguiente:
 
-    - Open DBeaver and navigate to your database connection. Right-click on the connection and select "Edit Connection".
+    !!!Note ""
+        Si aparece `Error "Public Key Retrieval is not allowed"` realiza los siguientes pasos:
 
-    - Go to the “Driver Properties” section. Locate the property named "allowPublicKeyRetrieval”. By default, it is set to “false”. Change the value of "allowPublicKeyRetrieval” to “TRUE”.
+    Haz clic con el botón derecho en tu conexión y selecciona `Editar conexión` luego ve a la pestaña `Driver Properties` y cambia la propiedad `allowPublicKeyRetrieval` a `TRUE` (por defecto está a `false`).
+    ![Imagen 10](img/dbeaver/dbeaver10.jpg)
 
-    Ya debería conectar correctamente al servidor.
 
-3. Como no Verás las bases de datos del servidor 
+3. Una vez conectado, verás las bases de datos del servidor:
+![Imagen 11](img/dbeaver/dbeaver11.jpg)
+
+
 
 <!--
 **otras herramientas: Workbench, Sequel Pro o DataGrip.**
