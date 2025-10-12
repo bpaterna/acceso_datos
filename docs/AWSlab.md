@@ -43,7 +43,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
 7. Crea un par de claves.
     ![Imagen 9](img/AWS/imagen_009.jpg)
-    ![Imagen 10](img/AWS/imagen_010.jpg)
+    ![Imagen 10](img/AWS/imagen_010r.jpg)
 
 8. Verás que el navegador descarga la clave automáticamente:
     ![Imagen 11](img/AWS/imagen_011.jpg)
