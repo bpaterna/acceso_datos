@@ -55,7 +55,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 4. Deja el resto de opciones como están y, en la parte derecha dentro del apartado `Resumen`, haz clic en el botón `Lanzar instancia`. Cuando la instancia termine de lanzarse aparecerá la siguiente imagen:
     ![Imagen 12](img/AWS/imagen_012.jpg)
 
-5. Puedes hacer clic en el botón `Conectarse a la instancia` para ver las instrucciones de conexión al servidor, por ejemplo en la pestaña SSH aparece lo siguiente:
+5. Puedes hacer clic en el botón `Conectarse a la instancia` para ver las instrucciones de conexión al servidor, por ejemplo en la pestaña `Cliente SSH` aparece lo siguiente:
     ![Imagen 13](img/AWS/imagen_013.jpg)
 
 6. Prueba la conexión. Para ello escribe en una ventana de comandos la instrucción siguiente:
@@ -63,13 +63,10 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     ```bash
     ssh -i nombre_clave ubuntu@nombre_servidor
     ```
-    En el caso del ejemplo:
-    ```bash
-    ssh -i claveAWS.pem ubuntu@ec2-13-218-241-87.compute-1.amazonaws.com
-    ```
-    Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye el nombre de tu archiv .pem y el nombre de tu servidor. Si la conexión se ha establecido correctamente verás la siguiente información:
-    ![Imagen 14](img/AWS/imagen_014.jpg)
+    Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye `nombre_clave` por el de tu archivo .pem y `nombre_servidor`el nombre de tu servidor.
 
+    Si la conexión se ha establecido correctamente verás la siguiente información:
+    ![Imagen 14](img/AWS/imagen_014.jpg)
 
 
 <span class="mi_h3">Instalación de MySQL</span>
