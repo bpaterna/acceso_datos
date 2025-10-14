@@ -203,8 +203,7 @@ fun main() {
     4. Añade las líneas de código necesarias para conectar con tu BD y muestra un mensaje indicando si se ha establecido la conexión correctamente o no.
 
     Tu proyecto debe tener los siguientes archivos:
-
-![Imagen 1](img/resources1.jpg)
+    ![Imagen 1](img/resources1.jpg)
 
 
 <span class="mi_h3">Organización del código</span>
