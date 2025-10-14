@@ -163,7 +163,7 @@ Hemos visto SQLite es una BD local y por tanto debe de estar dentro del proyecto
 
 El siguiente ejemplo muestra como conectar a una BD **SQLite** llamada `florabotanica.sqlite` que se encuentra en la carpeta `resources` dentro de un proyecto en **Kotlin**.
 
-
+![Imagen 1](img/resources1.jpg)
 
 ``` kotlin
 import java.io.File
@@ -199,11 +199,11 @@ fun main() {
 !!! warning "Práctica 2: Crea tu proyecto Gradle y conecta a tu base de datos" 
     1. Crea un nuevo proyecto en Kotlin con Gradle.
     2. Añade las dependencias para trabajar con SQLite.
-    3. Copia la BD creada en la práctica anterior en la carpeta `resources`
+    3. Copia la BD creada en la práctica anterior en la carpeta `resources`. Tu proyecto debe tener los mismos archivos que en la imagen del ejemplo anterior.
     4. Añade las líneas de código necesarias para conectar con tu BD y muestra un mensaje indicando si se ha establecido la conexión correctamente o no.
 
-    Tu proyecto debe tener los siguientes archivos:
-    ![Imagen 1](img/resources1.jpg)
+    
+    
 
 
 <span class="mi_h3">Organización del código</span>
