@@ -142,7 +142,7 @@ PostgreSQL|	org.postgresql.Driver| jdbc:postgresql://host:puerto/nombreBD
 MySQL / MariaDB|	com.mysql.cj.jdbc.Driver| jdbc:mysql://host:puerto/nombreBD
 SQLite (embebido)|	org.sqlite.JDBC	|jdbc:sqlite:nombreBD
 
-También dependiendo del SGBD será necesario utilizar un **conector JDBC** u otro. Para ello indicaremos la dependencia adecuada en **Gradle** añadiendo las líneas correspondientes en el fichero **build.gradle.kts**. A continuación se muestran las líneas para los SGBD PostgreSQL, MySQL y SQLite.
+También dependiendo del SGBD será necesario utilizar la dependencia adecuada en **Gradle** añadiendo las líneas correspondientes en el fichero **build.gradle.kts**. A continuación se muestran las líneas para los SGBD PostgreSQL, MySQL y SQLite.
 
 ```
 dependencies {
@@ -152,13 +152,17 @@ dependencies {
 }
 ```
 
+Hemos visto SQLite es una BD local y por tanto debe de estar dentro del proyecto, la ubicaremos en la carpeta `resources` ya que esta carpeta forma parte del classpath del proyecto y al compilarlo su contenido se copiará dentro del jar o build final. Así, si se comparte el proyecto, la BD viaja con él. 
+
 <!-- <span class="mi_h2">Conexión a SQLite</span> 
 -->
 
 
+
 <span class="mis_ejemplos">Ejemplo 1: Conexión a SQLite</span> 
 
-El siguiente ejemplo muestra como conectar a una base de datos **SQLite** llamada `florabotanica.sqlite` que se encuentra en la carpeta `datos` dentro de un proyecto en **Kotlin**.
+El siguiente ejemplo muestra como conectar a una BD **SQLite** llamada `florabotanica.sqlite` que se encuentra en la carpeta `resources` dentro de un proyecto en **Kotlin**.
+
 
 
 ``` kotlin
@@ -166,8 +170,8 @@ import java.io.File
 import java.sql.DriverManager
 
 fun main() {
-    // Ruta al archivo de base de datos SQLite
-    val dbPath = "datos/florabotanica.sqlite"
+    // Ruta al archivo de BD SQLite
+    val dbPath = "src/main/resources/florabotanica.sqlite"
     val dbFile = File(dbPath)
     println("Ruta de la BD: ${dbFile.absolutePath}")
     val url = "jdbc:sqlite:${dbFile.absolutePath}"
@@ -182,7 +186,7 @@ fun main() {
 !!! success "Realiza lo siguiente" 
     1. Crea un proyecto kotlin con gradle o utiliza uno que ya tengas.
     2. Añade las dependencias para trabajar con SQLite.
-    3. Descarga el fichero con la base de datos de ejemplo desde el siguiente enlace:
+    3. Descarga el fichero con la BD de ejemplo desde el siguiente enlace:
     [florabotanica.sqlite](material/florabotanica.sqlite){:florabotanica.sqlite}
     4. Copia el fichero en la carpeta correcta del proyecto.
     5. Ejecuta el programa y comprueba que la salida por consola es la siguiente:
@@ -195,8 +199,12 @@ fun main() {
 !!! warning "Práctica 2: Crea tu proyecto Gradle y conecta a tu base de datos" 
     1. Crea un nuevo proyecto en Kotlin con Gradle.
     2. Añade las dependencias para trabajar con SQLite.
-    3. Crea una carpeta **datos** dentro de tu proyecto y copia en ella la base de datos creada en la práctica anterior.
+    3. Copia la BD creada en la práctica anterior en la carpeta `resources`
     4. Añade las líneas de código necesarias para conectar con tu BD y muestra un mensaje indicando si se ha establecido la conexión correctamente o no.
+
+    Tu proyecto debe tener los siguientes archivos:
+
+![Imagen 1](img/resources1.jpg)
 
 
 <span class="mi_h3">Organización del código</span>
@@ -219,7 +227,7 @@ import java.sql.SQLException
 
 object FlorabotanicaBD {
     // Ruta al archivo de base de datos SQLite
-    private val dbPath = "datos/florabotanica.sqlite"
+    private val dbPath = "src/main/resources/florabotanica.sqlite"
     private val dbFile = File(dbPath)
     private val url = "jdbc:sqlite:${dbFile.absolutePath}"
 
