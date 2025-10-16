@@ -2,9 +2,11 @@
 
 <span class="mi_h3">Revisiones</span>
 
-|Revisión | Fecha| Descripción|
-|---------|------|-------------|
-|1.0 | 05-10-2025 | Adaptación de los materiales a markdown|
+| Revisión | Fecha      | Descripción                                  |
+|----------|------------|----------------------------------------------|
+| 1.0      | 05-10-2025 | Adaptación de los materiales a markdown      |
+| 1.1      | 16-10-2025 | Ampliación de ejemplos y prácticas           |
+
 
 
 ## 2.1. Introducción
@@ -194,6 +196,8 @@ fun main() {
     2. Añade las dependencias para trabajar con SQLite.
     3. Copia la BD creada en la práctica anterior en la carpeta `resources`. Tu proyecto debe tener los mismos archivos que en la imagen del ejemplo anterior.
     4. Añade las líneas de código necesarias para conectar con tu BD y muestra un mensaje indicando si se ha establecido la conexión correctamente o no.
+
+    **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
 
 
 ## 2.3. Operaciones sobre la BD
@@ -629,10 +633,9 @@ Para evitarlo se utiliza un bloque **try-catch** que:
 ``` 
 
 
+<span class="mis_ejemplos">Ejemplo 5: commit y rollback</span> 
 
-<span class="mis_ejemplos">Ejemplo 6: commit y rollback</span> 
-
-Para el siguiente ejemplo se ha ampliado la BD con dos tablas: `jardines`y  `jardines_plantas` la estructura de estas tablas es la siguiente:
+Para el siguiente ejemplo se han añadido a la BD dos tablas: `jardines`y  `jardines_plantas` la estructura de estas tablas es la siguiente:
 
 
 ![Imagen 1](img/4_jardines.png)
@@ -640,13 +643,11 @@ Para el siguiente ejemplo se ha ampliado la BD con dos tablas: `jardines`y  `jar
 ![Imagen 1](img/4_jardines_plantas.png)
 
 
-Supongamos que queremos llevar varias unidades de una planta a un jardín. El programa debe actualizar el stock en la tabla `plantas` (restando las unidades que llevamos al jardín) en la `tabla` y añadir un registro en la tabla `jardines_plantas` indicando el jadín, la planta y la cantidad. Ambas operaciones deben realizarse juntas, o no realizarse ninguna. El código sería el siguiente:
+Supongamos que queremos llevar varias unidades de una planta a un jardín. El programa debe actualizar el stock en la tabla `plantas` (restando las unidades correspondientes) y añadir un registro en la tabla `jardines_plantas` indicando el jadín, la planta y la cantidad. Ambas operaciones deben realizarse juntas, o no realizarse ninguna. El código sería el siguiente:
 
 ``` kotlin
-import java.sql.SQLException
-
 fun llevarPlantasAJardin(id_jardin: Int, id_planta: Int, cantidad: Int) {
-    FlorabotanicaBD.getConnection()?.use { conn ->
+    getConnection()?.use { conn ->
         try {
             conn.autoCommit = false  // Iniciar transacción manual
 
@@ -678,19 +679,15 @@ fun llevarPlantasAJardin(id_jardin: Int, id_planta: Int, cantidad: Int) {
 }
 ```
 
-La llamada sería:
-
-``` kotlin
-llevarPlantasAJardin(1,5,2)
-```
-
 Si no se produce ningún error se hará el `commit` y en caso contrario el `rollback`
 
-!!! success "Realiza lo siguiente" 
+!!! success "Prueba y analiza el ejemplo 5" 
     Prueba el código de ejemplo y verifica que funciona correctemente.
 
 !!! warning "Práctica 5: Trabaja con tu base de datos" 
     Añade a tu aplicación alguna funcionalidad parecida a la del ejemplo para poder probar las transacciones sobre tu base de datos.
+
+
 
 
 <!--
