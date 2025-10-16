@@ -176,7 +176,7 @@ fun main() {
 }
 ```
 
-!!! success "Realiza lo siguiente" 
+!!! success "Prueba y analiza el ejemplo 1" 
     1. Crea un proyecto kotlin con gradle o utiliza uno que ya tengas.
     2. Añade las dependencias para trabajar con SQLite.
     3. Descarga el fichero con la BD de ejemplo desde el siguiente enlace:
@@ -323,8 +323,8 @@ fun main() {
 ```
 
 
-!!! success "Realiza lo siguiente"
-Prueba el código de ejemplo y verifica que funciona correctemente.
+!!! success "Prueba y analiza el ejemplo 2"
+    Prueba el código de ejemplo y verifica que funciona correctemente.
 
 
 <span class="mis_ejemplos">Ejemplo 3: Utilización de .use</span> 
@@ -369,7 +369,7 @@ fun main() {
 }
 ```
 
-!!! success "Realiza lo siguiente" 
+!!! success "Prueba y analiza el ejemplo 3" 
     Prueba el código de ejemplo y verifica que funciona correctemente.
 
 !!! warning "Práctica 3: Mejora tu proyecto"
@@ -548,7 +548,7 @@ fun main() {
 }
 ```
 
-!!! success "Realiza lo siguiente" 
+!!! success "Prueba y analiza el ejemplo 4" 
     Prueba el código de ejemplo y verifica que funciona correctemente.
 
 !!! warning "Práctica 4: Trabaja con tu base de datos" 
