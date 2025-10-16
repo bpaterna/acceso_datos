@@ -170,15 +170,11 @@ import java.io.File
 import java.sql.DriverManager
 
 fun main() {
-    // Ruta al archivo de BD SQLite
     val dbPath = "src/main/resources/florabotanica.sqlite"
-    val dbFile = File(dbPath)
-    println("Ruta de la BD: ${dbFile.absolutePath}")
-    val url = "jdbc:sqlite:${dbFile.absolutePath}"
-
-    // Conexión y prueba
+    println("Ruta de la BD: $dbPath")
+    val url = "jdbc:sqlite:${dbPath}"
     DriverManager.getConnection(url).use { conn ->
-        println("Conexión establecida correctamente con SQLite.")
+        println("Conexión establecida correctamente")
     }
 }
 ```
