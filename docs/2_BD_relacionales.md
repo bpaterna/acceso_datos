@@ -162,7 +162,7 @@ Hemos visto SQLite es una BD local y por tanto debe de estar dentro del proyecto
 
 El siguiente ejemplo muestra como conectar a una BD **SQLite** llamada `florabotanica.sqlite` que se encuentra en la carpeta `resources` dentro de un proyecto en **Kotlin**.
 
-![Imagen 1](img/resources1.jpg)
+![Imagen 1](img/BD/resources1.jpg)
 
 ``` kotlin
 import java.io.File
@@ -197,7 +197,6 @@ fun main() {
     3. Copia la BD creada en la práctica anterior en la carpeta `resources`. Tu proyecto debe tener los mismos archivos que en la imagen del ejemplo anterior.
     4. Añade las líneas de código necesarias para conectar con tu BD y muestra un mensaje indicando si se ha establecido la conexión correctamente o no.
 
-    **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
 
 
 ## 2.3. Operaciones sobre la BD
@@ -328,7 +327,7 @@ fun main() {
 
 
 !!! success "Prueba y analiza el ejemplo 2"
-    Prueba el código de ejemplo y verifica que funciona correctemente.
+    Prueba el código de ejemplo y verifica que funciona correctamente.
 
 
 <span class="mis_ejemplos">Ejemplo 3: Utilización de .use</span> 
@@ -374,12 +373,10 @@ fun main() {
 ```
 
 !!! success "Prueba y analiza el ejemplo 3" 
-    Prueba el código de ejemplo y verifica que funciona correctemente.
+    Prueba el código de ejemplo y verifica que funciona correctamente.
 
 !!! warning "Práctica 3: Mejora tu proyecto"
     Modifica el código fuente de tu proyecto para que quede organizado como el del ejemplo y haga una consulta a tu BD.
-
-
 
 
 ## 2.4. Objetos de acceso a datos (DAO)
@@ -395,7 +392,7 @@ Los objetos de acceso a datos son una buena forma de organizar nuestro código p
 
 El siguiente ejemplo es el DAO para la tabla `plantas` de la BD `florabotanica.sqlite`. La estructura de la tabla `plantas` es la siguiente:
 
-![Imagen 1](img/3_plantas.png)
+![Imagen 2](img/BD/3_plantas.png)
 
 Creamos un archivo **PlantasDAO.kt** en el que declararemos una data class con la misma estructura que la tabla `plantas` y las funciones para leer la información de la tabla, añadir registros nuevos, modificar la información existente y borrarla. El código fuente es:
 
@@ -553,7 +550,7 @@ fun main() {
 ```
 
 !!! success "Prueba y analiza el ejemplo 4" 
-    Prueba el código de ejemplo y verifica que funciona correctemente.
+    Prueba el código de ejemplo y verifica que funciona correctamente.
 
 !!! warning "Práctica 4: Trabaja con tu base de datos" 
     1. Añade a tu proyecto un objetos de acceso a datos (DAO) para manejar las diferentes operaciones CRUD de la primera tabla de tu BD.
@@ -635,12 +632,12 @@ Para evitarlo se utiliza un bloque **try-catch** que:
 
 <span class="mis_ejemplos">Ejemplo 5: commit y rollback</span> 
 
-Para el siguiente ejemplo se han añadido a la BD dos tablas: `jardines`y  `jardines_plantas` la estructura de estas tablas es la siguiente:
+Para el siguiente ejemplo se han añadido a la BD las tablas `jardines`y `jardines_plantas` cuya estructura es la siguiente:
 
 
-![Imagen 1](img/4_jardines.png)
+![Imagen 3](img/BD/4_jardines.png)
 
-![Imagen 1](img/4_jardines_plantas.png)
+![Imagen 4](img/BD/4_jardines_plantas.png)
 
 
 Supongamos que queremos llevar varias unidades de una planta a un jardín. El programa debe actualizar el stock en la tabla `plantas` (restando las unidades correspondientes) y añadir un registro en la tabla `jardines_plantas` indicando el jadín, la planta y la cantidad. Ambas operaciones deben realizarse juntas, o no realizarse ninguna. El código sería el siguiente:
@@ -682,12 +679,18 @@ fun llevarPlantasAJardin(id_jardin: Int, id_planta: Int, cantidad: Int) {
 Si no se produce ningún error se hará el `commit` y en caso contrario el `rollback`
 
 !!! success "Prueba y analiza el ejemplo 5" 
-    Prueba el código de ejemplo y verifica que funciona correctemente.
+    Prueba el código de ejemplo y verifica que funciona correctamente.
 
 !!! warning "Práctica 5: Trabaja con tu base de datos" 
     Añade a tu aplicación alguna funcionalidad parecida a la del ejemplo para poder probar las transacciones sobre tu base de datos.
 
 
+!!! danger "Entrega"
+    Entrega en Aules la carpeta main de tu proyecto comprimida en formato .zip
+
+    ![Imagen 5](img/BD/5_entrega.png)
+
+    **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
 
 
 <!--
