@@ -154,9 +154,6 @@ dependencies {
 
 Hemos visto SQLite es una BD local y por tanto debe de estar dentro del proyecto, la ubicaremos en la carpeta `resources` ya que esta carpeta forma parte del classpath del proyecto y al compilarlo su contenido se copiará dentro del jar o build final. Así, si se comparte el proyecto, la BD viaja con él. 
 
-<!-- <span class="mi_h2">Conexión a SQLite</span> 
--->
-
 
 
 <span class="mis_ejemplos">Ejemplo 1: Conexión a SQLite</span> 
@@ -198,169 +195,6 @@ fun main() {
     3. Copia la BD creada en la práctica anterior en la carpeta `resources`. Tu proyecto debe tener los mismos archivos que en la imagen del ejemplo anterior.
     4. Añade las líneas de código necesarias para conectar con tu BD y muestra un mensaje indicando si se ha establecido la conexión correctamente o no.
 
-    
-    
-
-
-<span class="mi_h3">Organización del código</span>
-
-Cuando se trabaja con bases de datos, una buena opción para organizar el código es tener el código que maneja toda la lógica de BD en un mismo sitio En Kotlin se puede crear un objeto con funciones para que estén disponibles de forma directa en otras partes del programa.
-
-Una de las ventajas de trabajar de esta forma es que evitas repetir código para abrir y cerrar conexiones y, además, si la base de datos cambia de ubicación, solo habrá que actualizar la ruta dentro del código de este objeto no en varios sitios.
-
-También es muy recomendable utilizar los bloques **try-catch-finally** para capturar posibles errores y excepciones.
-
-<span class="mis_ejemplos">Ejemplo 2: Objeto para manejar la conexión</span> 
-
-El siguiente ejemplo es un objeto que maneja la conexión a la BD, en este caso llamado **FlorabotanicaBD.kt** en el que hay tres funciones, una para abrir la conexión, otra para testearla y la última para cerrarla:
-
-``` kotlin
-import java.io.File
-import java.sql.Connection
-import java.sql.DriverManager
-import java.sql.SQLException
-
-object FlorabotanicaBD {
-    // Ruta al archivo de base de datos SQLite
-    private val dbPath = "src/main/resources/florabotanica.sqlite"
-    private val dbFile = File(dbPath)
-    private val url = "jdbc:sqlite:${dbFile.absolutePath}"
-
-    // Obtener conexión
-    fun getConnection(): Connection? {
-        return try {
-            DriverManager.getConnection(url)
-        } catch (e: SQLException) {
-            e.printStackTrace()
-            null
-        }
-    }
-
-    // Función de prueba: verificar conexión
-    fun testConnection(): Boolean {
-        return getConnection()?.use { conn ->
-            println("Conexión establecida con éxito a ${dbFile.absolutePath}")
-            true
-        } ?: false
-    }
-
-    // Cerrar conexión (para los casos en los que no se utiliza .use)
-    fun closeConnection(conn: Connection?) {
-        try {
-            conn?.close()
-            println("Conexión cerrada correctamente.")
-        } catch (e: SQLException) {
-            println("Error al cerrar la conexión: ${e.message}")
-        }
-    }
-}
-```
-
-De esta forma, cuando el programa necesite acceder a la BD llamará a la función de conexión y cuando termine llamará a la función que cierra la conexión. Un ejemplo de estas llamadas podría ser:
-
-``` kotlin
-fun main() {
-    val conn = FlorabotanicaBD.getConnection()
-    if (conn != null) {
-        println("Conectado a la BD correctamente.")
-        FlorabotanicaBD.closeConnection(conn)
-    }
-}
-```
-
-!!! success "Realiza lo siguiente" 
-    Prueba el código de ejemplo y verifica que funciona correctemente.
-      
-!!! warning "Práctica 3: Organiza el código de tu aplicación" 
-    Añade a tu proyecto un fichero .kt (con el nombre que quieras) para crear un objeto que maneje la conexión a la BD, con las tres funciones que has visto en el ejemplo anterior.
-
-
-
-
-<!-- 
-
-## Conexión a PostgreSQL remoto
-
-
-En entornos reales y profesionales, lo más habitual es trabajar con SGBD más potentes y completos, como **PostgreSQL**.
-
-A continuación, aplicaremos lo aprendido en SQLite, pero ahora trabajando con **PostgreSQL** en **dos contextos distintos**:
-
-- Base de datos **remota**: alojada en un servidor accesible mediante una dirección IP y credenciales.
-- Base de datos **local**: replicada en un contenedor **Docker**, lo que resulta ideal para pruebas, desarrollo y aprendizaje en un entorno controlado.
-
-En ambos casos utilizaremos la misma base de datos, llamada geo_ad. Su versión remota estará disponible desde cualquier ubicación, mientras que la local se generará a partir de ella siguiendo unas instrucciones que se os facilitarán. El esquema relacional de `geo_ad` es el siguiente:
-
-**Esquema de la BD geo_ad**
-
-![ref](img/geo_ad.jpg)
-
-
-!!!Note "Datos de conexión al servido remoto"      
-    **Servidor (host)**: 89.36.214.106  
-    **Port**: 5432 (és el port per defecte)  
-    **Usuari**: geo_ad  
-    **Contrasenya**: geo_ad  
-    **Base de dades**: geo_ad  
-
-
-!!!Note "Intrucciones para replicar la BD en local (Docker)"   
-    Las instrucciones para replicar la base de datos en Docker las podéis encontrar en el siguiente enlace: [Instrucciones](https://docs.google.com/document/d/1uU5B9MonTf1KhIOP5PkECIfP-NCSkdzDAo2W33P81Js/edit?tab=t.0)
-
-
-
-**Configuración de Dependencias (Gradle)**
-
-Lo primero será incluir las dependencia necesarias en **build.gradle.kts**
-
-        // build.gradle.kts (para PostgreSQL)
-        dependencies {
-            implementation("org.postgresql:postgresql:42.6.0")
-        }
-
-**Conexión al servidor**
-
-
-**Postgres remoto**
-
-**Ejemplo_conexion_Postgres_remota.kt**
-
-        package Postgres
-        import java.sql.DriverManager
-        object DatabaseRemota {
-
-            private const val URL =  "jdbc:postgresql://89.36.214.106:5432/geo_ad"
-            private const val USER = "geo_ad"
-            private const val PASSWORD = "geo_ad"
-
-            fun getConnection() = DriverManager.getConnection(URL, USER, PASSWORD)
-        }
-
-
-
-
-
-
-
-## Conexión a PostgreSQL en Docker
-
-
-**Ejemplo_conexion_Postgres_local.kt**
-        
-        package Postgres
-        import java.sql.DriverManager
-        object DatabaseLocal {
-
-            private const val URL =  "jdbc:postgresql://localhost:5432/geo"
-            private const val USER = "postgres"
-            private const val PASSWORD = "postgres"
-
-            fun getConnection() = DriverManager.getConnection(URL, USER, PASSWORD)
-        }
-
-
-
--->
 
 ## 2.3. Operaciones sobre la BD
 
@@ -390,10 +224,7 @@ Método|	Uso principal|	Tipo de sentencia SQL|	Resultado que devuelve
 **execute()**|No se sabe de antemano qué tipo de sentencia SQL se va a ejecutar (consulta o modificación)| Sentencias SQL que pueden devolver varios resultados| Booleano **true** si el resultado es un ResultSet (SELECT) y **false** si el resultado es un entero (INSERT, UPDATE, DELETE,CREATE, ALTER)
 
 
-
-<span class="mi_h3">Buenas prácticas</span>
-
-**Liberación de recursos**
+<span class="mi_h3">Liberación de recursos</span>
 
 Cuando una aplicación accede a una base de datos, abre varios recursos internos que consumen memoria y conexiones activas en el sistema:
 
@@ -410,7 +241,22 @@ Estos recursos no se liberan automáticamente cuando se termina su uso (especial
 
 Para liberar estos recursos hay dos opciones:
 
-**1. Utilización de .use { ... }**
+**1. Usar try–catch–finally manual**
+
+Cuándo:
+
+- No estás en Kotlin o no puedes usar .use.
+
+- Necesitas capturar y manejar excepciones dentro del mismo método.
+
+- Necesitas lógica extra antes o después de cerrar el recurso (por ejemplo, reintentos, logging detallado, liberar múltiples recursos en un orden específico).
+
+- Estás trabajando en un proyecto que sigue un estilo más clásico de Java.
+
+
+**2. Utilización de .use { ... }**
+
+Es la que utilizaremos en nuestros proyectos.
 
 Se recomienda utilizarlo si:
 
@@ -430,56 +276,19 @@ Ventajas:
 
 
 
-**2. Usar try–catch–finally manual**
+<span class="mis_ejemplos">Ejemplo 2: Utilización de close()</span>
 
-Cuándo:
-
-- No estás en Kotlin o no puedes usar .use.
-
-- Necesitas capturar y manejar excepciones dentro del mismo método.
-
-- Necesitas lógica extra antes o después de cerrar el recurso (por ejemplo, reintentos, logging detallado, liberar múltiples recursos en un orden específico).
-
-- Estás trabajando en un proyecto que sigue un estilo más clásico de Java.
-
-
-<span class="mis_ejemplos">Ejemplo 3: Utilización de .use</span> 
-
-A continuación se muestra un **ejemplo con .use (sin necesidad de closeConnection)** que utiliza la función `getConnection` declarada en **FlorabotanicaBD.kt** para abrir la conexión de forma que:
-
-- **conn.use { ... }** cierra la conexión automáticamente al final del bloque.
-
-- **stmt.use { ... }** cierra el Statement automáticamente.
-
-- **ResultSet** se cierra cuando cierras el Statement.
-
-``` kotlin
-fun main() {
-    FlorabotanicaBD.getConnection()?.use { conn ->
-        println("Conectado a la BD")
-
-        conn.createStatement().use { stmt ->
-            val rs = stmt.executeQuery("SELECT * FROM plantas")
-            while (rs.next()) {
-                println("${rs.getString("nombre_comun")}")
-            }
-        }
-    } ?: println("No se pudo conectar")
-}
-```
-
-!!! success "Realiza lo siguiente" 
-    Prueba el código de ejemplo y verifica que funciona correctemente.
-
-
-<span class="mis_ejemplos">Ejemplo 4: Utilización de close()</span> 
-
-Si no utilizas **use {}** en Kotlin, entonces debes cerrar manualmente cada uno de los recursos abiertos (ResultSet, Statement y Connection) utilizando **close()**, y normalmente deberías hacerlo dentro de un bloque **finally** para garantizar su cierre incluso si ocurre un error. El orden correcto de cierre es del más interno al más externo. A continuación tienes un ejemplo equivalente al ejemplo anterior pero sin utilizar **.use**:
+A continuación tienes un ejemplo en el que se declara una constante con la ruta a la BD, se establece la conexión, se consultan datos y se cierran los recursos abiertos (ResultSet, Statement y Connection) utilizando **close()** dentro de un bloque **finally** para garantizar su cierre incluso si ocurre un error. El orden correcto de cierre es del más interno al más externo:
 
 ``` kotlin
 import java.sql.Connection
 import java.sql.Statement
 import java.sql.ResultSet
+import java.sql.DriverManager
+import java.sql.SQLException
+
+// Ruta al archivo de base de datos SQLite
+const val URL_BD = "jdbc:sqlite:src/main/resources/florabotanica.sqlite"
 
 fun main() {
     var conn: Connection? = null
@@ -487,19 +296,17 @@ fun main() {
     var rs: ResultSet? = null
 
     try {
-        conn = FlorabotanicaBD.getConnection()
-        if (conn != null) {
-            println("Conectado a la BD")
+        conn = DriverManager.getConnection(URL_BD)
+        println("Conectado a la BD")
 
-            stmt = conn.createStatement()
-            rs = stmt.executeQuery("SELECT * FROM plantas")
+        stmt = conn.createStatement()
+        rs = stmt.executeQuery("SELECT * FROM plantas")
 
-            while (rs.next()) {
-                println("${rs.getString("nombre_comun")}")
-            }
-        } else {
-            println("No se pudo conectar")
+        while (rs.next()) {
+            println(rs.getString("nombre_comun"))
         }
+    } catch (e: SQLException) {
+        println("Error al conectar o consultar la base de datos: ${e.message}")
     } catch (e: Exception) {
         e.printStackTrace()
     } finally {
@@ -516,12 +323,63 @@ fun main() {
 ```
 
 
+!!! success "Realiza lo siguiente"
+Prueba el código de ejemplo y verifica que funciona correctemente.
+
+
+<span class="mis_ejemplos">Ejemplo 3: Utilización de .use</span> 
+
+A continuación se muestra un **ejemplo con .use (sin necesidad de cerrar recursos manualmente)** que realiza la misma consulta que el ejemplo anterior. Por organización del código se ha declarado una función llamada `getConnection` para abrir la conexión. Ahora los recursos abiertos de cerrarán automáticamente:
+
+- **conn.use { ... }** cierra la conexión automáticamente al final del bloque.
+
+- **stmt.use { ... }** cierra el Statement automáticamente.
+
+- **ResultSet** se cierra cuando cierras el Statement.
+
+``` kotlin
+import java.sql.Connection
+import java.sql.DriverManager
+import java.sql.SQLException
+
+// Ruta al archivo de base de datos SQLite
+const val URL_BD = "jdbc:sqlite:src/main/resources/florabotanica.sqlite"
+
+// Obtener conexión
+fun getConnection(): Connection? {
+    return try {
+        DriverManager.getConnection(URL_BD)
+    } catch (e: SQLException) {
+        e.printStackTrace()
+        null
+    }
+}
+
+fun main() {
+    getConnection()?.use { conn ->
+        println("Conectado a la BD")
+
+        conn.createStatement().use { stmt ->
+            val rs = stmt.executeQuery("SELECT * FROM plantas")
+            while (rs.next()) {
+                println("${rs.getString("nombre_comun")}")
+            }
+        }
+    } ?: println("No se pudo conectar")
+}
+```
+
 !!! success "Realiza lo siguiente" 
     Prueba el código de ejemplo y verifica que funciona correctemente.
 
+!!! warning "Práctica 3: Mejora tu proyecto"
+    Modifica el código fuente de tu proyecto para que quede organizado como el del ejemplo y haga una consulta a tu BD.
 
-**Objetos de acceso a datos (DAO)**
-Otra buena práctica es crear un objeto para manejar las diferentes operaciones CRUD de acceso a los datos. Es el Data Access Object (DAO) y algunas de las ventajas de utilizar estos objetos son las siguientes:
+
+
+
+## 2.4. Objetos de acceso a datos (DAO)
+Los objetos de acceso a datos son una buena forma de organizar nuestro código para manejar las diferentes operaciones CRUD de acceso a los datos. Es el Data Access Object (DAO) y algunas de las ventajas de utilizar estos objetos son las siguientes:
 
 - Organización: todo el código SQL está en un único lugar.
 - Reutilización: puedes llamar a PlantasDAO.listarPlantas() desde distintos sitios sin repetir la consulta.
@@ -529,14 +387,13 @@ Otra buena práctica es crear un objeto para manejar las diferentes operaciones 
 - Claridad: el resto de tu app se lee mucho más limpio, sin SQL mezclado.
 
 
+<span class="mis_ejemplos">Ejemplo 4: DAO</span> 
 
-<span class="mis_ejemplos">Ejemplo 5: DAO en SQlite</span> 
-
-El siguiente ejemplo es el DAO para la tabla `plantas` de la BD `florabotanica.sqlite` en la que se utiliza el código de conexión del objeto **FlorabotanicaBD.kt**. La estructura de la tabla `plantas` es la siguiente:
+El siguiente ejemplo es el DAO para la tabla `plantas` de la BD `florabotanica.sqlite`. La estructura de la tabla `plantas` es la siguiente:
 
 ![Imagen 1](img/3_plantas.png)
 
-Se utiliza un data class con la misma estructura que la tabla `plantas` y su código se guarda en el archivo **Planta.kt**:
+Creamos un archivo **PlantasDAO.kt** en el que declararemos una data class con la misma estructura que la tabla `plantas` y las funciones para leer la información de la tabla, añadir registros nuevos, modificar la información existente y borrarla. El código fuente es:
 
 ``` kotlin
 data class Planta(
@@ -546,16 +403,12 @@ data class Planta(
     val stock: Int,
     val precio: Double
 )
-```
 
-También se declaran funciones para leer la información de la tabla, añdir registros nuevos, modificar la información existenete y borrarla. El código se escribe en el archivo **PlantasDAO.kt** y es el siguiente:
-
-``` kotlin
 object PlantasDAO {
 
     fun listarPlantas(): List<Planta> {
         val lista = mutableListOf<Planta>()
-        FlorabotanicaBD.getConnection()?.use { conn ->
+        getConnection()?.use { conn ->
             conn.createStatement().use { stmt ->
                 val rs = stmt.executeQuery("SELECT * FROM plantas")
                 while (rs.next()) {
@@ -573,12 +426,11 @@ object PlantasDAO {
         } ?: println("No se pudo establecer la conexión.")
         return lista
     }
-
-
+    
     // Consultar planta por ID
     fun consultarPlantaPorId(id: Int): Planta? {
         var planta: Planta? = null
-        FlorabotanicaBD.getConnection()?.use { conn ->
+        getConnection()?.use { conn ->
             conn.prepareStatement("SELECT * FROM plantas WHERE id_planta = ?").use { pstmt ->
                 pstmt.setInt(1, id)
                 val rs = pstmt.executeQuery()
@@ -595,10 +447,9 @@ object PlantasDAO {
         } ?: println("No se pudo establecer la conexión.")
         return planta
     }
-
-
+    
     fun insertarPlanta(planta: Planta) {
-        FlorabotanicaBD.getConnection()?.use { conn ->
+        getConnection()?.use { conn ->
             conn.prepareStatement(
                 "INSERT INTO plantas(nombre_comun, nombre_cientifico, stock, precio) VALUES (?, ?, ?, ?)"
             ).use { pstmt ->
@@ -617,7 +468,7 @@ object PlantasDAO {
             println("No se puede actualizar una planta sin id.")
             return
         }
-        FlorabotanicaBD.getConnection()?.use { conn ->
+        getConnection()?.use { conn ->
             conn.prepareStatement(
                 "UPDATE plantas SET nombre_comun = ?, nombre_cientifico = ?, stock = ?, precio = ? WHERE id_planta = ?"
             ).use { pstmt ->
@@ -637,7 +488,7 @@ object PlantasDAO {
     }
 
     fun eliminarPlanta(id: Int) {
-        FlorabotanicaBD.getConnection()?.use { conn ->
+        getConnection()?.use { conn ->
             conn.prepareStatement("DELETE FROM plantas WHERE id_planta = ?").use { pstmt ->
                 pstmt.setInt(1, id)
                 val filas = pstmt.executeUpdate()
@@ -650,7 +501,6 @@ object PlantasDAO {
         } ?: println("No se pudo establecer la conexión.")
     }
 }
-
 ```
 
 La llamada a estas funciones desde **main.kt** podría ser:
@@ -696,188 +546,19 @@ fun main() {
     // Eliminar planta con id=2
     PlantasDAO.eliminarPlanta(2)
 }
-
-
-
-
 ```
 
 !!! success "Realiza lo siguiente" 
     Prueba el código de ejemplo y verifica que funciona correctemente.
 
 !!! warning "Práctica 4: Trabaja con tu base de datos" 
-    1. Añade a tu proyecto un objetos de acceso a datos (DAO) para manejar las diferentes operaciones CRUD de tu aplicación.
+    1. Añade a tu proyecto un objetos de acceso a datos (DAO) para manejar las diferentes operaciones CRUD de la primera tabla de tu BD.
     2. Utiliza .use en todas tus operaciones para asegurarte de que se cierran correctamente todos los recursos.
-    3. Añade llamadas desde tu función **main** a todas las operaciones CRUD que acabas de crear y comrpueba que todas funcionan correctamente.
+    3. Añade llamadas desde tu función **main** a todas las operaciones CRUD que acabas de crear (pide la información por consola para las funciones que requieran el paso de información como parámetro) y comprueba que todas funcionan correctamente.
 
 
 
-
-
-
-
-<!--
-
-
-
-**Consultas complejas: JOIN, filtros y ordenaciones**
-
-**Ejemplo_join.kt**: Este ejemplo obtiene las líneas de factura con nombre del artículo y ordenado por numero de factura y línea.
-
-        package SQLite
-        import java.sql.DriverManager
-
-        fun main() {
-            val dbPath = "src/main/resources/Tienda.sqlite"
-            val dbFile = java.io.File(dbPath)
-            val url = "jdbc:sqlite:${dbFile.absolutePath}"
-
-            DriverManager.getConnection(url).use { conn ->
-
-                val sql = """
-                    SELECT lf.num_f, lf.num_l, lf.cod_a, a.descrip, lf.quant, lf.preu
-                    FROM linia_fac lf
-                    JOIN article a ON lf.cod_a = a.cod_a
-                    ORDER BY lf.num_f, lf.num_l
-                """.trimIndent()
-
-                conn.prepareStatement(sql).use { stmt ->
-                    stmt.executeQuery().use { rs ->
-                        println("Líneas de factura:")
-                        println("Factura | Línea | Artículo | Descripción | Cantidad | Precio")
-
-                        while (rs.next()) {
-                            val numF = rs.getInt("num_f")
-                            val numL = rs.getInt("num_l")
-                            val codA = rs.getString("cod_a")
-                            val descrip = rs.getString("descrip")
-                            val quant = rs.getInt("quant")
-                            val preu = rs.getDouble("preu")
-
-                            println("$numF\t$numL\t$codA\t$descrip\t$quant\t$preu")
-                        }
-                    }
-                }
-            }
-        }
-
-
-
--->
-
-
-
-
-
-<!--
-
-## Ejemplos en PostgreSQL
-
-
-!!!Tip "Kotlin - Instrucciones"
-    En el proyecto `BDRelacionales` crearemos un **paquete** llamado `Postgres`, donde incluiremos los ejemplos de este apartado.   
-   
-    ![ref](img/carpeta_postgres.png)
-
-
-
-
-
-
-**Read (SELECT)**   
-
-**Ejemplo_Select.kt**
-
-            package Postgres
-            fun main(args: Array<String>) {
-            val sql = "SELECT * FROM institut"
-
-            DatabaseLocal.getConnection().use { conn ->    // DatabaseRemota si se conecta al servidor del instituto
-                    conn.prepareStatement(sql).use { stmt ->
-                    stmt.executeQuery().use { rs ->
-
-                        while (rs.next()) {
-                            print("" + rs.getString(1) + "\t")
-                            println(rs.getString(2))
-                        }
-                    }
-                }
-                }
-             }
-
-
-
----
-
-**Create (INSERT)**{.verde}  
-El siguiente ejemplo inserta un istituto de prueba.
-
-**Ejemplo_Insert.kt**
-
-        package Postgres
-        fun main(args: Array<String>) {
-
-            val sql ="INSERT INTO institut (codi,nom,adreca,numero,codpostal,cod_m) VALUES(?,?,?,?,?,?)"
-
-            DatabaseLocal.getConnection().use { conn ->
-
-                conn.prepareStatement(sql).use { stmt ->
-                    stmt.setString(1, "00000000")
-                    stmt.setString(2, "IES PRUEBA")
-                    stmt.setString(3, "CASTELLÓN")
-                    stmt.setString(4, "S/N")
-                    stmt.setInt(5, 12560)
-                    stmt.setInt(6, 12040)
-                    stmt.executeUpdate()
-                }
-            }
-        }
-
-
-
-**Update (UPDATE)**{.verde}    
-El siguiente ejemplo actualiza el campo nombre del instituto de prueba insertado. 
-
-**Ejemplo_Update.kt**
-
-        package Postgres
-        fun main() {
-            val sql = "UPDATE institut SET nom = ? WHERE codi = ?"
-
-            DatabaseLocal.getConnection().use { conn ->
-
-                conn.prepareStatement(sql).use { stmt ->
-                    stmt.setString(1, "IES PRUEBA 2")
-                    stmt.setString(2, "00000000")
-                    stmt.executeUpdate()
-                }
-            }
-        }
-
-
-**Delete (DELETE)**{.verde}   
-El siguiente ejemplo elimina el instituto de prueba insertado.  
-
-**Ejemplo_Delete.kt**
-        
-        package Postgres
-        fun main() {
-            val sql = "DELETE FROM institut WHERE codi = ?"
-
-            DatabaseLocal.getConnection().use { conn ->
-
-                conn.prepareStatement(sql).use { stmt ->
-                    stmt.setString(1, "00000000")
-                    stmt.executeUpdate()
-                }
-            }
-        }
-
-
--->
-
-
-## 2.4. Transacciones y excepciones
+## 2.5. Transacciones y excepciones
 
 <span class="mi_h3">Transacciones</span>
 
@@ -1014,7 +695,7 @@ Si no se produce ningún error se hará el `commit` y en caso contrario el `roll
 
 <!--
 
-## 2.5. Funciones y procedimientos almacenados 
+## 2.6. Funciones y procedimientos almacenados 
 
 Las funciones (FUNCTION) y los procedimientos (PROCEDURE) **no se crean desde el lenguaje Kotlin**, ya que son elementos propios del SGBD. Para definirlos, se utiliza **SQL** y se ejecutan **directamente sobre la base de datos** a través de un cliente SQL.
 
@@ -1044,285 +725,6 @@ Y desde Kotlin, se gestionan mediante objetos como **PreparedStatement** y **Cal
 
 !!!Note ""
     **SQLite** no soporta funciones ni procedimientos almacenados como lo hacen bases de datos como PostgreSQL, MySQL u Oracle. Sin embargo, puedes simular su comportamiento mediante funciones definidas en la aplicación, o vistas y triggers.
-
-
--->
-
-<!--
-## 🔹Funciones (FUNCTION)
-
-Una función en PostgreSQL es un bloque que:
-
-- Puede aceptar parámetros
-- Devuelve siempre un valor (escalar, tabla o compuesto)
-- Se puede usar en consultas SQL (SELECT, WHERE, etc.)
-- Puede tener IN, OUT, INOUT
-
-
-!!!Warning "Sintaxis básica en PostgreSql"
-        CREATE [OR REPLACE] FUNCTION nombre_funcion(parámetros)
-        RETURNS tipo_de_dato
-        LANGUAGE plpgsql
-        AS $$
-        BEGIN
-            -- instrucciones
-            RETURN valor;
-        END;
-        $$;
-
-| Tipo de retorno                | ¿Qué devuelve?                                        | Ejemplo de uso                                           |
-|-------------------------------|--------------------------------------------------------|-----------------------------------------------------------|
-| `INTEGER`, `TEXT`, etc.       | Un único valor escalar                                | `RETURNS INTEGER`<br>`RETURN x * x;`                      |
-| `TABLE(...)`                  | Una tabla (varias columnas y filas)                   | `RETURNS TABLE(codi TEXT, nom TEXT)`<br>`RETURN QUERY ...`|
-| `SETOF INTEGER`               | Un conjunto de valores escalares                      | `RETURNS SETOF INTEGER`<br>`RETURN NEXT i;`              |
-| `SETOF RECORD`                | Muchas filas con estructura dinámica                  | `RETURNS SETOF RECORD`                                    |
-| `%ROWTYPE`                    | Una fila con la estructura de una tabla existente     | `RETURNS institut%ROWTYPE`<br>`SELECT * INTO reg ...`    |
-| `RECORD`                      | Una sola fila con columnas genéricas                  | `RETURNS RECORD`<br>`SELECT ... INTO resultado;`         |
-| Tipo personalizado            | Una estructura definida con `CREATE TYPE`             | `RETURNS tipo_personalizado`                             |
-
-
-!!!Tip ""   
-    Los siguientes ejemplos  se han creado utilizando el cliente **SQL DBeaver** y la BD **Geo_docker**.
-
-
-**Funciones que devuelve un valor**{.azul}:
-
-**Ejemplo en SQL:**{.verde} Función que devuelve el cuadrado de un número.
-
-    CREATE OR REPLACE FUNCTION cuadrado(x INTEGER)
-    RETURNS INTEGER
-    AS $$
-    BEGIN
-        RETURN x * x;
-    END;
-    $$ LANGUAGE plpgsql;
-
-La llamada desde **SQL** sería:
-
-    SELECT cuadrado(5);  --Devuelve 25
-
-**En Kotlin**{.verde} la llamda a la función sería:
-
-
-**Ejemplo_cuadrado.kt**
-
-       fun main() {
-
-            DatabaseLocal.getConnection().use { conn ->
-                val sql = "SELECT cuadrado(?)"
-
-                conn.prepareStatement(sql).use { stmt ->
-                    stmt.setInt(1, 6) // por ejemplo: x = 6
-                    val rs = stmt.executeQuery()
-
-                    if (rs.next()) {
-                        val resultado = rs.getInt(1)
-                        println("El cuadrado de 6 es: $resultado")
-                    }
-                }
-            }
-        }
-
-**Fucniones que devuelven una tabla**{.azul}
-
-**Ejemplo en SQL:**{.verde} Función que devuelve todos los institutos junto con su población y comarca.
-
-
-        CREATE OR REPLACE FUNCTION obtener_instituts()
-        RETURNS TABLE (
-            codi TEXT,
-            nom TEXT,
-            municipi TEXT,
-            comarca TEXT
-        )
-        AS $$
-            SELECT 
-                i.codi,
-                i.nom,
-                p.nom AS municipi,
-                c.nom_c AS comarca
-            FROM institut i
-            JOIN poblacio p ON i.cod_m = p.cod_m
-            JOIN comarca c ON p.nom_c = c.nom_c
-            ORDER BY comarca, municipi;
-        $$ LANGUAGE sql;
-
-La llamada desde **SQL** sería:
-
-        SELECT * FROM obtener_instituts();
-
-**En Kotlin**{.verde} la llamda a la función sería:
-
-**Ejemplo_fun_obtener_institutos.kt**
-
-        fun main() {
-
-           DatabaseLocal.getConnection().use { conn ->
-                val sql = "SELECT * FROM obtener_instituts()"
-
-                conn.prepareStatement(sql).use { stmt ->
-                    val rs = stmt.executeQuery()
-                    while (rs.next()) {
-                        val codi = rs.getString("codi")
-                        val nom = rs.getString("nom")
-                        val municipi = rs.getString("municipi")
-                        val comarca = rs.getString("comarca")
-
-                        println("Institut: $codi - $nom ($municipi, $comarca)")
-                    }
-                }
-            }
-        }
-
-
-**Fucniones que aceptan filtros como parámetros**{.azul}
-
-**Ejemplo en SQL:**{.verde} Función que devuelve los institutos de una comarca.
-
-
-        CREATE OR REPLACE FUNCTION instituts_de_comarca(p_nom_c TEXT)
-        RETURNS TABLE (
-            codi TEXT,
-            nom TEXT,
-            municipi TEXT,
-            comarca TEXT
-        )
-        AS $$
-            SELECT 
-                i.codi,
-                i.nom,
-                p.nom AS municipi,
-                c.nom_c AS comarca
-            FROM institut i
-            JOIN poblacio p ON i.cod_m = p.cod_m
-            JOIN comarca c ON p.nom_c = c.nom_c
-            WHERE c.nom_c = p_nom_c
-            ORDER BY municipi;
-        $$ LANGUAGE sql;
-
-La llamada desde **SQL** sería:
-
-    
-        SELECT * FROM instituts_de_comarca('Plana Baixa');
-
-**En Kotlin**{.verde} la llamda a la función sería:
-      
-**Ejemplo_fun_instituts_de_comarca.kt**
-
-        fun main() {
-
-            DatabaseLocal.getConnection().use { conn ->
-                val sql = "SELECT * FROM instituts_de_comarca(?)"
-
-                conn.prepareStatement(sql).use { stmt ->
-                    stmt.setString(1, "Plana Baixa") // Parámetro de entrada
-                    val rs = stmt.executeQuery()
-                    while (rs.next()) {
-                        val codi = rs.getString("codi")
-                        val nom = rs.getString("nom")
-                        val municipi = rs.getString("municipi")
-                        val comarca = rs.getString("comarca")
-
-                        println("Institut: $codi - $nom ($municipi, $comarca)")
-                    }
-                }
-            }
-        }
-
-## 🔹Procedimientos (PROCEDURE)
-
-
-Los procedimientos no devuelven valores directamente, a diferencia de las funciones, pero pueden tener parámetros de entrada (IN), salida (OUT) o ambos (INOUT). Se utilizan para realizar tareas como:
-
-- Inserciones o actualizaciones complejas
-- Validaciones
-- Operaciones en bloque
-- Ejecución de lógica con control de flujo
-- Agrupación de instrucciones dentro de una transacción
-
-!!!Warning "Sintaxis básica en PostgreSql"
-        CREATE [OR REPLACE] PROCEDURE nombre_procedimiento(
-            [parámetro1 tipo [IN|OUT|INOUT]],
-            ...
-        )
-        AS $$
-        BEGIN
-            -- cuerpo del procedimiento
-        END;
-        $$ LANGUAGE plpgsql;
-
-**Ejemplo en SQL:**{.verde} Procedimiento que inserta un nuevo instituto y muestra un aviso.
-
-        CREATE OR REPLACE PROCEDURE insertar_institut_resultado(
-            IN p_codi VARCHAR,
-            IN p_nom VARCHAR,
-            IN p_cod_m INTEGER,
-            OUT resultado TEXT
-        )
-        AS $$
-        BEGIN
-            -- ¿Municipio existe?
-            IF NOT EXISTS (SELECT 1 FROM poblacio WHERE cod_m = p_cod_m) THEN
-                resultado := 'MUNICIPIO_NO_ENCONTRADO';
-                RETURN;
-            END IF;
-
-            -- ¿Instituto ya existe?
-            IF EXISTS (SELECT 1 FROM institut WHERE codi = p_codi) THEN
-                resultado := 'EXISTENTE';
-                RETURN;
-            END IF;
-
-            -- Insertar instituto
-            INSERT INTO institut (codi, nom, cod_m)
-            VALUES (p_codi, p_nom, p_cod_m);
-
-            resultado := 'INSERTADO';
-        END;
-        $$ LANGUAGE plpgsql;
-
-La llamada desde **SQL** sería:
-
-        CALL insertar_institut_resultado('I999', 'Institut Experimental', 12028, NULL);
-
-
-**En Kotlin**{.verde} la llamda a la función sería:
-      
-**Ejemplo_pro_insertar_institut_resultado.kt**
-
-        import java.sql.Types
-
-        fun main() {
-           DatabaseLocal.getConnection().use { conn ->
-                val sql = "Call insertar_institut_resultado(?, ?, ?, ?)"
-
-                conn.prepareCall(sql).use { stmt ->
-                    stmt.setString(1, "I999")
-                    stmt.setString(2, "Institut Experimental")
-                    stmt.setInt(3, 12028)
-                    stmt.registerOutParameter(4, Types.VARCHAR)
-
-                    stmt.execute()
-
-                    val resultado = stmt.getString(4)
-                    println("Resultado: $resultado")
-                }
-            }
-        }
-
-
-## 📊 Resumen diferencias entre función y procedimiento en PostgreSQL
-
-| Característica                    | FUNCIÓN (`FUNCTION`)                             | PROCEDIMIENTO (`PROCEDURE`)                        |
-|----------------------------------|--------------------------------------------------|----------------------------------------------------|
-| 🔁 Devuelve un valor             | ✅ Sí (con `RETURN`)                             | ❌ No directamente                                 |
-| 📥 Parámetros de entrada (`IN`)  | ✅ Sí                                             | ✅ Sí                                               |
-| 📤 Parámetros de salida (`OUT`)  | ✅ Sí (como `OUT`, `INOUT`, o `RETURNS`)         | ✅ Sí (`OUT`, `INOUT`)                             |
-| 📌 Se invoca con…                | `SELECT nombre_funcion(...)`                     | `CALL nombre_procedimiento(...)`                  |
-| 📊 Usable en consultas SQL       | ✅ Sí (puede ir en `SELECT`, `WHERE`, etc.)      | ❌ No                                               |
-| 🔄 Puede devolver tablas         | ✅ Sí (`RETURNS TABLE` o `SETOF`)                | ❌ No directamente                                 |
-| 🔁 Puede usar `RETURN`           | ✅ Obligatorio                                   | ❌ No se usa `RETURN`, sino solo `CALL`            |
-| 🧱 Uso típico                    | Cálculos, validaciones, funciones reutilizables | Procesos complejos, lógica de negocio, transacciones |
 
 
 -->
