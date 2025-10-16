@@ -556,6 +556,7 @@ fun main() {
     1. Añade a tu proyecto un objetos de acceso a datos (DAO) para manejar las diferentes operaciones CRUD de la primera tabla de tu BD.
     2. Utiliza .use en todas tus operaciones para asegurarte de que se cierran correctamente todos los recursos.
     3. Añade llamadas desde tu función **main** a todas las operaciones CRUD que acabas de crear (pide la información por consola para las funciones que requieran el paso de información como parámetro) y comprueba que todas funcionan correctamente.
+    4. Añade otras dos tablas a tu BD y sus correspondientes DAO a tu proyecto. Después realiza llamadas a las funciones que acabas de crear desde **main**.
 
 
 
