@@ -5,6 +5,8 @@ h2{color: #ef5552 !important;}
 
 img {margin-top: 20px; margin-bottom: 20px; border:#767676 solid 2px;}
 
+.md-nav__title { background:#ef5552; color:#fff;}
+.md-nav__item label { background:#ef5552; color:#fff;}
 
 .mi_h2 {
   color: #ef5552;
