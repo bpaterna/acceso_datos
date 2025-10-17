@@ -5,7 +5,7 @@ h2{color: #ef5552 !important;}
 
 img {margin-top: 20px; margin-bottom: 20px; border:#767676 solid 2px;}
 
-.md-nav label { background:#ef5552; color:#fff;}
+.md-nav label { background:#ef5552 !important; color:#fff !important;}
 
 .mi_h2 {
   color: #ef5552;
