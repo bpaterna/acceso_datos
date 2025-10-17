@@ -17,8 +17,7 @@ theme:
     - search.suggest
     - toc.integrate
 nav:
-  - ✨ Acceso a datos 
-    - Presentación: index.md
+  - Presentación: index.md
   - 📚 Contenido:
     - Acceso a BD relacionales: 2_BD_relacionales.md
   - 🧩 Material adicional:
