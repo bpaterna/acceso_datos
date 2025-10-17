@@ -18,9 +18,9 @@ theme:
     - toc.integrate
 nav:
   - Presentación: index.md
-  - 📚 Contenido:
+  - Contenido
     - Acceso a BD relacionales: 2_BD_relacionales.md
-  - 🧩 Material adicional:
+  - Material adicional
     - AWS Learner Lab: AWSlab.md
     - DB Browser SQLite: db_browser_sqlite.md
     - DBeaver: dbeaver.md

@@ -652,16 +652,18 @@ fun llevarPlantasAJardin(id_jardin: Int, id_planta: Int, cantidad: Int) {
             conn.autoCommit = false  // Iniciar transacción manual
 
             // Restar stock a la planta
-            val stock = conn.prepareStatement("UPDATE plantas SET stock = stock - $cantidad WHERE id_planta = ?")
-            stock.setInt(1, id_planta)
-            stock.executeUpdate()
+            conn.prepareStatement("UPDATE plantas SET stock = stock - $cantidad WHERE id_planta = ?").use { stock ->
+                stock.setInt(1, id_planta)
+                stock.executeUpdate()
+            }
 
             // Añadir línea en tabla jardines_plantas
-            val plantar = conn.prepareStatement("INSERT INTO jardines_plantas(id_jardin, id_planta, cantidad) VALUES (?, ?, ?)")
-            plantar.setInt(1, id_jardin)
-            plantar.setInt(2, id_planta)
-            plantar.setInt(3, cantidad)
-            plantar.executeUpdate()
+            conn.prepareStatement("INSERT INTO jardines_plantas(id_jardin, id_planta, cantidad) VALUES (?, ?, ?)").use { plantar ->
+                plantar.setInt(1, id_jardin)
+                plantar.setInt(2, id_planta)
+                plantar.setInt(3, cantidad)
+                plantar.executeUpdate()
+            }
 
             // Confirmar cambios
             conn.commit()
