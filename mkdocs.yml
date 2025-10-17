@@ -17,8 +17,8 @@ theme:
     - search.suggest
     - toc.integrate
 nav:
-  - Presentación: index.md
-  - Contenido:
+  - ✨ Presentación: index.md
+  - 📚 Contenido:
     - Acceso a BD relacionales: 2_BD_relacionales.md
   - 🧩 Material adicional:
     - AWS Learner Lab: AWSlab.md

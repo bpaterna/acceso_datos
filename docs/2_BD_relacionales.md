@@ -332,7 +332,7 @@ fun main() {
 
 <span class="mis_ejemplos">Ejemplo 3: Utilización de .use</span> 
 
-A continuación se muestra un **ejemplo con .use (sin necesidad de cerrar recursos manualmente)** que realiza la misma consulta que el ejemplo anterior. Por organización del código se ha declarado una función llamada `getConnection` para abrir la conexión. Ahora los recursos abiertos de cerrarán automáticamente:
+A continuación se muestra un **ejemplo con .use (sin necesidad de cerrar recursos manualmente)** que realiza la misma consulta que el ejemplo anterior. Ahora los recursos abiertos de cerrarán automáticamente. Además, por organización del código, se ha declarado una función para conectar a la BD:
 
 - **conn.use { ... }** cierra la conexión automáticamente al final del bloque.
 
@@ -349,7 +349,7 @@ import java.sql.SQLException
 const val URL_BD = "jdbc:sqlite:src/main/resources/florabotanica.sqlite"
 
 // Obtener conexión
-fun getConnection(): Connection? {
+fun conectarBD(): Connection? {
     return try {
         DriverManager.getConnection(URL_BD)
     } catch (e: SQLException) {
@@ -359,13 +359,14 @@ fun getConnection(): Connection? {
 }
 
 fun main() {
-    getConnection()?.use { conn ->
+    conectarBD()?.use { conn ->
         println("Conectado a la BD")
 
         conn.createStatement().use { stmt ->
-            val rs = stmt.executeQuery("SELECT * FROM plantas")
-            while (rs.next()) {
-                println("${rs.getString("nombre_comun")}")
+            stmt.executeQuery("SELECT * FROM plantas").use { rs ->
+                while (rs.next()) {
+                    println(rs.getString("nombre_comun"))
+                }
             }
         }
     } ?: println("No se pudo conectar")
@@ -406,51 +407,52 @@ data class Planta(
 )
 
 object PlantasDAO {
-
     fun listarPlantas(): List<Planta> {
         val lista = mutableListOf<Planta>()
-        getConnection()?.use { conn ->
+        conectarBD()?.use { conn ->
             conn.createStatement().use { stmt ->
-                val rs = stmt.executeQuery("SELECT * FROM plantas")
-                while (rs.next()) {
-                    lista.add(
-                        Planta(
+                stmt.executeQuery("SELECT * FROM plantas").use { rs ->
+                    while (rs.next()) {
+                        lista.add(
+                            Planta(
+                                id_planta = rs.getInt("id_planta"),
+                                nombreComun = rs.getString("nombre_comun"),
+                                nombreCientifico = rs.getString("nombre_cientifico"),
+                                stock = rs.getInt("stock"),
+                                precio = rs.getDouble("precio")
+                            )
+                        )
+                    }
+                }
+            }
+        } ?: println("No se pudo establecer la conexión.")
+        return lista
+    }
+
+    // Consultar planta por ID
+    fun consultarPlantaPorId(id: Int): Planta? {
+        var planta: Planta? = null
+        conectarBD()?.use { conn ->
+            conn.prepareStatement("SELECT * FROM plantas WHERE id_planta = ?").use { pstmt ->
+                pstmt.setInt(1, id)
+                pstmt.executeQuery().use { rs ->
+                    if (rs.next()) {
+                        planta = Planta(
                             id_planta = rs.getInt("id_planta"),
                             nombreComun = rs.getString("nombre_comun"),
                             nombreCientifico = rs.getString("nombre_cientifico"),
                             stock = rs.getInt("stock"),
                             precio = rs.getDouble("precio")
                         )
-                    )
-                }
-            }
-        } ?: println("No se pudo establecer la conexión.")
-        return lista
-    }
-    
-    // Consultar planta por ID
-    fun consultarPlantaPorId(id: Int): Planta? {
-        var planta: Planta? = null
-        getConnection()?.use { conn ->
-            conn.prepareStatement("SELECT * FROM plantas WHERE id_planta = ?").use { pstmt ->
-                pstmt.setInt(1, id)
-                val rs = pstmt.executeQuery()
-                if (rs.next()) {
-                    planta = Planta(
-                        id_planta = rs.getInt("id_planta"),
-                        nombreComun = rs.getString("nombre_comun"),
-                        nombreCientifico = rs.getString("nombre_cientifico"),
-                        stock = rs.getInt("stock"),
-                        precio = rs.getDouble("precio")
-                    )
+                    }
                 }
             }
         } ?: println("No se pudo establecer la conexión.")
         return planta
     }
-    
+
     fun insertarPlanta(planta: Planta) {
-        getConnection()?.use { conn ->
+        conectarBD()?.use { conn ->
             conn.prepareStatement(
                 "INSERT INTO plantas(nombre_comun, nombre_cientifico, stock, precio) VALUES (?, ?, ?, ?)"
             ).use { pstmt ->
@@ -469,7 +471,7 @@ object PlantasDAO {
             println("No se puede actualizar una planta sin id.")
             return
         }
-        getConnection()?.use { conn ->
+        conectarBD()?.use { conn ->
             conn.prepareStatement(
                 "UPDATE plantas SET nombre_comun = ?, nombre_cientifico = ?, stock = ?, precio = ? WHERE id_planta = ?"
             ).use { pstmt ->
@@ -489,7 +491,7 @@ object PlantasDAO {
     }
 
     fun eliminarPlanta(id: Int) {
-        getConnection()?.use { conn ->
+        conectarBD()?.use { conn ->
             conn.prepareStatement("DELETE FROM plantas WHERE id_planta = ?").use { pstmt ->
                 pstmt.setInt(1, id)
                 val filas = pstmt.executeUpdate()
@@ -645,7 +647,7 @@ Supongamos que queremos llevar varias unidades de una planta a un jardín. El pr
 
 ``` kotlin
 fun llevarPlantasAJardin(id_jardin: Int, id_planta: Int, cantidad: Int) {
-    getConnection()?.use { conn ->
+    conectarBD()?.use { conn ->
         try {
             conn.autoCommit = false  // Iniciar transacción manual
 
@@ -663,7 +665,7 @@ fun llevarPlantasAJardin(id_jardin: Int, id_planta: Int, cantidad: Int) {
 
             // Confirmar cambios
             conn.commit()
-            println("Transferencia realizada con éxito.")
+            println("Transacción realizada con éxito.")
         } catch (e: SQLException) {
             if (e.message?.contains("UNIQUE constraint failed") == true) {
                 println("Error: intento de insertar clave duplicada")
