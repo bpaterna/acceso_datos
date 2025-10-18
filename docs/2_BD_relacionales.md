@@ -377,7 +377,9 @@ fun main() {
     Prueba el código de ejemplo y verifica que funciona correctamente.
 
 !!! warning "Práctica 3: Mejora tu proyecto"
-    Modifica el código fuente de tu proyecto para que quede organizado como el del ejemplo y haga una consulta a tu BD.
+    1. Declara una constante con la ruta a la BD.
+    2. Declara una función para conectar a la BD.
+    3. En el main conecta con la BD y realiza una consulta sobre tus datos utilizando .use (para no tener que cerrar recursos manualmente).
 
 
 ## 2.4. Objetos de acceso a datos (DAO)
@@ -686,8 +688,8 @@ Si no se produce ningún error se hará el `commit` y en caso contrario el `roll
 !!! success "Prueba y analiza el ejemplo 5" 
     Prueba el código de ejemplo y verifica que funciona correctamente.
 
-!!! warning "Práctica 5: Trabaja con tu base de datos" 
-    Añade a tu aplicación alguna funcionalidad parecida a la del ejemplo para poder probar las transacciones sobre tu base de datos.
+!!! warning "Práctica 5: Amplía tu proyecto" 
+    Incluye transacciones y control de errores mediante la captura de excepciones.
 
 
 !!! danger "Entrega"
@@ -698,7 +700,7 @@ Si no se produce ningún error se hará el `commit` y en caso contrario el `roll
     **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
 
 
-<!--
+
 
 ## 2.6. Funciones y procedimientos almacenados 
 
@@ -729,7 +731,157 @@ Y desde Kotlin, se gestionan mediante objetos como **PreparedStatement** y **Cal
 
 
 !!!Note ""
-    **SQLite** no soporta funciones ni procedimientos almacenados como lo hacen bases de datos como PostgreSQL, MySQL u Oracle. Sin embargo, puedes simular su comportamiento mediante funciones definidas en la aplicación, o vistas y triggers.
+    **SQLite** no soporta funciones ni procedimientos almacenados como lo hacen otros SGBD, por eso a partir de aquí seguiremos trabajando en MySQL.
 
 
--->
+!!! warning "Práctica 6: Servidor MySQL"
+    1. Monta tu servidor virtual siguiendo los pasos del documento [AWS Learner Lab](AWSlab.html).
+    2. Replica tu base de datos `.sqlite` en el servidor MySQL, puedes utilizar la herramienta [DBeaver](dbeaver.html) para crear las tablas e insertar los registros en ellas.
+    3. Añade a tu proyecto las líneas necesarias para conectar a tu nueva BD MySQL. 
+
+
+
+<span class="mi_h3">Sintaxis general para funciones en MySQL</span>
+
+
+```sql
+DELIMITER //
+
+CREATE FUNCTION nombre_funcion(parámetro1 tipo, parámetro2 tipo, ...)
+RETURNS tipo_dato
+[DETERMINISTIC | NOT DETERMINISTIC]
+[READS SQL DATA | MODIFIES SQL DATA | NO SQL]
+BEGIN
+    -- Declaraciones opcionales
+    DECLARE variable_local tipo;
+
+    -- Lógica de la función
+    SET variable_local = ...;
+
+    -- Retornar un valor
+    RETURN variable_local;
+END
+//
+
+DELIMITER ;
+```
+
+| Parte                            | Significado                                                                      |
+| -------------------------------- | -------------------------------------------------------------------------------- |
+| `DELIMITER //`                   | Cambia el delimitador temporalmente (porque dentro de la función usas `;`).      |
+| `CREATE FUNCTION nombre_funcion` | Define la función y su nombre.                                                   |
+| `RETURNS tipo_dato`              | Especifica el tipo de valor que devolverá (`INT`, `DOUBLE`, `VARCHAR(n)`, etc.). |
+| `DETERMINISTIC`                  | Indica que siempre devuelve el mismo resultado para los mismos parámetros.       |
+| `BEGIN ... END`                  | Marca el bloque de instrucciones.                                                |
+| `DECLARE`                        | Declara variables locales (opcional).                                            |
+| `RETURN`                         | Devuelve un único valor.                                                         |
+| `DELIMITER ;`                    | Restablece el delimitador habitual.                                              |
+
+
+
+<span class="mis_ejemplos">Ejemplo 6: trabajar con funciones</span>
+
+El siguiente ejemplo crear una función que devuelve el valor total del stock de una planta (stock × precio).
+
+```sql
+DELIMITER //
+
+DROP FUNCTION IF EXISTS fn_total_valor_planta//
+
+CREATE FUNCTION fn_total_valor_planta(p_id_planta INT)
+  RETURNS DOUBLE
+  DETERMINISTIC
+BEGIN
+  DECLARE total DOUBLE;
+
+  SET total = (
+    SELECT stock * precio 
+    FROM plantas
+    WHERE id_planta = p_id_planta);
+
+  RETURN total;
+
+END
+//
+
+DELIMITER ;
+```
+
+
+La llamada a esta función desde dentro de la propia BD sería
+```sql
+SELECT fn_total_valor_planta(3);
+```
+y el resultado
+![Imagen 6](img/BD/6_fun.jpg)
+
+
+
+<span class="mi_h3">Sintaxis general para procedimientos en MySQL</span>
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE nombre_procedimiento(
+[IN | OUT | INOUT] parametro1 tipo,
+[IN | OUT | INOUT] parametro2 tipo,
+...
+)
+BEGIN
+-- Declaraciones opcionales
+DECLARE variable_local tipo;
+
+    -- Lógica del procedimiento
+    SELECT ...;
+    UPDATE ...;
+    -- etc.
+END
+//
+
+DELIMITER ;
+```
+
+| Parte                                            | Descripción                                                           |
+| ------------------------------------------------ | --------------------------------------------------------------------- |
+| `DELIMITER //`                                   | Cambia el delimitador temporal para poder usar `;` dentro del cuerpo. |
+| `CREATE PROCEDURE nombre`                        | Declara el procedimiento.                                             |
+| `IN`, `OUT`, `INOUT`                             | Especifica la dirección del parámetro:                                |
+|  `IN` → se pasa al procedimiento (solo lectura). |                                                                       |
+|  `OUT` → se devuelve como salida.                |                                                                       |
+|  `INOUT` → se pasa y puede ser modificado.       |                                                                       |
+| `BEGIN ... END`                                  | Define el bloque de instrucciones.                                    |
+| `DECLARE`                                        | Declara variables locales si las necesitas.                           |
+| `DELIMITER ;`                                    | Restablece el delimitador normal.                                     |
+
+
+<span class="mis_ejemplos">Ejemplo 7: trabajar con procedimientos</span>
+
+El siguiente ejemplo devuelve un listado con las plantas y cantidades que hay en un jardín determinado.
+
+```sql
+DELIMITER //
+
+DROP PROCEDURE IF EXISTS sp_listar_plantas_por_jardin//
+
+CREATE PROCEDURE sp_listar_plantas_por_jardin(IN p_id_jardin INT)
+BEGIN
+  SELECT j.nombre AS jardin,
+         p.nombre_comun AS planta,
+         jp.cantidad
+  FROM jardines_plantas jp
+  JOIN jardines j ON jp.id_jardin = j.id_jardin
+  JOIN plantas p ON jp.id_planta = p.id_planta
+  WHERE j.id_jardin = p_id_jardin;
+END
+//
+DELIMITER ;
+```
+
+La llamada a este procedimiento desde dentro de la propia BD sería
+```sql
+CALL sp_listar_plantas_por_jardin(1);
+```
+y el resultado
+![Imagen 7](img/BD/7_proc.jpg)
+
+
