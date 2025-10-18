@@ -717,14 +717,14 @@ Se usan para:
 
 
 !!!Note ""
-**SQLite** no soporta funciones ni procedimientos almacenados como lo hacen otros SGBD, por eso a partir de aquí seguiremos trabajando en MySQL.
+    **SQLite** no soporta funciones ni procedimientos almacenados como lo hacen otros SGBD, por eso a partir de aquí seguiremos trabajando en MySQL.
 
 
 !!! warning "Práctica 6: Servidor MySQL"
-1. Monta tu servidor virtual siguiendo los pasos del documento [AWS Learner Lab](AWSlab.html).
-2. Replica tu base de datos `SQLite` en `MySQL` dentro del servidor que acabas de crear. Puedes utilizar la herramienta [DBeaver](dbeaver.html) para crear las tablas e insertar los registros en ellas.
-3. Añade a tu proyecto las líneas necesarias para conectar a tu nueva BD MySQL.
-4. Comprueba que tu aplicación sigue funcionando correctamente y que ahora los datos se están modificando en la BD `MySQL` y no en la `SQLite`.
+    1. Monta tu servidor virtual siguiendo los pasos del documento [AWS Learner Lab](AWSlab.html).
+    2. Replica tu base de datos `SQLite` en `MySQL` dentro del servidor que acabas de crear. Puedes utilizar la herramienta [DBeaver](dbeaver.html) para crear las tablas e insertar los registros en ellas.
+    3. Añade a tu proyecto las líneas necesarias para conectar a tu nueva BD MySQL.
+    4. Comprueba que tu aplicación sigue funcionando correctamente y que ahora los datos se están modificando en la BD `MySQL` y no en la `SQLite`.
 
 
 <span class="mi_h3">Funciones</span>
@@ -800,11 +800,13 @@ La llamada a esta función desde dentro de la propia BD sería
 ```sql
 SELECT fn_total_valor_planta(3);
 ```
+
 y el resultado
+
 ![Imagen 6](img/BD/6_fun.jpg)
 
 !!! success "Prueba y analiza el ejemplo 6"
-Prueba el código de ejemplo y verifica que funciona correctamente.
+    Prueba el código de ejemplo y verifica que funciona correctamente.
 
 
 <span class="mi_h3">Procedimientos</span>
@@ -875,16 +877,17 @@ La llamada a este procedimiento desde dentro de la propia BD sería
 ```sql
 CALL sp_listar_plantas_por_jardin(1);
 ```
+
 y el resultado
+
 ![Imagen 7](img/BD/7_proc.jpg)
 
 
 !!! success "Prueba y analiza el ejemplo 7"
-Prueba el código de ejemplo y verifica que funciona correctamente.
+    Prueba el código de ejemplo y verifica que funciona correctamente.
 
 
-
-
+<span class="mi_h3">Trabajar con funciones y procedimientos desde Kotlin</span>
 
 Una vez que las funciones o procedimientos están creados en la base de datos, se pueden **utilizar perfectamente desde Kotlin** a través de **JDBC**, igual que se hace con cualquier consulta SQL:
 
