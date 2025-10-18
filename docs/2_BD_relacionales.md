@@ -716,33 +716,22 @@ Se usan para:
 - Mantener la integridad de datos
 
 
-**Diferencia entre Funciones y Procedimientos**
-
-Una **función** está diseñada para **calcular y devolver un resultado**. Se puede usar directamente dentro de una consulta SQL como parte de un SELECT, WHERE, ORDER BY, etc. Las funciones siempre devuelven un valor, que puede ser escalar (un número, texto...), una fila o una tabla.
-
-Un **procedimiento** sirve para **ejecutar acciones** dentro de la base de datos, como insertar registros, modificar datos o gestionar operaciones en bloque. **No devuelve un valor directamente** (aunque puede usar parámetros de salida).
-
-Una vez que las funciones o procedimientos están creados en la base de datos, se pueden **utilizar perfectamente desde Kotlin** a través de **JDBC**, igual que se hace con cualquier consulta SQL:
-
-- Las funciones se invocan con **SELECT nombre_funcion(...)**
-- Los procedimientos se llaman con **CALL nombre_procedimiento(...)**
-
-Y desde Kotlin, se gestionan mediante objetos como **PreparedStatement** y **CallableStatement**.
-
-
 !!!Note ""
-    **SQLite** no soporta funciones ni procedimientos almacenados como lo hacen otros SGBD, por eso a partir de aquí seguiremos trabajando en MySQL.
+**SQLite** no soporta funciones ni procedimientos almacenados como lo hacen otros SGBD, por eso a partir de aquí seguiremos trabajando en MySQL.
 
 
 !!! warning "Práctica 6: Servidor MySQL"
-    1. Monta tu servidor virtual siguiendo los pasos del documento [AWS Learner Lab](AWSlab.html).
-    2. Replica tu base de datos `.sqlite` en el servidor MySQL, puedes utilizar la herramienta [DBeaver](dbeaver.html) para crear las tablas e insertar los registros en ellas.
-    3. Añade a tu proyecto las líneas necesarias para conectar a tu nueva BD MySQL. 
+1. Monta tu servidor virtual siguiendo los pasos del documento [AWS Learner Lab](AWSlab.html).
+2. Replica tu base de datos `SQLite` en `MySQL` dentro del servidor que acabas de crear. Puedes utilizar la herramienta [DBeaver](dbeaver.html) para crear las tablas e insertar los registros en ellas.
+3. Añade a tu proyecto las líneas necesarias para conectar a tu nueva BD MySQL.
+4. Comprueba que tu aplicación sigue funcionando correctamente y que ahora los datos se están modificando en la BD `MySQL` y no en la `SQLite`.
 
 
+<span class="mi_h3">Funciones</span>
 
-<span class="mi_h3">Sintaxis general para funciones en MySQL</span>
+Una **función** está diseñada para **calcular y devolver un resultado**. Se puede usar directamente dentro de una consulta SQL como parte de un SELECT, WHERE, ORDER BY, etc. Las funciones siempre devuelven un valor, que puede ser escalar (un número, texto...), una fila o una tabla.
 
+La sintaxis general para crear una función en MySQL es la siguiente:
 
 ```sql
 DELIMITER //
@@ -776,7 +765,6 @@ DELIMITER ;
 | `DECLARE`                        | Declara variables locales (opcional).                                            |
 | `RETURN`                         | Devuelve un único valor.                                                         |
 | `DELIMITER ;`                    | Restablece el delimitador habitual.                                              |
-
 
 
 <span class="mis_ejemplos">Ejemplo 6: trabajar con funciones</span>
@@ -815,9 +803,15 @@ SELECT fn_total_valor_planta(3);
 y el resultado
 ![Imagen 6](img/BD/6_fun.jpg)
 
+!!! success "Prueba y analiza el ejemplo 6"
+Prueba el código de ejemplo y verifica que funciona correctamente.
 
 
-<span class="mi_h3">Sintaxis general para procedimientos en MySQL</span>
+<span class="mi_h3">Procedimientos</span>
+
+Un **procedimiento** sirve para **ejecutar acciones** dentro de la base de datos, como insertar registros, modificar datos o gestionar operaciones en bloque. **No devuelve un valor directamente** (aunque puede usar parámetros de salida).
+
+La sintaxis general para crear un procedimiento en MySQL es la siguiente:
 
 ```sql
 DELIMITER //
@@ -884,4 +878,18 @@ CALL sp_listar_plantas_por_jardin(1);
 y el resultado
 ![Imagen 7](img/BD/7_proc.jpg)
 
+
+!!! success "Prueba y analiza el ejemplo 7"
+Prueba el código de ejemplo y verifica que funciona correctamente.
+
+
+
+
+
+Una vez que las funciones o procedimientos están creados en la base de datos, se pueden **utilizar perfectamente desde Kotlin** a través de **JDBC**, igual que se hace con cualquier consulta SQL:
+
+- Las funciones se invocan con **SELECT nombre_funcion(...)**
+- Los procedimientos se llaman con **CALL nombre_procedimiento(...)**
+
+Y desde Kotlin, se gestionan mediante objetos como **PreparedStatement** y **CallableStatement**.
 
