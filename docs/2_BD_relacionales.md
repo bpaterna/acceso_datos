@@ -694,11 +694,8 @@ Si no se produce ningún error se hará el `commit` y en caso contrario el `roll
 
 !!! danger "Entrega"
     Entrega en Aules la carpeta main de tu proyecto comprimida en formato .zip
-
-    ![Imagen 5](img/BD/5_entrega.png)
-
+    
     **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
-
 
 
 
@@ -767,48 +764,6 @@ DELIMITER ;
 | `DELIMITER ;`                    | Restablece el delimitador habitual.                                              |
 
 
-<span class="mis_ejemplos">Ejemplo 6: trabajar con funciones</span>
-
-El siguiente ejemplo crear una función que devuelve el valor total del stock de una planta (stock × precio).
-
-```sql
-DELIMITER //
-
-DROP FUNCTION IF EXISTS fn_total_valor_planta//
-
-CREATE FUNCTION fn_total_valor_planta(p_id_planta INT)
-  RETURNS DOUBLE
-  DETERMINISTIC
-BEGIN
-  DECLARE total DOUBLE;
-
-  SET total = (
-    SELECT stock * precio 
-    FROM plantas
-    WHERE id_planta = p_id_planta);
-
-  RETURN total;
-
-END
-//
-
-DELIMITER ;
-```
-
-
-La llamada a esta función desde dentro de la propia BD sería
-```sql
-SELECT fn_total_valor_planta(3);
-```
-
-y el resultado
-
-![Imagen 6](img/BD/6_fun.jpg)
-
-!!! success "Prueba y analiza el ejemplo 6"
-    Prueba el código de ejemplo y verifica que funciona correctamente.
-
-
 <span class="mi_h3">Procedimientos</span>
 
 Un **procedimiento** sirve para **ejecutar acciones** dentro de la base de datos, como insertar registros, modificar datos o gestionar operaciones en bloque. **No devuelve un valor directamente** (aunque puede usar parámetros de salida).
@@ -850,11 +805,41 @@ DELIMITER ;
 | `DELIMITER ;`                                    | Restablece el delimitador normal.                                     |
 
 
-<span class="mis_ejemplos">Ejemplo 7: trabajar con procedimientos</span>
+<span class="mis_ejemplos">Ejemplo 6: trabajar con funciones y procedimientos</span>
 
-El siguiente ejemplo devuelve un listado con las plantas y cantidades que hay en un jardín determinado.
+El siguiente ejemplo crear una función que devuelve el valor total del stock de una planta (stock × precio) y un procedimiento que devuelve un listado con las plantas y cantidades que hay en un jardín determinado.
 
 ```sql
+-- 
+-- función
+--
+
+DELIMITER //
+
+DROP FUNCTION IF EXISTS fn_total_valor_planta//
+
+CREATE FUNCTION fn_total_valor_planta(p_id_planta INT)
+  RETURNS DOUBLE
+  DETERMINISTIC
+BEGIN
+  DECLARE total DOUBLE;
+
+  SET total = (
+    SELECT stock * precio 
+    FROM plantas
+    WHERE id_planta = p_id_planta);
+
+  RETURN total;
+
+END
+//
+
+DELIMITER ;
+
+-- 
+-- procedimiento
+--
+
 DELIMITER //
 
 DROP PROCEDURE IF EXISTS sp_listar_plantas_por_jardin//
@@ -873,18 +858,32 @@ END
 DELIMITER ;
 ```
 
-La llamada a este procedimiento desde dentro de la propia BD sería
+Para que la fución o procedimiento se almacenen en la BD hay que ejecutar el código anterior como un script SQL. El resultado será el siguiente: 
+
+![Imagen 8](img/BD/8_fun_proc.jpg)
+
+
+
+La llamada (y resultado) a la función desde dentro de la propia BD sería:
+```sql
+SELECT fn_total_valor_planta(3);
+```
+
+![Imagen 6](img/BD/6_fun.jpg)
+
+
+La llamada (y el resultado) al procedimiento desde dentro de la propia BD sería
 ```sql
 CALL sp_listar_plantas_por_jardin(1);
 ```
 
-y el resultado
-
 ![Imagen 7](img/BD/7_proc.jpg)
 
 
-!!! success "Prueba y analiza el ejemplo 7"
+!!! success "Prueba y analiza el ejemplo anterior"
     Prueba el código de ejemplo y verifica que funciona correctamente.
+
+
 
 
 <span class="mi_h3">Trabajar con funciones y procedimientos desde Kotlin</span>
