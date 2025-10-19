@@ -148,8 +148,8 @@ También dependiendo del SGBD será necesario utilizar la dependencia adecuada e
 
 ```
 dependencies {
-    implementation("org.postgresql:postgresql:42.7.1") //Postgres
-    implementation("mysql:mysql-connector-java:8.3.0") //MySQL
+    implementation("org.postgresql:postgresql:42.7.1") //Postgres 
+    implementation("com.mysql:mysql-connector-j:8.3.0") //MySQL
     implementation("org.xerial:sqlite-jdbc:3.43.0.0") //SQLite
 }
 ```
@@ -559,9 +559,9 @@ fun main() {
 !!! warning "Práctica 4: Trabaja con tu base de datos" 
     1. Añade a tu proyecto un objetos de acceso a datos (DAO) para manejar las diferentes operaciones CRUD de la primera tabla de tu BD.
     2. Utiliza .use en todas tus operaciones para asegurarte de que se cierran correctamente todos los recursos.
-    3. Añade llamadas desde tu función **main** a todas las operaciones CRUD que acabas de crear (pide la información por consola para las funciones que requieran el paso de información como parámetro) y comprueba que todas funcionan correctamente.
-    4. Añade otras dos tablas a tu BD y sus correspondientes DAO a tu proyecto. Después realiza llamadas a las funciones que acabas de crear desde **main**.
-
+    3. Añade a tu proyecto un menú en tu función **main** para llamar a todas las operaciones CRUD que acabas de crear (pide la información por consola para las funciones que requieran el paso de información como parámetro) y comprueba que todas funcionan correctamente.
+    4. Añade otras dos tablas a tu BD y sus correspondientes DAO a tu proyecto.
+    5. Amplía el menú para poder gestionar los datos de todas las tablas.
 
 
 ## 2.5. Transacciones y excepciones
@@ -692,8 +692,8 @@ Si no se produce ningún error se hará el `commit` y en caso contrario el `roll
     Incluye transacciones y control de errores mediante la captura de excepciones.
 
 
-!!! danger "Entrega"
-    Entrega en Aules la carpeta main de tu proyecto comprimida en formato .zip
+!!! danger "Entrega 1"
+    Entrega en Aules la carpeta `main` de tu proyecto comprimida en formato .zip
     
     **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
 
@@ -805,7 +805,7 @@ DELIMITER ;
 | `DELIMITER ;`                                    | Restablece el delimitador normal.                                     |
 
 
-<span class="mis_ejemplos">Ejemplo 6: trabajar con funciones y procedimientos</span>
+<span class="mis_ejemplos">Ejemplo 6: Trabajar con funciones y procedimientos</span>
 
 El siguiente ejemplo crear una función que devuelve el valor total del stock de una planta (stock × precio) y un procedimiento que devuelve un listado con las plantas y cantidades que hay en un jardín determinado.
 
@@ -855,6 +855,7 @@ BEGIN
   WHERE j.id_jardin = p_id_jardin;
 END
 //
+
 DELIMITER ;
 ```
 
@@ -885,7 +886,6 @@ CALL sp_listar_plantas_por_jardin(1);
 
 
 
-
 <span class="mi_h3">Trabajar con funciones y procedimientos desde Kotlin</span>
 
 Una vez que las funciones o procedimientos están creados en la base de datos, se pueden **utilizar perfectamente desde Kotlin** a través de **JDBC**, igual que se hace con cualquier consulta SQL:
@@ -895,3 +895,30 @@ Una vez que las funciones o procedimientos están creados en la base de datos, s
 
 Y desde Kotlin, se gestionan mediante objetos como **PreparedStatement** y **CallableStatement**.
 
+```kotlin
+fun llamar_fn_total_valor_planta(id: Int){
+conectarBD()?.use { conn ->
+val sql = "SELECT fn_total_valor_planta(?)"
+
+        conn.prepareStatement(sql).use { stmt ->
+            stmt.setInt(1, id)
+            stmt.executeQuery().use { rs ->
+                if (rs.next()) {
+                    val resultado = rs.getInt(1)
+                    println("El valor es: $resultado")
+                }
+            }
+        }
+    }
+}
+```kotlin
+
+
+
+
+
+
+!!! danger "Entrega 2"
+Entrega en Aules la carpeta `main` de tu proyecto comprimida en formato .zip
+
+    **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
