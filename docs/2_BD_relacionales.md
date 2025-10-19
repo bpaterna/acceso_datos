@@ -720,13 +720,14 @@ Se usan para:
 !!! warning "Práctica 6: Servidor MySQL"
     1. Monta tu servidor virtual siguiendo los pasos del documento [AWS Learner Lab](AWSlab.html).
     2. Replica tu base de datos `SQLite` en `MySQL` dentro del servidor que acabas de crear. Puedes utilizar la herramienta [DBeaver](dbeaver.html) para crear las tablas e insertar los registros en ellas.
-    3. Añade a tu proyecto las líneas necesarias para conectar a tu nueva BD MySQL.
-    4. Comprueba que tu aplicación sigue funcionando correctamente y que ahora los datos se están modificando en la BD `MySQL` y no en la `SQLite`.
+    3. Haz una copia de tu proyecto y elimina todo lo relacionado con SQLite (incluido el archivo .sqlite).
+    4. Añade las líneas necesarias para conectar a tu BD MySQL.
+    5. Comprueba que la aplicación se está conectando a MySQL correctamente y que todas las opciones del menú siguen funcionando bien.
 
 
 <span class="mi_h3">Funciones</span>
 
-Una **función** está diseñada para **calcular y devolver un resultado**. Se puede usar directamente dentro de una consulta SQL como parte de un SELECT, WHERE, ORDER BY, etc. Las funciones siempre devuelven un valor, que puede ser escalar (un número, texto...), una fila o una tabla.
+Una **función** está diseñada para **calcular y devolver un resultado**. Se puede usar directamente dentro de una consulta SQL como parte de un SELECT, WHERE, ORDER BY, etc. Las funciones siempre devuelven un valor.
 
 La sintaxis general para crear una función en MySQL es la siguiente:
 
@@ -764,9 +765,60 @@ DELIMITER ;
 | `DELIMITER ;`                    | Restablece el delimitador habitual.                                              |
 
 
+
+<span class="mis_ejemplos">Ejemplo 6: Trabajar con funciones</span>
+
+El siguiente ejemplo crea una función que devuelve el valor total del stock de una planta (stock × precio).
+
+```sql
+-- 
+-- función
+--
+
+DELIMITER //
+
+DROP FUNCTION IF EXISTS fn_total_valor_planta;
+//
+
+CREATE FUNCTION fn_total_valor_planta(p_id_planta INT)
+  RETURNS DOUBLE
+  DETERMINISTIC
+BEGIN
+  DECLARE total DOUBLE;
+
+  SET total = (
+    SELECT stock * precio 
+    FROM plantas
+    WHERE id_planta = p_id_planta);
+
+  RETURN total;
+
+END;
+//
+
+DELIMITER ;
+```
+
+Para que la función se guarde en la BD hay que ejecutar el código anterior como un script SQL. El resultado será el siguiente:
+
+![Imagen 9](img/BD/9_fun2.jpg)
+
+Una vez guardada, la podemos llamar desde dentro de la propia BD ejecutando el script SQL siguiente:
+```sql
+SELECT fn_total_valor_planta(3);
+```
+
+En este caso el resultado de la ejecución es el que se muestra en la siguiente imagen:
+
+![Imagen 6](img/BD/6_fun.jpg)
+
+
+!!! success "Prueba y analiza el ejemplo 6"
+    Prueba el código de ejemplo y verifica que funciona correctamente.
+
 <span class="mi_h3">Procedimientos</span>
 
-Un **procedimiento** sirve para **ejecutar acciones** dentro de la base de datos, como insertar registros, modificar datos o gestionar operaciones en bloque. **No devuelve un valor directamente** (aunque puede usar parámetros de salida).
+Un **procedimiento** sirve para **ejecutar acciones** dentro de la base de datos, como insertar registros, modificar datos o gestionar operaciones en bloque.
 
 La sintaxis general para crear un procedimiento en MySQL es la siguiente:
 
@@ -805,42 +857,11 @@ DELIMITER ;
 | `DELIMITER ;`                                    | Restablece el delimitador normal.                                     |
 
 
-<span class="mis_ejemplos">Ejemplo 6: Trabajar con funciones y procedimientos</span>
+<span class="mis_ejemplos">Ejemplo 7: Trabajar con procedimientos</span>
 
-El siguiente ejemplo crear una función que devuelve el valor total del stock de una planta (stock × precio) y un procedimiento que devuelve un listado con las plantas y cantidades que hay en un jardín determinado.
+El siguiente ejemplo crea un procedimiento que devuelve un listado con las plantas y cantidades que hay en un jardín determinado.
 
 ```sql
--- 
--- función
---
-
-DELIMITER //
-
-DROP FUNCTION IF EXISTS fn_total_valor_planta;
-//
-
-CREATE FUNCTION fn_total_valor_planta(p_id_planta INT)
-  RETURNS DOUBLE
-  DETERMINISTIC
-BEGIN
-  DECLARE total DOUBLE;
-
-  SET total = (
-    SELECT stock * precio 
-    FROM plantas
-    WHERE id_planta = p_id_planta);
-
-  RETURN total;
-
-END;
-//
-
-DELIMITER ;
-
--- 
--- procedimiento
---
-
 DELIMITER //
 
 DROP PROCEDURE IF EXISTS sp_listar_plantas_por_jardin;
@@ -861,41 +882,41 @@ END;
 DELIMITER ;
 ```
 
-Para que la función o procedimiento se almacenen en la BD hay que ejecutar el código anterior como un script SQL. El resultado será el siguiente: 
+
+Al igual que en las funciones, para que un procedimiento se guarde en la BD hay que ejecutar el código anterior como un script SQL. El resultado será el siguiente: 
 
 ![Imagen 8](img/BD/8_fun_proc.jpg)
 
-
-
-La llamada (y el resultado) a la función desde dentro de la propia BD sería:
-```sql
-SELECT fn_total_valor_planta(3);
-```
-
-![Imagen 6](img/BD/6_fun.jpg)
-
-
-La llamada (y el resultado) al procedimiento desde dentro de la propia BD sería
+Una vez guardado, lo podemos llamar desde dentro de la propia BD ejecutando el script SQL siguiente:
 ```sql
 CALL sp_listar_plantas_por_jardin(1);
 ```
 
+En este caso el resultado de la ejecución es el que se muestra en la siguiente imagen:
+
 ![Imagen 7](img/BD/7_proc.jpg)
 
 
-!!! success "Prueba y analiza el ejemplo anterior"
+!!! success "Prueba y analiza el ejemplo 7"
     Prueba el código de ejemplo y verifica que funciona correctamente.
 
 
+!!! warning "Práctica 7: Funciones y procedimientos"
+    1. Crea al menos dos funciones en tu base de datos y comprueba que se ejecutan correctamente desde dentro de ella.
+    2. Crea al menos dos procedimientos, uno que devuelva información resultanete de realizar una consulta entre todas las tablas que hay en tu BD y otro que inserte información de una de las tablas.
 
 <span class="mi_h3">Trabajar con funciones y procedimientos desde Kotlin</span>
 
-Una vez que las funciones o procedimientos están creados en la base de datos, se pueden **utilizar perfectamente desde Kotlin** a través de **JDBC**, igual que se hace con cualquier consulta SQL:
+Una vez que las funciones o procedimientos están creados en la base de datos, se pueden utilizar perfectamente desde Kotlin a través de JDBC, igual que se hace con cualquier consulta SQL:
 
-- Las funciones se invocan con **SELECT nombre_funcion(...)**
-- Los procedimientos se llaman con **CALL nombre_procedimiento(...)**
+- Las funciones se invocan con `SELECT nombre_funcion(...)`
+- Los procedimientos se llaman con `CALL nombre_procedimiento(...)`
 
-Y desde Kotlin, se gestionan mediante objetos como **PreparedStatement** y **CallableStatement**.
+Y desde Kotlin, se gestionan mediante objetos como `PreparedStatement` y `CallableStatement`.
+
+<span class="mis_ejemplos">Ejemplo 8: Llamada a funciones y procedimientos desde Kotlin</span>
+
+A continuación se muestra La llamada desde Kotlin a la función y el procedimiento de los ejemplos anteriores:
 
 ```kotlin
 fun llamar_fn_total_valor_planta(id: Int){
@@ -921,7 +942,7 @@ fun llamar_sp_listar_plantas_por_jardin(id: Int){
         conn.prepareCall(sqlProcedimiento).use { call ->
             call.setInt(1, 1) // id_jardin = 1
             call.executeQuery().use { rs ->
-                println("\n🌳 Plantas del jardín 1:")
+                println("\n Plantas del jardín :$id")
                 while (rs.next()) {
                     val planta = rs.getString("planta")
                     val cantidad = rs.getInt("cantidad")
@@ -933,8 +954,16 @@ fun llamar_sp_listar_plantas_por_jardin(id: Int){
 }
 ```
 
+!!! success "Prueba y analiza el ejemplo 8"
+    Prueba el código de ejemplo y verifica que funciona correctamente.
+
+!!! warning "Práctica 8: Añade las llamadas a las funciones y procedimientos"
+    1. Añade a tu proyecto el código necesario para llamar a las funciones y procedimientos de tu BD.
+    2. Añade al menú las opciones necesarias para que el programa quede completo.
+
+
 
 !!! danger "Entrega 2"
-Entrega en Aules la carpeta `main` de tu proyecto comprimida en formato .zip
+    Entrega en Aules la carpeta `main` de tu proyecto comprimida en formato .zip
 
     **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
