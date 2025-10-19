@@ -950,6 +950,6 @@ fun llamar_sp_listar_plantas_por_jardin(id: Int){
 
 
 !!! danger "Entrega 2"
-    Entrega en Aules la carpeta `main` de tu proyecto comprimida en formato .zip
+    Entrega en Aules la carpeta `main/kotlin` de tu proyecto comprimida en formato .zip
 
     **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
