@@ -816,7 +816,8 @@ El siguiente ejemplo crear una función que devuelve el valor total del stock de
 
 DELIMITER //
 
-DROP FUNCTION IF EXISTS fn_total_valor_planta//
+DROP FUNCTION IF EXISTS fn_total_valor_planta;
+//
 
 CREATE FUNCTION fn_total_valor_planta(p_id_planta INT)
   RETURNS DOUBLE
@@ -831,7 +832,7 @@ BEGIN
 
   RETURN total;
 
-END
+END;
 //
 
 DELIMITER ;
@@ -842,7 +843,8 @@ DELIMITER ;
 
 DELIMITER //
 
-DROP PROCEDURE IF EXISTS sp_listar_plantas_por_jardin//
+DROP PROCEDURE IF EXISTS sp_listar_plantas_por_jardin;
+//
 
 CREATE PROCEDURE sp_listar_plantas_por_jardin(IN p_id_jardin INT)
 BEGIN
@@ -853,7 +855,7 @@ BEGIN
   JOIN jardines j ON jp.id_jardin = j.id_jardin
   JOIN plantas p ON jp.id_planta = p.id_planta
   WHERE j.id_jardin = p_id_jardin;
-END
+END;
 //
 
 DELIMITER ;
@@ -911,11 +913,26 @@ val sql = "SELECT fn_total_valor_planta(?)"
         }
     }
 }
+```
+
 ```kotlin
-
-
-
-
+fun llamar_sp_listar_plantas_por_jardin(id: Int){
+    conectarBD()?.use { conn ->
+        val sqlProcedimiento = "{CALL sp_listar_plantas_por_jardin(?)}"
+        conn.prepareCall(sqlProcedimiento).use { call ->
+            call.setInt(1, 1) // id_jardin = 1
+            call.executeQuery().use { rs ->
+                println("\n🌳 Plantas del jardín 1:")
+                while (rs.next()) {
+                    val planta = rs.getString("planta")
+                    val cantidad = rs.getInt("cantidad")
+                    println(" - $planta (Cantidad: $cantidad)")
+                }
+            }
+        }
+    }
+}
+```
 
 
 !!! danger "Entrega 2"
