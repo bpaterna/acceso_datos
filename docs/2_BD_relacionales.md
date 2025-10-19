@@ -861,13 +861,13 @@ END;
 DELIMITER ;
 ```
 
-Para que la fución o procedimiento se almacenen en la BD hay que ejecutar el código anterior como un script SQL. El resultado será el siguiente: 
+Para que la función o procedimiento se almacenen en la BD hay que ejecutar el código anterior como un script SQL. El resultado será el siguiente: 
 
 ![Imagen 8](img/BD/8_fun_proc.jpg)
 
 
 
-La llamada (y resultado) a la función desde dentro de la propia BD sería:
+La llamada (y el resultado) a la función desde dentro de la propia BD sería:
 ```sql
 SELECT fn_total_valor_planta(3);
 ```
