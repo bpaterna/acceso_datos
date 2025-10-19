@@ -77,25 +77,23 @@ Para conectar a una base de datos *MySQL* sigue estos pasos:
 
 1. Haz clic en el botón `Nueva conexión` (ícono de enchufe) o entra al menú `Archivo > Nueva conexión`
 
-![Imagen 2](img/dbeaver/dbeaver02.png)
+    ![Imagen 2](img/dbeaver/dbeaver02.png)
 
 2. Selecciona `MySQL` y pulsa en el botón `Siguiente`
 
-![Imagen 8](img/dbeaver/dbeaver08.jpg)
+    ![Imagen 8](img/dbeaver/dbeaver08.jpg)
 
 3. Indica los datos del `servidor`, `usuario` y `contraseña`. Si quieres ver todas las bases de datos a las que el usuario puede acceder deja marcada la casilla `Show all database`y no indiques nada en la casilla `database` 
 
-![Imagen 9](img/dbeaver/dbeaver09.jpg)
-
+    ![Imagen 9](img/dbeaver/dbeaver09.jpg)
 
     !!!Note ""
         Si aparece `Error "Public Key Retrieval is not allowed"` haz clic con el botón derecho en tu conexión y selecciona `Editar conexión` luego ve a la pestaña `Driver Properties` y cambia la propiedad `allowPublicKeyRetrieval` a `TRUE` (por defecto está a `false`). Luego haz clic en el botón `Aceptar`.
         ![Imagen 10](img/dbeaver/dbeaver10.jpg)
 
-
 4. Una vez conectado, verás las bases de datos del servidor
 
-![Imagen 11](img/dbeaver/dbeaver11.jpg)
+    ![Imagen 11](img/dbeaver/dbeaver11.jpg)
 
 
 
