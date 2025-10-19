@@ -844,9 +844,7 @@ fun llamar_fn_total_valor_planta(id: Int){
 
 <span class="mi_h3">Procedimientos</span>
 
-Un **procedimiento** sirve para **ejecutar acciones** dentro de la base de datos, como insertar registros, modificar datos o gestionar operaciones en bloque.
-
-La sintaxis general para crear un procedimiento en MySQL es la siguiente:
+Un **procedimiento** sirve para **ejecutar acciones** dentro de la base de datos, como insertar registros, modificar datos o gestionar operaciones en bloque. La sintaxis general para crear un procedimiento en MySQL es la siguiente:
 
 ```sql
 DELIMITER //
