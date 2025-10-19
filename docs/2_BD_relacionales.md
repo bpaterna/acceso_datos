@@ -899,9 +899,8 @@ Y desde Kotlin, se gestionan mediante objetos como **PreparedStatement** y **Cal
 
 ```kotlin
 fun llamar_fn_total_valor_planta(id: Int){
-conectarBD()?.use { conn ->
-val sql = "SELECT fn_total_valor_planta(?)"
-
+    conectarBD()?.use { conn ->
+        val sql = "SELECT fn_total_valor_planta(?)"
         conn.prepareStatement(sql).use { stmt ->
             stmt.setInt(1, id)
             stmt.executeQuery().use { rs ->
