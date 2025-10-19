@@ -12,24 +12,30 @@
 A continuación se describen los pasos para acceder al laboratorio de aprendizaje de AWS Academy.
 
 1. Habrás recibido un correo electrónico de invitación, haz clic en el enlace y crea tu cuenta. Una vez completado el registro se abrirá el curso automaticamente. Haz clic en `Contenidos` y luego en el enlace `Lanzamiento del laboratorio` como se muestra en la siguiente imagen (la primera vez que entres deberás aceptar los términos de uso)
+
     ![Imagen 1](img/AWS/imagen_001.jpg)
 
     !!!Note ""
         Si te aparece el siguiente mensaje: *"This assignment is locked till you access it through your respective LMS once, please use your LMS to access/unlock this assignment"* vuelve a hacer clic en *Contenidos* y en el enlace *Lanzamiento del laboratorio*
 
     Para entrar al curso en el futuro hazlo desde: [https://www.awsacademy.com/vforcesite/LMS_Login](https://www.awsacademy.com/vforcesite/LMS_Login)
+
     ![Imagen 00](img/AWS/imagen_00r.jpg)
 
     Luego haz clic en el nombre del curso
+
     ![Imagen 000](img/AWS/imagen_000.jpg)
     Una vez dentro, haz clic en `Contenidos` y luego en el enlace `Lanzamiento del laboratorio` como hiciste la primera vez
+
     ![Imagen 1](img/AWS/imagen_001.jpg)
 
     
 2. Cuando aparezca la pantalla con el laboratorio, haz clic en el botón `Start Lab` (verás que el círculo junto al enlace `AWS` cambia de color rojo a amarillo y permanece de ese color mientras arranca el laboratorio)
+
     ![Imagen 2](img/AWS/imagen_002.jpg)
 
 3. Cuando el laboratorio haya arrancado, el círculo cambiará a color verde. Entonces haz clic en el enlace `AWS` para acceder a la `Página de inicio de la Consola` (puedes ver que la región es *North Virginia (us-east-1)* que es la región por defecto de los laboratorios de aprendizaje) y después haz clic en `EC2` para acceder a la consola de instancias EC2
+
     ![Imagen 4](img/AWS/imagen_004b.jpg)
 
 
@@ -38,24 +44,30 @@ A continuación se describen los pasos para acceder al laboratorio de aprendizaj
 A continuación se describen los pasos para crear un servidor Ubuntu en un laboratorio de aprendizaje de AWS Academy.
 
 1. Haz clic en el botón `Lanzar la instancia`
+
     ![Imagen 6](img/AWS/imagen_006.jpg)
 
 2. Escribe el nombre de la instancia y elige una `Amazon Machine Image (AMI)` en este caso Ubuntu (al seleccionar ubuntu nos aparece la Ubuntu Server 24.04 LTS que es apta para utilizar de forma gratuita)
+
     ![Imagen 7](img/AWS/imagen_007.jpg)
 
     Más abajo aparece el tipo de instancia
+
     ![Imagen 8](img/AWS/imagen_008.jpg)
 
 3. Crea un par de claves
+
     ![Imagen 9](img/AWS/imagen_009.jpg)
     ![Imagen 10](img/AWS/imagen_010r.jpg)
 
     <span class="mis_avisos">**Muy importante:** Verás que el navegador descarga el fichero .pem de tu clave automáticamente. Guárdalo en lugar seguro porque te hará falta para conectar a tu servidor por SSH.</span>
 
 4. Deja el resto de opciones como están y, en la parte derecha dentro del apartado `Resumen`, haz clic en el botón `Lanzar instancia`. Cuando la instancia termine de lanzarse aparecerá la siguiente imagen
+
     ![Imagen 12](img/AWS/imagen_012.jpg)
 
 5. Puedes hacer clic en el botón `Conectarse a la instancia` para ver las instrucciones de conexión al servidor, por ejemplo en la pestaña `Cliente SSH` aparece lo siguiente
+
     ![Imagen 13](img/AWS/imagen_013.jpg)
 
 6. Prueba la conexión. Para ello escribe en una ventana de comandos la instrucción siguiente
@@ -64,6 +76,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     ssh -i nombre_clave ubuntu@nombre_servidor
     ```
     Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye `nombre_clave` por el de tu archivo .pem y `nombre_servidor`el nombre de tu servidor. Si la conexión se ha establecido correctamente verás la siguiente información
+
     ![Imagen 14](img/AWS/imagen_014.jpg)
 
 
@@ -131,6 +144,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     - Añade la línea `bind-address = 0.0.0.0`
 
     El fichero de configuración debe quedar como se muestra en la siguiente imagen
+
     ![Imagen 18](img/AWS/imagen_018.jpg)
 
 
@@ -143,6 +157,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 3. Añade una regla en el servidor para permitir el tráfico entrante del puerto 3306. Para ello sigue estos pasos
 
     Haz clic en la pestaña `Seguridad` y luego en el enlace de `Grupos de seguridad`
+
     ![Imagen 28](img/AWS/imagen_028.jpg)
 
 
