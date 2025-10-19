@@ -86,20 +86,12 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     ```bash
     sudo apt update
     ```
+
 2. Instala el servidor MySQL y las dependencias necesarias
     ```bash
     sudo apt install mysql-server
     ```
 
-<!-- 
-3. Ejecuta el script de seguridad para establecer una contraseña de usuario root, eliminar usuarios anónimos y deshabilitar el inicio de sesión remoto del usuario root:
-    ```bash
-    sudo mysql_secure_installation
-    ```
-    ![Imagen 15](img/AWS/imagen_015.jpg)
-    ![Imagen 16](img/AWS/imagen_016.jpg)
-
--->
 3. Comprueba que el servicio de MySQL se esté ejecutando correctamente
     ```bash
     sudo systemctl status mysql
@@ -146,7 +138,6 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     El fichero de configuración debe quedar como se muestra en la siguiente imagen
 
     ![Imagen 18](img/AWS/imagen_018.jpg)
-
 
 2. Reinicia el servicio y comprueba que ha arrancado correctamente
     ```bash
@@ -199,4 +190,17 @@ tcp LISTEN 0 151 0.0.0.0:3306 0.0.0.0:*
 -->
 
 
+
+
+<!-- 
+
+de la instalación de MySQL
+3. Ejecuta el script de seguridad para establecer una contraseña de usuario root, eliminar usuarios anónimos y deshabilitar el inicio de sesión remoto del usuario root:
+    ```bash
+    sudo mysql_secure_installation
+    ```
+    ![Imagen 15](img/AWS/imagen_015.jpg)
+    ![Imagen 16](img/AWS/imagen_016.jpg)
+
+-->
 
