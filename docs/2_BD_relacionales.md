@@ -701,9 +701,9 @@ Si no se produce ningún error se hará el `commit` y en caso contrario el `roll
 
 ## 2.6. Funciones y procedimientos almacenados 
 
-Las funciones (FUNCTION) y los procedimientos (PROCEDURE) **no se crean desde el lenguaje Kotlin**, ya que son elementos propios del SGBD. Para definirlos, se utiliza **SQL** y se ejecutan **directamente sobre la base de datos** a través de un cliente SQL.
+Las funciones (FUNCTION) y los procedimientos (PROCEDURE) **no se crean desde el lenguaje Kotlin**, ya que son elementos propios del SGBD. Para definirlos, se utiliza SQL y se ejecutan **directamente sobre la base de datos** a través de un cliente SQL.
 
-Tanto **las funciones** como **los procedimientos almacenados** son bloques de código que se guardan en el servidor de la base de datos y que encapsulan una serie de instrucciones SQL.
+Tanto las funciones como los procedimientos almacenados son bloques de código que se guardan en el servidor de la base de datos y que encapsulan una serie de instrucciones SQL.
 
 Se usan para:
 
@@ -711,6 +711,15 @@ Se usan para:
 - Organizar mejor la lógica de negocio
 - Mejorar el rendimiento (menos tráfico entre app y BD)
 - Mantener la integridad de datos
+
+
+
+| Concepto          | Función                                | Procedimiento                          |
+| ----------------- | -------------------------------------- | -------------------------------------- |
+| Devuelve          | Un valor simple                        | Un conjunto de datos o varios valores  |
+| Llamada SQL       | `SELECT fn_total_valor_planta(3)`      | `CALL sp_listar_plantas_por_jardin(1)` |
+| Llamada en Kotlin | `SELECT fn...` con `PreparedStatement` | `CALL sp...` con `CallableStatement`   |
+| Uso típico        | Cálculos                               | Listados, inserciones, actualizaciones |
 
 
 !!!Note ""
@@ -765,16 +774,11 @@ DELIMITER ;
 | `DELIMITER ;`                    | Restablece el delimitador habitual.                                              |
 
 
-
 <span class="mis_ejemplos">Ejemplo 6: Trabajar con funciones</span>
 
 El siguiente ejemplo crea una función que devuelve el valor total del stock de una planta (stock × precio).
 
 ```sql
--- 
--- función
---
-
 DELIMITER //
 
 DROP FUNCTION IF EXISTS fn_total_valor_planta;
@@ -803,7 +807,7 @@ Para que la función se guarde en la BD hay que ejecutar el código anterior com
 
 ![Imagen 9](img/BD/9_fun2.jpg)
 
-Una vez guardada, la podemos llamar desde dentro de la propia BD ejecutando el script SQL siguiente:
+Una vez guardada, la podemos llamar desde dentro de la propia BD ejecutando el script SQL:
 ```sql
 SELECT fn_total_valor_planta(3);
 ```
@@ -812,9 +816,33 @@ En este caso el resultado de la ejecución es el que se muestra en la siguiente 
 
 ![Imagen 6](img/BD/6_fun.jpg)
 
+Una vez que las funciones están creados en la base de datos, se pueden utilizar perfectamente desde Kotlin a través de JDBC, igual que se hace con cualquier consulta SQL y se gestionan mediante objetos `PreparedStatement`. Las funciones se invocan con `SELECT nombre_funcion(...)`. A continuación se muestra el código necesario para realizar la llamada desde Kotlin:
+
+```kotlin
+fun llamar_fn_total_valor_planta(id: Int){
+    conectarBD()?.use { conn ->
+        val sql = "SELECT fn_total_valor_planta(?)"
+        conn.prepareStatement(sql).use { stmt ->
+            stmt.setInt(1, id)
+            stmt.executeQuery().use { rs ->
+                if (rs.next()) {
+                    val resultado = rs.getInt(1)
+                    println("El valor es: $resultado")
+                }
+            }
+        }
+    }
+}
+```
 
 !!! success "Prueba y analiza el ejemplo 6"
     Prueba el código de ejemplo y verifica que funciona correctamente.
+
+!!! warning "Práctica 7: Funciones y procedimientos"
+    1. Crea al menos dos funciones en tu base de datos y comprueba que se ejecutan correctamente desde dentro de ella.
+    2. Amplia el menú de tu proyecto y añade el código necesario para llamar a las funciones de tu BD.
+
+
 
 <span class="mi_h3">Procedimientos</span>
 
@@ -882,7 +910,6 @@ END;
 DELIMITER ;
 ```
 
-
 Al igual que en las funciones, para que un procedimiento se guarde en la BD hay que ejecutar el código anterior como un script SQL. El resultado será el siguiente: 
 
 ![Imagen 8](img/BD/8_fun_proc.jpg)
@@ -897,43 +924,7 @@ En este caso el resultado de la ejecución es el que se muestra en la siguiente 
 ![Imagen 7](img/BD/7_proc.jpg)
 
 
-!!! success "Prueba y analiza el ejemplo 7"
-    Prueba el código de ejemplo y verifica que funciona correctamente.
-
-
-!!! warning "Práctica 7: Funciones y procedimientos"
-    1. Crea al menos dos funciones en tu base de datos y comprueba que se ejecutan correctamente desde dentro de ella.
-    2. Crea al menos dos procedimientos, uno que devuelva información resultanete de realizar una consulta entre todas las tablas que hay en tu BD y otro que inserte información de una de las tablas.
-
-<span class="mi_h3">Trabajar con funciones y procedimientos desde Kotlin</span>
-
-Una vez que las funciones o procedimientos están creados en la base de datos, se pueden utilizar perfectamente desde Kotlin a través de JDBC, igual que se hace con cualquier consulta SQL:
-
-- Las funciones se invocan con `SELECT nombre_funcion(...)`
-- Los procedimientos se llaman con `CALL nombre_procedimiento(...)`
-
-Y desde Kotlin, se gestionan mediante objetos como `PreparedStatement` y `CallableStatement`.
-
-<span class="mis_ejemplos">Ejemplo 8: Llamada a funciones y procedimientos desde Kotlin</span>
-
-A continuación se muestra La llamada desde Kotlin a la función y el procedimiento de los ejemplos anteriores:
-
-```kotlin
-fun llamar_fn_total_valor_planta(id: Int){
-    conectarBD()?.use { conn ->
-        val sql = "SELECT fn_total_valor_planta(?)"
-        conn.prepareStatement(sql).use { stmt ->
-            stmt.setInt(1, id)
-            stmt.executeQuery().use { rs ->
-                if (rs.next()) {
-                    val resultado = rs.getInt(1)
-                    println("El valor es: $resultado")
-                }
-            }
-        }
-    }
-}
-```
+Una vez que los procedimientos están creados en la base de datos, se pueden utilizar perfectamente desde Kotlin a través de JDBC, igual que se hace con cualquier consulta SQL y se gestionan mediante objetos `CallableStatement`. Los procedimientos se llaman con `CALL nombre_procedimiento(...)`. A continuación se muestra el código necesario para realizar la llamada desde Kotlin:
 
 ```kotlin
 fun llamar_sp_listar_plantas_por_jardin(id: Int){
@@ -954,13 +945,13 @@ fun llamar_sp_listar_plantas_por_jardin(id: Int){
 }
 ```
 
-!!! success "Prueba y analiza el ejemplo 8"
+!!! success "Prueba y analiza el ejemplo 7"
     Prueba el código de ejemplo y verifica que funciona correctamente.
 
-!!! warning "Práctica 8: Añade las llamadas a las funciones y procedimientos"
-    1. Añade a tu proyecto el código necesario para llamar a las funciones y procedimientos de tu BD.
-    2. Añade al menú las opciones necesarias para que el programa quede completo.
 
+!!! warning "Práctica 8: Procedimientos"
+    1. Crea al menos dos procedimientos, uno que devuelva información resultante de realizar una consulta entre todas las tablas que hay en tu BD y otro que inserte información de una de las tablas.
+    2. Amplia el menú de tu proyecto y añade el código necesario para llamar a las funciones de tu BD.
 
 
 !!! danger "Entrega 2"
