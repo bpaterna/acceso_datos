@@ -731,14 +731,12 @@ Se usan para:
     2. Replica tu base de datos `SQLite` en `MySQL` dentro del servidor que acabas de crear. Puedes utilizar la herramienta [DBeaver](dbeaver.html) para crear las tablas e insertar los registros en ellas.
     3. Haz una copia de tu proyecto y elimina todo lo relacionado con SQLite (incluido el archivo .sqlite).
     4. Añade las líneas necesarias para conectar a tu BD MySQL.
-    5. Comprueba que la aplicación se está conectando a MySQL correctamente y que todas las opciones del menú siguen funcionando bien.
+    5. Comprueba que la aplicación se está conectando a MySQL correctamente y que todas las opciones del menú siguen funcionando.
 
 
 <span class="mi_h3">Funciones</span>
 
-Una **función** está diseñada para **calcular y devolver un resultado**. Se puede usar directamente dentro de una consulta SQL como parte de un SELECT, WHERE, ORDER BY, etc. Las funciones siempre devuelven un valor.
-
-La sintaxis general para crear una función en MySQL es la siguiente:
+Una **función** está diseñada para **calcular y devolver un resultado**. Se puede usar directamente dentro de una consulta SQL como parte de un SELECT, WHERE, ORDER BY, etc. Las funciones siempre devuelven un valor. La sintaxis general para crear una función en MySQL es la siguiente:
 
 ```sql
 DELIMITER //
@@ -838,7 +836,7 @@ fun llamar_fn_total_valor_planta(id: Int){
 !!! success "Prueba y analiza el ejemplo 6"
     Prueba el código de ejemplo y verifica que funciona correctamente.
 
-!!! warning "Práctica 7: Funciones y procedimientos"
+!!! warning "Práctica 7: Añade funciones a tu proyecto"
     1. Crea al menos dos funciones en tu base de datos y comprueba que se ejecutan correctamente desde dentro de ella.
     2. Amplia el menú de tu proyecto y añade el código necesario para llamar a las funciones de tu BD.
 
@@ -949,7 +947,7 @@ fun llamar_sp_listar_plantas_por_jardin(id: Int){
     Prueba el código de ejemplo y verifica que funciona correctamente.
 
 
-!!! warning "Práctica 8: Procedimientos"
+!!! warning "Práctica 8: Añade procedimientos a tu proyecto"
     1. Crea al menos dos procedimientos, uno que devuelva información resultante de realizar una consulta entre todas las tablas que hay en tu BD y otro que inserte información de una de las tablas.
     2. Amplia el menú de tu proyecto y añade el código necesario para llamar a las funciones de tu BD.
 
