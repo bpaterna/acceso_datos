@@ -639,7 +639,6 @@ Para evitarlo se utiliza un bloque **try-catch** que:
 
 Para el siguiente ejemplo se han añadido a la BD las tablas `jardines`y `jardines_plantas` cuya estructura es la siguiente:
 
-
 ![Imagen 3](img/BD/4_jardines.png)
 
 ![Imagen 4](img/BD/4_jardines_plantas.png)
