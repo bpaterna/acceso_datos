@@ -87,7 +87,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
    - Selecciona la nueva IP, haz clic en el desplegable opciones y entra en `Dirección IP elástica asignada`
 
-     ![Imagen 12](img/AWS/AWS_IP_`5.jpg)
+     ![Imagen 12](img/AWS/AWS_IP_5.jpg)
 
    - Indica la instancia a la que asignar la IP y haz clic en Àsociado`
 
