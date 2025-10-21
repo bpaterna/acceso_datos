@@ -2,9 +2,10 @@
 
 <span class="mi_h3">Revisiones</span>
 
-|Revisión | Fecha| Descripción|
-|---------|------|-------------|
-|1.0 | 11-10-2025 | Adaptación de los materiales a markdown|
+| Revisión | Fecha      | Descripción                             |
+|----------|------------|-----------------------------------------|
+| 1.0      | 11-10-2025 | Adaptación de los materiales a markdown |
+| 1.1      | 21-10-2025 | Reorganización de algunas secciones     |
 
 
 <span class="mi_h3">Acceso al laboratorio</span>
