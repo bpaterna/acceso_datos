@@ -66,6 +66,42 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
     ![Imagen 12](img/AWS/imagen_012.jpg)
 
+
+5. Asigna una IP pública fija a tu servidor. Para ello sigue estos pasos:
+
+    - Haz clic en el enlace `Direcciones IP elásticas`
+   
+      ![Imagen 12](img/AWS/AWS_IP_1.jpg)
+
+    - Haz clic en el botón `Asignar dirección IP elástica`
+   
+      ![Imagen 12](img/AWS/AWS_IP_2.jpg)
+
+    - Deja las opciones por defecto y haz clic en el botón `Asignar`
+   
+      ![Imagen 12](img/AWS/AWS_IP_3.jpg)
+
+      Verás la nueva IP
+    
+     ![Imagen 12](img/AWS/AWS_IP_4.jpg)
+
+   - Selecciona la nueva IP, haz clic en el desplegable opciones y entra en `Dirección IP elástica asignada`
+
+     ![Imagen 12](img/AWS/AWS_IP_`5.jpg)
+
+   - Indica la instancia a la que asignar la IP y haz clic en Àsociado`
+
+     ![Imagen 12](img/AWS/AWS_IP_6.jpg)
+
+      La IP quedará asociada a tu instancia
+    
+     ![Imagen 12](img/AWS/AWS_IP_7.jpg)
+
+   - Vuelve a la lista de instancias para comprobar que tu instancia ya tiene la IP
+
+     ![Imagen 12](img/AWS/AWS_IP_8.jpg)
+
+
 5. Puedes hacer clic en el botón `Conectarse a la instancia` para ver las instrucciones de conexión al servidor, por ejemplo en la pestaña `Cliente SSH` aparece lo siguiente
 
     ![Imagen 13](img/AWS/imagen_013.jpg)
@@ -78,6 +114,9 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye `nombre_clave` por el de tu archivo .pem y `nombre_servidor`el nombre de tu servidor. Si la conexión se ha establecido correctamente verás la siguiente información
 
     ![Imagen 14](img/AWS/imagen_014.jpg)
+
+
+
 
 
 <span class="mi_h3">Instalación de MySQL</span>
