@@ -2,11 +2,11 @@
 
 <span class="mi_h3">Revisiones</span>
 
-| Revisión | Fecha      | Descripción                                  |
-|----------|------------|----------------------------------------------|
-| 1.0      | 05-10-2025 | Adaptación de los materiales a markdown      |
-| 1.1      | 16-10-2025 | Ampliación de ejemplos y prácticas           |
-
+| Revisión | Fecha      | Descripción                                                |
+|----------|------------|------------------------------------------------------------|
+| 1.0      | 05-10-2025 | Adaptación de los materiales a markdown                    |
+| 1.1      | 16-10-2025 | Ampliación de ejemplos y prácticas                         |
+| 1.2      | 21-10-2025 | Añadir el punto 6 (Funciones y procedimientos almacenados) |
 
 
 ## 2.1. Introducción
@@ -944,6 +944,89 @@ fun llamar_sp_listar_plantas_por_jardin(id: Int){
     Prueba el código de ejemplo y verifica que funciona correctamente.
 
 
+
+<span class="mis_ejemplos">Ejemplo 8: Otro ejemplo de procedimientos</span>
+
+El siguiente ejemplo crea un procedimiento que inserta una planta en un jardín (en la tabla jardines_plantas). El procedimiento recibe el `id_jardin`, el `id_planta` y una `cantidad`. Si la relación ya existe, actualizará la cantidad (sumando) y si no existe, insertará una nueva fila.
+
+```sql
+DELIMITER //
+
+DROP PROCEDURE IF EXISTS sp_agregar_planta_a_jardin;
+//
+CREATE PROCEDURE sp_agregar_planta_a_jardin(
+    IN p_id_jardin INT,
+    IN p_id_planta INT,
+    IN p_cantidad INT
+)
+BEGIN
+    -- Verificar si la relación jardín-planta ya existe
+    IF EXISTS (
+        SELECT 1 FROM jardines_plantas
+        WHERE id_jardin = p_id_jardin AND id_planta = p_id_planta
+    ) THEN
+        -- Si existe, actualiza la cantidad
+        UPDATE jardines_plantas
+        SET cantidad = cantidad + p_cantidad
+        WHERE id_jardin = p_id_jardin AND id_planta = p_id_planta;
+
+        SELECT CONCAT('Cantidad actualizada. Nueva cantidad: ', cantidad)
+        AS mensaje
+        FROM jardines_plantas
+        WHERE id_jardin = p_id_jardin AND id_planta = p_id_planta;
+
+    ELSE
+        -- Si no existe, inserta una nueva relación
+        INSERT INTO jardines_plantas (id_jardin, id_planta, cantidad)
+        VALUES (p_id_jardin, p_id_planta, p_cantidad);
+
+        SELECT 'Nueva planta agregada al jardín.' AS mensaje;
+    END IF;
+END;
+//
+
+DELIMITER ;
+```
+
+
+Ejecutamos el script SQL dentro de la misma BD
+```sql
+-- Insertar una nueva planta en el jardín 2
+CALL sp_agregar_planta_a_jardin(2, 5, 4);
+
+-- Insertar más cantidad de una planta que ya existe
+CALL sp_agregar_planta_a_jardin(2, 5, 3);
+
+-- Verificar resultado
+SELECT * FROM jardines_plantas WHERE id_jardin = 2 AND id_planta = 5;
+```
+
+
+A continuación se muestra el código necesario para realizar la llamada desde Kotlin:
+
+```kotlin
+fun llamar_sp_agregar_planta_a_jardin(id_p:Int, id_j:Int, cant:Int){
+    conectarBD()?.use { conn ->
+        val sql = "{CALL sp_agregar_planta_a_jardin(?, ?, ?)}"
+        conn.prepareCall(sql).use { call ->
+            call.setInt(1, id_p)  // id_jardin
+            call.setInt(2, id_j)  // id_planta
+            call.setInt(3, cant)  // cantidad
+
+            call.executeQuery().use { rs ->
+                while (rs.next()) {
+                    println(rs.getString("mensaje"))
+                }
+            }
+        }
+    }
+}
+```
+
+
+!!! success "Prueba y analiza el ejemplo 8"
+Prueba el código de ejemplo y verifica que funciona correctamente.
+
 !!! warning "Práctica 8: Añade procedimientos a tu proyecto"
     1. Crea al menos dos procedimientos, uno que devuelva información resultante de realizar una consulta entre todas las tablas que hay en tu BD y otro que inserte información de una de las tablas.
     2. Amplia el menú de tu proyecto y añade el código necesario para llamar a las funciones de tu BD.
@@ -953,3 +1036,10 @@ fun llamar_sp_listar_plantas_por_jardin(id: Int){
     Entrega en Aules la carpeta `main/kotlin` de tu proyecto comprimida en formato .zip
 
     **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
+
+
+---
+
+<span class="mi_h3">Autoría</span>
+
+Obra realizada por Begoña Paterna Lluch basada en materiales desarrollados por Alicia Salvador Contreras. Publicada bajo licencia [Creative Commons Atribución/Reconocimiento-CompartirIgual 4.0 Internacional](https://creativecommons.org/licenses/by-sa/4.0/)
