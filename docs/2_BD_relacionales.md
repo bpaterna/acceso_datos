@@ -2,11 +2,11 @@
 
 <span class="mi_h3">Revisiones</span>
 
-| Revisión | Fecha      | Descripción                                                |
-|----------|------------|------------------------------------------------------------|
-| 1.0      | 05-10-2025 | Adaptación de los materiales a markdown                    |
-| 1.1      | 16-10-2025 | Ampliación de ejemplos y prácticas                         |
-| 1.2      | 21-10-2025 | Añadir el punto 6 (Funciones y procedimientos almacenados) |
+| Revisión | Fecha      | Descripción                                                    |
+|----------|------------|----------------------------------------------------------------|
+| 1.0      | 05-10-2025 | Adaptación de los materiales a markdown                        |
+| 1.1      | 16-10-2025 | Ampliación de ejemplos y prácticas                             |
+| 1.2      | 21-10-2025 | Inclusión del punto 6 (funciones y procedimientos almacenados) |
 
 
 ## 2.1. Introducción
