@@ -12,7 +12,8 @@
 A continuación se describen los pasos para acceder al laboratorio de aprendizaje de AWS Academy.
 
 1. **Crea tu cuenta**
-Habrás recibido un correo electrónico de invitación, haz clic en el enlace y crea tu cuenta. Una vez completado el registro se abrirá el curso automaticamente. Haz clic en `Contenidos` y luego en el enlace `Lanzamiento del laboratorio` como se muestra en la siguiente imagen (la primera vez que entres deberás aceptar los términos de uso)
+
+    Habrás recibido un correo electrónico de invitación, haz clic en el enlace y crea tu cuenta. Una vez completado el registro se abrirá el curso automaticamente. Haz clic en `Contenidos` y luego en el enlace `Lanzamiento del laboratorio` como se muestra en la siguiente imagen (la primera vez que entres deberás aceptar los términos de uso)
 
     ![Imagen 1](img/AWS/imagen_001.jpg)
 
@@ -26,16 +27,21 @@ Habrás recibido un correo electrónico de invitación, haz clic en el enlace y 
     Luego haz clic en el nombre del curso
 
     ![Imagen 000](img/AWS/imagen_000.jpg)
+    
     Una vez dentro, haz clic en `Contenidos` y luego en el enlace `Lanzamiento del laboratorio` como hiciste la primera vez
 
     ![Imagen 1](img/AWS/imagen_001.jpg)
 
     
-2. Cuando aparezca la pantalla con el laboratorio, haz clic en el botón `Start Lab` (verás que el círculo junto al enlace `AWS` cambia de color rojo a amarillo y permanece de ese color mientras arranca el laboratorio)
+2. **Inicia el laboratorio**
+
+    Cuando aparezca la pantalla con el laboratorio, haz clic en el botón `Start Lab` (verás que el círculo junto al enlace `AWS` cambia de color rojo a amarillo y permanece de ese color mientras arranca el laboratorio)
 
     ![Imagen 2](img/AWS/imagen_002.jpg)
 
-3. Cuando el laboratorio haya arrancado, el círculo cambiará a color verde. Entonces haz clic en el enlace `AWS` para acceder a la `Página de inicio de la Consola` (puedes ver que la región es *North Virginia (us-east-1)* que es la región por defecto de los laboratorios de aprendizaje) y después haz clic en `EC2` para acceder a la consola de instancias EC2
+3. **Accede a la consola**
+
+    Cuando el laboratorio haya arrancado, el círculo cambiará a color verde. Entonces haz clic en el enlace `AWS` para acceder a la `Página de inicio de la Consola` (puedes ver que la región es *North Virginia (us-east-1)* que es la región por defecto de los laboratorios de aprendizaje) y después haz clic en `EC2` para acceder a la consola de instancias EC2
 
     ![Imagen 4](img/AWS/imagen_004b.jpg)
 
@@ -44,31 +50,34 @@ Habrás recibido un correo electrónico de invitación, haz clic en el enlace y 
 
 A continuación se describen los pasos para crear un servidor Ubuntu en un laboratorio de aprendizaje de AWS Academy.
 
-1. Haz clic en el botón `Lanzar la instancia`
+1. **Crea la instancia**
+
+    Haz clic en el botón `Lanzar la instancia`. Luego Escribe el nombre de la instancia y elige una `Amazon Machine Image (AMI)` en este caso Ubuntu (al seleccionar ubuntu nos aparece la Ubuntu Server 24.04 LTS que es apta para utilizar de forma gratuita)
 
     ![Imagen 6](img/AWS/imagen_006.jpg)
-
-2. Escribe el nombre de la instancia y elige una `Amazon Machine Image (AMI)` en este caso Ubuntu (al seleccionar ubuntu nos aparece la Ubuntu Server 24.04 LTS que es apta para utilizar de forma gratuita)
-
     ![Imagen 7](img/AWS/imagen_007.jpg)
 
     Más abajo aparece el tipo de instancia
 
     ![Imagen 8](img/AWS/imagen_008.jpg)
 
-3. Crea un par de claves
+2. **Crea un par de claves**
 
     ![Imagen 9](img/AWS/imagen_009.jpg)
     ![Imagen 10](img/AWS/imagen_010r.jpg)
 
     <span class="mis_avisos">**Muy importante:** Verás que el navegador descarga el fichero .pem de tu clave automáticamente. Guárdalo en lugar seguro porque te hará falta para conectar a tu servidor por SSH.</span>
 
-4. Deja el resto de opciones como están y, en la parte derecha dentro del apartado `Resumen`, haz clic en el botón `Lanzar instancia`. Cuando la instancia termine de lanzarse aparecerá la siguiente imagen
+3. **lanzar instancia**
+ 
+    Deja el resto de opciones como están y, en la parte derecha dentro del apartado `Resumen`, haz clic en el botón `Lanzar instancia`. Cuando la instancia termine de lanzarse aparecerá la siguiente imagen
 
     ![Imagen 12](img/AWS/imagen_012.jpg)
 
 
-5. Asigna una IP pública fija a tu servidor. Para ello sigue estos pasos:
+4. **IP pública fija**
+
+    Asigna una IP pública fija a tu servidor. Para ello sigue estos pasos:
 
     - Haz clic en el enlace `Direcciones IP elásticas`
    
@@ -78,16 +87,16 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
    
       ![Imagen 12](img/AWS/AWS_IP_2.jpg)
 
-    - Deja las opciones por defecto y haz clic en el botón `Asignar` y verás la nueva IP
+    - Deja las opciones por defecto y haz clic en el botón `Asignar`. Verás la nueva IP
    
       ![Imagen 12](img/AWS/AWS_IP_3.jpg)
       ![Imagen 12](img/AWS/AWS_IP_4.jpg)
 
-   - Selecciona la nueva IP, haz clic en el desplegable opciones y entra en `Dirección IP elástica asignada`
+   - Selecciona la nueva IP, haz clic en el desplegable `Acciones` y entra en `Dirección IP elástica asignada`
 
      ![Imagen 12](img/AWS/AWS_IP_5.jpg)
 
-   - Indica la instancia a la que asignar la IP y haz clic en Àsociado` y la IP quedará asociada a tu instancia
+   - Indica la instancia a la que asignar la IP y haz clic en `Asociado`. La IP quedará asociada a tu instancia
 
      ![Imagen 12](img/AWS/AWS_IP_6.jpg)
      ![Imagen 12](img/AWS/AWS_IP_7.jpg)
@@ -96,14 +105,16 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
      ![Imagen 12](img/AWS/AWS_IP_8.jpg)
 
-6. Puedes hacer clic en el botón `Conectarse a la instancia` para ver las instrucciones de conexión al servidor, por ejemplo en la pestaña `Cliente SSH` aparece lo siguiente
+5. **Prueba la conexión**
+
+    Puedes hacer clic en el botón `Conectarse a la instancia` para ver las instrucciones de conexión al servidor, por ejemplo en la pestaña `Cliente SSH` aparece lo siguiente
 
     ![Imagen 13](img/AWS/imagen_013.jpg)
 
-7. Prueba la conexión. Para ello escribe en una ventana de comandos la instrucción siguiente
+    Escribe en una ventana de comandos la instrucción siguiente (puedes utilizar el nombre del serdiro o la IP)
 
     ```bash
-    ssh -i nombre_clave ubuntu@nombre_servidor
+    ssh -i nombre_clave ubuntu@nombre_IP_servidor
     ```
     Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye `nombre_clave` por el de tu archivo .pem y `nombre_servidor`el nombre de tu servidor. Si la conexión se ha establecido correctamente verás la siguiente información
 
