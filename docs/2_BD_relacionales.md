@@ -802,7 +802,7 @@ DELIMITER ;
 
 Para que la función se guarde en la BD hay que ejecutar el código anterior como un script SQL. El resultado será el siguiente:
 
-![Imagen 9](img/BD/9_fun2.jpg)
+![Imagen 5](img/BD/9_fun2.jpg)
 
 Una vez guardada, la podemos llamar desde dentro de la propia BD ejecutando el script SQL:
 ```sql
@@ -907,7 +907,7 @@ DELIMITER ;
 
 Al igual que en las funciones, para que un procedimiento se guarde en la BD hay que ejecutar el código anterior como un script SQL. El resultado será el siguiente: 
 
-![Imagen 8](img/BD/8_fun_proc.jpg)
+![Imagen 7](img/BD/8_fun_proc.jpg)
 
 Una vez guardado, lo podemos llamar desde dentro de la propia BD ejecutando el script SQL siguiente:
 ```sql
@@ -916,7 +916,7 @@ CALL sp_listar_plantas_por_jardin(1);
 
 En este caso el resultado de la ejecución es el que se muestra en la siguiente imagen:
 
-![Imagen 7](img/BD/7_proc.jpg)
+![Imagen 8](img/BD/7_proc.jpg)
 
 
 Una vez que los procedimientos están creados en la base de datos, se pueden utilizar perfectamente desde Kotlin a través de JDBC, igual que se hace con cualquier consulta SQL y se gestionan mediante objetos `CallableStatement`. Los procedimientos se llaman con `CALL nombre_procedimiento(...)`. A continuación se muestra el código necesario para realizar la llamada desde Kotlin:
@@ -988,6 +988,9 @@ END;
 DELIMITER ;
 ```
 
+Después de ejecutar el script anterior ya tenemos el procedimiento almacenado en nustra BD:
+
+![Imagen 9](img/BD/11_proc2.jpg)
 
 Ejecutamos el script SQL dentro de la misma BD
 ```sql
