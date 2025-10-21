@@ -49,7 +49,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
 1. **Crea la instancia**
 
-    Dentro del panel `EC2` haz clic en el botón `Lanzar la instancia`. Luego Escribe el nombre de la instancia y elige una `Amazon Machine Image (AMI)` en este caso Ubuntu (al seleccionar ubuntu nos aparece la Ubuntu Server 24.04 LTS que es apta para utilizar de forma gratuita) y más abajo el tipo de instancia que es
+    Dentro del panel `EC2` haz clic en el botón `Lanzar la instancia`. Luego Escribe el nombre de la instancia y elige una `Amazon Machine Image (AMI)` en este caso Ubuntu (al seleccionar ubuntu nos aparece la Ubuntu Server 24.04 LTS que es apta para utilizar de forma gratuita). Más abajo también aparece el tipo de instancia que es
 
     ![Imagen 6](img/AWS/imagen_006.jpg)
     ![Imagen 7](img/AWS/imagen_007.jpg)
@@ -83,7 +83,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     ![Imagen 12](img/AWS/AWS_IP_3.jpg)
     ![Imagen 12](img/AWS/AWS_IP_4.jpg)
 
-    Selecciona la nueva IP, haz clic en el desplegable `Acciones` y entra en `Dirección IP elástica asignada`, luego indica la instancia a la que asignar la IP y haz clic en `Asociado`. La IP quedará asociada a tu instancia
+    Selecciona la nueva IP, haz clic en el desplegable `Acciones` y entra en `Dirección IP elástica asociada`, luego indica la instancia a la que asignar la IP y haz clic en `Asociado`. La IP quedará asociada a tu instancia
 
     ![Imagen 12](img/AWS/AWS_IP_5.jpg)
     ![Imagen 12](img/AWS/AWS_IP_6.jpg)
@@ -94,11 +94,11 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
 5. **Prueba la conexión**
 
-    Puedes hacer clic en el botón `Conectarse a la instancia` para ver las instrucciones de conexión al servidor, por ejemplo en la pestaña `Cliente SSH` aparece lo siguiente
+    Haz clic en el botón `Conectarse a la instancia` para ver las diferentes opciones de conexión y sus instrucciones, por ejemplo en la pestaña `Cliente SSH` (que es la que vamos a utilizar) aparece lo siguiente:
 
     ![Imagen 13](img/AWS/imagen_013.jpg)
 
-    Escribe en una ventana de comandos la instrucción siguiente (puedes utilizar el nombre del servidor o su IP pública)
+    PAra conectar, abre una ventana de comandos y escribe la instrucción siguiente (puedes utilizar el nombre del servidor o su IP pública)
 
     ```bash
     ssh -i nombre_clave ubuntu@nombre_IP_servidor
