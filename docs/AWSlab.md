@@ -52,7 +52,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
 1. **Crea la instancia**
 
-    Haz clic en el botón `Lanzar la instancia`. Luego Escribe el nombre de la instancia y elige una `Amazon Machine Image (AMI)` en este caso Ubuntu (al seleccionar ubuntu nos aparece la Ubuntu Server 24.04 LTS que es apta para utilizar de forma gratuita)
+    Dentro del panel `EC2` haz clic en el botón `Lanzar la instancia`. Luego Escribe el nombre de la instancia y elige una `Amazon Machine Image (AMI)` en este caso Ubuntu (al seleccionar ubuntu nos aparece la Ubuntu Server 24.04 LTS que es apta para utilizar de forma gratuita)
 
     ![Imagen 6](img/AWS/imagen_006.jpg)
     ![Imagen 7](img/AWS/imagen_007.jpg)
@@ -63,12 +63,14 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
 2. **Crea un par de claves**
 
+    Haz clic en el enlace rear un nuevo par de claves`, introduce el nombre para el fichero de claves y haz clic en el botón rear par de claves`
+
     ![Imagen 9](img/AWS/imagen_009.jpg)
     ![Imagen 10](img/AWS/imagen_010r.jpg)
 
     <span class="mis_avisos">**Muy importante:** Verás que el navegador descarga el fichero .pem de tu clave automáticamente. Guárdalo en lugar seguro porque te hará falta para conectar a tu servidor por SSH.</span>
 
-3. **lanzar instancia**
+3. **Lanzar instancia**
  
     Deja el resto de opciones como están y, en la parte derecha dentro del apartado `Resumen`, haz clic en el botón `Lanzar instancia`. Cuando la instancia termine de lanzarse aparecerá la siguiente imagen
 
@@ -77,33 +79,24 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
 4. **IP pública fija**
 
-    Asigna una IP pública fija a tu servidor. Para ello sigue estos pasos:
-
-    - Haz clic en el enlace `Direcciones IP elásticas`
+    Para que el servidor tenga siempre la misma IP pública y facilitar así trabajar con él, vamos a asignarle una IP fija. Para ello haz clic en el enlace `Direcciones IP elásticas` y luego haz clic en el botón `Asignar dirección IP elástica` 
    
-      ![Imagen 12](img/AWS/AWS_IP_1.jpg)
+    ![Imagen 12](img/AWS/AWS_IP_1.jpg)
+    ![Imagen 12](img/AWS/AWS_IP_2.jpg)
 
-    - Haz clic en el botón `Asignar dirección IP elástica`
+    En la siguiente pantalla deja las opciones por defecto y haz clic en el botón `Asignar`. Verás la nueva IP
    
-      ![Imagen 12](img/AWS/AWS_IP_2.jpg)
+    ![Imagen 12](img/AWS/AWS_IP_3.jpg)
+    ![Imagen 12](img/AWS/AWS_IP_4.jpg)
 
-    - Deja las opciones por defecto y haz clic en el botón `Asignar`. Verás la nueva IP
-   
-      ![Imagen 12](img/AWS/AWS_IP_3.jpg)
-      ![Imagen 12](img/AWS/AWS_IP_4.jpg)
+    Selecciona la nueva IP, haz clic en el desplegable `Acciones` y entra en `Dirección IP elástica asignada`, luego indica la instancia a la que asignar la IP y haz clic en `Asociado`. La IP quedará asociada a tu instancia
 
-   - Selecciona la nueva IP, haz clic en el desplegable `Acciones` y entra en `Dirección IP elástica asignada`
+    ![Imagen 12](img/AWS/AWS_IP_5.jpg)
+    ![Imagen 12](img/AWS/AWS_IP_6.jpg)
+    ![Imagen 12](img/AWS/AWS_IP_7.jpg)
 
-     ![Imagen 12](img/AWS/AWS_IP_5.jpg)
-
-   - Indica la instancia a la que asignar la IP y haz clic en `Asociado`. La IP quedará asociada a tu instancia
-
-     ![Imagen 12](img/AWS/AWS_IP_6.jpg)
-     ![Imagen 12](img/AWS/AWS_IP_7.jpg)
-
-   - Vuelve a la lista de instancias para comprobar que tu instancia ya tiene la IP
-
-     ![Imagen 12](img/AWS/AWS_IP_8.jpg)
+    Vuelve a la lista de instancias para comprobar que tu instancia ya tiene la IP
+    ![Imagen 12](img/AWS/AWS_IP_8.jpg)
 
 5. **Prueba la conexión**
 
