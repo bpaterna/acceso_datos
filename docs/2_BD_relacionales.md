@@ -1033,7 +1033,7 @@ fun llamar_sp_agregar_planta_a_jardin(id_p:Int, id_j:Int, cant:Int){
 
 !!! warning "Práctica 8: Añade procedimientos a tu proyecto"
     1. Crea al menos dos procedimientos, uno que devuelva información resultante de realizar una consulta entre todas las tablas que hay en tu BD y otro que inserte información de una de las tablas.
-    2. Amplia el menú de tu proyecto y añade el código necesario para llamar a las funciones de tu BD.
+    2. Amplia el menú de tu proyecto y añade el código necesario para llamar a los procedimientos de tu BD.
 
 
 !!! danger "Entrega 2"
