@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://bpaterna.github.io/acceso_datos/index.html</loc>
+         <lastmod>2025-10-21</lastmod>
+    </url>
+    <url>
+         <loc>https://bpaterna.github.io/acceso_datos/1_Ficheros.html</loc>
+         <lastmod>2025-10-21</lastmod>
+    </url>
+    <url>
+         <loc>https://bpaterna.github.io/acceso_datos/2_BD_relacionales.html</loc>
+         <lastmod>2025-10-21</lastmod>
+    </url>
+    <url>
+         <loc>https://bpaterna.github.io/acceso_datos/AWSlab.html</loc>
+         <lastmod>2025-10-21</lastmod>
+    </url>
+    <url>
+         <loc>https://bpaterna.github.io/acceso_datos/db_browser_sqlite.html</loc>
+         <lastmod>2025-10-21</lastmod>
+    </url>
+    <url>
+         <loc>https://bpaterna.github.io/acceso_datos/dbeaver.html</loc>
+         <lastmod>2025-10-21</lastmod>
+    </url>
+</urlset>
