@@ -1001,6 +1001,10 @@ CALL sp_agregar_planta_a_jardin(2, 5, 3);
 SELECT * FROM jardines_plantas WHERE id_jardin = 2 AND id_planta = 5;
 ```
 
+El resultado de la ejecución es el que se muestra en la siguiente imagen:
+
+![Imagen 10](img/BD/10_proc2.jpg)
+
 
 A continuación se muestra el código necesario para realizar la llamada desde Kotlin:
 
