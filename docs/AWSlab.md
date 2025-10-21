@@ -13,7 +13,7 @@ A continuación se describen los pasos para acceder al laboratorio de aprendizaj
 
 1. **Crea tu cuenta**
 
-    Habrás recibido un correo electrónico de invitación, haz clic en el enlace y crea tu cuenta. Una vez completado el registro se abrirá el curso automaticamente. Haz clic en `Contenidos` y luego en el enlace `Lanzamiento del laboratorio` como se muestra en la siguiente imagen (la primera vez que entres deberás aceptar los términos de uso)
+    Habrás recibido un correo electrónico de invitación, haz clic en el enlace y crea tu cuenta. Una vez completado el registro se abrirá el entorno de AWS Academy automáticamente. Haz clic en `Contenidos` y luego en el enlace `Lanzamiento del laboratorio` como se muestra en la siguiente imagen (la primera vez que entres deberás aceptar los términos de uso)
 
     ![Imagen 1](img/AWS/imagen_001.jpg)
 
@@ -24,12 +24,9 @@ A continuación se describen los pasos para acceder al laboratorio de aprendizaj
 
     ![Imagen 00](img/AWS/imagen_00r.jpg)
 
-    Luego haz clic en el nombre del curso
+    Luego haz clic en el nombre del curso y, una vez dentro, haz clic en `Contenidos` y en el enlace `Lanzamiento del laboratorio` como hiciste la primera vez 
 
     ![Imagen 000](img/AWS/imagen_000.jpg)
-    
-    Una vez dentro, haz clic en `Contenidos` y luego en el enlace `Lanzamiento del laboratorio` como hiciste la primera vez
-
     ![Imagen 1](img/AWS/imagen_001.jpg)
 
     
@@ -41,7 +38,7 @@ A continuación se describen los pasos para acceder al laboratorio de aprendizaj
 
 3. **Accede a la consola**
 
-    Cuando el laboratorio haya arrancado, el círculo cambiará a color verde. Entonces haz clic en el enlace `AWS` para acceder a la `Página de inicio de la Consola` (puedes ver que la región es *North Virginia (us-east-1)* que es la región por defecto de los laboratorios de aprendizaje) y después haz clic en `EC2` para acceder a la consola de instancias EC2
+    Cuando el laboratorio haya arrancado, el círculo cambiará a color verde. Entonces haz clic en el enlace `AWS` para acceder a la `Página de inicio de la Consola` (puedes ver que la región es *North Virginia (us-east-1)* que es la región por defecto de los laboratorios de aprendizaje). Después haz clic en `EC2` para acceder a la consola de instancias EC2
 
     ![Imagen 4](img/AWS/imagen_004b.jpg)
 
@@ -52,18 +49,15 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
 1. **Crea la instancia**
 
-    Dentro del panel `EC2` haz clic en el botón `Lanzar la instancia`. Luego Escribe el nombre de la instancia y elige una `Amazon Machine Image (AMI)` en este caso Ubuntu (al seleccionar ubuntu nos aparece la Ubuntu Server 24.04 LTS que es apta para utilizar de forma gratuita)
+    Dentro del panel `EC2` haz clic en el botón `Lanzar la instancia`. Luego Escribe el nombre de la instancia y elige una `Amazon Machine Image (AMI)` en este caso Ubuntu (al seleccionar ubuntu nos aparece la Ubuntu Server 24.04 LTS que es apta para utilizar de forma gratuita) y más abajo el tipo de instancia que es
 
     ![Imagen 6](img/AWS/imagen_006.jpg)
     ![Imagen 7](img/AWS/imagen_007.jpg)
-
-    Más abajo aparece el tipo de instancia
-
     ![Imagen 8](img/AWS/imagen_008.jpg)
 
 2. **Crea un par de claves**
 
-    Haz clic en el enlace rear un nuevo par de claves`, introduce el nombre para el fichero de claves y haz clic en el botón rear par de claves`
+    Haz clic en el enlace `Crear un nuevo par de claves`, introduce el nombre para el fichero de claves y haz clic en el botón `Crear par de claves`
 
     ![Imagen 9](img/AWS/imagen_009.jpg)
     ![Imagen 10](img/AWS/imagen_010r.jpg)
@@ -104,12 +98,12 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
     ![Imagen 13](img/AWS/imagen_013.jpg)
 
-    Escribe en una ventana de comandos la instrucción siguiente (puedes utilizar el nombre del serdiro o la IP)
+    Escribe en una ventana de comandos la instrucción siguiente (puedes utilizar el nombre del servidor o su IP pública)
 
     ```bash
     ssh -i nombre_clave ubuntu@nombre_IP_servidor
     ```
-    Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye `nombre_clave` por el de tu archivo .pem y `nombre_servidor`el nombre de tu servidor. Si la conexión se ha establecido correctamente verás la siguiente información
+    Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye `nombre_clave` por el de tu archivo .pem y `nombre_IP_servidor` por el nombre o la IP pública de tu servidor. Si la conexión se ha establecido correctamente verás la siguiente información
 
     ![Imagen 14](img/AWS/imagen_014.jpg)
 
@@ -127,23 +121,21 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     sudo apt install mysql-server
     ```
 
-3. Comprueba que el servicio de MySQL se esté ejecutando correctamente
+3. Comprueba que el servicio de MySQL se esté ejecutando correctamente (Si no está activo, puedes iniciarlo con `sudo systemctl start mysql`)
     ```bash
     sudo systemctl status mysql
     ```
     ![Imagen 17](img/AWS/imagen_017.jpg)
     
-    (Si no está activo, puedes iniciarlo con `sudo systemctl start mysql`)
-
 
 <span class="mi_h3">Crea un usuario y una base de datos</span>
 
-1. Entra al servidor MySQL (cuando te pida contraseña déjala en blanco y pulsa INTRO)
+1. Entra al servidor MySQL (cuando te pida contraseña déjala en blanco y pulsa `INTRO`)
     ```bash
     sudo mysql -u root -p 
     ```
 
-2. Crea el usuario con su contraseña. En el ejemplo el usuario es `bpl`, la contraseña es `holaHOLA01+` y el `%` indica que el usuario podrá conectarse desde cualquier sitio. Ejecuta los comandos siguientes cambiando el usuario y la contraseña de ejemplo por los tuyos
+2. Crea el usuario con su contraseña. Ejecuta los comandos siguientes cambiando el usuario y la contraseña de ejemplo por los tuyos (en el ejemplo el usuario es `bpl3`, la contraseña es `holaHOLA01+` y el `%` indica que el usuario podrá conectarse desde cualquier sitio)
     ```sql
     CREATE USER 'bpl3'@'%' IDENTIFIED BY 'holaHOLA01+';
     GRANT ALL PRIVILEGES ON *.* TO 'bpl3'@'%';    
@@ -151,7 +143,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     SHOW GRANTS FOR 'bpl3'@'%';
     ```
 
-3. Crea la base de datos (cambia el nombre de ejemplo por el tuyo)
+3. Crea la base de datos (cambia el nombre del ejemplo por el de tu BD)
     ```sql
     create database florabotanica;
     ```
@@ -198,6 +190,15 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
 
 4. Prueba a conectar a tu base de datos desde [DBeaver](dbeaver.html)
+
+
+---
+
+<span class="mi_h3">Autoría</span>
+
+Obra realizada por Begoña Paterna Lluch basada en materiales desarrollados por Alicia Salvador Contreras. Publicada bajo licencia [Creative Commons Atribución/Reconocimiento-CompartirIgual 4.0 Internacional](https://creativecommons.org/licenses/by-sa/4.0/)
+
+
 
 
 <!--
