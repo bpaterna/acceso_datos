@@ -7,7 +7,6 @@
 | 1.0      | 05-10-2025 | Adaptación de los materiales a markdown                        |
 | 1.1      | 16-10-2025 | Ampliación de ejemplos y prácticas                             |
 | 1.2      | 21-10-2025 | Inclusión del punto 6 (funciones y procedimientos almacenados) |
-
 | 1.3      | 26-10-2025 | Modificación del Ejemplo 5: commit y rollback |
 
 
