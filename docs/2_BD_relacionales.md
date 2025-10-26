@@ -671,12 +671,15 @@ fun llevarPlantasAJardin(id_jardin: Int, id_planta: Int, cantidad: Int) {
             println("Transacción realizada con éxito.")
         } catch (e: SQLException) {
             if (e.message?.contains("UNIQUE constraint failed") == true) {
-                println("Error: intento de insertar clave duplicada")
+                println("Intento de insertar clave duplicada")
                 conn.rollback()
                 println("Transacción revertida.")
             } else {
                 throw e // otros errores, relanzamos
             }
+        } finally {
+            // Código que se ejecuta siempre
+            println("Fin del programa.")
         }
     }
 }
