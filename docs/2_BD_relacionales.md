@@ -8,6 +8,9 @@
 | 1.1      | 16-10-2025 | Ampliación de ejemplos y prácticas                             |
 | 1.2      | 21-10-2025 | Inclusión del punto 6 (funciones y procedimientos almacenados) |
 
+| 1.3      | 26-10-2025 | Modificación del Ejemplo 5: commit y rollback |
+
+
 
 ## 2.1. Introducción
 Las bases de datos relacionales son esenciales en el desarrollo de aplicaciones modernas. Su integración con una aplicación requiere realizar una  **conexión** al sistema gestor de base de datos (SGBD) desde el lenguaje de programación. Este tema se centra en cómo realizar esa conexión, cómo trabajar con datos mediante sentencias SQL y cómo aplicar buenas prácticas, como el cierre de recursos, el uso de transacciones y procedimientos almacenados.
