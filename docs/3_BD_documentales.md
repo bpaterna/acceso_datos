@@ -364,20 +364,15 @@ Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un n
 ![Imagen 6](img/mongo/mongo06.png)
 
 
-En realidad, estamos conectados a una base de datos llamada test. Podemos crear y utilizar más de una base de datos, pero en este curso será más que suficiente trabajar con esta.
-
-Para comprobarlo, podemos ejecutar la siguiente instrucción, que nos devuelve **el nombre de la base de datos actual**:
+Podemos crear y utilizar más de una base de datos. En realidad, estamos conectados a una base de datos llamada test. Para comprobarlo, podemos ejecutar la siguiente instrucción, que nos devuelve **el nombre de la base de datos actual**:
 
     db.getName()
 
 
 
-
 <span class="mi_h3">Comandos de MongoDB y su utilización</span>
 
-MongoDB utiliza su propia **shell interactiva**, llamada **`mongosh`**, que permite ejecutar comandos para administrar bases de datos, colecciones y documentos.
-
-Su sintaxis es **muy similar a JavaScript**, ya que cada comando se ejecuta sobre un **objeto base**:
+MongoDB utiliza su propia **shell interactiva**, llamada **`mongosh`**, que permite ejecutar comandos para administrar bases de datos, colecciones y documentos. Su sintaxis es **muy similar a JavaScript**, ya que cada comando se ejecuta sobre un **objeto base**:
 
     db.coleccion.operacion()
 
@@ -387,7 +382,6 @@ Su sintaxis es **muy similar a JavaScript**, ya que cada comando se ejecuta sobr
 
 
 A continuación se muestran varias tablas con los comandos más útiles para consultar, ordenar, filtrar y gestionar datos en MongoDB.
-
 
 <span class="mi_h4">Comandos sobre bases de datos</span>
 
@@ -412,17 +406,13 @@ A continuación se muestran varias tablas con los comandos más útiles para con
 
 <span class="mi_h4">Operaciones básicas</span>
 
-**Inserción**
+**Inserción** (Si la colección no existe, MongoDB la **creará automáticamente** en el momento de la inserción)
 
 | Comando | Descripción |
 |----------|--------------|
 | `insertOne()` | Inserta un solo documento.<br>**Ejemplo:** `db.alumnos.insertOne({nombre:"Ana", nota:8})` |
 | `insertMany()` | Inserta varios documentos a la vez.<br>**Ejemplo:** `db.alumnos.insertMany([{nombre:"Luis", nota:7}, {nombre:"Marta", nota:9}])` |
 
-
-> 📌 Si la colección no existe, MongoDB la **creará automáticamente** en el momento de la inserción.
-
----
 
 **Búsqueda**
 
@@ -432,25 +422,18 @@ A continuación se muestran varias tablas con los comandos más útiles para con
 | `findOne()` | Devuelve el primer documento que cumple una condición.<br>**Ejemplo:** `db.alumnos.findOne({nombre:"Ana"})` |
 | `find(criterio, proyección)` | Permite filtrar y mostrar solo algunos campos.<br>**Ejemplo:** `db.alumnos.find({nota:{$gte:8}}, {nombre:1, _id:0})` |
 
-
-
 !!!Note ""
     **Operadores comunes**:  
     `$eq` (igual), `$ne` (distinto), `$gt` (mayor que), `$lt` (menor que), `$gte` (mayor o igual), `$lte` (menor o igual), `$in`, `$and`, `$or`.
 
 
-
-**Actualización**
+**Actualización** (Usa `$set` para modificar solo algunos campos y **no perder el resto**)
 
 | Comando | Descripción |
 |----------|--------------|
 | `updateOne(filtro, cambios)` | Actualiza el primer documento que cumpla la condición.<br>**Ejemplo:** `db.alumnos.updateOne({nombre:"Ana"}, {$set:{nota:9}})` |
 | `updateMany(filtro, cambios)` | Actualiza todos los documentos que cumplan la condición.<br>**Ejemplo:** `db.alumnos.updateMany({nota:{$lt:5}}, {$set:{aprobado:false}})` |
 | `replaceOne(filtro, nuevoDoc)` | Sustituye el documento completo.<br>**Ejemplo:** `db.alumnos.replaceOne({nombre:"Ana"}, {nombre:"Ana", nota:10})` |
-
-
-> ⚠️ Usa `$set` para modificar solo algunos campos y **no perder el resto**.
-
 
 
 **Eliminación**
@@ -462,7 +445,6 @@ A continuación se muestran varias tablas con los comandos más útiles para con
 
 
 <span class="mi_h4">Consultas avanzadas y ordenación</span>
-## 🔹 Consultas avanzadas y ordenación
 
 | Comando | Descripción |
 |----------|--------------|
@@ -492,23 +474,22 @@ A continuación se muestran varias tablas con los comandos más útiles para con
 
 <span class="mis_ejemplos">Ejemplo 1: Ejemplo completo</span>
 
-    use biblioteca
-    db.libros.insertMany([
-    {titulo:"1984", autor:"Orwell", año:1949},
-    {titulo:"Fahrenheit 451", autor:"Bradbury", año:1953}
+    use florabotanica
+    db.plantas.insertMany([
+    {nombre_comun:"Aloe", nombre_cientifico:"Aloe", altura:30},
+    {nombre_comun:"Pino", nombre_cientifico:"Pinus", altura:330},
+    {nombre_comun:"Cactus", nombre_cientifico:"Cactae", altura:130}
     ])
 
-    db.libros.find()
-    db.libros.updateOne({titulo:"1984"}, {$set:{año:1950}})
-    db.libros.find({año:{$gte:1950}})
-    db.libros.deleteOne({titulo:"Fahrenheit 451"})
+    db.plantas.find()
+    db.plantas.updateOne({nombre_comun:"Aloe"}, {$set:{altura:35}})
+    db.plantas.find({altura:{$gte:130}})
+    db.plantas.deleteOne({nombre_comun:"Cactus"})
 
----
 
 <span class="mi_h4">Consultas avanzadas con `aggregate()`</span>
 
-El método **`aggregate()`** permite realizar **consultas complejas** y **procesamientos de datos** en varias etapas, similares a las funciones de **GROUP BY, JOIN o HAVING** en SQL.  
-Cada etapa del *pipeline* (tubería) transforma los datos paso a paso.
+El método **`aggregate()`** permite realizar **consultas complejas** y **procesamientos de datos** en varias etapas, similares a las funciones de **GROUP BY, JOIN o HAVING** en SQL. Cada etapa del *pipeline* (tubería) transforma los datos paso a paso. Cada etapa (stage) se representa mediante un objeto precedido por $, que indica la operación a realizar.
 
 **Estructura básica**
 
@@ -517,9 +498,6 @@ Cada etapa del *pipeline* (tubería) transforma los datos paso a paso.
     { <etapa2> },
     ...
     ])
-
-Cada etapa (stage) se representa mediante un objeto precedido por $, que indica la operación a realizar.
-
 
 | Etapa | Descripción |
 |--------|--------------|
