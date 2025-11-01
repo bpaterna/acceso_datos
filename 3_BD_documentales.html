@@ -1,0 +1,1238 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Begoña Paterna">
+      
+      
+        <link rel="canonical" href="https://bpaterna.github.io/acceso_datos/3_BD_documentales.html">
+      
+      
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>Unidad 3. Acceso a Bases de Datos documentales - Acceso a datos</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#unidad-3-acceso-a-bases-de-datos-documentales" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="index.html" title="Acceso a datos" class="md-header__button md-logo" aria-label="Acceso a datos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Acceso a datos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Unidad 3. Acceso a Bases de Datos documentales
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Acceso a datos" class="md-nav__button md-logo" aria-label="Acceso a datos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Acceso a datos
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Presentación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contenido
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Contenido
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2_BD_relacionales.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Acceso a BD relacionales
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Material adicional
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Material adicional
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="AWSlab.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AWS Learner Lab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="db_browser_sqlite.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DB Browser SQLite
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dbeaver.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DBeaver
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="unidad-3-acceso-a-bases-de-datos-documentales">Unidad 3. Acceso a Bases de Datos documentales<a class="headerlink" href="#unidad-3-acceso-a-bases-de-datos-documentales" title="Permanent link">&para;</a></h1>
+<p><span class="mi_h3">Revisiones</span></p>
+<table>
+<thead>
+<tr>
+<th>Revisión</th>
+<th>Fecha</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>31-10-2025</td>
+<td>Adaptación de los materiales a markdown</td>
+</tr>
+</tbody>
+</table>
+<h2 id="31-introduccion">3.1. Introducción<a class="headerlink" href="#31-introduccion" title="Permanent link">&para;</a></h2>
+<p>Las bases de datos documentales nativas (como MongoDB, Redis o Firebase) almacenan información en forma de documentos, usualmente codificados en JSON, BSON o XML, en lugar de filas y columnas como en las bases de datos relacionales.</p>
+<p>Cada documento puede tener una estructura diferente, lo que permite mayor flexibilidad y agilidad en el desarrollo.</p>
+<p>Sin embargo, si el dominio de la aplicación tiene muchas relaciones fuertes entre entidades y se necesita garantizar una integridad referencial estricta, una base de datos relacional puede ser más adecuada.</p>
+<p><strong class="azul">Ventajas</strong></p>
+<table>
+<thead>
+<tr>
+<th>Ventaja</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flexibilidad del esquema</td>
+<td>No es necesario definir un esquema fijo antes de insertar datos. Ideal para estructuras dinámicas.</td>
+</tr>
+<tr>
+<td>Escalabilidad horizontal</td>
+<td>Se adaptan bien al escalado distribuyendo los datos en múltiples servidores (sharding).</td>
+</tr>
+<tr>
+<td>Rendimiento en lectura y escritura</td>
+<td>Muy eficiente en operaciones de lectura y escritura sobre documentos completos.</td>
+</tr>
+<tr>
+<td>Modelo cercano a objetos</td>
+<td>Almacenan los datos de manera similar a como se manejan en el código (objetos serializados como JSON).</td>
+</tr>
+<tr>
+<td>Facilidad de integración con APIs REST</td>
+<td>Los documentos JSON pueden ser enviados y recibidos fácilmente a través de APIs.</td>
+</tr>
+<tr>
+<td>Ideal para datos semiestructurados</td>
+<td>Útiles para trabajar con datos que no se ajustan a una estructura tabular, como respuestas de formularios, logs, etc.</td>
+</tr>
+</tbody>
+</table>
+<p><strong class="azul">Inconvenientes</strong></p>
+<table>
+<thead>
+<tr>
+<th>Inconveniente</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Falta de integridad referencial</td>
+<td>No hay claves foráneas como en las bases de datos relacionales, lo que puede causar inconsistencias si no se gestiona adecuadamente desde la aplicación.</td>
+</tr>
+<tr>
+<td>Redundancia de datos</td>
+<td>Se repite información entre documentos al no haber normalización; esto puede generar más uso de espacio.</td>
+</tr>
+<tr>
+<td>Curva de aprendizaje</td>
+<td>Requiere aprender nuevos conceptos como agregaciones, operadores específicos y estructuras de documentos.</td>
+</tr>
+<tr>
+<td>Menor soporte para transacciones complejas</td>
+<td>Aunque existen transacciones en algunas bases (como MongoDB), su uso es más limitado que en sistemas relacionales.</td>
+</tr>
+<tr>
+<td>Consultas menos optimizadas en relaciones complejas</td>
+<td>No es la mejor opción cuando los datos necesitan muchas relaciones y joins complejos.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="32-mongodb">3.2. MongoDB<a class="headerlink" href="#32-mongodb" title="Permanent link">&para;</a></h2>
+<p>MongoDB es un sistema de gestión de bases de datos NoSQL <strong>orientado a documentos</strong>.
+A diferencia de las bases de datos relacionales, que almacenan la información en tablas con filas y columnas, MongoDB guarda los datos en <strong>colecciones</strong> formadas por documentos en formato <strong>BSON</strong> (una representación binaria de JSON).</p>
+<p><span class="mi_h3">JSON</span></p>
+<p><strong>JSON</strong> (JavaScript Object Notation) es un formato de texto ligero utilizado para almacenar e intercambiar información estructurada entre aplicaciones. Aunque su sintaxis proviene de JavaScript, hoy en día es independiente del lenguaje y se usa ampliamente en entornos como Kotlin, Java, Python, Node.js, bases de datos NoSQL, APIs REST, etc.</p>
+<p>Un fichero JSON está compuesto por <strong>pares clave–valor</strong>, donde:</p>
+<ul>
+<li>Las <strong>claves</strong> siempre van entre comillas dobles " ".</li>
+<li>
+<p>Los <strong>valores</strong> pueden ser:</p>
+<ul>
+<li>Cadenas de texto ("texto")</li>
+<li>Números (42)</li>
+<li>Booleanos (true o false)</li>
+<li>Objetos (otro conjunto de pares clave-valor { ... })</li>
+<li>Arrays o listas ([ ... ])</li>
+<li>Valor nulo (null)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Ejemplos de estructuras JSON</strong></p>
+<p><strong>Objeto simple</strong>: Representa un único elemento con propiedades básicas.</p>
+<div class="highlight"><pre><span></span><code>{
+&quot;nombre&quot;: &quot;Pol&quot;,
+&quot;edad&quot;: 21,
+&quot;ciudad&quot;: &quot;Barcelona&quot;
+}
+</code></pre></div>
+<p><strong>Objeto con array</strong>(lista de valores): Incluye un campo que contiene una lista.</p>
+<div class="highlight"><pre><span></span><code>{
+&quot;nombre&quot;: &quot;Pol&quot;,
+&quot;aficiones&quot;: [&quot;libros&quot;, &quot;cine&quot;, &quot;música&quot;]
+}
+</code></pre></div>
+<p><strong>Objeto con otro objeto anidado</strong>: Un campo puede contener a su vez otro objeto JSON.</p>
+<div class="highlight"><pre><span></span><code>{
+&quot;nombre&quot;: &quot;Pol&quot;,
+&quot;edad&quot;: 21,
+&quot;direccion&quot;: {
+    &quot;calle&quot;: &quot;Mayor&quot;,
+    &quot;ciudad&quot;: &quot;Castellón&quot;,
+    &quot;codigo_postal&quot;: 12001
+}
+}
+</code></pre></div>
+<p><strong>Array de objetos</strong>: Cuando necesitamos almacenar varios elementos similares (por ejemplo, una lista de productos o alumnos).</p>
+<div class="highlight"><pre><span></span><code>{
+&quot;alumnos&quot;: [
+    { &quot;nombre&quot;: &quot;Pol&quot;, &quot;nota&quot;: 7.6 },
+    { &quot;nombre&quot;: &quot;Eli&quot;, &quot;nota&quot;: 8.2 },
+    { &quot;nombre&quot;: &quot;Mar&quot;, &quot;nota&quot;: 9.8 }
+]
+}
+</code></pre></div>
+<p><strong>Combinación compleja (objetos + arrays + anidamientos)</strong>: Para representar datos estructurados, como los de una tienda online.</p>
+<div class="highlight"><pre><span></span><code>{
+&quot;pedido&quot;: {
+    &quot;id&quot;: 101,
+    &quot;fecha&quot;: &quot;2025-10-11&quot;,
+    &quot;cliente&quot;: {
+    &quot;nombre&quot;: &quot;Pol Casas&quot;,
+    &quot;email&quot;: &quot;p.casas@dominio.com&quot;
+    },
+    &quot;productos&quot;: [
+    { &quot;nombre&quot;: &quot;Ensalada de piña&quot;, &quot;precio&quot;: 10.50, &quot;cantidad&quot;: 1 },
+    { &quot;nombre&quot;: &quot;Tarta de manzana&quot;, &quot;precio&quot;: 3.50, &quot;cantidad&quot;: 1 }
+    ],
+    &quot;total&quot;: 14.00
+}
+}
+</code></pre></div>
+<p><strong>Array de objetos principales</strong>: También se puede usar un array como estructura raíz, por ejemplo, para representar varios registros en un mismo fichero:</p>
+<div class="highlight"><pre><span></span><code>[
+    { &quot;nombre&quot;: &quot;Pol&quot;, &quot;edad&quot;: 21 },
+    { &quot;nombre&quot;: &quot;Eli&quot;, &quot;edad&quot;: 22 },
+    { &quot;nombre&quot;: &quot;Mar&quot;, &quot;edad&quot;: 18 }
+]
+</code></pre></div>
+<p><strong>Estructuras básicas de almacenamiento de información</strong></p>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Equivalente en BD relacional</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Base de datos</strong></td>
+<td>Base de datos</td>
+<td>Conjunto de colecciones.</td>
+</tr>
+<tr>
+<td><strong>Colección</strong></td>
+<td>Tabla</td>
+<td>Agrupación de documentos relacionados.</td>
+</tr>
+<tr>
+<td><strong>Documento</strong></td>
+<td>Fila (registro)</td>
+<td>Unidad básica de almacenamiento. Es un objeto JSON.</td>
+</tr>
+<tr>
+<td><strong>Campo</strong></td>
+<td>Columna</td>
+<td>Atributo dentro del documento.</td>
+</tr>
+</tbody>
+</table>
+<p>En <strong>MongoDB</strong> cada documento es una <strong>estructura flexible</strong>, parecida a un objeto de programación, donde los datos se organizan en pares <strong>clave–valor</strong>. Esta flexibilidad permite que cada <strong>documento</strong> tenga una estructura diferente, lo que hace que MongoDB se adapte fácilmente a los cambios en los datos sin necesidad de modificar esquemas.</p>
+<p><span class="mis_ejemplos">Ejemplo 1: Plantas y jardineros</span></p>
+<p>A continuación tenemos información sobre algunas <strong>plantas</strong> y los <strong>jardineros</strong> que las cuidan. Dependiendo de cómo se deba acceder a la información, se pueden guardar las plantas con sus jardineros, o los jardineros con las plantas que cuidan.</p>
+<p>De la primera manera podríamos tener una colección llamada <strong>Plantas</strong>. Observa cómo los objetos no tienen por qué tener la misma estructura y, en este caso, la forma de acceder al nombre de un jardinero sería la siguiente: <strong>objeto.jardinero.nombre</strong>:</p>
+<div class="highlight"><pre><span></span><code>{  
+_id: 301,  
+nombre: &quot;Rosa silvestre&quot;,  
+tipus: &quot;Arbust&quot;,  
+jardinero: {  
+    nombre: &quot;Eli&quot;,  
+    apellidos: &quot;Martínez Serra&quot;,  
+    anyo_nacimiento: 1985  
+    },  
+localitzacio: &quot;Jardí Mediterrani&quot;  
+},  
+{  
+_id: 302,  
+nombre: &quot;Ficus lyrata&quot;,  
+tipus: &quot;Planta d’interior&quot;,  
+jardinero: {  
+    nombre: &quot;Pol&quot;,  
+    apellidos: &quot;Ribas Colomer&quot;,  
+    pais: &quot;Espanya&quot;  
+    },  
+altura: 150,  
+reg_setmanal: 2  
+}
+</code></pre></div>
+<p>De la segunda manera tendríamos la colección <strong>Jardineros</strong> donde la información estaría organizasa por jardineros y cada uno de ellos tendría un array con las plantas que cuida (los corchetes: [ ]):</p>
+<div class="highlight"><pre><span></span><code>{  
+_id: 401,  
+nom: &quot;Laura&quot;,  
+cognoms: &quot;Martínez Serra&quot;,  
+any_naixement: 1985,  
+plantes: [  
+    {  
+    nom: &quot;Rosa silvestre&quot;,  
+    tipus: &quot;Arbust&quot;,  
+    localitzacio: &quot;Jardí Mediterrani&quot;  
+    },  
+    {  
+    nom: &quot;Lavanda officinalis&quot;,  
+    localitzacio: &quot;Parterre aromàtic&quot;  
+    }  
+    ]  
+},  
+{  
+_id: 402,  
+nom: &quot;Jordi&quot;,  
+cognoms: &quot;Ribas Colomer&quot;,  
+pais: &quot;Espanya&quot;,  
+plantes: [  
+    {  
+    nom: &quot;Ficus lyrata&quot;,  
+    tipus: &quot;Planta d’interior&quot;,  
+    alçada_cm: 150,  
+    reg_setmanal: 2  
+    }  
+    ]  
+}
+</code></pre></div>
+<p><span class="mi_h3">Instalación y administración</span></p>
+<p><strong>Opciones de instalación y despliegue</strong></p>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Descripción</th>
+<th>Ideal para</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MongoDB Community Server</strong></td>
+<td>Versión gratuita que se instala localmente en Windows, Linux o macOS.</td>
+<td>Prácticas locales, entornos educativos.</td>
+</tr>
+<tr>
+<td><strong>MongoDB en Docker</strong></td>
+<td>Se ejecuta como contenedor con <code>docker-compose</code> o comandos <code>docker run</code>.</td>
+<td>Entornos de desarrollo rápidos y reproducibles.</td>
+</tr>
+<tr>
+<td><strong>MongoDB Atlas</strong></td>
+<td>Servicio en la nube oficial de MongoDB. Permite crear clústeres gratuitos o de pago, gestionados por Mongo.</td>
+<td>Proyectos web, microservicios, despliegues reales.</td>
+</tr>
+<tr>
+<td><strong>MongoDB Local + Atlas Sync</strong></td>
+<td>Permite sincronizar datos locales con una base remota en Atlas.</td>
+<td>Aplicaciones con modo offline/online.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Herramientas de administración y visualización</strong></p>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Tipo</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MongoDB Compass</strong></td>
+<td>GUI oficial</td>
+<td>Interfaz gráfica para consultar, insertar y analizar datos.</td>
+</tr>
+<tr>
+<td><strong>DBeaver</strong></td>
+<td>GUI universal</td>
+<td>Permite conectarse a Mongo y a otras bases de datos (SQL y NoSQL).</td>
+</tr>
+<tr>
+<td><strong>Robo 3T</strong> <em>(antiguo Robomongo)</em></td>
+<td>GUI ligera</td>
+<td>Muy utilizada para tareas básicas de exploración.</td>
+</tr>
+<tr>
+<td><strong>mongosh</strong></td>
+<td>Consola oficial</td>
+<td>Shell de comandos moderno (sustituye a <code>mongo</code>).</td>
+</tr>
+</tbody>
+</table>
+<p>De entre todas las opciones posibles para instalar y administrar MongoDB, utilizaremos la versión <strong>Community</strong> junto con <strong>Mongo Shell (mongosh)</strong> por su simplicidad, ligereza y adecuación a los objetivos de esta unidad.</p>
+<p><span class="mi_h4">Instalación en Linux</span></p>
+<p><strong>Instalación del servidor (Linux)</strong></p>
+<p>Desde la página oficial de MongoDB: <a href="https://www.mongodb.com/try/download/community">https://www.mongodb.com/try/download/community
+</a> vamos al menú <strong>Products → Community Edition → Community Server</strong> y descargamos la versión apropiada para nuestro sistema operativo.</p>
+<p>Es recomendable elegir el paquete <strong>.tgz</strong>, ya que simplemente descomprimiendo el archivo se completa la instalación básica. Por ejemplo, para Ubuntu 22.04 de 64 bits, en el momento de redactar estos apuntes, el archivo sería: <a href="https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.2.1.tgz">https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.2.1.tgz</a></p>
+<p>Una vez descargado, descomprimimos el archivo en el lugar que queramos, y con eso ya tendremos la instalación básica lista. Una vez instalado, crearemos el directorio de datos, que por defecto ha de estar ubicado en la raiz de la instalación (si no somos administradores y no tenemos permisos para crear ese directorio, crearemos otro alternativo):</p>
+<div class="highlight"><pre><span></span><code>mkdir /data  
+mkdir /data/db
+</code></pre></div>
+<p>Para arrancar el servidor (si el directorio de datos está en la raiz de la instalación, es decir, /data/db) hay que ejecutar el siguiente comando:</p>
+<div class="highlight"><pre><span></span><code>&lt;directoro raíz de MongoDB&gt;./bin/mongod
+</code></pre></div>
+<p>Si la base de datos no se encuentra en la raiz de la instalación hay que especificar su ruta en el comando de arranque:</p>
+<div class="highlight"><pre><span></span><code>&lt;directorio raíz de MongoDB&gt;./bin/mongod --dbpath &lt;directorio_de_la_BD&gt;
+</code></pre></div>
+<p>Una vez arrancamos el servidor, y si todo es correcto, aparecerán una serie de mensajes informativos y el servidor quedará en espera de recibir peticiones del cliente:</p>
+<p><img alt="Imagen 1" src="img/mongo/mongo01.png" />
+<img alt="Imagen 2" src="img/mongo/mongo02.png" /></p>
+<div class="admonition note">
+<p>Una vez que el servidor está en marcha, no debemos cerrar esa terminal, ya que al hacerlo detendríamos el servidor.</p>
+</div>
+<p><strong>Instalación del cliente MongoShell (Linux)</strong></p>
+<p>Desde la página de MongoDB <a href="https://www.mongodb.com/try/download/shell">https://www.mongodb.com/try/download/shell
+</a> vamos al menú <strong>Products → Tools → MongoDB Shell</strong>, y descargamos la versión apropiada para nuestro sistema operativo.</p>
+<p>Es recomendable elegir el paquete <strong>.tgz</strong>, ya que simplemente descomprimiendo el archivo se completa la instalación. En el caso de Ubuntu 22.04 de 64 bits, seleccionaremos la opción genérica “Linux 64”, ya que es la que ofrece el paquete .tgz. El archivo correspondiente es: <a href="https://downloads.mongodb.com/compass/mongosh-2.4.0-linux-x64.tgz">https://downloads.mongodb.com/compass/mongosh-2.4.0-linux-x64.tgz</a></p>
+<p>Una vez descargado, descomprimimos el archivo en el lugar que queramos, y con eso ya tendremos la instalación básica lista. La forma de arrancar el cliente será:</p>
+<div class="highlight"><pre><span></span><code>&lt;directori raíz de  Mongosh&gt;./bin/mongosh
+</code></pre></div>
+<p><img alt="Imagen 3" src="img/mongo/mongo03.png" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Práctica 1: Instala MongoDB en tu ordenador de clase </p>
+<p>Sigue los pasos para instalar tanto el servidor como el cliente.</p>
+</div>
+<p><span class="mi_h4">Instalación en Windows</span></p>
+<p><strong>Instalación del servidor (Windows)</strong></p>
+<p>Desde la página oficial de MongoDB: <a href="https://www.mongodb.com/try/download/community">https://www.mongodb.com/try/download/community</a> vamos al menú <strong>Products → Community Edition → Community Server</strong> y descargamos la versión apropiada para nuestro sistema operativo, que se distribuye como un archivo <strong>.msi</strong> ejecutable.</p>
+<p>En el momento de redactar estos apuntes, la versión de 64 bits más reciente: <a href="https://fastdl.mongodb.org/windows/mongodb-ewindows-x86_64-8.2.1-signed.msi">https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-8.2.1-signed.msi</a></p>
+<p>Durante la instalación, se te preguntará si deseas instalarlo como un servicio. Si eliges esta opción, el programa se iniciará automáticamente con el sistema y no tendrás que ejecutarlo manualmente cada vez. Puedes comprobarlo con:</p>
+<div class="highlight"><pre><span></span><code>net start | find &quot;MongoDB&quot;
+</code></pre></div>
+<div class="admonition note">
+<p>Si eliges <strong>no</strong> instalar MongoDB como servicio, deberás iniciarlo manualmente cada vez que quieras usarlo. En este caso, es necesario crear la carpeta donde se almacenarán los datos de la base de datos.</p>
+</div>
+<p><img alt="Imagen 4" src="img/mongo/mongo04.png" /></p>
+<p><strong>Instalación del cliente Mongo Shell (Windows)</strong></p>
+<p>Para conectarnos como clientes, debemos hacerlo desde un  terminal, utilizando mongosh.exe, que es la interfaz de línea de comandos (CLI) oficial de MongoDB. Esta herramienta permite interactuar con la base de datos mediante comandos en JavaScript.</p>
+<p>Descargamos la versión correspondiente de MongoDB Shell para Windows desde la página oficial: <a href="https://www.mongodb.com/try/download/shell">https://www.mongodb.com/try/download/shell</a></p>
+<p>En el momento de redactar estos apuntes, la versión de 64 bits más reciente: <a href="https://downloads.mongodb.com/compass/mongosh-2.5.8-x64.msi">https://downloads.mongodb.com/compass/mongosh-2.5.8-x64.msi</a></p>
+<p>Una vez el servidor esté activo, simplemente escribe:</p>
+<div class="highlight"><pre><span></span><code>mongosh
+</code></pre></div>
+<p>Dentro del shell, prueba con:</p>
+<div class="highlight"><pre><span></span><code>show dbs
+</code></pre></div>
+<p>Si ves las bases de datos (admin, config, local), todo está funcionando correctamente:</p>
+<p><img alt="Imagen 5" src="img/mongo/mongo05.png" /></p>
+<p>También puedes descargar la versión <strong>MongoDB Compass</strong>, que es la herramienta gráfica oficial de MongoDB, la cual permite visualizar, explorar y administrar bases de datos MongoDB sin necesidad de utilizar la línea de comandos.
+<a href="https://downloads.mongodb.com/compass/mongodb-compass-1.45.3-win32-x64.exe">https://downloads.mongodb.com/compass/mongodb-compass-1.45.3-win32-x64.exe</a></p>
+<p><span class="mis_ejemplos">Ejemplo 2: Probar el funcionament</span></p>
+<p>Para probar su funcionamiento, vamos a ejecutar un par de comandos: uno para guardar un documento y otro para recuperarlo. En cualquier operación, debemos escribir db seguido del nombre de la colección y después la operación a realizar.</p>
+<p>Para guardar un documento ejecutamos el siguiente comando:</p>
+<div class="highlight"><pre><span></span><code>db.ejemplo.insertOne({ msg: &quot;Hola, ¿qué tal?&quot; })
+</code></pre></div>
+<p>Obtendremos una respuesta indicando que se ha insertado un documento en la <strong>colección ejemplo</strong> (si no existía, la creará automáticamente):</p>
+<div class="highlight"><pre><span></span><code>    {
+    acknowledged: true,
+    insertedId: ObjectId(&#39;68ff6004ab24a06f35cebea4&#39;)
+    }
+</code></pre></div>
+<p>Y con el siguiente comando recuperamos la información:</p>
+<div class="highlight"><pre><span></span><code>db.ejemplo.find()
+</code></pre></div>
+<p>Lo que nos devolverá algo como:</p>
+<div class="highlight"><pre><span></span><code>{ &quot;_id&quot; : ObjectId(&quot;56cc1acd73b559230de8f71b&quot;), &quot;msg&quot; : &quot;Hola, ¿qué tal?&quot; }
+</code></pre></div>
+<p>Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un número diferente en el campo <strong>ObjectId</strong>. En la siguiente imagen pueden verse las dos operaciones.</p>
+<p><img alt="Imagen 6" src="img/mongo/mongo06.png" /></p>
+<p>Podemos crear y utilizar más de una base de datos. En realidad, estamos conectados a una base de datos llamada test. Para comprobarlo, podemos ejecutar la siguiente instrucción, que nos devuelve <strong>el nombre de la base de datos actual</strong>:</p>
+<div class="highlight"><pre><span></span><code>db.getName()
+</code></pre></div>
+<p><span class="mi_h3">Comandos de MongoDB y su utilización</span></p>
+<p>MongoDB utiliza su propia <strong>shell interactiva</strong>, llamada <strong><code>mongosh</code></strong>, que permite ejecutar comandos para administrar bases de datos, colecciones y documentos. Su sintaxis es <strong>muy similar a JavaScript</strong>, ya que cada comando se ejecuta sobre un <strong>objeto base</strong>:</p>
+<div class="highlight"><pre><span></span><code>db.coleccion.operacion()
+</code></pre></div>
+<ul>
+<li>db → representa la base de datos actual.</li>
+<li>coleccion → el nombre de la colección sobre la que actuamos.</li>
+<li>operacion() → el comando que deseamos ejecutar.</li>
+</ul>
+<p>A continuación se muestran varias tablas con los comandos más útiles para consultar, ordenar, filtrar y gestionar datos en MongoDB.</p>
+<p><span class="mi_h4">Comandos sobre bases de datos</span></p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>show dbs</code></td>
+<td>Muestra todas las bases de datos existentes.</td>
+<td><code>show dbs</code></td>
+</tr>
+<tr>
+<td><code>use &lt;nombre&gt;</code></td>
+<td>Cambia a una base de datos (la crea si no existe).</td>
+<td><code>use biblioteca</code></td>
+</tr>
+<tr>
+<td><code>db.getName()</code></td>
+<td>Muestra el nombre de la base de datos actual.</td>
+<td><code>db.getName()</code></td>
+</tr>
+<tr>
+<td><code>db.dropDatabase()</code></td>
+<td>Elimina la base de datos actual.</td>
+<td><code>db.dropDatabase()</code></td>
+</tr>
+</tbody>
+</table>
+<p><span class="mi_h4">Comandos sobre colecciones</span></p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>show collections</code></td>
+<td>Lista todas las colecciones de la base de datos.<br><strong>Ejemplo:</strong> <code>show collections</code></td>
+</tr>
+<tr>
+<td><code>db.createCollection("nombre")</code></td>
+<td>Crea una colección vacía.<br><strong>Ejemplo:</strong> <code>db.createCollection("alumnos")</code></td>
+</tr>
+<tr>
+<td><code>db.coleccion.drop()</code></td>
+<td>Elimina una colección completa.<br><strong>Ejemplo:</strong> <code>db.alumnos.drop()</code></td>
+</tr>
+<tr>
+<td><code>db.coleccion.renameCollection("nuevoNombre")</code></td>
+<td>Cambia el nombre de una colección.<br><strong>Ejemplo:</strong> <code>db.alumnos.renameCollection("estudiantes")</code></td>
+</tr>
+</tbody>
+</table>
+<p><span class="mi_h4">Operaciones básicas</span></p>
+<p><strong>Inserción</strong> (Si la colección no existe, MongoDB la <strong>creará automáticamente</strong> en el momento de la inserción)</p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>insertOne()</code></td>
+<td>Inserta un solo documento.<br><strong>Ejemplo:</strong> <code>db.alumnos.insertOne({nombre:"Ana", nota:8})</code></td>
+</tr>
+<tr>
+<td><code>insertMany()</code></td>
+<td>Inserta varios documentos a la vez.<br><strong>Ejemplo:</strong> <code>db.alumnos.insertMany([{nombre:"Luis", nota:7}, {nombre:"Marta", nota:9}])</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Búsqueda</strong></p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>find()</code></td>
+<td>Devuelve todos los documentos de la colección.<br><strong>Ejemplo:</strong> <code>db.alumnos.find()</code></td>
+</tr>
+<tr>
+<td><code>findOne()</code></td>
+<td>Devuelve el primer documento que cumple una condición.<br><strong>Ejemplo:</strong> <code>db.alumnos.findOne({nombre:"Ana"})</code></td>
+</tr>
+<tr>
+<td><code>find(criterio, proyección)</code></td>
+<td>Permite filtrar y mostrar solo algunos campos.<br><strong>Ejemplo:</strong> <code>db.alumnos.find({nota:{$gte:8}}, {nombre:1, _id:0})</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p><strong>Operadores comunes</strong>:<br />
+<code>$eq</code> (igual), <code>$ne</code> (distinto), <code>$gt</code> (mayor que), <code>$lt</code> (menor que), <code>$gte</code> (mayor o igual), <code>$lte</code> (menor o igual), <code>$in</code>, <code>$and</code>, <code>$or</code>.</p>
+</div>
+<p><strong>Actualización</strong> (Usa <code>$set</code> para modificar solo algunos campos y <strong>no perder el resto</strong>)</p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>updateOne(filtro, cambios)</code></td>
+<td>Actualiza el primer documento que cumpla la condición.<br><strong>Ejemplo:</strong> <code>db.alumnos.updateOne({nombre:"Ana"}, {$set:{nota:9}})</code></td>
+</tr>
+<tr>
+<td><code>updateMany(filtro, cambios)</code></td>
+<td>Actualiza todos los documentos que cumplan la condición.<br><strong>Ejemplo:</strong> <code>db.alumnos.updateMany({nota:{$lt:5}}, {$set:{aprobado:false}})</code></td>
+</tr>
+<tr>
+<td><code>replaceOne(filtro, nuevoDoc)</code></td>
+<td>Sustituye el documento completo.<br><strong>Ejemplo:</strong> <code>db.alumnos.replaceOne({nombre:"Ana"}, {nombre:"Ana", nota:10})</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Eliminación</strong></p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>deleteOne()</code></td>
+<td>Elimina el primer documento que cumpla la condición.<br><strong>Ejemplo:</strong> <code>db.alumnos.deleteOne({nombre:"Luis"})</code></td>
+</tr>
+<tr>
+<td><code>deleteMany()</code></td>
+<td>Elimina todos los documentos que cumplan la condición.<br><strong>Ejemplo:</strong> <code>db.alumnos.deleteMany({nota:{$lt:5}})</code></td>
+</tr>
+</tbody>
+</table>
+<p><span class="mi_h4">Consultas avanzadas y ordenación</span></p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sort()</code></td>
+<td>Ordena los resultados. <code>1</code> ascendente, <code>-1</code> descendente.<br><strong>Ejemplo:</strong> <code>db.alumnos.find().sort({nota:-1})</code></td>
+</tr>
+<tr>
+<td><code>limit()</code></td>
+<td>Limita el número de resultados.<br><strong>Ejemplo:</strong> <code>db.alumnos.find().limit(3)</code></td>
+</tr>
+<tr>
+<td><code>countDocuments()</code></td>
+<td>Devuelve el número de documentos que cumplen un filtro.<br><strong>Ejemplo:</strong> <code>db.alumnos.countDocuments({nota:{$gte:5}})</code></td>
+</tr>
+</tbody>
+</table>
+<p><span class="mi_h4">Índices</span></p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>createIndex({campo:1})</code></td>
+<td>Crea un índice ascendente.<br><strong>Ejemplo:</strong> <code>db.alumnos.createIndex({nombre:1})</code></td>
+</tr>
+<tr>
+<td><code>getIndexes()</code></td>
+<td>Muestra los índices existentes.<br><strong>Ejemplo:</strong> <code>db.alumnos.getIndexes()</code></td>
+</tr>
+<tr>
+<td><code>dropIndex("nombre_1")</code></td>
+<td>Elimina un índice.<br><strong>Ejemplo:</strong> <code>db.alumnos.dropIndex("nombre_1")</code></td>
+</tr>
+</tbody>
+</table>
+<p><span class="mi_h4">Información útil del entorno</span></p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>db.stats()</code></td>
+<td>Muestra estadísticas sobre la base de datos.<br><strong>Ejemplo:</strong> <code>db.stats()</code></td>
+</tr>
+<tr>
+<td><code>db.coleccion.stats()</code></td>
+<td>Muestra estadísticas sobre una colección.<br><strong>Ejemplo:</strong> <code>db.alumnos.stats()</code></td>
+</tr>
+<tr>
+<td><code>db.version()</code></td>
+<td>Devuelve la versión de MongoDB.<br><strong>Ejemplo:</strong> <code>db.version()</code></td>
+</tr>
+</tbody>
+</table>
+<p><span class="mis_ejemplos">Ejemplo 1: Ejemplo completo</span></p>
+<div class="highlight"><pre><span></span><code>use florabotanica
+db.plantas.insertMany([
+{nombre_comun:&quot;Aloe&quot;, nombre_cientifico:&quot;Aloe&quot;, altura:30},
+{nombre_comun:&quot;Pino&quot;, nombre_cientifico:&quot;Pinus&quot;, altura:330},
+{nombre_comun:&quot;Cactus&quot;, nombre_cientifico:&quot;Cactae&quot;, altura:130}
+])
+
+db.plantas.find()
+db.plantas.updateOne({nombre_comun:&quot;Aloe&quot;}, {$set:{altura:35}})
+db.plantas.find({altura:{$gte:130}})
+db.plantas.deleteOne({nombre_comun:&quot;Cactus&quot;})
+</code></pre></div>
+<p><span class="mi_h4">Consultas avanzadas con <code>aggregate()</code></span></p>
+<p>El método <strong><code>aggregate()</code></strong> permite realizar <strong>consultas complejas</strong> y <strong>procesamientos de datos</strong> en varias etapas, similares a las funciones de <strong>GROUP BY, JOIN o HAVING</strong> en SQL. Cada etapa del <em>pipeline</em> (tubería) transforma los datos paso a paso. Cada etapa (stage) se representa mediante un objeto precedido por $, que indica la operación a realizar.</p>
+<p><strong>Estructura básica</strong></p>
+<div class="highlight"><pre><span></span><code>db.coleccion.aggregate([
+{ &lt;etapa1&gt; },
+{ &lt;etapa2&gt; },
+...
+])
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Etapa</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$match</code></td>
+<td>Filtra documentos (equivalente a <code>WHERE</code>).<br><strong>Ejemplo:</strong> <code>{ $match: { ciudad: "Valencia" } }</code></td>
+</tr>
+<tr>
+<td><code>$project</code></td>
+<td>Selecciona campos específicos o crea nuevos.<br><strong>Ejemplo:</strong> <code>{ $project: { _id:0, nombre:1, nota:1 } }</code></td>
+</tr>
+<tr>
+<td><code>$sort</code></td>
+<td>Ordena los resultados.<br><strong>Ejemplo:</strong> <code>{ $sort: { nota: -1 } }</code></td>
+</tr>
+<tr>
+<td><code>$limit</code></td>
+<td>Limita el número de resultados.<br><strong>Ejemplo:</strong> <code>{ $limit: 5 }</code></td>
+</tr>
+<tr>
+<td><code>$skip</code></td>
+<td>Omite un número de documentos.<br><strong>Ejemplo:</strong> <code>{ $skip: 10 }</code></td>
+</tr>
+<tr>
+<td><code>$group</code></td>
+<td>Agrupa los documentos por un campo y calcula valores agregados (como <code>COUNT</code>, <code>SUM</code>, <code>AVG</code>).<br><strong>Ejemplo:</strong> <code>{ $group: { _id: "$curso", media: { $avg: "$nota" } } }</code></td>
+</tr>
+<tr>
+<td><code>$count</code></td>
+<td>Devuelve el número total de documentos resultantes.<br><strong>Ejemplo:</strong> <code>{ $count: "total" }</code></td>
+</tr>
+<tr>
+<td><code>$lookup</code></td>
+<td>Realiza una unión entre colecciones (similar a <code>JOIN</code>).<br><strong>Ejemplo:</strong> <code>{ $lookup: { from: "profesores", localField: "idProfesor", foreignField: "_id", as: "infoProfesor" } }</code></td>
+</tr>
+<tr>
+<td><code>$unwind</code></td>
+<td>Descompone arrays en múltiples documentos.<br><strong>Ejemplo:</strong> <code>{ $unwind: "$aficiones" }</code></td>
+</tr>
+</tbody>
+</table>
+<p><span class="mi_h4">Resumen</span></p>
+<table>
+<thead>
+<tr>
+<th>Categoría</th>
+<th>Comandos clave</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Base de datos</strong></td>
+<td><code>show dbs</code>, <code>use</code>, <code>db.getName()</code>, <code>db.dropDatabase()</code></td>
+</tr>
+<tr>
+<td><strong>Colecciones</strong></td>
+<td><code>show collections</code>, <code>db.createCollection()</code>, <code>db.coleccion.drop()</code></td>
+</tr>
+<tr>
+<td><strong>Inserción</strong></td>
+<td><code>db.coleccion.insertOne()</code>, <code>db.coleccion.insertMany()</code></td>
+</tr>
+<tr>
+<td><strong>Consulta</strong></td>
+<td><code>db.coleccion.find()</code>, <code>db.coleccion.findOne()</code>, <code>.sort()</code>, <code>.limit()</code></td>
+</tr>
+<tr>
+<td><strong>Actualización</strong></td>
+<td><code>db.coleccion.updateOne()</code>, <code>db.coleccion.updateMany()</code>, <code>$set</code></td>
+</tr>
+<tr>
+<td><strong>Eliminación</strong></td>
+<td><code>db.coleccion.deleteOne()</code>, <code>db.coleccion.deleteMany()</code></td>
+</tr>
+<tr>
+<td><strong>Índices</strong></td>
+<td><code>db.coleccion.createIndex()</code>, <code>db.coleccion.getIndexes()</code>, <code>db.coleccion.dropIndex()</code></td>
+</tr>
+<tr>
+<td><strong>Estadísticas</strong></td>
+<td><code>db.stats()</code>, <code>db.coleccion.stats()</code>, <code>db.version()</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">java</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo 1</p>
+</div>
+<ol>
+<li>Crea</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Práctica 2: Crea tu </p>
+</div>
+<ol>
+<li>Crea un nu.</li>
+</ol>
+<div class="admonition danger">
+<p class="admonition-title">Entrega 1</p>
+</div>
+<p>Entrega en Aules la carpeta <code>main</code> de tu proyecto comprimida en formato .zip</p>
+<div class="highlight"><pre><span></span><code>**IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
+</code></pre></div>
+<h2 id="33-firebase">3.3. Firebase<a class="headerlink" href="#33-firebase" title="Permanent link">&para;</a></h2>
+<p>En construcción</p>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo 5</p>
+</div>
+<p>Prueba el código de ejemplo y verifica que funciona correctamente.</p>
+<div class="admonition warning">
+<p class="admonition-title">Práctica 5: Amplía tu proyecto</p>
+</div>
+<p>Incluye .</p>
+<div class="admonition danger">
+<p class="admonition-title">Entrega 2</p>
+</div>
+<p>Entrega en Aules la carpeta <code>main/kotlin</code> de tu proyecto comprimida en formato .zip</p>
+<div class="highlight"><pre><span></span><code>**IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
+</code></pre></div>
+<hr />
+<p><span class="mi_h3">Autoría</span></p>
+<p>Obra realizada por Begoña Paterna Lluch basada en materiales desarrollados por Alicia Salvador Contreras. Publicada bajo licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Atribución/Reconocimiento-CompartirIgual 4.0 Internacional</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": ".", "features": ["content.code.copy", "content.tabs.link", "navigation.instant", "navigation.top", "navigation.sections", "search.highlight", "search.suggest", "toc.integrate"], "search": "assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
