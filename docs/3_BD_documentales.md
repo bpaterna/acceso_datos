@@ -130,10 +130,7 @@ Un fichero JSON está compuesto por **pares clave–valor**, donde:
 
 
 
-En **MongoDB** cada documento es una **estructura flexible**, parecida a un objeto de programación, donde los datos se organizan en pares **clave–valor**.
-Esta flexibilidad permite que cada **documento** tenga una estructura diferente, lo que hace que MongoDB se adapte fácilmente a los cambios en los datos sin necesidad de modificar esquemas.
-
-**Estructura básica**
+**Estructuras básicas de almacenamiento de información**
 
 | Concepto       | Equivalente en BD relacional | Descripción                                      |
 |----------------|------------------------------|--------------------------------------------------|
@@ -142,15 +139,13 @@ Esta flexibilidad permite que cada **documento** tenga una estructura diferente,
 | **Documento**     | Fila (registro)             | Unidad básica de almacenamiento. Es un objeto JSON. |
 | **Campo**         | Columna                    | Atributo dentro del documento.                   |
 
+En **MongoDB** cada documento es una **estructura flexible**, parecida a un objeto de programación, donde los datos se organizan en pares **clave–valor**. Esta flexibilidad permite que cada **documento** tenga una estructura diferente, lo que hace que MongoDB se adapte fácilmente a los cambios en los datos sin necesidad de modificar esquemas.
 
-<span class="mis_ejemplos">Ejemplo 1: Estructura flexible</span>
+<span class="mis_ejemplos">Ejemplo 1: Plantas y jardineros</span>
 
-Veamos algunos **ejemplos** de documentos JSON para guardar la información de **plantas** y de los jardineros que las cuidan.
+A continuación tenemos información sobre algunas **plantas** y los **jardineros** que las cuidan. Dependiendo de cómo se deba acceder a la información, se pueden guardar las plantas con sus jardineros, o los jardineros con las plantas que cuidan.
 
-Dependiendo de cómo se deba acceder a la información, podemos plantearnos guardar las plantas con sus jardineros, o guardar los jardineros con las plantas a las que cuidan.
-
-De la primera manera, guardando las plantas junto a su jardinero, podríamos tener documentos con esta estructura, que se podrían guardar en una colección llamada **Plantas**. Observa cómo los objetos no tienen por qué tener la misma estructura. La forma de acceder al nombre de un jardinero sería la siguiente:
-**objeto.jardinero.nombre**:
+De la primera manera podríamos tener una colección llamada **Plantas**. Observa cómo los objetos no tienen por qué tener la misma estructura y, en este caso, la forma de acceder al nombre de un jardinero sería la siguiente: **objeto.jardinero.nombre**:
 
 ```
 {  
@@ -179,7 +174,7 @@ reg_setmanal: 2
 ```  
 
 
-De la segunda manera sería organizarla por jardineros junto con sus plantas. De este modo, podríamos ir completando la colección **Jardineros** de la sigueinte forma. Ahora para un jardinero tenemos un array (los corchetes: [ ]) con las plantas que cuida:
+De la segunda manera tendríamos la colección **Jardineros** donde la información estaría organizasa por jardineros y cada uno de ellos tendría un array con las plantas que cuida (los corchetes: [ ]):
 
 
 ```
@@ -228,7 +223,6 @@ plantes: [
 | **MongoDB Local + Atlas Sync** | Permite sincronizar datos locales con una base remota en Atlas. | Aplicaciones con modo offline/online. |
 
 
-
 **Herramientas de administración y visualización**
 
 | Herramienta | Tipo | Descripción |
@@ -239,38 +233,26 @@ plantes: [
 | **mongosh** | Consola oficial | Shell de comandos moderno (sustituye a `mongo`). |
 
 
-
 De entre todas las opciones posibles para instalar y administrar MongoDB, utilizaremos la versión **Community** junto con **Mongo Shell (mongosh)** por su simplicidad, ligereza y adecuación a los objetivos de esta unidad.
 
 
-**Instalación en Linux**
+<span class="mi_h4">Instalación en Linux</span>
 
-Para realizar la instalación más básica, podemos hacerlo sin permisos de administrador. Si los tenemos, todo será más cómodo, pero si no, también es posible, como veremos y destacaremos a continuación.
+Para realizar la instalación básica no es necesario tener permisos de administrador. 
 
 **Instalación del servidor (Linux)**
 
 Desde la página oficial de MongoDB: [https://www.mongodb.com/try/download/community
 ](https://www.mongodb.com/try/download/community) vamos al menú **Products → Community Edition → Community Server** y descargamos la versión apropiada para nuestro sistema operativo.
 
-Observa que, en el caso de Linux, hay muchas versiones para distintas distribuciones.
-Es recomendable elegir el paquete **.tgz**, ya que simplemente descomprimiendo el archivo se completa la instalación básica.
+Es recomendable elegir el paquete **.tgz**, ya que simplemente descomprimiendo el archivo se completa la instalación básica. Por ejemplo, para Ubuntu 22.04 de 64 bits, en el momento de redactar estos apuntes, el archivo sería: [https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.2.1.tgz](https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.2.1.tgz)
 
-Por ejemplo, para Ubuntu 22.04 de 64 bits, en el momento de redactar estos apuntes, el archivo sería: [https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.2.1.tgz](https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.2.1.tgz)
-
-!!!Warning ""
-Recuerda comprobar siempre que la versión coincide con la de tu sistema operativo.
-
-Sencillamente, descomprimiremos este archivo en el lugar que queramos, y con eso ya tendremos la instalación básica lista.
-
-Una vez instalado, crearemos el directorio de datos, que por defecto ha de estar ubicado en la raiz de la instalación:
+Una vez descargado, descomprimimos el archivo en el lugar que queramos, y con eso ya tendremos la instalación básica lista. Una vez instalado, crearemos el directorio de datos, que por defecto ha de estar ubicado en la raiz de la instalación:
 
     mkdir /data  
     mkdir /data/db
 
-El único problema que podríamos tener, si no somos administradores, es no tener permiso para crear ese directorio. En ese caso, crearemos otro directorio alternativo y, en el momento de arrancar el servidor, le indicaremos esa ubicación.
-
-
-La forma de arrancar el servidor será:
+Si no somos administradores y no tenemos permisos para crear ese directorio, crearemos otro alternativo y, en el momento de arrancar el servidor, le indicaremos esa ubicación. La forma de arrancar el servidor será:
 
     <directoro raíz de MongoDB>./bin/mongod
 
@@ -281,20 +263,19 @@ Opcionalmente, podemos indicarle a MongoDB dónde se encuentra la base de datos 
 Una vez arrancamos el servidor, y si todo es correcto, aparecerán una serie de mensajes informativos y el servidor quedará en espera de recibir peticiones del cliente:
 
 
-![alt text](../img/mongo_linus.png)|![alt text](../img/mongo_linus2.png)|
------|-----
+![Imagen 1](img/mongo/mongo01.png)
+![Imagen 2](img/mongo/mongo02.png)
 
 
-!!!Note "Nota"
-Una vez que el servidor está en marcha, no debemos cerrar esa terminal, ya que al hacerlo detendríamos el servidor.
+!!!Note ""
+    Una vez que el servidor está en marcha, no debemos cerrar esa terminal, ya que al hacerlo detendríamos el servidor.
 
 
 
 **Instalación del cliente MongoShell (Linux)**
 
 Desde la página de MongoDB [https://www.mongodb.com/try/download/shell
-](https://www.mongodb.com/try/download/shell) vamos al menú
-**Products → Tools → MongoDB Shell**, y descargamos la versión apropiada para nuestro sistema operativo.
+](https://www.mongodb.com/try/download/shell) vamos al menú **Products → Tools → MongoDB Shell**, y descargamos la versión apropiada para nuestro sistema operativo.
 
 Observa que, en el caso de Linux, existen muchas versiones para diferentes distribuciones.
 Es recomendable elegir el paquete **.tgz**, ya que simplemente descomprimiendo el archivo se completa la instalación.
@@ -303,17 +284,14 @@ En el caso de Ubuntu 22.04 de 64 bits, seleccionaremos la opción genérica “L
 
 El archivo correspondiente es: [https://downloads.mongodb.com/compass/mongosh-2.4.0-linux-x64.tgz](https://downloads.mongodb.com/compass/mongosh-2.4.0-linux-x64.tgz)
 
-!!!Warning ""
-Recuerda asegurarte siempre de que la versión sea la correcta para tu sistema.
 
-Sencillamente descomprimiremos este archivo en el lugar que queramos, y con eso ya tendremos hecha la instalación básica.
 
-La forma de arrancar el cliente será:
+Una vez descargado, descomprimimos el archivo en el lugar que queramos, y con eso ya tendremos la instalación básica lista. La forma de arrancar el cliente será:
 
     <directori raíz de  Mongosh>./bin/mongosh
 
 
-![alt text](../img/mongosh.png)
+![Imagen 3](img/mongo/mongo03.png)
 
 
 ## 🪟 Instalación en Windows
@@ -326,7 +304,7 @@ Desde la página oficial de MongoDB: [https://www.mongodb.com/try/download/commu
 
 Durante la instalación, se te preguntará si deseas instalarlo como un servicio. Si eliges esta opción, el programa se iniciará automáticamente con el sistema y no tendrás que ejecutarlo manualmente cada vez.
 
-![alt text](../img/image.png)
+![Imagen 4](img/mongo/mongo04.png)
 
 🎯Si instalaste MongoDB como servicio, se inicia automáticamente al arrancar Windows, puedes comprobarlo con:
 
@@ -340,6 +318,7 @@ Si eliges **no** instalar MongoDB como servicio, deberás iniciarlo manualmente 
 Si todo es correcto, debería aparecer una ventana o consola indicando que el servidor está en ejecución, como en la siguiente imagen:
 
 ![alt text](../img/mongodW.png)
+
 
 -->
 
@@ -366,7 +345,7 @@ Dentro del shell, prueba con:
 
 Si ves las bases de datos (admin, config, local), todo está funcionando correctamente:
 
-![alt text](../img/image2.png)
+![Imagen 5](img/mongo/mongo05.png)
 
 !!!Tip "Mongo Compass"
 También podéis descargar la versión **MongoDB Compass**, que es la herramienta gráfica oficial de MongoDB, la cual permite visualizar, explorar y administrar bases de datos MongoDB sin necesidad de utilizar la línea de comandos.
@@ -403,7 +382,7 @@ Lo que nos devolverá algo como:
     { "_id" : ObjectId("56cc1acd73b559230de8f71b"), "msg" : "Hola, ¿qué tal?" }
 
 
-![alt text](../img/image3.png)
+![Imagen 6](img/mongo/mongo06.png)
 
 Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un número diferente en el campo **ObjectId**.
 En la siguiente imagen pueden verse las dos operaciones.

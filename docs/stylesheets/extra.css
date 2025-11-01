@@ -23,6 +23,14 @@ img {border:#767676 solid 2px;}
   font-weight: lighter;
 }
 
+.mi_h4 {
+  color: #ef5552;
+  font-size: 1.2em;
+  line-height: 1.2;
+  margin: 1.6em 0 .64em;
+  font-weight: lighter;
+}
+
 .mi_consola {color: #999}
 
 .mis_ejemplos {
