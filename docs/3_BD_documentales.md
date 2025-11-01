@@ -66,27 +66,27 @@ Un fichero JSON está compuesto por **pares clave–valor**, donde:
 **Objeto simple**: Representa un único elemento con propiedades básicas.
 
     {
-    "nombre": "Ana",
-    "edad": 25,
-    "ciudad": "Valencia"
+    "nombre": "Pol",
+    "edad": 21,
+    "ciudad": "Barcelona"
     }
 
 **Objeto con array**(lista de valores): Incluye un campo que contiene una lista.
 
     {
-    "nombre": "Pedro",
-    "aficiones": ["cine", "fútbol", "viajar"]
+    "nombre": "Pol",
+    "aficiones": ["libros", "cine", "música"]
     }
 
 **Objeto con otro objeto anidado**: Un campo puede contener a su vez otro objeto JSON.
 
     {
-    "nombre": "Lucía",
-    "edad": 30,
+    "nombre": "Pol",
+    "edad": 21,
     "direccion": {
-        "calle": "Gran Vía",
-        "ciudad": "Madrid",
-        "codigo_postal": 28013
+        "calle": "Mayor",
+        "ciudad": "Castellón",
+        "codigo_postal": 12001
     }
     }
 
@@ -94,9 +94,9 @@ Un fichero JSON está compuesto por **pares clave–valor**, donde:
 
     {
     "alumnos": [
-        { "nombre": "Carlos", "nota": 8.5 },
-        { "nombre": "María", "nota": 9.2 },
-        { "nombre": "Laura", "nota": 7.8 }
+        { "nombre": "Pol", "nota": 7.6 },
+        { "nombre": "Eli", "nota": 8.2 },
+        { "nombre": "Mar", "nota": 9.8 }
     ]
     }
 
@@ -107,14 +107,14 @@ Un fichero JSON está compuesto por **pares clave–valor**, donde:
         "id": 101,
         "fecha": "2025-10-11",
         "cliente": {
-        "nombre": "Javier López",
-        "email": "jlopez@example.com"
+        "nombre": "Pol Casas",
+        "email": "p.casas@dominio.com"
         },
         "productos": [
-        { "nombre": "Ratón inalámbrico", "precio": 19.99, "cantidad": 1 },
-        { "nombre": "Teclado mecánico", "precio": 49.95, "cantidad": 1 }
+        { "nombre": "Ensalada de piña", "precio": 10.50, "cantidad": 1 },
+        { "nombre": "Tarta de manzana", "precio": 3.50, "cantidad": 1 }
         ],
-        "total": 69.94
+        "total": 14.00
     }
     }
 
@@ -122,9 +122,9 @@ Un fichero JSON está compuesto por **pares clave–valor**, donde:
 **Array de objetos principales**: También se puede usar un array como estructura raíz, por ejemplo, para representar varios registros en un mismo fichero:
 
     [
-        { "nombre": "Ana", "edad": 25 },
-        { "nombre": "Pedro", "edad": 31 },
-        { "nombre": "Lucía", "edad": 28 }
+        { "nombre": "Pol", "edad": 21 },
+        { "nombre": "Eli", "edad": 22 },
+        { "nombre": "Mar", "edad": 18 }
     ]
 
 
@@ -238,8 +238,6 @@ De entre todas las opciones posibles para instalar y administrar MongoDB, utiliz
 
 <span class="mi_h4">Instalación en Linux</span>
 
-Para realizar la instalación básica no es necesario tener permisos de administrador. 
-
 **Instalación del servidor (Linux)**
 
 Desde la página oficial de MongoDB: [https://www.mongodb.com/try/download/community
@@ -247,21 +245,20 @@ Desde la página oficial de MongoDB: [https://www.mongodb.com/try/download/commu
 
 Es recomendable elegir el paquete **.tgz**, ya que simplemente descomprimiendo el archivo se completa la instalación básica. Por ejemplo, para Ubuntu 22.04 de 64 bits, en el momento de redactar estos apuntes, el archivo sería: [https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.2.1.tgz](https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.2.1.tgz)
 
-Una vez descargado, descomprimimos el archivo en el lugar que queramos, y con eso ya tendremos la instalación básica lista. Una vez instalado, crearemos el directorio de datos, que por defecto ha de estar ubicado en la raiz de la instalación:
+Una vez descargado, descomprimimos el archivo en el lugar que queramos, y con eso ya tendremos la instalación básica lista. Una vez instalado, crearemos el directorio de datos, que por defecto ha de estar ubicado en la raiz de la instalación (si no somos administradores y no tenemos permisos para crear ese directorio, crearemos otro alternativo):
 
     mkdir /data  
     mkdir /data/db
 
-Si no somos administradores y no tenemos permisos para crear ese directorio, crearemos otro alternativo y, en el momento de arrancar el servidor, le indicaremos esa ubicación. La forma de arrancar el servidor será:
+Para arrancar el servidor (si el directorio de datos está en la raiz de la instalación, es decir, /data/db) hay que ejecutar el siguiente comando:
 
     <directoro raíz de MongoDB>./bin/mongod
 
-Opcionalmente, podemos indicarle a MongoDB dónde se encuentra la base de datos (si no lo especificamos, asumirá por defecto que está en /data/db):
+Si la base de datos no se encuentra en la raiz de la instalación hay que especificar su ruta en el comando de arranque:
 
     <directorio raíz de MongoDB>./bin/mongod --dbpath <directorio_de_la_BD>
 
 Una vez arrancamos el servidor, y si todo es correcto, aparecerán una serie de mensajes informativos y el servidor quedará en espera de recibir peticiones del cliente:
-
 
 ![Imagen 1](img/mongo/mongo01.png)
 ![Imagen 2](img/mongo/mongo02.png)
@@ -271,19 +268,12 @@ Una vez arrancamos el servidor, y si todo es correcto, aparecerán una serie de 
     Una vez que el servidor está en marcha, no debemos cerrar esa terminal, ya que al hacerlo detendríamos el servidor.
 
 
-
 **Instalación del cliente MongoShell (Linux)**
 
 Desde la página de MongoDB [https://www.mongodb.com/try/download/shell
 ](https://www.mongodb.com/try/download/shell) vamos al menú **Products → Tools → MongoDB Shell**, y descargamos la versión apropiada para nuestro sistema operativo.
 
-Observa que, en el caso de Linux, existen muchas versiones para diferentes distribuciones.
-Es recomendable elegir el paquete **.tgz**, ya que simplemente descomprimiendo el archivo se completa la instalación.
-
-En el caso de Ubuntu 22.04 de 64 bits, seleccionaremos la opción genérica “Linux 64”, ya que es la que ofrece el paquete .tgz.
-
-El archivo correspondiente es: [https://downloads.mongodb.com/compass/mongosh-2.4.0-linux-x64.tgz](https://downloads.mongodb.com/compass/mongosh-2.4.0-linux-x64.tgz)
-
+Es recomendable elegir el paquete **.tgz**, ya que simplemente descomprimiendo el archivo se completa la instalación. En el caso de Ubuntu 22.04 de 64 bits, seleccionaremos la opción genérica “Linux 64”, ya que es la que ofrece el paquete .tgz. El archivo correspondiente es: [https://downloads.mongodb.com/compass/mongosh-2.4.0-linux-x64.tgz](https://downloads.mongodb.com/compass/mongosh-2.4.0-linux-x64.tgz)
 
 
 Una vez descargado, descomprimimos el archivo en el lugar que queramos, y con eso ya tendremos la instalación básica lista. La forma de arrancar el cliente será:
@@ -294,46 +284,35 @@ Una vez descargado, descomprimimos el archivo en el lugar que queramos, y con es
 ![Imagen 3](img/mongo/mongo03.png)
 
 
-## 🪟 Instalación en Windows
+!!! warning "Práctica 1: Instala MongoDB en tu ordenador de clase "
+    Sigue los pasos para instalar tanto el servidor como el cliente.
 
-⚙️ **Instalación del servidor (Windows)**{.azul}
+
+<span class="mi_h4">Instalación en Windows</span>
+
+**Instalación del servidor (Windows)**
 
 Desde la página oficial de MongoDB: [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community) vamos al menú **Products → Community Edition → Community Server** y descargamos la versión apropiada para nuestro sistema operativo, que se distribuye como un archivo **.msi** ejecutable.
 
-🔽En el momento de redactar estos apuntes, la versión de 64 bits más reciente: [https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-8.2.1-signed.msi](https://fastdl.mongodb.org/windows/mongodb-ewindows-x86_64-8.2.1-signed.msi)
+En el momento de redactar estos apuntes, la versión de 64 bits más reciente: [https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-8.2.1-signed.msi](https://fastdl.mongodb.org/windows/mongodb-ewindows-x86_64-8.2.1-signed.msi)
 
-Durante la instalación, se te preguntará si deseas instalarlo como un servicio. Si eliges esta opción, el programa se iniciará automáticamente con el sistema y no tendrás que ejecutarlo manualmente cada vez.
-
-![Imagen 4](img/mongo/mongo04.png)
-
-🎯Si instalaste MongoDB como servicio, se inicia automáticamente al arrancar Windows, puedes comprobarlo con:
+Durante la instalación, se te preguntará si deseas instalarlo como un servicio. Si eliges esta opción, el programa se iniciará automáticamente con el sistema y no tendrás que ejecutarlo manualmente cada vez. Puedes comprobarlo con:
 
     net start | find "MongoDB"
 
+!!!Note ""
+    Si eliges **no** instalar MongoDB como servicio, deberás iniciarlo manualmente cada vez que quieras usarlo. En este caso, es necesario crear la carpeta donde se almacenarán los datos de la base de datos.
 
-!!!Note "Nota"
-Si eliges **no** instalar MongoDB como servicio, deberás iniciarlo manualmente cada vez que quieras usarlo. En este caso, es necesario crear la carpeta donde se almacenarán los datos de la base de datos.
-
-<!--
-Si todo es correcto, debería aparecer una ventana o consola indicando que el servidor está en ejecución, como en la siguiente imagen:
-
-![alt text](../img/mongodW.png)
+![Imagen 4](img/mongo/mongo04.png)
 
 
--->
+**Instalación del cliente Mongo Shell (Windows)**
 
-💻 **Instalación del cliente Mongo Shell (Windows)**{.azul}
+Para conectarnos como clientes, debemos hacerlo desde un  terminal, utilizando mongosh.exe, que es la interfaz de línea de comandos (CLI) oficial de MongoDB. Esta herramienta permite interactuar con la base de datos mediante comandos en JavaScript.
 
-Para conectarnos como clientes, debemos hacerlo desde un  terminal, utilizando mongosh.exe, que es la interfaz de línea de comandos (CLI) oficial de MongoDB.
+Descargamos la versión correspondiente de MongoDB Shell para Windows desde la página oficial: [https://www.mongodb.com/try/download/shell](https://www.mongodb.com/try/download/shell)
 
-Esta herramienta permite interactuar con la base de datos mediante comandos en JavaScript.
-
-
-
-🔽Descargamos la versión correspondiente de MongoDB Shell para Windows desde la página oficial: [https://www.mongodb.com/try/download/shell](https://www.mongodb.com/try/download/shell)
-
-🔽En el momento de redactar estos apuntes, la versión de 64 bits más reciente: [https://downloads.mongodb.com/compass/mongosh-2.5.8-x64.msi](https://downloads.mongodb.com/compass/mongosh-2.5.8-x64.msi)
-
+En el momento de redactar estos apuntes, la versión de 64 bits más reciente: [https://downloads.mongodb.com/compass/mongosh-2.5.8-x64.msi](https://downloads.mongodb.com/compass/mongosh-2.5.8-x64.msi)
 
 Una vez el servidor esté activo, simplemente escribe:
 
@@ -347,30 +326,28 @@ Si ves las bases de datos (admin, config, local), todo está funcionando correct
 
 ![Imagen 5](img/mongo/mongo05.png)
 
-!!!Tip "Mongo Compass"
-También podéis descargar la versión **MongoDB Compass**, que es la herramienta gráfica oficial de MongoDB, la cual permite visualizar, explorar y administrar bases de datos MongoDB sin necesidad de utilizar la línea de comandos.
 
-    [https://downloads.mongodb.com/compass/mongodb-compass-1.45.3-win32-x64.exe](https://downloads.mongodb.com/compass/mongodb-compass-1.45.3-win32-x64.exe)
 
-**Probar el funcionament**{.azul}
+También puedes descargar la versión **MongoDB Compass**, que es la herramienta gráfica oficial de MongoDB, la cual permite visualizar, explorar y administrar bases de datos MongoDB sin necesidad de utilizar la línea de comandos.
+[https://downloads.mongodb.com/compass/mongodb-compass-1.45.3-win32-x64.exe](https://downloads.mongodb.com/compass/mongodb-compass-1.45.3-win32-x64.exe)
 
-Para probar su funcionamiento, vamos a ejecutar un par de comandos: uno para guardar un documento y otro para recuperarlo.
 
-En cualquier operación, debemos escribir db seguido del nombre de la colección, y después la operación que queremos realizar.
-Con el siguiente comando:
+
+<span class="mis_ejemplos">Ejemplo 2: Probar el funcionament</span>
+
+Para probar su funcionamiento, vamos a ejecutar un par de comandos: uno para guardar un documento y otro para recuperarlo. En cualquier operación, debemos escribir db seguido del nombre de la colección y después la operación a realizar.
+
+Para guardar un documento ejecutamos el siguiente comando:
 
     db.ejemplo.insertOne({ msg: "Hola, ¿qué tal?" })
 
 
-Nos responderá con:
+Obtendremos una respuesta indicando que se ha insertado un documento en la **colección ejemplo** (si no existía, la creará automáticamente):
 
         {
         acknowledged: true,
         insertedId: ObjectId('68ff6004ab24a06f35cebea4')
         }
-
-
-Indicando que se ha insertado un documento en la **colección ejemplo** (si no existía, la creará automáticamente).
 
 Y con el siguiente comando recuperamos la información:
 
@@ -382,14 +359,12 @@ Lo que nos devolverá algo como:
     { "_id" : ObjectId("56cc1acd73b559230de8f71b"), "msg" : "Hola, ¿qué tal?" }
 
 
+Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un número diferente en el campo **ObjectId**. En la siguiente imagen pueden verse las dos operaciones.
+
 ![Imagen 6](img/mongo/mongo06.png)
 
-Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un número diferente en el campo **ObjectId**.
-En la siguiente imagen pueden verse las dos operaciones.
 
-
-En realidad, estamos conectados a una base de datos llamada test.
-Podemos crear y utilizar más de una base de datos, pero en este curso será más que suficiente trabajar con esta.
+En realidad, estamos conectados a una base de datos llamada test. Podemos crear y utilizar más de una base de datos, pero en este curso será más que suficiente trabajar con esta.
 
 Para comprobarlo, podemos ejecutar la siguiente instrucción, que nos devuelve **el nombre de la base de datos actual**:
 
@@ -397,7 +372,7 @@ Para comprobarlo, podemos ejecutar la siguiente instrucción, que nos devuelve *
 
 
 
-
+-------
 
 
 
