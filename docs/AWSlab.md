@@ -39,7 +39,7 @@ A continuación se describen los pasos para acceder al laboratorio de aprendizaj
 
 3. **Accede a la consola**
 
-    Cuando el laboratorio haya arrancado, el círculo cambiará a color verde. Entonces haz clic en el enlace `AWS` para acceder a la `Página de inicio de la Consola` (puedes ver que la región es *North Virginia (us-east-1)* que es la región por defecto de los laboratorios de aprendizaje). Después haz clic en `EC2` para acceder a la consola de instancias EC2
+    Cuando el laboratorio haya arrancado, el círculo cambiará a color verde. Entonces haz clic en el enlace `AWS` para acceder a la `Página de inicio de la Consola` (puedes ver que la región es *North Virginia (us-east-1)* que es la región por defecto de los laboratorios de aprendizaje, NO LO CAMBIES). Después haz clic en `EC2` para acceder a la consola de instancias EC2
 
     ![Imagen 4](img/AWS/imagen_004b.jpg)
 
