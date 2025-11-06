@@ -136,13 +136,20 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     sudo mysql -u root -p 
     ```
 
-2. Crea el usuario con su contraseña. Ejecuta los comandos siguientes cambiando el usuario y la contraseña de ejemplo por los tuyos (en el ejemplo el usuario es `bpl3`, la contraseña es `holaHOLA01+` y el `%` indica que el usuario podrá conectarse desde cualquier sitio)
-    ```sql
-    CREATE USER 'bpl3'@'%' IDENTIFIED BY 'holaHOLA01+';
-    GRANT ALL PRIVILEGES ON *.* TO 'bpl3'@'%';    
+2. Crea el usuario con su contraseña. Ejecuta los comandos siguientes (el `%` indica que el usuario podrá conectarse desde cualquier sitio):
+   
+    CREATE USER '[usuario]'@'%' IDENTIFIED BY '[contraseña]';
+    GRANT ALL PRIVILEGES ON *.* TO '[usuario]'@'%';    
     FLUSH PRIVILEGES;
-    SHOW GRANTS FOR 'bpl3'@'%';
-    ```
+    SHOW GRANTS FOR '[usuario]'@'%';
+  
+    Por ejemplo para el usuario `bpl3` y contraseña `holaHOLA01+` sería: 
+       ```sql
+       CREATE USER 'bpl3'@'%' IDENTIFIED BY 'holaHOLA01+';
+       GRANT ALL PRIVILEGES ON *.* TO 'bpl3'@'%';    
+       FLUSH PRIVILEGES;
+       SHOW GRANTS FOR 'bpl3'@'%';
+       ```
 
 3. Crea la base de datos (cambia el nombre del ejemplo por el de tu BD)
     ```sql
@@ -226,7 +233,7 @@ Los pasos para exportar la BD son los siguientes:
 
 <span class="mi_h3">Autoría</span>
 
-Obra realizada por Begoña Paterna Lluch basada en materiales desarrollados por Alicia Salvador Contreras. Publicada bajo licencia [Creative Commons Atribución/Reconocimiento-CompartirIgual 4.0 Internacional](https://creativecommons.org/licenses/by-sa/4.0/)
+Obra realizada por Begoña Paterna Lluch. Publicada bajo licencia [Creative Commons Atribución/Reconocimiento-CompartirIgual 4.0 Internacional](https://creativecommons.org/licenses/by-sa/4.0/)
 
 
 
