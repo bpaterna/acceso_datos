@@ -107,7 +107,7 @@ Para poder ver el código de una función o un procedimiento almacenado en nuest
 
     ![Imagen 12](img/dbeaver/dbeaver12.jpg)
 
-3. El código de la fución o procedimiento aparecerá en una ventana nueva.
+    El código de la fución o procedimiento aparecerá en una ventana nueva.
 
     ![Imagen 13](img/dbeaver/dbeaver13.jpg)
 
