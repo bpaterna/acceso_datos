@@ -105,11 +105,11 @@ Para poder ver el código de una función o un procedimiento almacenado en nuest
 
 2. Hacer clic con el botón derecho sobre la función o procedimiento, entrar en `Generar SQL` y luego en `DDL`.
 
-![Imagen 12](img/dbeaver/dbeaver12.jpg)
+    ![Imagen 12](img/dbeaver/dbeaver12.jpg)
 
 3. El código de la fución o procedimiento aparecerá en una ventana nueva.
 
-![Imagen 13](img/dbeaver/dbeaver13.jpg)
+    ![Imagen 13](img/dbeaver/dbeaver13.jpg)
 
 
 
