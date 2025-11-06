@@ -206,7 +206,7 @@ Ejemplo: `ssh -i bpl.pem ubuntu@100.25.102.165`
 
 2. Hacer un `dump` de la BD con el comando:
 
-    mysqldump -u usuario_BD -p nombre_BD > nombre_archivo_dump
+    mysqldump -u [usuario_BD] -p [nombre_BD] > [nombre_archivo_dump]
 
 Ejemplo: `mysqldump -u bpl3 -p florabotanica > dump_florabotanica.sql`
 
@@ -214,7 +214,7 @@ Ejemplo: `mysqldump -u bpl3 -p florabotanica > dump_florabotanica.sql`
 
 5. Descargar al equipo local con el comando:
 
-	scp -i nombre_certificado ubuntu@IP_nombre_servidor:ruta_archivo_dunp ruta_destino 
+	scp -i [nombre_certificado] ubuntu@[IP_nombre_servidor]:[ruta_archivo_dump] [ruta_destino] 
 
 Ejemplo: `scp -i bpl.pem ubuntu@100.25.102.165:/home/ubuntu/dump_florabotanica.sql /home/b.paternalluch/.`
 
