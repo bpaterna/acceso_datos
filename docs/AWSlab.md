@@ -2,11 +2,11 @@
 
 <span class="mi_h3">Revisiones</span>
 
-| Revisión | Fecha      | Descripción                             |
-|----------|------------|-----------------------------------------|
-| 1.0      | 11-10-2025 | Adaptación de los materiales a markdown |
-| 1.1      | 21-10-2025 | Reorganización de algunas secciones     |
-
+| Revisión | Fecha      | Descripción                                |
+|----------|------------|--------------------------------------------|
+| 1.0      | 11-10-2025 | Adaptación de los materiales a markdown    |
+| 1.1      | 21-10-2025 | Reorganización de algunas secciones        |
+| 1.2      | 06-11-2025 | Ampliación sección de exportación de la BD |
 
 <span class="mi_h3">Acceso al laboratorio</span>
 
@@ -191,6 +191,35 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
 
 4. Prueba a conectar a tu base de datos desde [DBeaver](dbeaver.html)
+
+
+
+<span class="mi_h3">Exportación de la BD</span>
+
+Los pasos para exportar la BD son los siguientes:
+
+1. Conectar al servidor con el comando:
+
+    ssh -i <nombre_certificado> ubuntu@<IP/nombre_servidor>
+
+Ejemplo: `ssh -i bpl.pem ubuntu@100.25.102.165`
+
+2. Hacer un `dump` de la BD con el comando:
+
+    mysqldump -u <usuario_BD> -p <nombre_BD> > <nombre_archivo_dump>
+
+Ejemplo: `mysqldump -u bpl3 -p florabotanica > dump_florabotanica.sql`
+
+3. Comprobar que el archivo se ha creado y cerrar sesión.
+
+5. Descargar al equipo local con el comando:
+
+	scp -i <nombre_certificado> ubuntu@<IP/nombre_servidor>:<ruta_archivo_dunp> <ruta_destino> 
+
+Ejemplo: `scp -i bpl.pem ubuntu@100.25.102.165:/home/ubuntu/dump_florabotanica.sql /home/b.paternalluch/.`
+
+6. Comprobar que el archivo se ha descargado correctamente y abrirlo con un editor para ver que su contenido es correcto
+
 
 
 ---
