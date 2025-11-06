@@ -764,16 +764,17 @@ END
 DELIMITER ;
 ```
 
-| Parte                            | Significado                                                                      |
-| -------------------------------- | -------------------------------------------------------------------------------- |
-| `DELIMITER //`                   | Cambia el delimitador temporalmente (porque dentro de la función usas `;`).      |
-| `CREATE FUNCTION nombre_funcion` | Define la función y su nombre.                                                   |
-| `RETURNS tipo_dato`              | Especifica el tipo de valor que devolverá (`INT`, `DOUBLE`, `VARCHAR(n)`, etc.). |
-| `DETERMINISTIC`                  | Indica que siempre devuelve el mismo resultado para los mismos parámetros.       |
-| `BEGIN ... END`                  | Marca el bloque de instrucciones.                                                |
-| `DECLARE`                        | Declara variables locales (opcional).                                            |
-| `RETURN`                         | Devuelve un único valor.                                                         |
-| `DELIMITER ;`                    | Restablece el delimitador habitual.                                              |
+| Parte                            | Significado                                                                                                                                                                                                   |
+|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `DELIMITER //`                   | Cambia el delimitador temporalmente (porque dentro de la función usas `;`).                                                                                                                                   |
+| `CREATE FUNCTION nombre_funcion` | Define la función y su nombre.                                                                                                                                                                                |
+| `RETURNS tipo_dato`              | Especifica el tipo de valor que devolverá (`INT`, `DOUBLE`, `VARCHAR(n)`, etc.).                                                                                                                              |
+| `DETERMINISTIC`                  | Indica que siempre devuelve el mismo resultado para los mismos parámetros. Esto permite que el optimizador de MySQL y los motores de replicación **cacheen** resultados o eviten reevaluaciones innecesarias. |
+| `NO DETERMINISTIC`               | Indica que el resultado puede variar aunque los argumentos sean iguales, por ejemplo si se usan funciones como RAND(), NOW(), etc.                                                                            |
+| `BEGIN ... END`                  | Marca el bloque de instrucciones.                                                                                                                                                                             |
+| `DECLARE`                        | Declara variables locales (opcional).                                                                                                                                                                         |
+| `RETURN`                         | Devuelve un único valor.                                                                                                                                                                                      |
+| `DELIMITER ;`                    | Restablece el delimitador habitual.                                                                                                                                                                           |
 
 
 <span class="mis_ejemplos">Ejemplo 6: Trabajar con funciones</span>
@@ -1045,7 +1046,10 @@ fun llamar_sp_agregar_planta_a_jardin(id_p:Int, id_j:Int, cant:Int){
 
 
 !!! danger "Entrega 2"
-    Entrega en Aules la carpeta `main/kotlin` de tu proyecto comprimida en formato .zip
+    Entrega en Aules lo siguiente:
+    - La carpeta `main/kotlin` de tu proyecto comprimida en formato .zip
+    - La BD exportada con el comando mysqldump en formato .sql
+    - Un archivo de texto con las funciones y procedimientos
 
     **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
 
