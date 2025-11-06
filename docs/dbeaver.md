@@ -4,10 +4,10 @@
 
 <span class="mi_h3">Revisiones</span>
 
-|Revisión | Fecha| Descripción|
-|---------|------|-------------|
-|1.0 | 11-10-2025 | Adaptación de los materiales a markdown|
-
+| Revisión | Fecha      | Descripción                                                       |
+|----------|------------|-------------------------------------------------------------------|
+| 1.0      | 11-10-2025 | Adaptación de los materiales a markdown                           |
+| 1.1      | 06-11-2025 | Ampliación con sección ver funciones y procedimientos almacenados |
 
 <span class="mi_h3">Introducción</span>
 
@@ -94,6 +94,23 @@ Para conectar a una base de datos *MySQL* sigue estos pasos:
 4. Una vez conectado, verás las bases de datos del servidor
 
     ![Imagen 11](img/dbeaver/dbeaver11.jpg)
+
+
+
+<span class="mi_h3">Ver funciones y procedimientos almacenados</span>
+
+Para poder ver el código de una función o un procedimiento almacenado en nuestra BD seguir estos pasos:
+
+1. Desplegar el apartado Procedures de la BD.
+
+2. Hacer clic con el botón derecho sobre la función o procedimiento, entrar en `Generar SQL` y luego en `DDL`.
+
+![Imagen 12](img/dbeaver/dbeaver12.jpg)
+
+3. El código de la fución o procedimiento aparecerá en una ventana nueva.
+
+![Imagen 13](img/dbeaver/dbeaver13.jpg)
+
 
 
 
