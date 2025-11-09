@@ -63,11 +63,6 @@ Si aparecen las bases de datos (admin, config, local), todo está funcionando co
 ![Imagen Linux 4](img/mongo/mongo4.png)
 
 
-!!! warning "Práctica 1: Instala MongoDB en tu ordenador de clase"
-Sigue los pasos para instalar tanto el servidor como el cliente.
-
-
-
 <span class="mi_h3">Instalación en Windows</span>
 
 <span class="mi_h4">Instalación del servidor (Windows)</span>

@@ -208,8 +208,7 @@ plantes: [
 
 !!! warning "Práctica 2: Instala MongoDB en tu ordenador de clase"
 
-    1. Para ello sigue los pasos del documento [Instalación y administración de MongoDB](mongo.html).
-
+    Sigue los pasos para instalar tanto el servidor como el cliene que encontrarás en ue los pasos del documento [Instalación y administración de MongoDB](mongo.html).
 
 
 
