@@ -381,6 +381,8 @@ El método **`aggregate()`** permite realizar **consultas complejas** y **proces
 | **Índices**       | `db.coleccion.createIndex()`, `db.coleccion.getIndexes()`, `db.coleccion.dropIndex()` |
 | **Estadísticas**  | `db.stats()`, `db.coleccion.stats()`, `db.version()`                                  |
 
+
+<!--
 ```kotlin
 import java
 }
@@ -413,6 +415,10 @@ Incluye .
 Entrega en Aules la carpeta `main/kotlin` de tu proyecto comprimida en formato .zip
 
     **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
+
+
+-->
+
 
 ---
 
