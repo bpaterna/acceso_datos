@@ -1,8 +1,6 @@
-# MongoDB
+# Instalación y administración de MongoDB
 
-<span class="mi_h3">Instalación y administración de MongoDB</span>
-
-**Opciones de instalación y despliegue**
+<span class="mi_h3">Opciones de instalación y despliegue</span>
 
 | Opción                         | Descripción                                                                                                 | Ideal para                                         |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
@@ -11,7 +9,7 @@
 | **MongoDB Atlas**              | Servicio en la nube oficial de MongoDB. Permite crear clústeres gratuitos o de pago, gestionados por Mongo. | Proyectos web, microservicios, despliegues reales. |
 | **MongoDB Local + Atlas Sync** | Permite sincronizar datos locales con una base remota en Atlas.                                             | Aplicaciones con modo offline/online.              |
 
-**Herramientas de administración y visualización**
+<span class="mi_h3">Herramientas de administración y visualización</span>
 
 | Herramienta                       | Tipo            | Descripción                                                        |
 | --------------------------------- | --------------- | ------------------------------------------------------------------ |
@@ -22,9 +20,9 @@
 
 De entre todas las opciones posibles para instalar y administrar MongoDB, utilizaremos la versión **Community** junto con **Mongo Shell (mongosh)** por su simplicidad, ligereza y adecuación a los objetivos de esta unidad.
 
-<span class="mi_h4">Instalación en Linux</span>
+<span class="mi_h3">Instalación en Linux</span>
 
-**Instalación del servidor (Linux)**
+<span class="mi_h4">Instalación del servidor (Linux)</span>
 
 Descargar la versión apropiada para el sistema operativo con el que se está trabajando desde la página oficial de MongoDB: [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community) Para ello entrar al menú **Products → Community Edition → Community Server**. (Para la realización de estos apuntes se ha descargado la versión 8.2.1 para Ubuntu 22.04 x64 en formato .tgz)
 
@@ -44,8 +42,7 @@ Una vez arrancamos el servidor, y si todo es correcto, aparecerán una serie de 
 !!!Note ""
 No se debe cerrar esa terminal, ya que al hacerlo detendríamos el servidor.
 
-
-**Instalación del cliente Mongo Shell (Linux)**
+<span class="mi_h4">Instalación del cliente Mongo Shell (Linux)</span>
 
 Descargamos la versión apropiada para el sistema operativo con el que se está trabajando desde la página oficial de MongoDB: [https://www.mongodb.com/try/download/shell](https://www.mongodb.com/try/download/shell) Para ello entramos al menú **Products → Tools → MongoDB Shell**. (Para la realización de estos apuntes se ha descargado la versión 2.5.9 para Linux 64 en formato .tgz)
 
@@ -71,9 +68,9 @@ Sigue los pasos para instalar tanto el servidor como el cliente.
 
 
 
-<span class="mi_h4">Instalación en Windows</span>
+<span class="mi_h3">Instalación en Windows</span>
 
-**Instalación del servidor (Windows)**
+<span class="mi_h4">Instalación del servidor (Windows)</span>
 
 Descargamos la versión apropiada para el sistema operativo con el que se está trabajando desde la página oficial de MongoDB: [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community) Para ello entramos al menú **Products → Community Edition → Community Server**. (Para la realización de estos apuntes se ha descargado la versión 8.2.1 para Windows de 64 bits en formato .msi)
 
@@ -97,7 +94,8 @@ Una vez conectados (no hace falta indicar ningún dato de conexión), veremos la
 
 Si preferimos comunicarnos con el servidor por comandos, podemos instalar el cliente Mongo Shell.
 
-**Instalación del cliente Mongo Shell (Windows)**
+
+<span class="mi_h4">Instalación del cliente Mongo Shell (Windows)</span>
 
 Podermos descargarlo desde la página oficial: [https://www.mongodb.com/try/download/shell](https://www.mongodb.com/try/download/shell) Para ello entramos al menú **Products → Tools → MongoDB Shell**. (Para la realización de estos apuntes se ha descargado la versión 2.5.9 para Windows de 64 bits en formato .msi)
 
