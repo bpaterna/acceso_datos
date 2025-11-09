@@ -40,7 +40,7 @@ Una vez arrancamos el servidor, y si todo es correcto, aparecerán una serie de 
 ![Imagen Linux 2](img/mongo/mongo2.png)
 
 !!!Note ""
-No se debe cerrar esa terminal, ya que al hacerlo detendríamos el servidor.
+    No se debe cerrar esa terminal, ya que al hacerlo detendríamos el servidor.
 
 <span class="mi_h4">Instalación del cliente Mongo Shell (Linux)</span>
 
