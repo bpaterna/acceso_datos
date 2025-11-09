@@ -52,9 +52,10 @@ Para comprobar el funcionamiento ejecutamos el sigueinte comando:
 
     show dbs
 
-Si aparecen las bases de datos (admin, config, local), todo está funcionando correctamente, son las bases de datos del sistema.
+Si aparecen las bases de datos (admin, config, local), todo está funcionando correctamente, son las bases de datos del sistema. Podemos ver que al final de la pantalla aparece la palabra `test>` es porque en realidad, estamos conectados a una base de datos llamada test.
 
 ![Imagen Linux 4](img/mongo/mongo4.png)
+
 
 
 <span class="mi_h3">Instalación del servidor (Windows)</span>
@@ -98,10 +99,9 @@ Para comprobar el funcionamiento ejecuta el siguiente comando:
 
     show dbs
 
-Si aparecen las bases de datos (admin, config, local), todo está funcionando correctamente, son las bases de datos del sistema.
+Si aparecen las bases de datos (admin, config, local), todo está funcionando correctamente, son las bases de datos del sistema. Podemos ver que al final de la pantalla aparece la palabra `test>` es porque en realidad, estamos conectados a una base de datos llamada test.
 
 ![Imagen Windows 7](img/mongo/mongoWIN6.jpg)
-
 
 
 <span class="mi_h3">Instalación en AWS</span>
