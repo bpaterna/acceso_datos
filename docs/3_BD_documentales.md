@@ -202,40 +202,18 @@ plantes: [
 
 !!! warning "Práctica 1: Crea tu fichero JSON"
 
-    Crea el fichero JSON correspondiente a la información con la que estás trabajando (te hará falta en las próximas prácticas).
-
+    Crea el fichero JSON correspondiente a la información con la que estás trabajando.
 
 
 !!! warning "Práctica 2: Instala MongoDB en tu ordenador de clase"
 
-    Sigue los pasos para instalar tanto el servidor como el cliene que encontrarás en ue los pasos del documento [Instalación y administración de MongoDB](mongo.html).
+    1. Sigue los pasos para instalar tanto el servidor como el cliene que encontrarás en el documento [Instalación y administración de MongoDB](mongo.html).
 
 
 
+<span class="mis_ejemplos">Ejemplo 2: Guardar y recuperar documentos en MongoDB</span>
 
-
-Revisar a partir de aquí
-
-
-
-<span class="mi_h3">Guardar y recuperar documentos</span>
-
-
-
-
-
-Podemos ver que al final de la pantalla aparece la palabra test> es porque en realidad, estamos conectados a una base de datos llamada test.
-
-Si en cualquier momento queremos comprobar **el nombre de la base de datos actual** podemos ejecutar la siguiente instrucción para que nos devuelva su nombre:
-
-    db.getName()
-
-
-
-
-<span class="mis_ejemplos">Ejemplo 2: Probar el funcionament</span>
-
-Para probar su funcionamiento, vamos a ejecutar un par de comandos: uno para guardar un documento y otro para recuperarlo. En cualquier operación, debemos escribir db seguido del nombre de la colección y después la operación a realizar.
+En cualquier operación, debemos escribir db seguido del nombre de la colección y después la operación a realizar.
 
 Para guardar un documento ejecutamos el siguiente comando:
 
@@ -260,9 +238,7 @@ Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un n
 
 ![Imagen 6](img/mongo/mongo06.png)
 
-Podemos crear y utilizar más de una base de datos. En realidad, estamos conectados a una base de datos llamada test. Para comprobarlo, podemos ejecutar la siguiente instrucción, que nos devuelve **el nombre de la base de datos actual**:
 
-    db.getName()
 
 <span class="mi_h3">Comandos de MongoDB y su utilización</span>
 
