@@ -20,29 +20,23 @@
 
 De entre todas las opciones posibles para instalar y administrar MongoDB, utilizaremos la versión **Community** junto con **Mongo Shell (mongosh)** por su simplicidad, ligereza y adecuación a los objetivos de esta unidad.
 
-<span class="mi_h3">Instalación en Linux</span>
+<span class="mi_h3">Instalación del servidor (Linux)</span>
 
-<span class="mi_h4">Instalación del servidor (Linux)</span>
+Descargamos la versión apropiada para el sistema operativo con el que se está trabajando desde la página oficial de MongoDB: [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community) Para ello entrar al menú **Products → Community Edition → Community Server**. (Para la realización de estos apuntes se ha descargado la versión 8.2.1 para Ubuntu 22.04 x64 en formato .tgz)
 
-Descargar la versión apropiada para el sistema operativo con el que se está trabajando desde la página oficial de MongoDB: [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community) Para ello entrar al menú **Products → Community Edition → Community Server**. (Para la realización de estos apuntes se ha descargado la versión 8.2.1 para Ubuntu 22.04 x64 en formato .tgz)
-
-Descomprimir el archivo descargado (para facilitar el trabajo se ha renombrado la carpeta descomprimida a `mongodb`).
-
-Después, dentro de la carpeta mongodb, crear un directorio llamado `data` y dentro de él otro llamado `db`.
-
-Arrancar el servidor ejecutar en una ventana de terminal el comando:
+Descomprimimos el archivo descargado (para facilitar el trabajo se puede renombrar la carpeta descomprimida a `mongodb`). Después, dentro de la carpeta `mongodb`, creamos un directorio llamado `data` y dentro de él otro llamado `db`. Por último arrancamos el servidor ejecutando en una ventana de terminal el comando:
 
     mongodb/bin/mongod --dbpath mongodb/data/db
 
-Una vez arrancamos el servidor, y si todo es correcto, aparecerán una serie de mensajes informativos y el servidor quedará en espera de recibir peticiones del cliente:
+Si el servidor ha arrancado correctamente, aparecerán una serie de mensajes informativos y el servidor quedará en espera de recibir peticiones del cliente:
 
 ![Imagen Linux 1](img/mongo/mongo1.png)
 ![Imagen Linux 2](img/mongo/mongo2.png)
 
 !!!Note ""
-    No se debe cerrar esa terminal, ya que al hacerlo detendríamos el servidor.
+    No se debe cerrar esa ventana de terminal, porque el servidor se detendría.
 
-<span class="mi_h4">Instalación del cliente Mongo Shell (Linux)</span>
+<span class="mi_h3">Instalación del cliente Mongo Shell (Linux)</span>
 
 Descargamos la versión apropiada para el sistema operativo con el que se está trabajando desde la página oficial de MongoDB: [https://www.mongodb.com/try/download/shell](https://www.mongodb.com/try/download/shell) Para ello entramos al menú **Products → Tools → MongoDB Shell**. (Para la realización de estos apuntes se ha descargado la versión 2.5.9 para Linux 64 en formato .tgz)
 
@@ -54,7 +48,7 @@ Aparecerá la siguiente información:
 
 ![Imagen Linux 3](img/mongo/mongo3.png)
 
-Para comprobar el funcionamiento ejecuta el sigueinte comando:
+Para comprobar el funcionamiento ejecutamos el sigueinte comando:
 
     show dbs
 
@@ -63,9 +57,7 @@ Si aparecen las bases de datos (admin, config, local), todo está funcionando co
 ![Imagen Linux 4](img/mongo/mongo4.png)
 
 
-<span class="mi_h3">Instalación en Windows</span>
-
-<span class="mi_h4">Instalación del servidor (Windows)</span>
+<span class="mi_h3">Instalación del servidor (Windows)</span>
 
 Descargamos la versión apropiada para el sistema operativo con el que se está trabajando desde la página oficial de MongoDB: [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community) Para ello entramos al menú **Products → Community Edition → Community Server**. (Para la realización de estos apuntes se ha descargado la versión 8.2.1 para Windows de 64 bits en formato .msi)
 
@@ -90,15 +82,15 @@ Una vez conectados (no hace falta indicar ningún dato de conexión), veremos la
 Si preferimos comunicarnos con el servidor por comandos, podemos instalar el cliente Mongo Shell.
 
 
-<span class="mi_h4">Instalación del cliente Mongo Shell (Windows)</span>
+<span class="mi_h3">Instalación del cliente Mongo Shell (Windows)</span>
 
 Podermos descargarlo desde la página oficial: [https://www.mongodb.com/try/download/shell](https://www.mongodb.com/try/download/shell) Para ello entramos al menú **Products → Tools → MongoDB Shell**. (Para la realización de estos apuntes se ha descargado la versión 2.5.9 para Windows de 64 bits en formato .msi)
 
-Una vez el servidor esté activo, escribe el siguiente comando en una ventana de terminal:
+Escribe el siguiente comando en una ventana de terminal:
 
     mongosh
 
-Aparecerá la siguiente información:
+Si el servidor está arrancado aparecerá la siguiente información:
 
 ![Imagen Windows 6](img/mongo/mongoWIN5.jpg)
 
@@ -112,4 +104,7 @@ Si aparecen las bases de datos (admin, config, local), todo está funcionando co
 
 
 
+<span class="mi_h3">Instalación en AWS</span>
+
+Falta a partir de aquí
 
