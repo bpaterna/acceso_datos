@@ -81,7 +81,7 @@ Por ejemplo (cambia el nombre del ejemplo por el de tu BD)
     create database florabotanica;
 ```
 
-**4. Salir del servidor**
+**4. Sal del servidor**
 
 ```bash
     exit
@@ -93,7 +93,7 @@ Por ejemplo (cambia el nombre del ejemplo por el de tu BD)
 **1. Edita el fichero de configuración**
 
 ```bash
-   `sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf`
+   sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
 ```
 Comenta la línea `bind-address = 127.0.0.1`
 
@@ -154,7 +154,7 @@ Para hacer un `dump` de la BD se utiliza el comando `mysqldump -u [usuario_BD] -
     mysqldump -u bpl3 -p florabotanica > dump_florabotanica.sql
 ```
 
-Después comprueba que el archivo se ha creado y cerrar sesión.
+Después comprueba que el archivo se ha creado y cierra sesión con el comando `exit`
 
 **Descarga el archivo** 
 
@@ -164,7 +164,7 @@ Para descargar al equipo local utiliza el comando `scp -i [nombre_certificado] u
     scp -i bpl.pem ubuntu@100.25.102.165:/home/ubuntu/dump_florabotanica.sql /home/b.paternalluch/.
 ```
 
-Para finalizar comprueba que el archivo se ha descargado correctamente y abrirlo con un editor para ver que su contenido es correcto.
+Para finalizar comprueba que el archivo se ha descargado correctamente y que su contenido es correcto.
 
 
 
