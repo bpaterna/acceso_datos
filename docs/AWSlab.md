@@ -7,6 +7,7 @@
 | 1.0      | 11-10-2025 | Adaptación de los materiales a markdown    |
 | 1.1      | 21-10-2025 | Reorganización de algunas secciones        |
 | 1.2      | 06-11-2025 | Ampliación sección de exportación de la BD |
+| 1.3      | 10-11-2025 | Eliminación del apartado referente a MySQL |
 
 <span class="mi_h3">Acceso al laboratorio</span>
 
@@ -93,7 +94,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     Vuelve a la lista de instancias para comprobar que tu instancia ya tiene la IP
     ![Imagen 12](img/AWS/AWS_IP_8.jpg)
 
-5. **Prueba la conexión**
+<span class="mi_h3">Prueba de conexión</span>
 
     Haz clic en el botón `Conectarse a la instancia` para ver las diferentes opciones de conexión y sus instrucciones, por ejemplo en la pestaña `Cliente SSH` (que es la que vamos a utilizar) aparece lo siguiente:
 
