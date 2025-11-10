@@ -266,7 +266,7 @@ Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un n
 
 !!! warning "Práctica 3: Instala MongoDB"
 
-    1. Instala MongoDB en tu ordenador siguiendo la guía [Instalación y administración de MongoDB](mongo.html).
+    Instala MongoDB en tu ordenador siguiendo la guía [Instalación y administración de MongoDB](mongo.html).
 
 
 <span class="mis_ejemplos">Ejemplo 2: Crear BD, insertar plantas y mostrarlas</span>
@@ -310,21 +310,13 @@ plantas
 ```
 
 !!! success "Prueba y analiza el ejemplo 2"
-Prueba el código de ejemplo y verifica que funciona correctamente.
-
-
+    Prueba el código de ejemplo y verifica que funciona correctamente.
 
 !!! warning "Práctica 4: Crea tu BD, inserta y muestra información"
 
     2. Abre la terminal (`mongosh`) y crea tu BD.
     3. Crea una colección e inserta tres documentos con los campos que quieras.
     4. Muestra todas las bases de datos y las colecciones creadas.
-
-
-
-<span class="mi_h3">Comandos de MongoDB y su utilización</span>
-
-A continuación se muestran los comandos más útiles para consultar, ordenar, filtrar y gestionar datos en MongoDB.
 
 
 <span class="mi_h3">Comandos sobre colecciones</span>
@@ -382,17 +374,90 @@ A continuación se muestran los comandos más útiles para consultar, ordenar, f
 
 
 
+<span class="mis_ejemplos">Ejemplo 3: Operaciones CRUD en terminal. Trabajando con la colección `plantas`</span>
 
-
-!!! success "Práctica 4: Operaciones CRUD en terminal"
-
-    Trabajando con la colección `plantas`:
+El siguiente ejemplo realiza las siguientes operaciones sobre la colección `plantas`
 
     1. Inserta tres nuevos documentos con `insertMany()`.
     2. Recupera todos los documentos con `find()`.
     3. Filtra aquellos cuya `altura` sea mayor de 100.
     4. Actualiza uno de los documentos cambiando la altura.
     5. Elimina una planta específica mediante `deleteOne()`.
+
+
+```js
+// 1) Insertar tres nuevos documentos
+db.plantas.insertMany([
+  { nombre_comun: "Lavanda", nombre_cientifico: "Lavandula", altura: 50, tipo: "arbusto" },
+  { nombre_comun: "Rosal", nombre_cientifico: "Rosa", altura: 120, tipo: "arbusto" },
+  { nombre_comun: "Olivo", nombre_cientifico: "Olea europaea", altura: 800, tipo: "árbol" }
+])
+
+// 2) Recuperar todos los documentos
+db.plantas.find().pretty()
+
+// 3) Filtrar altura > 100
+db.plantas.find({ altura: { $gt: 100 } }).pretty()
+
+// 4) Actualizar: cambiar altura de "Cactus" a 130
+db.plantas.updateOne({ nombre_comun: "Cactus" }, { $set: { altura: 130 } })
+
+// 5) Eliminar una planta por nombre
+db.plantas.deleteOne({ nombre_comun: "Rosal" })
+```
+
+**Explicación**
+
+- `insertMany` devuelve `acknowledged: true` con `insertedIds`.
+- `find().pretty()` muestra documentos en JSON formateado.
+- `find({ altura: { $gt: 100 }})` listará pinos, olivos, etc.
+- `updateOne` devuelve un objeto con `matchedCount` y `modifiedCount`.
+- `deleteOne` devuelve `deletedCount: 1` si eliminó un documento.
+
+**Salida de `updateOne`:**
+
+```text
+{ acknowledged: true, matchedCount: 1, modifiedCount: 1, upsertedId: null }
+```
+
+**Salida de `deleteOne`:**
+
+```text
+{ acknowledged: true, deletedCount: 1 }
+```
+
+
+
+!!! success "Prueba y analiza el ejemplo 3"
+Prueba el código de ejemplo y verifica que funciona correctamente.
+
+
+!!! success "Práctica 5: Operaciones CRUD en terminal. Trabaja con tu BD"
+
+    Trabaja sobre tu BD
+
+    1. Inserta tres nuevos documentos con `insertMany()`.
+    2. Recupera todos los documentos con `find()`.
+    3. Aplica algún filtro.
+    4. Actualiza uno de los documentos cambiando un atributo.
+    5. Elimina un documento específico mediante `deleteOne()`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
