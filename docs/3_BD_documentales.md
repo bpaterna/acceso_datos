@@ -299,7 +299,13 @@ show dbs
 show collections
 ```
 
-**Explicación:** `use florabotanica` cambia el contexto; `insertMany` inserta varios documentos. `show dbs` no mostrará `florabotanica` hasta que la colección tenga datos persistidos; tras insertar, aparecerá en la lista.
+El ejemplo funciona de la siguiente manera:
+
+- `use florabotanica` cambia el contexto
+- `insertMany` inserta varios documentos
+- `show dbs` no mostrará `florabotanica` hasta que la colección tenga datos persistidos;
+- tras insertar, aparecerá en la lista
+
 
 **Salida esperada:**
 
@@ -393,7 +399,7 @@ db.plantas.updateOne({ nombre_comun: "Cactus" }, { $set: { altura: 130 } })
 db.plantas.deleteOne({ nombre_comun: "Rosal" })
 ```
 
-**Explicación**
+El ejemplo funciona de la siguiente manera:
 
 - `insertMany` devuelve `acknowledged: true` con `insertedIds`.
 - `find().pretty()` muestra documentos en JSON formateado.
@@ -428,7 +434,7 @@ db.plantas.deleteOne({ nombre_comun: "Rosal" })
 
 
 
-
+El ejemplo funciona de la siguiente manera:
 
 
 
