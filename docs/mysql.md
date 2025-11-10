@@ -57,8 +57,11 @@ Entra al servidor MySQL (cuando te pida contraseña déjala en blanco y pulsa `I
 Ejecuta los comandos siguientes (el `%` indica que el usuario podrá conectarse desde cualquier sitio):
 
 `CREATE USER '[usuario]'@'%' IDENTIFIED BY '[contraseña]';`
+
 `GRANT ALL PRIVILEGES ON *.* TO '[usuario]'@'%';`
+
 `FLUSH PRIVILEGES;`
+
 `SHOW GRANTS FOR '[usuario]'@'%';`
 
 Por ejemplo para el usuario `bpl3` y contraseña `holaHOLA01+` sería:
