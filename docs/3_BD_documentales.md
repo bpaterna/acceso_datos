@@ -251,6 +251,16 @@ Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un n
 ![Imagen 6](img/mongo/mongo06.png)
 
 
+<span class="mi_h3">Información útil del entorno</span>
+
+| Comando                | Descripción                                                                    |
+| ---------------------- | ------------------------------------------------------------------------------ |
+| `db.stats()`           | Muestra estadísticas sobre la base de datos.<br>**Ejemplo:** `db.stats()`      |
+| `db.coleccion.stats()` | Muestra estadísticas sobre una colección.<br>**Ejemplo:** `db.alumnos.stats()` |
+| `db.version()`         | Devuelve la versión de MongoDB.<br>**Ejemplo:** `db.version()`                 |
+
+
+
 <span class="mi_h3">Comandos sobre bases de datos</span>
 
 | Comando             | Descripción                                        | Ejemplo             |
@@ -433,13 +443,6 @@ El ejemplo funciona de la siguiente manera:
 
 
 
-
-El ejemplo funciona de la siguiente manera:
-
-
-
-
-
 <span class="mi_h3">Consultas avanzadas y ordenación</span>
 
 | Comando            | Descripción                                                                                                          |
@@ -447,13 +450,6 @@ El ejemplo funciona de la siguiente manera:
 | `sort()`           | Ordena los resultados. `1` ascendente, `-1` descendente.<br>**Ejemplo:** `db.alumnos.find().sort({nota:-1})`         |
 | `limit()`          | Limita el número de resultados.<br>**Ejemplo:** `db.alumnos.find().limit(3)`                                         |
 | `countDocuments()` | Devuelve el número de documentos que cumplen un filtro.<br>**Ejemplo:** `db.alumnos.countDocuments({nota:{$gte:5}})` |
-
-
-
-
-
-
-
 
 
 
@@ -466,27 +462,7 @@ El ejemplo funciona de la siguiente manera:
 | `getIndexes()`           | Muestra los índices existentes.<br>**Ejemplo:** `db.alumnos.getIndexes()`       |
 | `dropIndex("nombre_1")`  | Elimina un índice.<br>**Ejemplo:** `db.alumnos.dropIndex("nombre_1")`           |
 
-<span class="mi_h3">Información útil del entorno</span>
 
-| Comando                | Descripción                                                                    |
-| ---------------------- | ------------------------------------------------------------------------------ |
-| `db.stats()`           | Muestra estadísticas sobre la base de datos.<br>**Ejemplo:** `db.stats()`      |
-| `db.coleccion.stats()` | Muestra estadísticas sobre una colección.<br>**Ejemplo:** `db.alumnos.stats()` |
-| `db.version()`         | Devuelve la versión de MongoDB.<br>**Ejemplo:** `db.version()`                 |
-
-<span class="mis_ejemplos">Ejemplo 1: Ejemplo completo</span>
-
-    use florabotanica
-    db.plantas.insertMany([
-    {nombre_comun:"Aloe", nombre_cientifico:"Aloe", altura:30},
-    {nombre_comun:"Pino", nombre_cientifico:"Pinus", altura:330},
-    {nombre_comun:"Cactus", nombre_cientifico:"Cactae", altura:130}
-    ])
-    
-    db.plantas.find()
-    db.plantas.updateOne({nombre_comun:"Aloe"}, {$set:{altura:35}})
-    db.plantas.find({altura:{$gte:130}})
-    db.plantas.deleteOne({nombre_comun:"Cactus"})
 
 <span class="mi_h3">Consultas avanzadas con `aggregate()`</span>
 
@@ -512,6 +488,73 @@ El método **`aggregate()`** permite realizar **consultas complejas** y **proces
 | `$lookup`  | Realiza una unión entre colecciones (similar a `JOIN`).<br>**Ejemplo:** `{ $lookup: { from: "profesores", localField: "idProfesor", foreignField: "_id", as: "infoProfesor" } }` |
 | `$unwind`  | Descompone arrays en múltiples documentos.<br>**Ejemplo:** `{ $unwind: "$aficiones" }`                                                                                           |
 
+
+
+<span class="mis_ejemplos">Ejemplo 4: Consultas avanzadas y agregaciones</span>
+
+El siguiente ejemplo realiza lo siguiente:
+1. Usa `aggregate()` para calcular la altura media de las plantas.
+2. Agrupa por tipo de planta con `$group` y ordena los resultados.
+3. Limita la salida a los tres resultados más altos con `$limit`.
+
+
+```js
+// Calcular altura media de todas las plantas
+db.plantas.aggregate([
+  { $group: { _id: null, alturaMedia: { $avg: "$altura" } } }
+])
+
+// Agrupar por tipo y calcular media, ordenar descendente
+db.plantas.aggregate([
+  { $match: { tipo: { $exists: true } } },
+  { $group: { _id: "$tipo", mediaAltura: { $avg: "$altura" }, cantidad: { $sum: 1 } } },
+  { $sort: { mediaAltura: -1 } }
+])
+
+// Obtener los 3 más altos
+db.plantas.aggregate([
+  { $sort: { altura: -1 } },
+  { $limit: 3 },
+  { $project: { _id:0, nombre_comun:1, altura:1 } }
+])
+```
+
+**Salida esperada:**
+
+```json
+// Resultado del primer aggregate
+{ "_id" : null, "alturaMedia" : 250.25 }
+
+// Resultado del group
+{ "_id" : "árbol", "mediaAltura" : 540, "cantidad" : 1 }
+
+// Resultado del limit
+{ "nombre_comun" : "Olivo", "altura" : 800 }
+{ "nombre_comun" : "Pino", "altura" : 330 }
+{ "nombre_comun" : "Cactus", "altura" : 130 }
+```
+
+
+!!! success "Prueba y analiza el ejemplo 4"
+    Prueba el código de ejemplo y verifica que funciona correctamente.
+
+
+!!! warning "Práctica 6: Trabaja sobre tu BD"
+    1. Usa `aggregate()` para realizar algún cálculo.
+    2. Agrupa por tipo o categoría utilizando `$group` y ordena los resultados.
+    3. Limita la salida a los tres resultados más altos con `$limit`.
+
+
+
+!!! danger "Entrega 1"
+Entrega en Aules un documento organizado correctamente con las capturas de pantalla de las prácticas.
+
+    **IMPORTANTE**: El documento se debe entregar utilizando la plantilla de entrega de trabajos.
+
+
+
+
+
 <span class="mi_h3">Resumen</span>
 
 | Categoría         | Comandos clave                                                                        |
@@ -525,6 +568,9 @@ El método **`aggregate()`** permite realizar **consultas complejas** y **proces
 | **Índices**       | `db.coleccion.createIndex()`, `db.coleccion.getIndexes()`, `db.coleccion.dropIndex()` |
 | **Estadísticas**  | `db.stats()`, `db.coleccion.stats()`, `db.version()`                                  |
 
+
+
+intelliJ
 
 
 
