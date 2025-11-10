@@ -25,6 +25,7 @@ nav:
     - Instalación MySQL en EC2: mysql.md
     - DB Browser SQLite: db_browser_sqlite.md
     - DBeaver: dbeaver.md
+    - MongoDB: mongo.md
 markdown_extensions:
   - attr_list
   - admonition
