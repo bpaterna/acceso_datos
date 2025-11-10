@@ -128,7 +128,6 @@ Un fichero JSON está compuesto por **pares clave–valor**, donde:
 
 
 !!! warning "Práctica 1: Crea y valida tu JSON"
-
     1. Crea un fichero `datos.json` con la información con la que estás trabajando.
     2. Asegúrate de incluir diferentes tipos de datos (texto, número, booleano, array y objeto anidado).
     3. Valida el archivo utilizando [https://jsonlint.com](https://jsonlint.com)
@@ -213,7 +212,6 @@ De la segunda manera tendríamos la colección **Jardineros** donde la informaci
 ```
 
 !!! warning "Práctica 2: Amplía tu JSON"
-
     1. Amplía el JSON de la práctica anterior para que contenga información estructurada como la del ejemplo anterior (utilizando uno de los dos ejemplos).
     2. Valida el archivo utilizando [https://jsonlint.com](https://jsonlint.com)
 
@@ -263,9 +261,18 @@ Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un n
 | `db.dropDatabase()` | Elimina la base de datos actual.                   | `db.dropDatabase()` |
 
 
+<span class="mi_h3">Comandos sobre colecciones</span>
+
+| Comando                                        | Descripción                                                                                     |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `show collections`                             | Lista todas las colecciones de la base de datos.<br>**Ejemplo:** `show collections`             |
+| `db.createCollection("nombre")`                | Crea una colección vacía.<br>**Ejemplo:** `db.createCollection("alumnos")`                      |
+| `db.coleccion.drop()`                          | Elimina una colección completa.<br>**Ejemplo:** `db.alumnos.drop()`                             |
+| `db.coleccion.renameCollection("nuevoNombre")` | Cambia el nombre de una colección.<br>**Ejemplo:** `db.alumnos.renameCollection("estudiantes")` |
+
+
 
 !!! warning "Práctica 3: Instala MongoDB"
-
     Instala MongoDB en tu ordenador siguiendo la guía [Instalación y administración de MongoDB](mongo.html).
 
 
@@ -317,15 +324,6 @@ plantas
     3. Crea una colección e inserta tres documentos con los campos que quieras.
     4. Muestra todas las bases de datos y las colecciones creadas.
 
-
-<span class="mi_h3">Comandos sobre colecciones</span>
-
-| Comando                                        | Descripción                                                                                     |
-| ---------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `show collections`                             | Lista todas las colecciones de la base de datos.<br>**Ejemplo:** `show collections`             |
-| `db.createCollection("nombre")`                | Crea una colección vacía.<br>**Ejemplo:** `db.createCollection("alumnos")`                      |
-| `db.coleccion.drop()`                          | Elimina una colección completa.<br>**Ejemplo:** `db.alumnos.drop()`                             |
-| `db.coleccion.renameCollection("nuevoNombre")` | Cambia el nombre de una colección.<br>**Ejemplo:** `db.alumnos.renameCollection("estudiantes")` |
 
 <span class="mi_h3">Operaciones básicas</span>
 
@@ -437,7 +435,6 @@ db.plantas.deleteOne({ nombre_comun: "Rosal" })
 
 
 
-
 <span class="mi_h3">Consultas avanzadas y ordenación</span>
 
 | Comando            | Descripción                                                                                                          |
@@ -537,15 +534,13 @@ import java
 ```
 
 !!! success "Prueba y analiza el ejemplo 1"
-
-1. Crea
+    1. Crea
 
 !!! warning "Práctica 2: Crea tu "
-
-1. Crea un nu.
+    1. Crea un nu.
 
 !!! danger "Entrega 1"
-Entrega en Aules la carpeta `main` de tu proyecto comprimida en formato .zip
+    Entrega en Aules la carpeta `main` de tu proyecto comprimida en formato .zip
 
     **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
 
@@ -554,13 +549,13 @@ Entrega en Aules la carpeta `main` de tu proyecto comprimida en formato .zip
 En construcción
 
 !!! success "Prueba y analiza el ejemplo 5"
-Prueba el código de ejemplo y verifica que funciona correctamente.
+    Prueba el código de ejemplo y verifica que funciona correctamente.
 
 !!! warning "Práctica 5: Amplía tu proyecto"
-Incluye .
+    Incluye .
 
 !!! danger "Entrega 2"
-Entrega en Aules la carpeta `main/kotlin` de tu proyecto comprimida en formato .zip
+    Entrega en Aules la carpeta `main/kotlin` de tu proyecto comprimida en formato .zip
 
     **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
 
