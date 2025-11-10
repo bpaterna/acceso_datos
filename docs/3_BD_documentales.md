@@ -364,13 +364,12 @@ plantas
 
 <span class="mis_ejemplos">Ejemplo 3: Operaciones CRUD en terminal. Trabajando con la colección `plantas`</span>
 
-El siguiente ejemplo realiza las siguientes operaciones sobre la colección `plantas`
-
-    1. Inserta tres nuevos documentos con `insertMany()`.
-    2. Recupera todos los documentos con `find()`.
-    3. Filtra aquellos cuya `altura` sea mayor de 100.
-    4. Actualiza uno de los documentos cambiando la altura.
-    5. Elimina una planta específica mediante `deleteOne()`.
+El siguiente ejemplo realiza las siguientes operaciones sobre la colección `plantas`:
+1. Inserta tres nuevos documentos con `insertMany()`.
+2. Recupera todos los documentos con `find()`.
+3. Filtra aquellos cuya `altura` sea mayor de 100.
+4. Actualiza uno de los documentos cambiando la altura.
+5. Elimina una planta específica mediante `deleteOne()`.
 
 
 ```js
