@@ -133,7 +133,6 @@ Un fichero JSON está compuesto por **pares clave–valor**, donde:
     3. Valida el archivo utilizando [https://jsonlint.com](https://jsonlint.com)
 
 
-
 ## 3.3. MongoDB
 
 <span class="mi_h3">Introducción</span>
@@ -438,6 +437,7 @@ fun main() {
 <span class="mis_ejemplos">Ejemplo 4: Operaciones CRUD en terminal. Trabajando con la colección `plantas`</span>
 
 El siguiente ejemplo realiza las siguientes operaciones sobre la colección `plantas`:
+
 1. Inserta tres nuevos documentos con `insertMany()`.
 2. Recupera todos los documentos con `find()`.
 3. Filtra aquellos cuya `altura` sea mayor de 100.
@@ -495,17 +495,18 @@ El ejemplo funciona de la siguiente manera:
     1. Inserta tres nuevos documentos con `insertMany()`.
     2. Recupera todos los documentos con `find()`.
     3. Aplica algún filtro.
-    4. Actualiza uno de los documentos cambiando un atributo.
+    4. Actualiza uno de los documentos cambiando el valor de un campo.
     5. Elimina un documento específico mediante `deleteOne()`.
 
 
 <span class="mis_ejemplos">Ejemplo 5: Operaciones CRUD desde Kotlin. Trabajando con la colección `plantas`</span>
 
 El siguiente ejemplo conecta a la BD `florabotanica`y realiza las siguientes operaciones:
-    1. Insertar un nuevo documento a partir de los datos introducidos por el usuario.
-    2. Listar todas las plantas existentes.
-    3. Actualizar la altura de una planta dada.
-    4. Eliminar una planta por nombre.
+
+1. Insertar un nuevo documento a partir de los datos introducidos por el usuario.
+2. Listar todas las plantas existentes.
+3. Actualizar la altura de una planta dada.
+4. Eliminar una planta por nombre.
 
 ```kotlin
 import com.mongodb.client.MongoClients
@@ -573,11 +574,11 @@ fun main() {
 
 !!! warning "Práctica 7: Trabaja con tu BD"
     Amplía tu proyecto con un menú para controlar las siguientes opciones:
-    1. Insertar un nuevo documento a partir de los datos introducidos por el usuario.
-    2. Listar todas los documentos existentes.
-    3. Actualizar la informaión de un documento dad.
-    4. Eliminar un documento por ID.
 
+    1. Insertar un nuevo documento a partir de los datos introducidos por el usuario.
+    2. Listar todos los documentos existentes.
+    3. Actualizar la informaión de un documento dado.
+    4. Eliminar un documento por ID.
 
 
 
@@ -588,8 +589,6 @@ fun main() {
 | `sort()`           | Ordena los resultados. `1` ascendente, `-1` descendente.<br>**Ejemplo:** `db.alumnos.find().sort({nota:-1})`         |
 | `limit()`          | Limita el número de resultados.<br>**Ejemplo:** `db.alumnos.find().limit(3)`                                         |
 | `countDocuments()` | Devuelve el número de documentos que cumplen un filtro.<br>**Ejemplo:** `db.alumnos.countDocuments({nota:{$gte:5}})` |
-
-
 
 
 <span class="mi_h3">Índices</span>
@@ -631,6 +630,7 @@ El método **`aggregate()`** permite realizar **consultas complejas** y **proces
 <span class="mis_ejemplos">Ejemplo 6: Consultas avanzadas y agregaciones</span>
 
 El siguiente ejemplo realiza lo siguiente:
+
 1. Usa `aggregate()` para calcular la altura media de las plantas.
 2. Agrupa por tipo de planta con `$group` y ordena los resultados.
 3. Limita la salida a los tres resultados más altos con `$limit`.
@@ -686,6 +686,7 @@ db.plantas.aggregate([
 <span class="mis_ejemplos">Ejemplo 7: Consultas avanzadas en Kotlin</span>
 
 El siguiente ejemplo conecta a la BD `florabotanica`y realiza las siguientes operaciones:
+
 1. Implementa consultas utilizando filtros con `Filters.eq`, `Filters.gt`, etc.
 2. Muestra solo los nombres de las plantas con `Projections.include`.
 3. Realiza una agregación que calcule la media de alturas.
@@ -740,9 +741,11 @@ fun main() {
 
 
 !!! danger "Entrega 1"
-    Entrega en Aules la carpeta `main/kotlin` de tu proyecto comprimida en formato `.zip`.
+    Entrega en Aules lo siguiente:
 
-    **IMPORTANTE**: El documento se debe entregar utilizando la plantilla de entrega de trabajos.
+    - La carpeta `main/kotlin` de tu proyecto comprimida en formato `.zip`.
+    - Tu BD MongoDB exportada en un fichero: XXXXXXXXX
+
 
 
 <span class="mi_h3">Resumen</span>
