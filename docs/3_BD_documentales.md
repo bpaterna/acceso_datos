@@ -341,6 +341,63 @@ plantas
     4. Muestra todas las bases de datos y las colecciones creadas.
 
 
+Una vez comprendido el manejo desde terminal, trabajaremos con kotlin a través del *driver oficial de MongoDB para Kotlin*. Para ello crearemos un nuevo proyecto en IntelliJ con Gradle.
+
+<span class="mis_ejemplos">Ejemplo 3: Conexión y lectura de información en Kotlin</span>
+
+El siguiente ejemplo añade la dependencia del driver de MongoDB, conecta a la BD `florabotanica` y muestra los documentos de la colección `plantas`.
+
+**1. Añadir dependencia al fichero `build.gradle.kts`**
+
+```kotlin
+    implementation("org.mongodb:mongodb-driver-sync:4.11.0")
+```
+
+**2. Conectar a la BD y leer la información**
+
+```kotlin
+import com.mongodb.client.MongoClients
+import org.bson.Document
+
+fun main() {
+    val cliente = MongoClients.create("mongodb://localhost:27017")
+    val db = cliente.getDatabase("florabotanica")
+    val coleccion = db.getCollection("plantas")
+
+    // Mostrar documentos
+    val cursor = collection.find().iterator()
+    cursor.use {
+        while (it.hasNext()) {
+            val doc = it.next()
+            println(doc.toJson())
+        }
+    }
+    
+    //insertar documento
+    //val doc = org.bson.Document("nombre_comun", "Aloe").append("altura", 35)
+    //coleccion.insertOne(doc)
+
+    //for (p in coleccion.find()) {
+    //    println(p)
+    //}
+
+    client.close()
+}
+```
+
+**Salida esperada:** impresión en consola de cada documento JSON almacenado en `plantas`.
+
+**Notas:** si aparecen excepciones de conexión, comprobar que el servidor MongoDB local está en marcha (`sudo systemctl start mongod` o equivalente en Windows/Mac).
+
+!!! success "Prueba y analiza el ejemplo 3"
+    Prueba el código de ejemplo y verifica que funciona correctamente.
+
+!!! warning "Práctica 5: Trabaja con tu BD"
+    1. Crea un proyecto Kotlin en IntelliJ IDEA.
+    2. Añade la dependencia del driver de MongoDB (`org.mongodb:mongodb-driver-sync`).
+    3. Conéctate a tu base de datos y muestra los documentos de tu colección.
+
+
 <span class="mi_h3">Operaciones básicas</span>
 
 **Inserción** (Si la colección no existe, MongoDB la **creará automáticamente** en el momento de la inserción)
@@ -378,7 +435,7 @@ plantas
 | `deleteMany()` | Elimina todos los documentos que cumplan la condición.<br>**Ejemplo:** `db.alumnos.deleteMany({nota:{$lt:5}})` |
 
 
-<span class="mis_ejemplos">Ejemplo 3: Operaciones CRUD en terminal. Trabajando con la colección `plantas`</span>
+<span class="mis_ejemplos">Ejemplo 4: Operaciones CRUD en terminal. Trabajando con la colección `plantas`</span>
 
 El siguiente ejemplo realiza las siguientes operaciones sobre la colección `plantas`:
 1. Inserta tres nuevos documentos con `insertMany()`.
@@ -430,16 +487,97 @@ El ejemplo funciona de la siguiente manera:
 ```
 
 
-!!! success "Prueba y analiza el ejemplo 3"
+!!! success "Prueba y analiza el ejemplo 4"
     Prueba el código de ejemplo y verifica que funciona correctamente.
 
 
-!!! warning "Práctica 5: Operaciones CRUD en terminal. Trabaja con tu BD"
+!!! warning "Práctica 6: Trabaja con tu BD"
     1. Inserta tres nuevos documentos con `insertMany()`.
     2. Recupera todos los documentos con `find()`.
     3. Aplica algún filtro.
     4. Actualiza uno de los documentos cambiando un atributo.
     5. Elimina un documento específico mediante `deleteOne()`.
+
+
+<span class="mis_ejemplos">Ejemplo 5: Operaciones CRUD desde Kotlin. Trabajando con la colección `plantas`</span>
+
+El siguiente ejemplo conecta a la BD `florabotanica`y realiza las siguientes operaciones:
+    1. Insertar un nuevo documento a partir de los datos introducidos por el usuario.
+    2. Listar todas las plantas existentes.
+    3. Actualizar la altura de una planta dada.
+    4. Eliminar una planta por nombre.
+
+```kotlin
+import com.mongodb.client.MongoClients
+import com.mongodb.client.model.Filters
+import org.bson.Document
+import java.util.Scanner
+
+fun main() {
+    val client = MongoClients.create("mongodb://localhost:27017")
+    val db = client.getDatabase("florabotanica")
+    val col = db.getCollection("plantas")
+
+    val scanner = Scanner(System.`in`)
+    println("1) Insertar  2) Listar  3) Actualizar  4) Eliminar")
+    when (scanner.nextLine().trim()) {
+        "1" -> {
+            print("Nombre común: ")
+            val nombre = scanner.nextLine()
+            print("Altura: ")
+            val altura = scanner.nextLine().toIntOrNull() ?: 0
+            val doc = Document("nombre_comun", nombre).append("altura", altura)
+            col.insertOne(doc)
+            println("Insertado: ${doc.getObjectId("_id")}")
+        }
+        "2" -> {
+            col.find().forEach { println(it.toJson()) }
+        }
+        "3" -> {
+            print("Nombre a actualizar: ")
+            val nombre = scanner.nextLine()
+            print("Nueva altura: ")
+            val nuevaAltura = scanner.nextLine().toIntOrNull() ?: 0
+            val result = col.updateOne(Filters.eq("nombre_comun", nombre), Document("$set", Document("altura", nuevaAltura)))
+            println("Matched: ${result.matchedCount}, Modified: ${result.modifiedCount}")
+        }
+        "4" -> {
+            print("Nombre a eliminar: ")
+            val nombre = scanner.nextLine()
+            val result = col.deleteOne(Filters.eq("nombre_comun", nombre))
+            println("Deleted: ${result.deletedCount}")
+        }
+        else -> println("Opción no válida")
+    }
+
+    client.close()
+}
+```
+
+**Explicación:**
+- `insertOne` inserta el documento y asigna `_id` automáticamente.
+- `find()` itera sobre los documentos.
+- `updateOne` devuelve `UpdateResult` con `matchedCount` y `modifiedCount`.
+- `deleteOne` devuelve `DeleteResult` con `deletedCount`.
+
+**Salida esperada (ejemplo al listar):**
+
+```text
+{"_id": {"$oid": "..."}, "nombre_comun": "Aloe", "altura": 30}
+```
+
+
+!!! success "Prueba y analiza el ejemplo 5"
+    Prueba el código de ejemplo y verifica que funciona correctamente.
+
+
+!!! warning "Práctica 7: Trabaja con tu BD"
+    Amplía tu proyecto con un menú para controlar las siguientes opciones:
+    1. Insertar un nuevo documento a partir de los datos introducidos por el usuario.
+    2. Listar todas los documentos existentes.
+    3. Actualizar la informaión de un documento dad.
+    4. Eliminar un documento por ID.
+
 
 
 
@@ -490,7 +628,7 @@ El método **`aggregate()`** permite realizar **consultas complejas** y **proces
 
 
 
-<span class="mis_ejemplos">Ejemplo 4: Consultas avanzadas y agregaciones</span>
+<span class="mis_ejemplos">Ejemplo 6: Consultas avanzadas y agregaciones</span>
 
 El siguiente ejemplo realiza lo siguiente:
 1. Usa `aggregate()` para calcular la altura media de las plantas.
@@ -535,24 +673,76 @@ db.plantas.aggregate([
 ```
 
 
-!!! success "Prueba y analiza el ejemplo 4"
+!!! success "Prueba y analiza el ejemplo 6"
     Prueba el código de ejemplo y verifica que funciona correctamente.
 
 
-!!! warning "Práctica 6: Trabaja sobre tu BD"
+!!! warning "Práctica 8: Trabaja sobre tu BD"
     1. Usa `aggregate()` para realizar algún cálculo.
     2. Agrupa por tipo o categoría utilizando `$group` y ordena los resultados.
     3. Limita la salida a los tres resultados más altos con `$limit`.
 
 
+<span class="mis_ejemplos">Ejemplo 7: Consultas avanzadas en Kotlin</span>
+
+El siguiente ejemplo conecta a la BD `florabotanica`y realiza las siguientes operaciones:
+1. Implementa consultas utilizando filtros con `Filters.eq`, `Filters.gt`, etc.
+2. Muestra solo los nombres de las plantas con `Projections.include`.
+3. Realiza una agregación que calcule la media de alturas.
+
+
+```kotlin
+import com.mongodb.client.MongoClients
+import com.mongodb.client.model.Filters
+import com.mongodb.client.model.Projections
+import org.bson.Document
+
+fun main() {
+    val client = MongoClients.create("mongodb://localhost:27017")
+    val col = client.getDatabase("florabotanica").getCollection("plantas")
+
+    // 1) Filtro: altura > 100
+    col.find(Filters.gt("altura", 100)).forEach { println(it.toJson()) }
+
+    // 2) Proyección: solo nombre_comun
+    col.find().projection(Projections.include("nombre_comun")).forEach { println(it.toJson()) }
+
+    // 3) Agregación: media de altura
+    val pipeline = listOf(
+        Document("$group", Document("_id", null).append("alturaMedia", Document("$avg", "$altura")))
+    )
+    val aggCursor = col.aggregate(pipeline).iterator()
+    aggCursor.use {
+        while (it.hasNext()) println(it.next().toJson())
+    }
+
+    client.close()
+}
+```
+
+**Salida esperada de agregación:**
+```json
+{ "_id" : null, "alturaMedia" : 250.25 }
+```
+
+
+!!! success "Prueba y analiza el ejemplo 7"
+    Prueba el código de ejemplo y verifica que funciona correctamente.
+
+
+!!! warning "Práctica 9: Trabaja con tu BD"
+    1. Implementa consultas utilizando filtros con `Filters.eq`, `Filters.gt`, etc.
+    2. Muestra solo algunos datos con `Projections.include`.
+    3. Realiza una agregación que realice algún cálculo sobre tus datos.
+
+
+
+
 
 !!! danger "Entrega 1"
-Entrega en Aules un documento organizado correctamente con las capturas de pantalla de las prácticas.
+    Entrega en Aules la carpeta `main/kotlin` de tu proyecto comprimida en formato `.zip`.
 
     **IMPORTANTE**: El documento se debe entregar utilizando la plantilla de entrega de trabajos.
-
-
-
 
 
 <span class="mi_h3">Resumen</span>
@@ -569,8 +759,37 @@ Entrega en Aules un documento organizado correctamente con las capturas de panta
 | **Estadísticas**  | `db.stats()`, `db.coleccion.stats()`, `db.version()`                                  |
 
 
+<span class="mi_h3">Errores comunes y cómo resolverlos</span>
 
-intelliJ
+**1) Error: `Error opening socket` / `Unable to connect`**
+- **Causa:** el servidor MongoDB no está en ejecución o la URI es incorrecta.
+- **Solución:** arrancar el servicio (`sudo systemctl start mongod` en Linux) o comprobar `mongod` en Windows (servicios) y verificar la URI `mongodb://localhost:27017`.
+
+**2) `Authentication failed`**
+- **Causa:** autenticación habilitada y credenciales no proporcionadas.
+- **Solución:** crear un usuario en `admin` con `db.createUser()` o usar una URI con usuario/contraseña: `mongodb://user:pwd@localhost:27017`.
+
+**3) `NamespaceNotFound` / colección no encontrada**
+- **Causa:** la colección no existe (no se creó o no tiene documentos).
+- **Solución:** insertar un documento o crear la colección explícitamente con `db.createCollection("plantas")`.
+
+**4) `BSONTypeError` o problemas de tipo al recuperar datos**
+- **Causa:** tipos inconsistentes (por ejemplo, altura a veces string, a veces número).
+- **Solución:** normalizar datos o validar antes de insertar; usar `$convert` en agregaciones o transformar en la app.
+
+**5) Problemas con dependencias en Kotlin**
+- **Causa:** dependencia no encontrada o versión incompatible.
+- **Solución:** comprobar `build.gradle(.kts)` y usar `mavenCentral()`; actualizar la versión del driver.
+
+**6) `No primary found` en replicación o clúster**
+- **Causa:** intentando escribir en un conjunto de réplicas sin primario.
+- **Solución:** comprobar estado del replicaset (`rs.status()`) o arrancar una instancia standalone para prácticas locales.
+
+
+
+
+
+
 
 
 
@@ -579,23 +798,7 @@ intelliJ
 
 
 <!--
-```kotlin
-import java
-}
-```
 
-!!! success "Prueba y analiza el ejemplo 1"
-    1. Crea
-
-!!! warning "Práctica 2: Crea tu "
-    1. Crea un nu.
-
-!!! danger "Entrega 1"
-    Entrega en Aules la carpeta `main` de tu proyecto comprimida en formato .zip
-
-    **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
-
-## 3.3. Firebase
 
 En construcción
 
