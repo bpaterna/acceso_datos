@@ -202,7 +202,10 @@ plantes: [
 
 !!! warning "Práctica 1: Crea tu fichero JSON"
 
-    Crea el fichero JSON correspondiente a la información con la que estás trabajando.
+    1. Crea un fichero `datos.json` con la información con la que estás trabajando.
+    2. Asegúrate de incluir diferentes tipos de datos (texto, número, booleano, array y objeto anidado).
+    3. Valida el archivo utilizando [https://jsonlint.com](https://jsonlint.com) o la extensión *JSON Tools* en VSCode.
+
 
 
 !!! warning "Práctica 2: Instala MongoDB en tu ordenador de clase"
