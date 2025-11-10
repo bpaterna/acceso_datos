@@ -126,11 +126,23 @@ Un fichero JSON está compuesto por **pares clave–valor**, donde:
         { "nombre": "Mar", "edad": 18 }
     ]
 
+
+!!! warning "Práctica 1: Crea y valida tu JSON"
+
+    1. Crea un fichero `datos.json` con la información con la que estás trabajando.
+    2. Asegúrate de incluir diferentes tipos de datos (texto, número, booleano, array y objeto anidado).
+    3. Valida el archivo utilizando [https://jsonlint.com](https://jsonlint.com)
+
+
+
 ## 3.3. MongoDB
+
+<span class="mi_h3">Introducción</span>
 
 MongoDB es un sistema de gestión de bases de datos NoSQL **orientado a documentos**. A diferencia de las bases de datos relacionales, que almacenan la información en tablas con filas y columnas, MongoDB guarda los datos en **colecciones** formadas por documentos en formato **BSON** (una representación binaria de JSON).
 
 En **MongoDB** cada documento es una **estructura flexible**, parecida a un objeto de programación, donde los datos se organizan en pares **clave–valor**. Esta flexibilidad permite que cada **documento** tenga una estructura diferente, lo que hace que MongoDB se adapte fácilmente a los cambios en los datos sin necesidad de modificar esquemas.
+
 
 <span class="mis_ejemplos">Ejemplo 1: Plantas y jardineros</span>
 
@@ -139,86 +151,86 @@ A continuación tenemos información sobre algunas **plantas** y los **jardinero
 De la primera manera podríamos tener una colección llamada **Plantas**. Observa cómo los objetos no tienen por qué tener la misma estructura y, en este caso, la forma de acceder al nombre de un jardinero sería la siguiente: **objeto.jardinero.nombre**:
 
 ```
-{  
-_id: 301,  
-nombre: "Rosa silvestre",  
-tipo: "Arbust",  
-jardinero: {  
-    nombre: "Eli",  
-    apellidos: "Martínez Serra",  
-    anyo_nacimiento: 1985  
-    },  
-localitzacio: "Jardí Mediterrani"  
-},  
-{  
-_id: 302,  
-nombre: "Ficus lyrata",  
-tipo: "Planta de interior",  
-jardinero: {  
-    nombre: "Pol",  
-    apellidos: "Ribas Colomer",  
-    pais: "Espanya"  
-    },  
-altura: 150,  
-reg_setmanal: 2  
-}
+    {
+        "id_planta": 301,
+        "nombre": "Rosa silvestre",
+        "tipo": "Arbust",
+        "jardinero": {
+            "nombre": "Eli",
+            "apellidos": "Martínez Serra",
+            "anyo_nacimiento": 1985
+        },
+        "localitzacio": "Jardí Mediterrani"
+    },
+    {
+        "id_planta": 302,
+        "nombre": "Ficus lyrata",
+        "tipo": "Planta de interior",
+        "jardinero": {
+            "nombre": "Pol",
+            "apellidos": "Ribas Colomer",
+            "pais": "Espanya"
+        },
+        "altura": 150,
+        "riego_semanal": 2
+    }
 ```
 
 De la segunda manera tendríamos la colección **Jardineros** donde la información estaría organizasa por jardineros y cada uno de ellos tendría un array con las plantas que cuida (los corchetes: [ ]):
 
 ```
-{  
-_id: 401,  
-nom: "Laura",  
-apellidos: "Martínez Serra",  
-anyo_nacimiento: 1985,  
-plantes: [  
-    {  
-    nom: "Rosa silvestre",  
-    tipo: "Arbust",  
-    localitzacio: "Jardí Mediterrani"  
-    },  
-    {  
-    nom: "Lavanda officinalis",  
-    localitzacio: "Parterre aromàtic"  
-    }  
-    ]  
-},  
-{  
-_id: 402,  
-nom: "Jordi",  
-apellidos: "Ribas Colomer",  
-pais: "Espanya",  
-plantes: [  
-    {  
-    nom: "Ficus lyrata",  
-    tipo: "Planta d’interior",  
-    altura: 150,  
-    reg_setmanal: 2  
-    }  
-    ]  
-}
+    {
+        "id_jardinero": 401,
+        "nombre": "Eli",
+        "apellidos": "Martínez Serra",
+        "anyo_nacimiento": 1985,
+        "plantas": [
+            {
+                "nombre": "Rosa silvestre",
+                "tipo": "Arbust",
+                "ubicacion": "Jardí Mediterrani"
+            },
+            {
+                "nombre": "Lavanda officinalis",
+                "ubicacion": "Parterre aromàtic"
+            }
+        ]
+    },
+    {
+        "id_jardinero": 402,
+        "nombre": "Pol",
+        "apellidos": "Ribas Colomer",
+        "pais": "España",
+        "plantas": [
+            {
+                "nombre": "Ficus lyrata",
+                "tipo": "Planta d’interior",
+                "altura": 150,
+                "riego_semanal": 2
+            }
+        ]
+    }
 ```
 
-!!! warning "Práctica 1: Crea tu fichero JSON"
+!!! warning "Práctica 2: Amplía tu JSON"
 
-    1. Crea un fichero `datos.json` con la información con la que estás trabajando.
-    2. Asegúrate de incluir diferentes tipos de datos (texto, número, booleano, array y objeto anidado).
-    3. Valida el archivo utilizando [https://jsonlint.com](https://jsonlint.com) o la extensión *JSON Tools* en VSCode.
-
-
-
-!!! warning "Práctica 2: Instala MongoDB en tu ordenador de clase"
-
-    1. Sigue los pasos para instalar tanto el servidor como el cliene que encontrarás en el documento [Instalación y administración de MongoDB](mongo.html).
+    1. Amplía el JSON de la práctica anterior para que contenga información estructurada como la del ejemplo anterior (utilizando uno de los dos ejemplos).
+    2. Valida el archivo utilizando [https://jsonlint.com](https://jsonlint.com)
 
 
 
-<span class="mis_ejemplos">Ejemplo 2: Guardar y recuperar documentos en MongoDB</span>
+<span class="mi_h3">Primeros pasos con MongoDB</span>
 
-En cualquier operación, debemos escribir db seguido del nombre de la colección y después la operación a realizar.
+MongoDB utiliza su propia **shell interactiva**, llamada **`mongosh`**, que permite ejecutar comandos para administrar bases de datos, colecciones y documentos. Su sintaxis es **muy similar a JavaScript**, ya que cada comando se ejecuta sobre un **objeto base**:
 
-Para guardar un documento ejecutamos el siguiente comando:
+    db.coleccion.operacion()
+
+- db → representa la base de datos actual.
+- coleccion → el nombre de la colección sobre la que actuamos.
+- operacion() → el comando que deseamos ejecutar.
+
+
+En cualquier operación, debemos escribir db seguido del nombre de la colección y después la operación a realizar. Para guardar un documento ejecutamos el siguiente comando:
 
     db.ejemplo.insertOne({ msg: "Hola, ¿qué tal?" })
 
@@ -242,18 +254,53 @@ Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un n
 ![Imagen 6](img/mongo/mongo06.png)
 
 
+<span class="mis_ejemplos">Ejemplo 2: Crear BD, insertar plantas y mostrarlas</span>
+
+El siguiente ejemplo crea una base de datos llamada `florabotanica`. Crea una colección llamada `plantas` e inserta tres documentos con campos: `nombre_comun`, `nombre_cientifico`, `altura`. Por último muestra todas las bases de datos y las colecciones creadas.
+
+```js
+// Abrir mongosh
+mongosh
+
+// Crear/usar la base de datos
+use florabotanica
+
+// Insertar documentos (si la colección no existe, se crea automáticamente)
+db.plantas.insertMany([
+  { nombre_comun: "Aloe", nombre_cientifico: "Aloe vera", altura: 30 },
+  { nombre_comun: "Pino", nombre_cientifico: "Pinus sylvestris", altura: 330 },
+  { nombre_comun: "Cactus", nombre_cientifico: "Cactaceae", altura: 120 }
+])
+
+// Comprobar bases de datos y colecciones
+show dbs
+show collections
+```
+
+
+
+!!! warning "Práctica 2: Instala MongoDB y crea tu BD"
+
+    1. Instala MongoDB en tu ordenador siguiendo la guía [Instalación y administración de MongoDB](mongo.html).
+    2. Abre la terminal (`mongosh`) y crea tu BD.
+    3. Crea una colección e inserta tres documentos con los campos que quieras.
+    4. Muestra todas las bases de datos y las colecciones creadas.
+
+
+
+
+
+
+
+
+
+
+
+
 
 <span class="mi_h3">Comandos de MongoDB y su utilización</span>
 
-MongoDB utiliza su propia **shell interactiva**, llamada **`mongosh`**, que permite ejecutar comandos para administrar bases de datos, colecciones y documentos. Su sintaxis es **muy similar a JavaScript**, ya que cada comando se ejecuta sobre un **objeto base**:
-
-    db.coleccion.operacion()
-
-- db → representa la base de datos actual.
-- coleccion → el nombre de la colección sobre la que actuamos.
-- operacion() → el comando que deseamos ejecutar.
-
-A continuación se muestran varias tablas con los comandos más útiles para consultar, ordenar, filtrar y gestionar datos en MongoDB.
+A continuación se muestran los comandos más útiles para consultar, ordenar, filtrar y gestionar datos en MongoDB.
 
 <span class="mi_h4">Comandos sobre bases de datos</span>
 
@@ -316,6 +363,22 @@ A continuación se muestran varias tablas con los comandos más útiles para con
 | `sort()`           | Ordena los resultados. `1` ascendente, `-1` descendente.<br>**Ejemplo:** `db.alumnos.find().sort({nota:-1})`         |
 | `limit()`          | Limita el número de resultados.<br>**Ejemplo:** `db.alumnos.find().limit(3)`                                         |
 | `countDocuments()` | Devuelve el número de documentos que cumplen un filtro.<br>**Ejemplo:** `db.alumnos.countDocuments({nota:{$gte:5}})` |
+
+
+
+
+
+!!! success "Práctica 4: Operaciones CRUD en terminal"
+
+    Trabajando con la colección `plantas`:
+
+    1. Inserta tres nuevos documentos con `insertMany()`.
+    2. Recupera todos los documentos con `find()`.
+    3. Filtra aquellos cuya `altura` sea mayor de 100.
+    4. Actualiza uno de los documentos cambiando la altura.
+    5. Elimina una planta específica mediante `deleteOne()`.
+
+
 
 <span class="mi_h4">Índices</span>
 
