@@ -106,7 +106,6 @@ En estos apuntes vamos a utilizar como servidor una instancia ECS de AWS, puedes
     En unos segundos aparecerá tu nueva regla en la lista
     ![Imagen 31](img/mysql/imagen_031.jpg)
 
-
 4. Prueba a conectar a tu base de datos desde [DBeaver](dbeaver.html)
 
 
@@ -120,22 +119,20 @@ Los pasos para exportar la BD son los siguientes:
    ssh -i [nombre_certificado] ubuntu@[IP_nombre_servidor]
 
    Ejemplo: `ssh -i bpl.pem ubuntu@100.25.102.165`
-
 2. Hacer un `dump` de la BD con el comando:
 
    mysqldump -u [usuario_BD] -p [nombre_BD] > [nombre_archivo_dump]
 
    Ejemplo: `mysqldump -u bpl3 -p florabotanica > dump_florabotanica.sql`
-
 3. Comprobar que el archivo se ha creado y cerrar sesión.
 
-5. Descargar al equipo local con el comando:
+4. Descargar al equipo local con el comando:
 
    scp -i [nombre_certificado] ubuntu@[IP_nombre_servidor]:[ruta_archivo_dump] [ruta_destino]
 
    Ejemplo: `scp -i bpl.pem ubuntu@100.25.102.165:/home/ubuntu/dump_florabotanica.sql /home/b.paternalluch/.`
 
-6. Comprobar que el archivo se ha descargado correctamente y abrirlo con un editor para ver que su contenido es correcto.
+5. Comprobar que el archivo se ha descargado correctamente y abrirlo con un editor para ver que su contenido es correcto.
 
 
 
