@@ -9,6 +9,15 @@
 | 1.0      | 10-11-2025 | Adaptación de los materiales a markdown                           |
 
 
+<span class="mi_h3">Introducción</span>
+
+MySQL es un sistema de gestión de bases de datos relacional (RDBMS), basado en el lenguaje SQL (Structured Query Language). Fue desarrollado originalmente por MySQL AB, luego adquirido por Sun Microsystems y actualmente es propiedad de Oracle Corporation. Se utiliza ampliamente en aplicaciones web y empresariales para almacenar, organizar y acceder a datos de manera eficiente.
+
+MySQL funciona bajo una arquitectura cliente-servidor, en la cual el servidor MySQL es el componente encargado de almacenar, gestionar y proteger las bases de datos, mientras que los clientes son las aplicaciones o usuarios que se conectan a él para consultar o manipular los datos mediante el lenguaje SQL. 
+
+En estos apuntes vamos a utilizar como servidor una instancia ECS de AWS, puedes ver como instalarlo desde  [AWS Learner Lab](AWSlab.html).
+
+Una vez tengas tu servidor funcionando, ya puedes instalar el servidor MySQL en él.
 
 <span class="mi_h3">Instalación de MySQL en EC2</span>
 

@@ -731,7 +731,7 @@ Se usan para:
 
 
 !!! warning "Práctica 6: Servidor MySQL"
-    1. Monta tu servidor virtual siguiendo los pasos del documento [AWS Learner Lab](AWSlab.html).
+    1. Monta tu servidor virtual siguiendo los pasos del documento [AWS Learner Lab](AWSlab.html) e instala en él tu servidor MySQL siguiendo los pasos del documento [Instalación MySQL en EC2](mysql.html)
     2. Replica tu base de datos `SQLite` en `MySQL` dentro del servidor que acabas de crear. Puedes utilizar la herramienta [DBeaver](dbeaver.html) para crear las tablas e insertar los registros en ellas.
     3. Haz una copia de tu proyecto y elimina todo lo relacionado con SQLite (incluido el archivo .sqlite).
     4. Añade las líneas necesarias para conectar a tu BD MySQL.
