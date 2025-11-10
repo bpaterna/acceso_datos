@@ -112,28 +112,33 @@ En estos apuntes vamos a utilizar como servidor una instancia ECS de AWS, puedes
 
 <span class="mi_h3">Exportación de la BD</span>
 
-Los pasos para exportar la BD son los siguientes:
+**1. Conectar al servidor**
 
-1. Conectar al servidor con el comando:
+Ejecuta el siguiente comando:
 
    ssh -i [nombre_certificado] ubuntu@[IP_nombre_servidor]
 
    Ejemplo: `ssh -i bpl.pem ubuntu@100.25.102.165`
 
-2. Hacer un `dump` de la BD con el comando:
+**2. Crear un archivo con la exportación**
+
+Hacer un `dump` de la BD con el comando:
 
    mysqldump -u [usuario_BD] -p [nombre_BD] > [nombre_archivo_dump]
 
    Ejemplo: `mysqldump -u bpl3 -p florabotanica > dump_florabotanica.sql`
-3. Comprobar que el archivo se ha creado y cerrar sesión.
 
-4. Descargar al equipo local con el comando:
+Comprobar que el archivo se ha creado y cerrar sesión.
+
+**Descargar** 
+
+Descargar al equipo local con el comando:
 
    scp -i [nombre_certificado] ubuntu@[IP_nombre_servidor]:[ruta_archivo_dump] [ruta_destino]
 
    Ejemplo: `scp -i bpl.pem ubuntu@100.25.102.165:/home/ubuntu/dump_florabotanica.sql /home/b.paternalluch/.`
 
-5. Comprobar que el archivo se ha descargado correctamente y abrirlo con un editor para ver que su contenido es correcto.
+Comprobar que el archivo se ha descargado correctamente y abrirlo con un editor para ver que su contenido es correcto.
 
 
 
