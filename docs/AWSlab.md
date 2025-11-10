@@ -96,9 +96,13 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
 <span class="mi_h3">Prueba de conexión</span>
 
+1. **Ver opciones de conexión**
+
     Haz clic en el botón `Conectarse a la instancia` para ver las diferentes opciones de conexión y sus instrucciones, por ejemplo en la pestaña `Cliente SSH` (que es la que vamos a utilizar) aparece lo siguiente:
 
     ![Imagen 13](img/AWS/imagen_013.jpg)
+
+2. **Abrir ventana de terminal**
 
     Para conectar, abre una ventana de comandos y escribe la instrucción siguiente (puedes utilizar el nombre del servidor o su IP pública)
 
