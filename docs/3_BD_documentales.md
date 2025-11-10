@@ -788,11 +788,6 @@ fun main() {
 
 
 
-
-
-
-
-
 ## 3.4. Firebase
 
 
