@@ -119,6 +119,7 @@ Los pasos para exportar la BD son los siguientes:
    ssh -i [nombre_certificado] ubuntu@[IP_nombre_servidor]
 
    Ejemplo: `ssh -i bpl.pem ubuntu@100.25.102.165`
+
 2. Hacer un `dump` de la BD con el comando:
 
    mysqldump -u [usuario_BD] -p [nombre_BD] > [nombre_archivo_dump]
