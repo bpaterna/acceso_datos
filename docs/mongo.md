@@ -1,5 +1,12 @@
 # Instalación y administración de MongoDB
 
+<span class="mi_h3">Revisiones</span>
+
+| Revisión | Fecha      | Descripción                                                       |
+|----------|------------|-------------------------------------------------------------------|
+| 1.0      | 10-11-2025 | Adaptación de los materiales a markdown                           |
+
+
 <span class="mi_h3">Opciones de instalación y despliegue</span>
 
 | Opción                         | Descripción                                                                                                 | Ideal para                                         |
