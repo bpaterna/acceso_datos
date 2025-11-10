@@ -218,8 +218,7 @@ De la segunda manera tendríamos la colección **Jardineros** donde la informaci
     2. Valida el archivo utilizando [https://jsonlint.com](https://jsonlint.com)
 
 
-
-<span class="mi_h3">Primeros pasos con MongoDB</span>
+<span class="mi_h3">Trabajar con MongoDB</span>
 
 MongoDB utiliza su propia **shell interactiva**, llamada **`mongosh`**, que permite ejecutar comandos para administrar bases de datos, colecciones y documentos. Su sintaxis es **muy similar a JavaScript**, ya que cada comando se ejecuta sobre un **objeto base**:
 
@@ -254,6 +253,22 @@ Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un n
 ![Imagen 6](img/mongo/mongo06.png)
 
 
+<span class="mi_h3">Comandos sobre bases de datos</span>
+
+| Comando             | Descripción                                        | Ejemplo             |
+| ------------------- | -------------------------------------------------- | ------------------- |
+| `show dbs`          | Muestra todas las bases de datos existentes.       | `show dbs`          |
+| `use <nombre>`      | Cambia a una base de datos (la crea si no existe). | `use biblioteca`    |
+| `db.getName()`      | Muestra el nombre de la base de datos actual.      | `db.getName()`      |
+| `db.dropDatabase()` | Elimina la base de datos actual.                   | `db.dropDatabase()` |
+
+
+
+!!! warning "Práctica 3: Instala MongoDB"
+
+    1. Instala MongoDB en tu ordenador siguiendo la guía [Instalación y administración de MongoDB](mongo.html).
+
+
 <span class="mis_ejemplos">Ejemplo 2: Crear BD, insertar plantas y mostrarlas</span>
 
 El siguiente ejemplo crea una base de datos llamada `florabotanica`. Crea una colección llamada `plantas` e inserta tres documentos con campos: `nombre_comun`, `nombre_cientifico`, `altura`. Por último muestra todas las bases de datos y las colecciones creadas.
@@ -277,24 +292,33 @@ show dbs
 show collections
 ```
 
+**Explicación:** `use florabotanica` cambia el contexto; `insertMany` inserta varios documentos. `show dbs` no mostrará `florabotanica` hasta que la colección tenga datos persistidos; tras insertar, aparecerá en la lista.
+
+**Salida esperada:**
+
+```text
+{ acknowledged: true, insertedIds: { '0': ObjectId("..."), '1': ObjectId("..."), '2': ObjectId("...") } }
+
+> show dbs
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+florabotanica 0.001GB
+
+> show collections
+plantas
+```
+
+!!! success "Prueba y analiza el ejemplo 2"
+Prueba el código de ejemplo y verifica que funciona correctamente.
 
 
-!!! warning "Práctica 2: Instala MongoDB y crea tu BD"
 
-    1. Instala MongoDB en tu ordenador siguiendo la guía [Instalación y administración de MongoDB](mongo.html).
+!!! warning "Práctica 4: Crea tu BD, inserta y muestra información"
+
     2. Abre la terminal (`mongosh`) y crea tu BD.
     3. Crea una colección e inserta tres documentos con los campos que quieras.
     4. Muestra todas las bases de datos y las colecciones creadas.
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -302,16 +326,8 @@ show collections
 
 A continuación se muestran los comandos más útiles para consultar, ordenar, filtrar y gestionar datos en MongoDB.
 
-<span class="mi_h4">Comandos sobre bases de datos</span>
 
-| Comando             | Descripción                                        | Ejemplo             |
-| ------------------- | -------------------------------------------------- | ------------------- |
-| `show dbs`          | Muestra todas las bases de datos existentes.       | `show dbs`          |
-| `use <nombre>`      | Cambia a una base de datos (la crea si no existe). | `use biblioteca`    |
-| `db.getName()`      | Muestra el nombre de la base de datos actual.      | `db.getName()`      |
-| `db.dropDatabase()` | Elimina la base de datos actual.                   | `db.dropDatabase()` |
-
-<span class="mi_h4">Comandos sobre colecciones</span>
+<span class="mi_h3">Comandos sobre colecciones</span>
 
 | Comando                                        | Descripción                                                                                     |
 | ---------------------------------------------- | ----------------------------------------------------------------------------------------------- |
@@ -320,7 +336,7 @@ A continuación se muestran los comandos más útiles para consultar, ordenar, f
 | `db.coleccion.drop()`                          | Elimina una colección completa.<br>**Ejemplo:** `db.alumnos.drop()`                             |
 | `db.coleccion.renameCollection("nuevoNombre")` | Cambia el nombre de una colección.<br>**Ejemplo:** `db.alumnos.renameCollection("estudiantes")` |
 
-<span class="mi_h4">Operaciones básicas</span>
+<span class="mi_h3">Operaciones básicas</span>
 
 **Inserción** (Si la colección no existe, MongoDB la **creará automáticamente** en el momento de la inserción)
 
@@ -356,7 +372,7 @@ A continuación se muestran los comandos más útiles para consultar, ordenar, f
 | `deleteOne()`  | Elimina el primer documento que cumpla la condición.<br>**Ejemplo:** `db.alumnos.deleteOne({nombre:"Luis"})`   |
 | `deleteMany()` | Elimina todos los documentos que cumplan la condición.<br>**Ejemplo:** `db.alumnos.deleteMany({nota:{$lt:5}})` |
 
-<span class="mi_h4">Consultas avanzadas y ordenación</span>
+<span class="mi_h3">Consultas avanzadas y ordenación</span>
 
 | Comando            | Descripción                                                                                                          |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------- |
@@ -380,7 +396,7 @@ A continuación se muestran los comandos más útiles para consultar, ordenar, f
 
 
 
-<span class="mi_h4">Índices</span>
+<span class="mi_h3">Índices</span>
 
 | Comando                  | Descripción                                                                     |
 | ------------------------ | ------------------------------------------------------------------------------- |
@@ -388,7 +404,7 @@ A continuación se muestran los comandos más útiles para consultar, ordenar, f
 | `getIndexes()`           | Muestra los índices existentes.<br>**Ejemplo:** `db.alumnos.getIndexes()`       |
 | `dropIndex("nombre_1")`  | Elimina un índice.<br>**Ejemplo:** `db.alumnos.dropIndex("nombre_1")`           |
 
-<span class="mi_h4">Información útil del entorno</span>
+<span class="mi_h3">Información útil del entorno</span>
 
 | Comando                | Descripción                                                                    |
 | ---------------------- | ------------------------------------------------------------------------------ |
@@ -410,7 +426,7 @@ A continuación se muestran los comandos más útiles para consultar, ordenar, f
     db.plantas.find({altura:{$gte:130}})
     db.plantas.deleteOne({nombre_comun:"Cactus"})
 
-<span class="mi_h4">Consultas avanzadas con `aggregate()`</span>
+<span class="mi_h3">Consultas avanzadas con `aggregate()`</span>
 
 El método **`aggregate()`** permite realizar **consultas complejas** y **procesamientos de datos** en varias etapas, similares a las funciones de **GROUP BY, JOIN o HAVING** en SQL. Cada etapa del *pipeline* (tubería) transforma los datos paso a paso. Cada etapa (stage) se representa mediante un objeto precedido por $, que indica la operación a realizar.
 
@@ -434,7 +450,7 @@ El método **`aggregate()`** permite realizar **consultas complejas** y **proces
 | `$lookup`  | Realiza una unión entre colecciones (similar a `JOIN`).<br>**Ejemplo:** `{ $lookup: { from: "profesores", localField: "idProfesor", foreignField: "_id", as: "infoProfesor" } }` |
 | `$unwind`  | Descompone arrays en múltiples documentos.<br>**Ejemplo:** `{ $unwind: "$aficiones" }`                                                                                           |
 
-<span class="mi_h4">Resumen</span>
+<span class="mi_h3">Resumen</span>
 
 | Categoría         | Comandos clave                                                                        |
 | ----------------- | ------------------------------------------------------------------------------------- |
@@ -446,6 +462,12 @@ El método **`aggregate()`** permite realizar **consultas complejas** y **proces
 | **Eliminación**   | `db.coleccion.deleteOne()`, `db.coleccion.deleteMany()`                               |
 | **Índices**       | `db.coleccion.createIndex()`, `db.coleccion.getIndexes()`, `db.coleccion.dropIndex()` |
 | **Estadísticas**  | `db.stats()`, `db.coleccion.stats()`, `db.version()`                                  |
+
+
+
+
+## 3.4. Firebase
+
 
 
 <!--
