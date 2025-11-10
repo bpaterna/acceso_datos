@@ -124,7 +124,4 @@ Obra realizada por Begoña Paterna Lluch. Publicada bajo licencia [Creative Comm
 
 
 
-<!--
-**otras herramientas: Workbench, Sequel Pro o DataGrip.**
 
--->
