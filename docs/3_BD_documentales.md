@@ -313,7 +313,6 @@ plantas
     Prueba el código de ejemplo y verifica que funciona correctamente.
 
 !!! warning "Práctica 4: Crea tu BD, inserta y muestra información"
-
     2. Abre la terminal (`mongosh`) y crea tu BD.
     3. Crea una colección e inserta tres documentos con los campos que quieras.
     4. Muestra todas las bases de datos y las colecciones creadas.
@@ -363,15 +362,6 @@ plantas
 | -------------- | -------------------------------------------------------------------------------------------------------------- |
 | `deleteOne()`  | Elimina el primer documento que cumpla la condición.<br>**Ejemplo:** `db.alumnos.deleteOne({nombre:"Luis"})`   |
 | `deleteMany()` | Elimina todos los documentos que cumplan la condición.<br>**Ejemplo:** `db.alumnos.deleteMany({nota:{$lt:5}})` |
-
-<span class="mi_h3">Consultas avanzadas y ordenación</span>
-
-| Comando            | Descripción                                                                                                          |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------- |
-| `sort()`           | Ordena los resultados. `1` ascendente, `-1` descendente.<br>**Ejemplo:** `db.alumnos.find().sort({nota:-1})`         |
-| `limit()`          | Limita el número de resultados.<br>**Ejemplo:** `db.alumnos.find().limit(3)`                                         |
-| `countDocuments()` | Devuelve el número de documentos que cumplen un filtro.<br>**Ejemplo:** `db.alumnos.countDocuments({nota:{$gte:5}})` |
-
 
 
 <span class="mis_ejemplos">Ejemplo 3: Operaciones CRUD en terminal. Trabajando con la colección `plantas`</span>
@@ -427,15 +417,11 @@ db.plantas.deleteOne({ nombre_comun: "Rosal" })
 ```
 
 
-
 !!! success "Prueba y analiza el ejemplo 3"
-Prueba el código de ejemplo y verifica que funciona correctamente.
+    Prueba el código de ejemplo y verifica que funciona correctamente.
 
 
-!!! success "Práctica 5: Operaciones CRUD en terminal. Trabaja con tu BD"
-
-    Trabaja sobre tu BD
-
+!!! warning "Práctica 5: Operaciones CRUD en terminal. Trabaja con tu BD"
     1. Inserta tres nuevos documentos con `insertMany()`.
     2. Recupera todos los documentos con `find()`.
     3. Aplica algún filtro.
@@ -450,6 +436,15 @@ Prueba el código de ejemplo y verifica que funciona correctamente.
 
 
 
+
+
+<span class="mi_h3">Consultas avanzadas y ordenación</span>
+
+| Comando            | Descripción                                                                                                          |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| `sort()`           | Ordena los resultados. `1` ascendente, `-1` descendente.<br>**Ejemplo:** `db.alumnos.find().sort({nota:-1})`         |
+| `limit()`          | Limita el número de resultados.<br>**Ejemplo:** `db.alumnos.find().limit(3)`                                         |
+| `countDocuments()` | Devuelve el número de documentos que cumplen un filtro.<br>**Ejemplo:** `db.alumnos.countDocuments({nota:{$gte:5}})` |
 
 
 
