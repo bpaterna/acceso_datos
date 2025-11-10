@@ -13,7 +13,7 @@
 
 A continuación se describen los pasos para acceder al laboratorio de aprendizaje de AWS Academy.
 
-1. **Crea tu cuenta**
+**1. Crea tu cuenta**
 
     Habrás recibido un correo electrónico de invitación, haz clic en el enlace y crea tu cuenta. Una vez completado el registro se abrirá el entorno de AWS Academy automáticamente. Haz clic en `Contenidos` y luego en el enlace `Lanzamiento del laboratorio` como se muestra en la siguiente imagen (la primera vez que entres deberás aceptar los términos de uso)
 
@@ -32,13 +32,13 @@ A continuación se describen los pasos para acceder al laboratorio de aprendizaj
     ![Imagen 1](img/AWS/imagen_001.jpg)
 
     
-2. **Inicia el laboratorio**
+**2. Inicia el laboratorio**
 
     Cuando aparezca la pantalla con el laboratorio, haz clic en el botón `Start Lab` (verás que el círculo junto al enlace `AWS` cambia de color rojo a amarillo y permanece de ese color mientras arranca el laboratorio)
 
     ![Imagen 2](img/AWS/imagen_002.jpg)
 
-3. **Accede a la consola**
+**3. Accede a la consola**
 
     Cuando el laboratorio haya arrancado, el círculo cambiará a color verde. Entonces haz clic en el enlace `AWS` para acceder a la `Página de inicio de la Consola` (puedes ver que la región es *North Virginia (us-east-1)* que es la región por defecto de los laboratorios de aprendizaje, **NO LO CAMBIES**). Después haz clic en `EC2` para acceder a la consola de instancias EC2
 
@@ -49,7 +49,7 @@ A continuación se describen los pasos para acceder al laboratorio de aprendizaj
 
 A continuación se describen los pasos para crear un servidor Ubuntu en un laboratorio de aprendizaje de AWS Academy.
 
-1. **Crea la instancia**
+**1. Crea la instancia**
 
     Dentro del panel `EC2` haz clic en el botón `Lanzar la instancia`. Luego Escribe el nombre de la instancia y elige una `Amazon Machine Image (AMI)` en este caso Ubuntu (al seleccionar ubuntu nos aparece la Ubuntu Server 24.04 LTS que es apta para utilizar de forma gratuita). Más abajo también aparece el tipo de instancia que es
 
@@ -57,7 +57,7 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     ![Imagen 7](img/AWS/imagen_007.jpg)
     ![Imagen 8](img/AWS/imagen_008.jpg)
 
-2. **Crea un par de claves**
+**2. Crea un par de claves**
 
     Haz clic en el enlace `Crear un nuevo par de claves`, introduce el nombre para el fichero de claves y haz clic en el botón `Crear par de claves`
 
@@ -66,14 +66,14 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
 
     <span class="mis_avisos">**Muy importante:** Verás que el navegador descarga el fichero .pem de tu clave automáticamente. Guárdalo en lugar seguro porque te hará falta para conectar a tu servidor por SSH.</span>
 
-3. **Lanzar instancia**
+**3. Lanzar instancia**
  
     Deja el resto de opciones como están y, en la parte derecha dentro del apartado `Resumen`, haz clic en el botón `Lanzar instancia`. Cuando la instancia termine de lanzarse aparecerá la siguiente imagen
 
     ![Imagen 12](img/AWS/imagen_012.jpg)
 
 
-4. **IP pública fija**
+**4. Asignar una IP pública fija**
 
     Para que el servidor tenga siempre la misma IP pública y facilitar así trabajar con él, vamos a asignarle una IP fija. Para ello haz clic en el enlace `Direcciones IP elásticas` y luego haz clic en el botón `Asignar dirección IP elástica` 
    
@@ -94,15 +94,16 @@ A continuación se describen los pasos para crear un servidor Ubuntu en un labor
     Vuelve a la lista de instancias para comprobar que tu instancia ya tiene la IP
     ![Imagen 12](img/AWS/AWS_IP_8.jpg)
 
+
 <span class="mi_h3">Prueba de conexión</span>
 
-1. **Ver opciones de conexión**
+**1. Ver opciones de conexión**
 
     Haz clic en el botón `Conectarse a la instancia` para ver las diferentes opciones de conexión y sus instrucciones, por ejemplo en la pestaña `Cliente SSH` (que es la que vamos a utilizar) aparece lo siguiente:
 
     ![Imagen 13](img/AWS/imagen_013.jpg)
 
-2. **Abrir ventana de terminal**
+**2. Abrir ventana de terminal**
 
     Para conectar, abre una ventana de comandos y escribe la instrucción siguiente (puedes utilizar el nombre del servidor o su IP pública)
 
