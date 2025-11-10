@@ -434,7 +434,7 @@ fun main() {
 | `deleteMany()` | Elimina todos los documentos que cumplan la condición.<br>**Ejemplo:** `db.alumnos.deleteMany({nota:{$lt:5}})` |
 
 
-<span class="mis_ejemplos">Ejemplo 4: Operaciones CRUD en terminal. Trabajando con la colección `plantas`</span>
+<span class="mis_ejemplos">Ejemplo 4: Operaciones CRUD en terminal</span>
 
 El siguiente ejemplo realiza las siguientes operaciones sobre la colección `plantas`:
 
@@ -499,7 +499,7 @@ El ejemplo funciona de la siguiente manera:
     5. Elimina un documento específico mediante `deleteOne()`.
 
 
-<span class="mis_ejemplos">Ejemplo 5: Operaciones CRUD desde Kotlin. Trabajando con la colección `plantas`</span>
+<span class="mis_ejemplos">Ejemplo 5: Operaciones CRUD desde Kotlin</span>
 
 El siguiente ejemplo conecta a la BD `florabotanica`y realiza las siguientes operaciones:
 
