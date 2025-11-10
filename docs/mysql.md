@@ -31,7 +31,7 @@ En estos apuntes vamos a utilizar como servidor una instancia ECS de AWS, puedes
     sudo apt install mysql-server
 ```
 
-**3. Comprobar estado del servicio**
+**3. Comprueba el estado del servicio**
 
 Comprueba que el servicio de MySQL se esté ejecutando correctamente (Si no está activo, puedes iniciarlo con `sudo systemctl start mysql`)
 
@@ -44,7 +44,7 @@ Comprueba que el servicio de MySQL se esté ejecutando correctamente (Si no est�
 
 <span class="mi_h3">Crea un usuario y una base de datos</span>
 
-**1. Entrar al servidor**
+**1. Entra al servidor**
 
 Entra al servidor MySQL (cuando te pida contraseña déjala en blanco y pulsa `INTRO`)
 
@@ -52,7 +52,7 @@ Entra al servidor MySQL (cuando te pida contraseña déjala en blanco y pulsa `I
     sudo mysql -u root -p 
 ```
 
-**2. Crear el usuario con su contraseña** 
+**2. Crea el usuario con su contraseña** 
 
 Ejecuta los comandos siguientes (el `%` indica que el usuario podrá conectarse desde cualquier sitio):
 
@@ -73,9 +73,9 @@ Por ejemplo para el usuario `bpl3` y contraseña `holaHOLA01+` sería:
    SHOW GRANTS FOR 'bpl3'@'%';
 ```
 
-**3. Crear la base de datos**
+**3. Crea la base de datos**
 
-Accambiar el nombre del ejemplo por el de tu BD
+Por ejemplo (cambia el nombre del ejemplo por el de tu BD)
 
 ```sql
     create database florabotanica;
@@ -90,19 +90,21 @@ Accambiar el nombre del ejemplo por el de tu BD
 
 <span class="mi_h3">Configura MySQL y el servidor para permtir conexiones externas</span>
 
-**1. Editar el fichero de configuración**
+**1. Edita el fichero de configuración**
 
+```bash
    `sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf`
+```
+Comenta la línea `bind-address = 127.0.0.1`
 
-    Comentar la línea `bind-address = 127.0.0.1`
+Añade la línea `bind-address = 0.0.0.0`
 
-    Añadir la línea `bind-address = 0.0.0.0`
+El fichero de configuración debe quedar como se muestra en la siguiente imagen:
 
-El fichero de configuración debe quedar como se muestra en la siguiente imagen
-
-   ![Imagen 18](img/mysql/imagen_018.jpg)
+![Imagen 18](img/mysql/imagen_018.jpg)
 
 **2. Reinicia el servicio**
+
 Rainicia y comprueba que ha arrancado correctamente
 
 ```bash
@@ -110,10 +112,9 @@ Rainicia y comprueba que ha arrancado correctamente
     sudo systemctl status mysql
 ```
 
-**3. Permitir tráfico entrante en el servidor** 
-Añadir una regla en el servidor para permitir el tráfico entrante del puerto 3306:
+**3. Configura el servidor para permitir tráfico entrante** 
 
-Haz clic en la pestaña `Seguridad` y luego en el enlace de `Grupos de seguridad`
+Añade una regla en el servidor para permitir el tráfico entrante del puerto 3306. Para ello haz clic en la pestaña `Seguridad` y luego en el enlace de `Grupos de seguridad`
 
 ![Imagen 28](img/mysql/imagen_028.jpg)
 
@@ -137,33 +138,33 @@ Prueba a conectar a tu base de datos desde [DBeaver](dbeaver.html)
 
 <span class="mi_h3">Exportación de la BD</span>
 
-**1. Conectar al servidor**
+**1. Conecta al servidor**
 
-Ejecuta el siguiente comando:
+Para ello utiliza el comando `ssh -i [nombre_certificado] ubuntu@[IP_nombre_servidor]` Por ejemplo:
 
-   ssh -i [nombre_certificado] ubuntu@[IP_nombre_servidor]
+```bash
+    ssh -i bpl.pem ubuntu@100.25.102.165
+```
 
-   Ejemplo: `ssh -i bpl.pem ubuntu@100.25.102.165`
+**2. Crea un archivo con la exportación**
 
-**2. Crear un archivo con la exportación**
+Para hacer un `dump` de la BD se utiliza el comando `mysqldump -u [usuario_BD] -p [nombre_BD] > [nombre_archivo_dump]` Por ejemplo:
 
-Hacer un `dump` de la BD con el comando:
+```bash
+    mysqldump -u bpl3 -p florabotanica > dump_florabotanica.sql
+```
 
-   mysqldump -u [usuario_BD] -p [nombre_BD] > [nombre_archivo_dump]
+Después comprueba que el archivo se ha creado y cerrar sesión.
 
-   Ejemplo: `mysqldump -u bpl3 -p florabotanica > dump_florabotanica.sql`
+**Descarga el archivo** 
 
-Comprobar que el archivo se ha creado y cerrar sesión.
+Para descargar al equipo local utiliza el comando `scp -i [nombre_certificado] ubuntu@[IP_nombre_servidor]:[ruta_archivo_dump] [ruta_destino]` Por ejemplo:
 
-**Descargar** 
+```bash
+    scp -i bpl.pem ubuntu@100.25.102.165:/home/ubuntu/dump_florabotanica.sql /home/b.paternalluch/.
+```
 
-Descargar al equipo local con el comando:
-
-   scp -i [nombre_certificado] ubuntu@[IP_nombre_servidor]:[ruta_archivo_dump] [ruta_destino]
-
-   Ejemplo: `scp -i bpl.pem ubuntu@100.25.102.165:/home/ubuntu/dump_florabotanica.sql /home/b.paternalluch/.`
-
-Comprobar que el archivo se ha descargado correctamente y abrirlo con un editor para ver que su contenido es correcto.
+Para finalizar comprueba que el archivo se ha descargado correctamente y abrirlo con un editor para ver que su contenido es correcto.
 
 
 
