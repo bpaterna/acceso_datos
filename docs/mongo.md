@@ -104,7 +104,7 @@ Si aparecen las bases de datos (admin, config, local), todo está funcionando co
 ![Imagen Windows 7](img/mongo/mongoWIN6.jpg)
 
 
-<span class="mi_h3">Instalación en AWS</span>
+<span class="mi_h3">Instalación en EC2 (AWS)</span>
 
 Falta a partir de aquí
 
