@@ -20,6 +20,7 @@ nav:
   - Presentación: index.md
   - Contenido:
     - Acceso a BD relacionales: 2_BD_relacionales.md
+    - Acceso a BD documentales: 3_BD_documentales.md
   - Material adicional:
     - AWS Learner Lab: AWSlab.md
     - Instalación MySQL en EC2: mysql.md
