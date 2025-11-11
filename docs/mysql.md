@@ -21,24 +21,22 @@ En estos apuntes vamos a utilizar como servidor una instancia ECS de AWS, puedes
 
 **1. Conectar al servidor por ssh**
 
-Para conectar, abre una ventana de comandos y escribe la instrucción siguiente (puedes utilizar el nombre del servidor o su IP pública)
-
-    ssh -i nombre_clave ubuntu@nombre_IP_servidor
+Para conectar, abre una ventana de comandos y escribe la instrucción siguiente (puedes utilizar el nombre del servidor o su IP pública) `ssh -i nombre_clave ubuntu@nombre_IP_servidor`
 
 Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye nombre_clave por el de tu archivo .pem y nombre_IP_servidor por el nombre o la IP pública de tu servidor. Por ejemplo:
 
-    ssh -i bpl.pem ubuntu@100.25.102.165
+```bash
+ssh -i bpl.pem ubuntu@100.25.102.165
+```
 
 **2. Actualiza la lista de paquetes del servidor**
-
 ```bash
-    sudo apt update
+sudo apt update
 ```
 
 **3. Instala el servidor MySQL y las dependencias necesarias**
-
 ```bash
-    sudo apt install mysql-server
+sudo apt install mysql-server
 ```
 
 **4. Comprueba el estado del servicio**
@@ -46,7 +44,7 @@ Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando
 Comprueba que el servicio de MySQL se esté ejecutando correctamente (Si no está activo, puedes iniciarlo con `sudo systemctl start mysql`)
 
 ```bash
-    sudo systemctl status mysql
+sudo systemctl status mysql
 ```
 
 ![Imagen 17](img/mysql/imagen_017.jpg)
@@ -59,7 +57,7 @@ Comprueba que el servicio de MySQL se esté ejecutando correctamente (Si no est�
 Entra al servidor MySQL (cuando te pida contraseña déjala en blanco y pulsa `INTRO`)
 
 ```bash
-    sudo mysql -u root -p 
+sudo mysql -u root -p 
 ```
 
 **2. Crea el usuario con su contraseña** 
@@ -77,10 +75,10 @@ Ejecuta los comandos siguientes (el `%` indica que el usuario podrá conectarse 
 Por ejemplo para el usuario `bpl3` y contraseña `holaHOLA01+` sería:
 
 ```sql
-   CREATE USER 'bpl3'@'%' IDENTIFIED BY 'holaHOLA01+';
-   GRANT ALL PRIVILEGES ON *.* TO 'bpl3'@'%';    
-   FLUSH PRIVILEGES;
-   SHOW GRANTS FOR 'bpl3'@'%';
+CREATE USER 'bpl3'@'%' IDENTIFIED BY 'holaHOLA01+';
+GRANT ALL PRIVILEGES ON *.* TO 'bpl3'@'%';    
+FLUSH PRIVILEGES;
+SHOW GRANTS FOR 'bpl3'@'%';
 ```
 
 **3. Crea la base de datos**
@@ -88,13 +86,13 @@ Por ejemplo para el usuario `bpl3` y contraseña `holaHOLA01+` sería:
 Por ejemplo (cambia el nombre del ejemplo por el de tu BD)
 
 ```sql
-    create database florabotanica;
+create database florabotanica;
 ```
 
 **4. Sal del servidor**
 
 ```bash
-    exit
+exit
 ```
 
 
@@ -103,7 +101,7 @@ Por ejemplo (cambia el nombre del ejemplo por el de tu BD)
 **1. Edita el fichero de configuración**
 
 ```bash
-   sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
 ```
 Comenta la línea `bind-address = 127.0.0.1`
 
@@ -118,8 +116,8 @@ El fichero de configuración debe quedar como se muestra en la siguiente imagen:
 Rainicia y comprueba que ha arrancado correctamente
 
 ```bash
-    sudo systemctl restart mysql
-    sudo systemctl status mysql
+sudo systemctl restart mysql
+sudo systemctl status mysql
 ```
 
 **3. Configura el servidor para permitir tráfico entrante** 
@@ -153,7 +151,7 @@ Prueba a conectar a tu base de datos desde [DBeaver](dbeaver.html)
 Para ello utiliza el comando `ssh -i [nombre_certificado] ubuntu@[IP_nombre_servidor]` Por ejemplo:
 
 ```bash
-    ssh -i bpl.pem ubuntu@100.25.102.165
+ssh -i bpl.pem ubuntu@100.25.102.165
 ```
 
 **2. Crea un archivo con la exportación**
@@ -161,17 +159,17 @@ Para ello utiliza el comando `ssh -i [nombre_certificado] ubuntu@[IP_nombre_serv
 Para hacer un `dump` de la BD se utiliza el comando `mysqldump -u [usuario_BD] -p [opciones] [nombre_BD] > [nombre_archivo_dump]` Por ejemplo:
 
 ```bash
-    mysqldump -u bpl3 -p --routines florabotanica > dump_florabotanica.sql
+mysqldump -u bpl3 -p --routines florabotanica > dump_florabotanica.sql
 ```
 
 Después comprueba que el archivo se ha creado y cierra sesión con el comando `exit`
 
-**Descarga el archivo** 
+**3. Descarga el archivo** 
 
 Para descargar al equipo local utiliza el comando `scp -i [nombre_certificado] ubuntu@[IP_nombre_servidor]:[ruta_archivo_dump] [ruta_destino]` Por ejemplo:
 
 ```bash
-    scp -i bpl.pem ubuntu@100.25.102.165:/home/ubuntu/dump_florabotanica.sql /home/b.paternalluch/.
+scp -i bpl.pem ubuntu@100.25.102.165:/home/ubuntu/dump_florabotanica.sql /home/b.paternalluch/.
 ```
 
 Para finalizar comprueba que el archivo se ha descargado correctamente y que su contenido es correcto.

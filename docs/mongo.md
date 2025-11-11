@@ -117,40 +117,132 @@ Si aparecen las bases de datos (admin, config, local), todo está funcionando co
 
 Para conectar, abre una ventana de comandos y escribe la instrucción siguiente (puedes utilizar el nombre del servidor o su IP pública)
 
-    ssh -i nombre_clave ubuntu@nombre_IP_servidor
+```
+ssh -i nombre_clave ubuntu@nombre_IP_servidor
+```
 
 Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye nombre_clave por el de tu archivo .pem y nombre_IP_servidor por el nombre o la IP pública de tu servidor. Por ejemplo:
-
-    ssh -i bpl.pem ubuntu@100.25.102.165
-
+```
+ssh -i bpl.pem ubuntu@100.25.102.165
+```
 **2. Actualizando repositorios**
-
-    sudo apt update
-
+```
+sudo apt update
+```
 **3. Importa la clave pública**
-    
-    sudo apt install -y curl gnupg
+```
+sudo apt install -y curl gnupg
 
-    curl -fsSL https://pgp.mongodb.com/server-7.0.asc | \
-    sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
-
+curl -fsSL https://pgp.mongodb.com/server-7.0.asc | \
+ sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+```
 **4. Crear una lista de verificación**
-
-    echo "deb [signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | \
-    sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
-
-
+```
+echo "deb [signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | \
+ sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+```
 **5. Actualizar lista de paquetes**
-    
-    sudo apt update
-
+```
+sudo apt update
+```
 **6. Instala MongoDB Community Edition**
-    
-    sudo apt install -y mongodb-org
-
-
+```
+sudo apt install -y mongodb-org
+```
 **7. Habilitar y arrancar el servicio MongoDB**
-    
-    sudo systemctl enable mongod    
-    sudo systemctl start mongod
+``` 
+sudo systemctl enable mongod    
+sudo systemctl start mongod
+```
+**8. Configurar autenticación y acceso local**
+```
+sudo nano /etc/mongod.conf
+```
+Asegurarse de que solo escucha en localhost
+
+```
+# network interfaces
+net:
+port: 27017
+bindIp: 127.0.0.1
+```
+Desactiva autenticación
+```
+security:
+authorization: disabled
+```
+Reinicia servicio
+```
+sudo systemctl restart mongod
+```
+crear usuario para poder administrar cualquier bd
+```
+mongosh --port 27017
+
+text > use admin
+admin >   
+db.createUser({
+user: "bpl3",
+pwd: "holaHOLA01+",
+roles: [ { role: "root", db: "admin" } ]
+})
+```
+Comprueba que el usuario se ha creado correctamente
+```
+admin > db.getUsers()
+{
+users: [
+{
+_id: 'admin.bpl3',
+userId: UUID('385b7246-6f87-42b2-892d-b6cda1ede907'),
+user: 'bpl3',
+db: 'admin',
+roles: [ { role: 'root', db: 'admin' } ],
+mechanisms: [ 'SCRAM-SHA-1', 'SCRAM-SHA-256' ]
+}
+],
+ok: 1
+}
+```
+Activar autenticación y reiniciar servicio
+```
+sudo nano /etc/mongod.conf
+security:
+authorization: enabled
+
+sudo systemctl restart mongod
+```
+
+Con estos pasos:
+MongoDB se está ejecutando solo en localhost (127.0.0.1)
+
+Usuario: bpl3
+Contraseña: holaHOLA01+
+
+
+Para acceder a la BD
+
+Conecta desde terminal (y deja la ventana abierta)
+```
+ssh -i bpl.pem -L 27018:localhost:27017 ubuntu@100.25.102.165
+```
+
+Desde otra ventana de terminal, conecta localmente a:
+```
+mongosh "mongodb://bpl3:holaHOLA01+@localhost:27018/admin"
+```
+
+Para conectar desde Kotlin
+
+```kotlin
+const val NOM_SRV = "mongodb://bpl3:holaHOLA01+@localhost:27018/admin"
+const val NOM_BD = "florabotanica"
+const val NOM_COLECCION = "plantas"
+
+val cliente = MongoClients.create(NOM_SRV)
+val db = cliente.getDatabase(NOM_BD)
+val coleccion = db.getCollection(NOM_COLECCION)
+// resto de código del programa
+```
+
 
