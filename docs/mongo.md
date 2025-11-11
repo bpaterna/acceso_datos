@@ -168,11 +168,11 @@ Desactivar autenticación
 security:
 authorization: disabled
 ```
-Reiniciar servicio
+**9. Reiniciar servicio**
 ```
 sudo systemctl restart mongod
 ```
-Crear usuario para poder administrar cualquier bd
+**10. Crear usuario para poder administrar cualquier BD**
 ```
 mongosh --port 27017
 
@@ -201,7 +201,7 @@ mechanisms: [ 'SCRAM-SHA-1', 'SCRAM-SHA-256' ]
 ok: 1
 }
 ```
-Activar autenticación y reiniciar servicio
+**11. Activar autenticación y reiniciar servicio**
 ```
 sudo nano /etc/mongod.conf
 security:
@@ -211,7 +211,7 @@ sudo systemctl restart mongod
 ```
 
 
-**CONECTAR A LA bd**
+**CONECTAR A LA BD**
 
 Con estos pasos MongoDB se está ejecutando solo en localhost (127.0.0.1). Para acceder a la BD hay que conectar desde terminal (y deja la ventana abierta)
 ```
