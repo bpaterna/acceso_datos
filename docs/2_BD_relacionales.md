@@ -1046,11 +1046,13 @@ fun llamar_sp_agregar_planta_a_jardin(id_p:Int, id_j:Int, cant:Int){
 
 
 !!! danger "Entrega 2"
-    Entrega en Aules un archivo .zip con lo siguiente:
+    Realiza lo siguiente:
+
+    1. Exporta tu BD con el comando `mysqldump` en formato .sql (Puedes consultar el documento [Instalación de MySQL en EC2](mysql.html) apartado `Exportación de la BD`.
+    2. Copia el archivo `.sql` a la carpeta `resources` de tu proyecto. 
+    . La carpeta `main` de tu proyecto comprimida en formato .zip
     
-    1. La carpeta `main/kotlin` de tu proyecto comprimida en formato .zip
-    
-    2. La BD exportada con el comando mysqldump en formato .sql (Puedes utilizar las instrucciones que encontrarás en el documento [Instalación de MySQL en EC2](mysql.html) en el apartado `Exportación de la BD`
+    Entrega en Aules la carpeta `main` de tu proyecto comprimida en formato .zip
 
     **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
 
