@@ -121,11 +121,11 @@ Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando
 ```
 ssh -i bpl.pem ubuntu@100.25.102.165
 ```
-**2. Actualizando repositorios**
+**2. Actualizar repositorios**
 ```
 sudo apt update
 ```
-**3. Importa la clave pública**
+**3. Importar la clave pública**
 ```
 sudo apt install -y curl gnupg
 
@@ -141,7 +141,7 @@ echo "deb [signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg] https://repo.mo
 ```
 sudo apt update
 ```
-**6. Instala MongoDB Community Edition**
+**6. Instalar MongoDB Community Edition**
 ```
 sudo apt install -y mongodb-org
 ```
@@ -154,7 +154,8 @@ sudo systemctl start mongod
 ```
 sudo nano /etc/mongod.conf
 ```
-Asegurarse de que solo escucha en localhost
+
+Comprobar que solo escucha en localhost
 
 ```
 # network interfaces
@@ -162,16 +163,16 @@ net:
 port: 27017
 bindIp: 127.0.0.1
 ```
-Desactiva autenticación
+Desactivar autenticación
 ```
 security:
 authorization: disabled
 ```
-Reinicia servicio
+Reiniciar servicio
 ```
 sudo systemctl restart mongod
 ```
-crear usuario para poder administrar cualquier bd
+Crear usuario para poder administrar cualquier bd
 ```
 mongosh --port 27017
 
@@ -183,7 +184,7 @@ pwd: "holaHOLA01+",
 roles: [ { role: "root", db: "admin" } ]
 })
 ```
-Comprueba que el usuario se ha creado correctamente
+Comprobar que el usuario se ha creado correctamente
 ```
 admin > db.getUsers()
 {
@@ -209,26 +210,20 @@ authorization: enabled
 sudo systemctl restart mongod
 ```
 
-Con estos pasos:
-MongoDB se está ejecutando solo en localhost (127.0.0.1)
 
-Usuario: bpl3
-Contraseña: holaHOLA01+
+**CONECTAR A LA bd**
 
-
-Para acceder a la BD
-
-Conecta desde terminal (y deja la ventana abierta)
+Con estos pasos MongoDB se está ejecutando solo en localhost (127.0.0.1). Para acceder a la BD hay que conectar desde terminal (y deja la ventana abierta)
 ```
 ssh -i bpl.pem -L 27018:localhost:27017 ubuntu@100.25.102.165
 ```
 
-Desde otra ventana de terminal, conecta localmente a:
+Para conectar por shell desde otra ventana de terminal escribir:
 ```
 mongosh "mongodb://bpl3:holaHOLA01+@localhost:27018/admin"
 ```
 
-Para conectar desde Kotlin
+Para conectar desde Kotlin:
 
 ```kotlin
 const val NOM_SRV = "mongodb://bpl3:holaHOLA01+@localhost:27018/admin"
