@@ -1046,13 +1046,11 @@ fun llamar_sp_agregar_planta_a_jardin(id_p:Int, id_j:Int, cant:Int){
 
 
 !!! danger "Entrega 2"
-    Entrega en Aules lo siguiente:
+    Entrega en Aules un archivo .zip con lo siguiente:
     
     1. La carpeta `main/kotlin` de tu proyecto comprimida en formato .zip
     
     2. La BD exportada con el comando mysqldump en formato .sql (Puedes utilizar las instrucciones que encontrarás en el documento [Instalación de MySQL en EC2](mysql.html) en el apartado `Exportación de la BD`
-    
-    3. Un archivo de texto con las funciones y procedimientos
 
     **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
 
