@@ -298,9 +298,9 @@ use florabotanica
 
 // Insertar documentos (si la colección no existe, se crea automáticamente)
 db.plantas.insertMany([
-  { nombre_comun: "Aloe", nombre_cientifico: "Aloe vera", altura: 30 },
-  { nombre_comun: "Pino", nombre_cientifico: "Pinus sylvestris", altura: 330 },
-  { nombre_comun: "Cactus", nombre_cientifico: "Cactaceae", altura: 120 }
+  { id_planta: 1, nombre_comun: "Aloe", nombre_cientifico: "Aloe vera", altura: 30 },
+  { id_planta: 2, nombre_comun: "Pino", nombre_cientifico: "Pinus sylvestris", altura: 330 },
+  { id_planta: 3, nombre_comun: "Cactus", nombre_cientifico: "Cactaceae", altura: 120 }
 ])
 
 // Comprobar bases de datos y colecciones
@@ -344,7 +344,7 @@ Una vez comprendido el manejo desde terminal, trabajaremos con kotlin a través 
 
 <span class="mis_ejemplos">Ejemplo 3: Conexión y lectura de información en Kotlin</span>
 
-El siguiente ejemplo añade la dependencia del driver de MongoDB, conecta a la BD `florabotanica` y muestra los documentos de la colección `plantas`.
+El siguiente ejemplo añade la dependencia del driver de MongoDB, conecta a la BD `florabotanica` y muestra por consola la información de cada documento JSON almacenado en `plantas`.
 
 **1. Añadir dependencia al fichero `build.gradle.kts`**
 
@@ -356,37 +356,24 @@ El siguiente ejemplo añade la dependencia del driver de MongoDB, conecta a la B
 
 ```kotlin
 import com.mongodb.client.MongoClients
-import org.bson.Document
 
-fun main() {
+fun mostrarPlantas() {
     val cliente = MongoClients.create("mongodb://localhost:27017")
     val db = cliente.getDatabase("florabotanica")
     val coleccion = db.getCollection("plantas")
 
-    // Mostrar documentos
-    val cursor = collection.find().iterator()
+    // Mostrar documentos de la colección plantas
+    val cursor = coleccion.find().iterator()
     cursor.use {
         while (it.hasNext()) {
             val doc = it.next()
             println(doc.toJson())
         }
     }
-    
-    //insertar documento
-    //val doc = org.bson.Document("nombre_comun", "Aloe").append("altura", 35)
-    //coleccion.insertOne(doc)
 
-    //for (p in coleccion.find()) {
-    //    println(p)
-    //}
-
-    client.close()
+    cliente.close()
 }
 ```
-
-**Salida esperada:** impresión en consola de cada documento JSON almacenado en `plantas`.
-
-**Notas:** si aparecen excepciones de conexión, comprobar que el servidor MongoDB local está en marcha (`sudo systemctl start mongod` o equivalente en Windows/Mac).
 
 !!! success "Prueba y analiza el ejemplo 3"
     Prueba el código de ejemplo y verifica que funciona correctamente.
@@ -448,9 +435,9 @@ El siguiente ejemplo realiza las siguientes operaciones sobre la colección `pla
 ```js
 // 1) Insertar tres nuevos documentos
 db.plantas.insertMany([
-  { nombre_comun: "Lavanda", nombre_cientifico: "Lavandula", altura: 50, tipo: "arbusto" },
-  { nombre_comun: "Rosal", nombre_cientifico: "Rosa", altura: 120, tipo: "arbusto" },
-  { nombre_comun: "Olivo", nombre_cientifico: "Olea europaea", altura: 800, tipo: "árbol" }
+  { id_planta: 4, nombre_comun: "Lavanda", nombre_cientifico: "Lavandula", altura: 50, tipo: "arbusto" },
+  { id_planta: 5, nombre_comun: "Rosal", nombre_cientifico: "Rosa", altura: 120, tipo: "arbusto" },
+  { id_planta: 6, nombre_comun: "Olivo", nombre_cientifico: "Olea europaea", altura: 800, tipo: "árbol" }
 ])
 
 // 2) Recuperar todos los documentos
@@ -486,10 +473,8 @@ El ejemplo funciona de la siguiente manera:
 { acknowledged: true, deletedCount: 1 }
 ```
 
-
 !!! success "Prueba y analiza el ejemplo 4"
     Prueba el código de ejemplo y verifica que funciona correctamente.
-
 
 !!! warning "Práctica 6: Trabaja con tu BD"
     1. Inserta tres nuevos documentos con `insertMany()`.
@@ -501,85 +486,157 @@ El ejemplo funciona de la siguiente manera:
 
 <span class="mis_ejemplos">Ejemplo 5: Operaciones CRUD desde Kotlin</span>
 
-El siguiente ejemplo conecta a la BD `florabotanica`y realiza las siguientes operaciones:
+El siguiente fragmento de código realiza las siguientes operaciones sobre la colección `plantas`de la BD `florabotanica`:
 
 1. Insertar un nuevo documento a partir de los datos introducidos por el usuario.
-2. Listar todas las plantas existentes.
-3. Actualizar la altura de una planta dada.
-4. Eliminar una planta por nombre.
+2. Actualizar la altura de una planta dada.
+3. Eliminar una planta por nombre.
 
 ```kotlin
 import com.mongodb.client.MongoClients
+import com.mongodb.client.MongoDatabase
 import com.mongodb.client.model.Filters
 import org.bson.Document
 import java.util.Scanner
 
-fun main() {
-    val client = MongoClients.create("mongodb://localhost:27017")
-    val db = client.getDatabase("florabotanica")
-    val col = db.getCollection("plantas")
+// Creamos el Scanner de forma global
+val scanner = Scanner(System.`in`)
 
-    val scanner = Scanner(System.`in`)
-    println("1) Insertar  2) Listar  3) Actualizar  4) Eliminar")
-    when (scanner.nextLine().trim()) {
-        "1" -> {
-            print("Nombre común: ")
-            val nombre = scanner.nextLine()
-            print("Altura: ")
-            val altura = scanner.nextLine().toIntOrNull() ?: 0
-            val doc = Document("nombre_comun", nombre).append("altura", altura)
-            col.insertOne(doc)
-            println("Insertado: ${doc.getObjectId("_id")}")
+fun insertarPlanta() {
+    //conectar con la BD
+    val cliente = MongoClients.create("mongodb://localhost:27017")
+    val db = cliente.getDatabase("florabotanica")
+    val coleccion = db.getCollection("plantas")
+
+    var id_planta: Int? = null
+    while (id_planta == null) {
+        print("ID de la planta: ")
+        val entrada = scanner.nextLine()
+        id_planta = entrada.toIntOrNull()
+        if (id_planta == null) {
+            println("El ID debe ser un número !!!")
         }
-        "2" -> {
-            col.find().forEach { println(it.toJson()) }
+    }
+    
+    print("Nombre común: ")
+    val nombre_comun = scanner.nextLine()
+    print("Nombre científico: ")
+    val nombre_cientifico = scanner.nextLine()
+
+    var altura: Int? = null
+    while (altura == null) {
+        print("Altura (en cm): ")
+        val entrada = scanner.nextLine()
+        altura = entrada.toIntOrNull()
+        if (altura == null) {
+            println("¡¡¡ La altura debe ser un número !!!")
         }
-        "3" -> {
-            print("Nombre a actualizar: ")
-            val nombre = scanner.nextLine()
-            print("Nueva altura: ")
-            val nuevaAltura = scanner.nextLine().toIntOrNull() ?: 0
-            val result = col.updateOne(Filters.eq("nombre_comun", nombre), Document("$set", Document("altura", nuevaAltura)))
-            println("Matched: ${result.matchedCount}, Modified: ${result.modifiedCount}")
-        }
-        "4" -> {
-            print("Nombre a eliminar: ")
-            val nombre = scanner.nextLine()
-            val result = col.deleteOne(Filters.eq("nombre_comun", nombre))
-            println("Deleted: ${result.deletedCount}")
-        }
-        else -> println("Opción no válida")
     }
 
-    client.close()
+    val doc = Document("id_planta", id_planta)
+        .append("nombre_comun", nombre_comun)
+        .append("nombre_cientifico", nombre_cientifico)
+        .append("altura", altura)
+
+    coleccion.insertOne(doc)
+    println("Planta insertada con ID: ${doc.getObjectId("_id")}")
+
+    cliente.close()
+    println("Conexión cerrada")
+}
+
+
+fun actualizarAltura() {
+    //conectar con la BD
+    val cliente = MongoClients.create("mongodb://localhost:27017")
+    val db = cliente.getDatabase("florabotanica")
+    val coleccion = db.getCollection("plantas")
+
+    var id_planta: Int? = null
+    while (id_planta == null) {
+        print("ID de la planta a actualizar: ")
+        val entrada = scanner.nextLine()
+        id_planta = entrada.toIntOrNull()
+        if (id_planta == null) {
+            println("El ID debe ser un número !!!")
+        }
+    }
+
+    //comprobar si existe una planta con el id_planta proporcionado por consola
+    val planta = coleccion.find(Filters.eq("id_planta", id_planta)).firstOrNull()
+    if (planta == null) {
+        println("No se encontró ninguna planta con id_planta = \"$id_planta\".")
+    }
+    else {
+        // Mostrar información de la planta encontrada
+        println("Planta encontrada: ${planta.getString("nombre_comun")} (altura: ${planta.get("altura")} cm)")
+
+        //pedir nueva altura
+        var altura: Int? = null
+        while (altura == null) {
+            print("Nueva altura (en cm): ")
+            val entrada = scanner.nextLine()
+            altura = entrada.toIntOrNull()
+            if (altura == null) {
+                println("¡¡¡ La altura debe ser un número !!!")
+            }
+        }
+
+        // Actualizar el documento
+        val result = coleccion.updateOne(
+            Filters.eq("id_planta", id_planta),
+            Document("\$set", Document("altura", altura))
+        )
+
+        if (result.modifiedCount > 0)
+            println("Altura actualizada correctamente (${result.modifiedCount} documento modificado).")
+        else
+            println("No se modificó ningún documento (la altura quizá ya era la misma).")
+    }
+
+    cliente.close()
+    println("Conexión cerrada.")
+}
+
+
+fun eliminarPlanta() {
+    //conectar con la BD
+    val cliente = MongoClients.create("mongodb://localhost:27017")
+    val db = cliente.getDatabase("florabotanica")
+    val coleccion = db.getCollection("plantas")
+
+    var id_planta: Int? = null
+    while (id_planta == null) {
+        print("ID de la planta a eliminar: ")
+        val entrada = scanner.nextLine()
+        id_planta = entrada.toIntOrNull()
+        if (id_planta == null) {
+            println("El ID debe ser un número !!!")
+        }
+    }
+
+    val result = coleccion.deleteOne(Filters.eq("id_planta", id_planta))
+    if (result.deletedCount > 0)
+        println("Planta eliminada correctamente.")
+    else
+        println("No se encontró ninguna planta con ese ID.")
+
+    cliente.close()
+    println("Conexión cerrada.")
 }
 ```
-
-**Explicación:**
-- `insertOne` inserta el documento y asigna `_id` automáticamente.
-- `find()` itera sobre los documentos.
-- `updateOne` devuelve `UpdateResult` con `matchedCount` y `modifiedCount`.
-- `deleteOne` devuelve `DeleteResult` con `deletedCount`.
-
-**Salida esperada (ejemplo al listar):**
-
-```text
-{"_id": {"$oid": "..."}, "nombre_comun": "Aloe", "altura": 30}
-```
-
 
 !!! success "Prueba y analiza el ejemplo 5"
     Prueba el código de ejemplo y verifica que funciona correctamente.
 
 
 !!! warning "Práctica 7: Trabaja con tu BD"
-    Amplía tu proyecto con un menú para controlar las siguientes opciones:
+    Amplía tu proyecto con las funciones para las operaciones CRUD y un menú con las siguientes opciones:
 
-    1. Insertar un nuevo documento a partir de los datos introducidos por el usuario.
-    2. Listar todos los documentos existentes.
-    3. Actualizar la informaión de un documento dado.
-    4. Eliminar un documento por ID.
-
+    1. Listar todos los documentos existentes.    
+    2. Insertar un nuevo documento (a partir de los datos introducidos por consola).
+    3. Actualizar la informaión de un documento (por ID).
+    4. Eliminar un documento (por ID).
 
 
 <span class="mi_h3">Consultas avanzadas y ordenación</span>
