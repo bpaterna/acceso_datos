@@ -151,7 +151,7 @@ Para ello utiliza el comando `ssh -i [nombre_certificado] ubuntu@[IP_nombre_serv
 Para hacer un `dump` de la BD se utiliza el comando `mysqldump -u [usuario_BD] -p [nombre_BD] > [nombre_archivo_dump]` Por ejemplo:
 
 ```bash
-    mysqldump -u bpl3 -p florabotanica > dump_florabotanica.sql
+    mysqldump -u bpl3 -p --routines florabotanica > dump_florabotanica.sql
 ```
 
 Después comprueba que el archivo se ha creado y cierra sesión con el comando `exit`
