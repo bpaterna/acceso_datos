@@ -794,14 +794,14 @@ fun main() {
     3. Realiza una agregación que realice algún cálculo sobre tus datos.
 
 
-
-
-
 !!! danger "Entrega 1"
-    Entrega en Aules lo siguiente:
+    Realiza lo siguiente:
 
-    - La carpeta `main/kotlin` de tu proyecto comprimida en formato `.zip`.
-    - Tu BD MongoDB exportada en un fichero: XXXXXXXXX
+    1. Exporta tu BD a un archivo .json a la carpeta resources (Puedes consultar el aprtado `Exportar la BD a un archivo .json con Kotlin`). 
+        
+    2. Entrega en Aules la carpeta `main` de tu proyecto comprimida en formato .zip
+
+    **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
 
 
 
