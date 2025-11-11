@@ -1048,7 +1048,7 @@ fun llamar_sp_agregar_planta_a_jardin(id_p:Int, id_j:Int, cant:Int){
 !!! danger "Entrega 2"
     Realiza lo siguiente:
 
-    1. Exporta tu BD con el comando `mysqldump` en formato .sql (Puedes consultar el documento [Instalación de MySQL en EC2](mysql.html) apartado `Exportación de la BD`.
+    1. Exporta tu BD con el comando `mysqldump` en formato .sql (Puedes consultar el documento [Instalación de MySQL en EC2](mysql.html) apartado `Exportación de la BD`).
     2. Copia el archivo `.sql` a la carpeta `resources` de tu proyecto. 
     . La carpeta `main` de tu proyecto comprimida en formato .zip
     
