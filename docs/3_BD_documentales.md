@@ -846,6 +846,119 @@ fun main() {
 - **Solución:** comprobar estado del replicaset (`rs.status()`) o arrancar una instancia standalone para prácticas locales.
 
 
+<span class="mi_h3">Exportar la BD a un archivo .json con Kotlin</span>
+
+A continuación se muestra el código que exporta la BD a un archivo .json 
+
+```kotlin
+import com.mongodb.client.MongoClients
+import org.bson.json.JsonWriterSettings
+import java.io.File
+
+fun exportarBD() {
+    val rutaJSON="src/main/resources/florabotanica.json"
+
+    //conectar con la BD
+    val cliente = MongoClients.create(NOM_SRV)
+    val db = cliente.getDatabase(NOM_BD)
+    val coleccion = db.getCollection(NOM_COLECCION)
+
+    val settings = JsonWriterSettings.builder().indent(true).build()
+    val file = File(rutaJSON)
+    file.printWriter().use { out ->
+        out.println("[")
+        val cursor = coleccion.find().iterator()
+        var first = true
+        while (cursor.hasNext()) {
+            if (!first) out.println(",")
+            val doc = cursor.next()
+            out.print(doc.toJson(settings))
+            first = false
+        }
+        out.println("]")
+        cursor.close()
+    }
+
+    println("Exportación completada")
+
+    cliente.close()
+    println("Conexión cerrada")
+}
+```
+
+
+
+<span class="mi_h3">Importar la BD desde un archivo .json con Kotlin</span>
+
+A continuación se muestra el código que importa la BD desde un archivo .json
+
+```kotlin
+import com.mongodb.client.MongoClients
+import org.bson.Document
+import org.json.JSONArray
+import java.io.File
+
+fun importarBD() {
+    val rutaJSON="src/main/resources/florabotanica.json"
+
+    //conectar con la BD
+    val cliente = MongoClients.create(NOM_SRV)
+    val db = cliente.getDatabase(NOM_BD)
+
+
+    println("Iniciando importación de datos...")
+
+    // Leer el archivo JSON exportado
+    val jsonFile = File(rutaJSON)
+    if (!jsonFile.exists()) {
+        println("No se encontró el archivo JSON a importar")
+        cliente.close()
+        return
+    }
+
+    val json = jsonFile.readText()
+    val array = JSONArray(json)
+
+    // Convertir el JSON a documentos MongoDB
+    val documentos = mutableListOf<Document>()
+    for (i in 0 until array.length()) {
+        documentos.add(Document.parse(array.getJSONObject(i).toString()))
+    }
+
+    if (documentos.isEmpty()) {
+        println("No se encontraron documentos en el archivo JSON.")
+        cliente.close()
+        return
+    }
+
+    // Obtener nombres de colecciones existentes
+    val colecciones = db.listCollectionNames().toList()
+
+    // Si existe la colección, eliminarla justo antes de la inserción
+    if (NOM_COLECCION in colecciones) {
+        println("Eliminando colección existente '$NOM_COLECCION' antes de importar...")
+        db.getCollection(NOM_COLECCION).drop()
+    } else {
+        println("La colección '$NOM_COLECCION' no existe, se creará automáticamente.")
+    }
+
+    // Ahora obtener la colección (Mongo la creará si no existe)
+    val coleccion = db.getCollection(NOM_COLECCION)
+
+
+    // Insertar los documentos nuevos
+    coleccion.insertMany(documentos)
+    println("Se importaron ${documentos.size} documentos correctamente")
+
+    cliente.close()
+    println("Conexión cerrada.")
+}
+```
+
+
+
+
+
 
 
 ## 3.4. Firebase
