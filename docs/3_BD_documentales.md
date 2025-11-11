@@ -846,7 +846,14 @@ fun main() {
 - **Solución:** comprobar estado del replicaset (`rs.status()`) o arrancar una instancia standalone para prácticas locales.
 
 
-<span class="mi_h3">Exportar la BD a un archivo .json con Kotlin</span>
+<span class="mi_h3">Exportar / Importar la BD con Kotlin</span>
+
+Desde Kotlin podemos exportar nuestra BD a un archivo .json y también podemos importar un archivo .json a nuestra BD. Para ello hay que añadir la siguiente dependencia en el archivo gradle
+
+```kotlin
+implementation("org.json:json:20231013")`
+```
+
 
 A continuación se muestra el código que exporta la BD a un archivo .json 
 
@@ -885,10 +892,6 @@ fun exportarBD() {
     println("Conexión cerrada")
 }
 ```
-
-
-
-<span class="mi_h3">Importar la BD desde un archivo .json con Kotlin</span>
 
 A continuación se muestra el código que importa la BD desde un archivo .json
 
@@ -954,7 +957,6 @@ fun importarBD() {
     println("Conexión cerrada.")
 }
 ```
-
 
 
 

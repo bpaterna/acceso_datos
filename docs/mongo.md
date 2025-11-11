@@ -111,10 +111,46 @@ Si aparecen las bases de datos (admin, config, local), todo está funcionando co
 ![Imagen Windows 7](img/mongo/mongoWIN6.jpg)
 
 
-<!--
-
 <span class="mi_h3">Instalación en EC2 (AWS)</span>
 
-En construcción ...
+**1. Conectar al servidor por ssh**
 
--->
+Para conectar, abre una ventana de comandos y escribe la instrucción siguiente (puedes utilizar el nombre del servidor o su IP pública)
+
+    ssh -i nombre_clave ubuntu@nombre_IP_servidor
+
+Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye nombre_clave por el de tu archivo .pem y nombre_IP_servidor por el nombre o la IP pública de tu servidor. Por ejemplo:
+
+    ssh -i bpl.pem ubuntu@100.25.102.165
+
+**2. Actualizando repositorios**
+
+    sudo apt update
+
+**3. Importa la clave pública**
+    
+    sudo apt install -y curl gnupg
+
+    curl -fsSL https://pgp.mongodb.com/server-7.0.asc | \
+    sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+
+**4. Crear una lista de verificación**
+
+    echo "deb [signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | \
+    sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+
+
+**5. Actualizar lista de paquetes**
+    
+    sudo apt update
+
+**6. Instala MongoDB Community Edition**
+    
+    sudo apt install -y mongodb-org
+
+
+**7. Habilitar y arrancar el servicio MongoDB**
+    
+    sudo systemctl enable mongod    
+    sudo systemctl start mongod
+

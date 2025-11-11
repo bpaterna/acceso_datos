@@ -19,19 +19,29 @@ En estos apuntes vamos a utilizar como servidor una instancia ECS de AWS, puedes
 
 <span class="mi_h3">Instalación de MySQL en EC2</span>
 
-**1. Actualiza la lista de paquetes del servidor**
+**1. Conectar al servidor por ssh**
+
+Para conectar, abre una ventana de comandos y escribe la instrucción siguiente (puedes utilizar el nombre del servidor o su IP pública)
+
+    ssh -i nombre_clave ubuntu@nombre_IP_servidor
+
+Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye nombre_clave por el de tu archivo .pem y nombre_IP_servidor por el nombre o la IP pública de tu servidor. Por ejemplo:
+
+    ssh -i bpl.pem ubuntu@100.25.102.165
+
+**2. Actualiza la lista de paquetes del servidor**
 
 ```bash
     sudo apt update
 ```
 
-**2. Instala el servidor MySQL y las dependencias necesarias**
+**3. Instala el servidor MySQL y las dependencias necesarias**
 
 ```bash
     sudo apt install mysql-server
 ```
 
-**3. Comprueba el estado del servicio**
+**4. Comprueba el estado del servicio**
 
 Comprueba que el servicio de MySQL se esté ejecutando correctamente (Si no está activo, puedes iniciarlo con `sudo systemctl start mysql`)
 
