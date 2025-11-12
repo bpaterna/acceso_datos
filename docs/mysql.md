@@ -23,7 +23,7 @@ En estos apuntes vamos a utilizar como servidor una instancia ECS de AWS, puedes
 
 Para conectar, abre una ventana de comandos y escribe la instrucción siguiente (puedes utilizar el nombre del servidor o su IP pública) `ssh -i nombre_clave ubuntu@nombre_IP_servidor`
 
-Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye nombre_clave por el de tu archivo .pem y nombre_IP_servidor por el nombre o la IP pública de tu servidor. Por ejemplo:
+Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye `nombre_clave` por el de tu archivo .pem y `nombre_IP_servidor` por el nombre o la IP pública de tu servidor. Por ejemplo:
 
 ```bash
 ssh -i bpl.pem ubuntu@100.25.102.165
