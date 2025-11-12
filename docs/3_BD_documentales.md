@@ -839,7 +839,7 @@ fun variasOperaciones() {
 
 **5) Problemas con dependencias en Kotlin**
 - **Causa:** dependencia no encontrada o versión incompatible.
-- **Solución:** comprobar `build.gradle(.kts)` y usar `mavenCentral()`; actualizar la versión del driver.
+- **Solución:** comprobar `build.gradle.kts` y usar `mavenCentral()`; actualizar la versión del driver.
 
 **6) `No primary found` en replicación o clúster**
 - **Causa:** intentando escribir en un conjunto de réplicas sin primario.
@@ -848,7 +848,7 @@ fun variasOperaciones() {
 
 <span class="mi_h3">Exportar / Importar la BD con Kotlin</span>
 
-Desde Kotlin podemos exportar nuestra BD a un archivo .json y también podemos importar un archivo .json a nuestra BD. Para ello hay que añadir la siguiente dependencia en el archivo gradle
+Desde Kotlin podemos exportar nuestra BD a un archivo .json y también podemos importar un archivo .json a nuestra BD. Para ello hay que añadir la siguiente dependencia en el archivo `build.gradle.kts`.
 
 ```kotlin
 implementation("org.json:json:20231013")`
