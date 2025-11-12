@@ -68,7 +68,7 @@ Un fichero JSON está compuesto por **pares clave–valor**, donde:
     {
     "nombre": "Pol",
     "edad": 21,
-    "ciudad": "Barcelona"
+    "ciudad": "Castellón"
     }
 
 **Objeto con array**(lista de valores): Incluye un campo que contiene una lista.
@@ -107,8 +107,8 @@ Un fichero JSON está compuesto por **pares clave–valor**, donde:
         "id": 101,
         "fecha": "2025-10-11",
         "cliente": {
-        "nombre": "Pol Casas",
-        "email": "p.casas@dominio.com"
+        "nombre": "Pol",
+        "email": "pol@dominio.com"
         },
         "productos": [
         { "nombre": "Ensalada de piña", "precio": 10.50, "cantidad": 1 },
