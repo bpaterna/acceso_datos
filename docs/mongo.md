@@ -110,7 +110,7 @@ Si aparecen las bases de datos (admin, config, local), todo está funcionando co
 
 ![Imagen Windows 7](img/mongo/mongoWIN6.jpg)
 
-
+<!--
 <span class="mi_h3">Instalación en EC2 (AWS)</span>
 
 **1. Conectar al servidor por ssh**
@@ -236,4 +236,4 @@ val coleccion = db.getCollection(NOM_COLECCION)
 // resto de código del programa
 ```
 
-
+-->
