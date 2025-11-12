@@ -340,27 +340,35 @@ plantas
     4. Muestra todas las bases de datos y las colecciones creadas.
 
 
-Una vez comprendido el manejo desde terminal, trabajaremos con kotlin a través del *driver oficial de MongoDB para Kotlin*. Para ello crearemos un nuevo proyecto en IntelliJ con Gradle.
+Una vez comprendido el manejo desde terminal, trabajaremos con kotlin a través del *driver oficial de MongoDB para Kotlin*. Para ello crearemos un nuevo proyecto en IntelliJ con Gradle. Además, para los ejemplos realizados en `Kotlin` de esta unidad, se han declarado tres constantes para almacenar el servidor, el nombre de la BD y el nombre de la colección con los que vamos a trabajar. También se crea una variable Scanner de forma global para poder utilizarla en cualquier parte del programa.
+
+```kotlin
+const val NOM_SRV = "mongodb://localhost:27017"
+const val NOM_BD = "florabotanica"
+const val NOM_COLECCION = "plantas"
+
+// Creamos el Scanner de forma global
+val scanner = Scanner(System.`in`)
+```
+
 
 <span class="mis_ejemplos">Ejemplo 3: Conexión y lectura de información en Kotlin</span>
 
 El siguiente ejemplo añade la dependencia del driver de MongoDB, conecta a la BD `florabotanica` y muestra por consola la información de cada documento JSON almacenado en `plantas`.
 
 **1. Añadir dependencia al fichero `build.gradle.kts`**
-
 ```kotlin
     implementation("org.mongodb:mongodb-driver-sync:4.11.0")
 ```
 
 **2. Conectar a la BD y leer la información**
-
 ```kotlin
 import com.mongodb.client.MongoClients
 
 fun mostrarPlantas() {
-    val cliente = MongoClients.create("mongodb://localhost:27017")
-    val db = cliente.getDatabase("florabotanica")
-    val coleccion = db.getCollection("plantas")
+    val cliente = MongoClients.create(NOM_SRV)
+    val db = cliente.getDatabase(NOM_BD)
+    val coleccion = db.getCollection(NOM_COLECCION)
 
     // Mostrar documentos de la colección plantas
     val cursor = coleccion.find().iterator()
@@ -499,14 +507,11 @@ import com.mongodb.client.model.Filters
 import org.bson.Document
 import java.util.Scanner
 
-// Creamos el Scanner de forma global
-val scanner = Scanner(System.`in`)
-
 fun insertarPlanta() {
     //conectar con la BD
-    val cliente = MongoClients.create("mongodb://localhost:27017")
-    val db = cliente.getDatabase("florabotanica")
-    val coleccion = db.getCollection("plantas")
+    val cliente = MongoClients.create(NOM_SRV)
+    val db = cliente.getDatabase(NOM_BD)
+    val coleccion = db.getCollection(NOM_COLECCION)
 
     var id_planta: Int? = null
     while (id_planta == null) {
@@ -517,7 +522,7 @@ fun insertarPlanta() {
             println("El ID debe ser un número !!!")
         }
     }
-    
+
     print("Nombre común: ")
     val nombre_comun = scanner.nextLine()
     print("Nombre científico: ")
@@ -548,9 +553,9 @@ fun insertarPlanta() {
 
 fun actualizarAltura() {
     //conectar con la BD
-    val cliente = MongoClients.create("mongodb://localhost:27017")
-    val db = cliente.getDatabase("florabotanica")
-    val coleccion = db.getCollection("plantas")
+    val cliente = MongoClients.create(NOM_SRV)
+    val db = cliente.getDatabase(NOM_BD)
+    val coleccion = db.getCollection(NOM_COLECCION)
 
     var id_planta: Int? = null
     while (id_planta == null) {
@@ -601,9 +606,9 @@ fun actualizarAltura() {
 
 fun eliminarPlanta() {
     //conectar con la BD
-    val cliente = MongoClients.create("mongodb://localhost:27017")
-    val db = cliente.getDatabase("florabotanica")
-    val coleccion = db.getCollection("plantas")
+    val cliente = MongoClients.create(NOM_SRV)
+    val db = cliente.getDatabase(NOM_BD)
+    val coleccion = db.getCollection(NOM_COLECCION)
 
     var id_planta: Int? = null
     while (id_planta == null) {
@@ -619,7 +624,7 @@ fun eliminarPlanta() {
     if (result.deletedCount > 0)
         println("Planta eliminada correctamente.")
     else
-        println("No se encontró ninguna planta con ese ID.")
+        println("No se encontró ninguna planta con ese nombre.")
 
     cliente.close()
     println("Conexión cerrada.")
@@ -750,24 +755,24 @@ El siguiente ejemplo conecta a la BD `florabotanica`y realiza las siguientes ope
 
 
 ```kotlin
-import com.mongodb.client.MongoClients
-import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Projections
-import org.bson.Document
 
-fun main() {
-    val client = MongoClients.create("mongodb://localhost:27017")
-    val col = client.getDatabase("florabotanica").getCollection("plantas")
+fun variasOperaciones() {
+    val client = MongoClients.create(NOM_SRV)
+    val col = client.getDatabase(NOM_BD).getCollection(NOM_COLECCION)
 
+    println("*****Plantas que miden más de 100cm")
     // 1) Filtro: altura > 100
     col.find(Filters.gt("altura", 100)).forEach { println(it.toJson()) }
 
+    println("*****Nombre común de todas las plantas")
     // 2) Proyección: solo nombre_comun
     col.find().projection(Projections.include("nombre_comun")).forEach { println(it.toJson()) }
 
+    println("*****Altura media de todas las plantas")
     // 3) Agregación: media de altura
     val pipeline = listOf(
-        Document("$group", Document("_id", null).append("alturaMedia", Document("$avg", "$altura")))
+        Document("\$group", Document("_id", null).append("alturaMedia", Document("\$avg", "\$altura")))
     )
     val aggCursor = col.aggregate(pipeline).iterator()
     aggCursor.use {
@@ -776,11 +781,6 @@ fun main() {
 
     client.close()
 }
-```
-
-**Salida esperada de agregación:**
-```json
-{ "_id" : null, "alturaMedia" : 250.25 }
 ```
 
 
