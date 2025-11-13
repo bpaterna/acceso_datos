@@ -391,10 +391,10 @@ fun mostrarPlantas() {
     2. Añade la dependencia del driver de MongoDB (`org.mongodb:mongodb-driver-sync`).
     3. Conéctate a tu base de datos y muestra los documentos de tu colección. Intenta formatear la información que sale por consola. Por ejemplo:
 
-    **** Listado de plantas:
-    [1] Aloe (Aloe vera): 30 cm
-    [2] Pino (Pinus sylvestris): 330 cm
-    [3] Cactus (Cactaceae): 120 cm
+    <span class="mi_consola">**** Listado de plantas: <br>
+    [1] Aloe (Aloe vera): 30 cm <br>
+    [2] Pino (Pinus sylvestris): 330 cm <br>
+    [3] Cactus (Cactaceae): 120 cm </span>
 
 
 <span class="mi_h3">Operaciones básicas</span>
