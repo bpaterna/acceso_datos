@@ -389,7 +389,12 @@ fun mostrarPlantas() {
 !!! warning "Práctica 5: Trabaja con tu BD"
     1. Crea un proyecto Kotlin en IntelliJ IDEA.
     2. Añade la dependencia del driver de MongoDB (`org.mongodb:mongodb-driver-sync`).
-    3. Conéctate a tu base de datos y muestra los documentos de tu colección.
+    3. Conéctate a tu base de datos y muestra los documentos de tu colección. Intenta formatear la información que sale por consola. Por ejemplo:
+
+    **** Listado de plantas:
+    [1] Aloe (Aloe vera): 30 cm
+    [2] Pino (Pinus sylvestris): 330 cm
+    [3] Cactus (Cactaceae): 120 cm
 
 
 <span class="mi_h3">Operaciones básicas</span>
@@ -851,7 +856,7 @@ fun variasOperaciones() {
 Desde Kotlin podemos exportar nuestra BD a un archivo .json y también podemos importar un archivo .json a nuestra BD. Para ello hay que añadir la siguiente dependencia en el archivo `build.gradle.kts`.
 
 ```kotlin
-implementation("org.json:json:20231013")`
+implementation("org.json:json:20231013")
 ```
 
 
