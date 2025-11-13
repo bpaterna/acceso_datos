@@ -110,10 +110,20 @@ Si aparecen las bases de datos (admin, config, local), todo está funcionando co
 
 ![Imagen Windows 7](img/mongo/mongoWIN6.jpg)
 
-<!--
-<span class="mi_h3">Instalación en EC2 (AWS)</span>
 
-**1. Conectar al servidor por ssh**
+
+
+
+
+
+<!--
+
+<span class="mi_h3">MongoDB en EC2 (AWS)</span>
+
+A continuación se describen los pasos para instalar y configurar MongoDB en nuestra instancia EC2 de AWS.
+
+
+<span class="mi_h4">Conectar al servidor</span>
 
 Para conectar, abre una ventana de comandos y escribe la instrucción siguiente (puedes utilizar el nombre del servidor o su IP pública) `ssh -i nombre_clave ubuntu@nombre_IP_servidor`
 
@@ -121,93 +131,171 @@ Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando
 ```
 ssh -i bpl.pem ubuntu@100.25.102.165
 ```
-**2. Actualizar repositorios**
-```
-sudo apt update
-```
-**3. Importar la clave pública**
+
+!!!Note ""
+    Si te aparece el siguiente aviso:
+    ![Imagen warning conexión](img/warning.png)
+    
+    Ejecuta el comando `chmod 400 nombre_clave`. Por ejemplo
+    ```
+    chmod 400 bpl.pem
+    ```
+
+<span class="mi_h4">Instalar MongoDB Community Edition</span>
+
+**1. Importar la clave pública**
 ```
 sudo apt install -y curl gnupg
 
 curl -fsSL https://pgp.mongodb.com/server-7.0.asc | \
  sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
 ```
-**4. Crear una lista de verificación**
+**2. Crear una lista de verificación**
 ```
 echo "deb [signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | \
  sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
 ```
-**5. Actualizar lista de paquetes**
+**3. Actualizar lista de paquetes**
 ```
 sudo apt update
 ```
-**6. Instalar MongoDB Community Edition**
+**4. Instalar MongoDB Community Server**
 ```
 sudo apt install -y mongodb-org
 ```
-**7. Habilitar y arrancar el servicio MongoDB**
+
+<span class="mi_h4">Iniciar y verificar el funcionamiento</span>
+
+**1. Iniciar el servidor**
+``` 
+sudo systemctl start mongod   
+```
+Si aparece un error parecido a `Failed to start mongod.service: Unit mongod.service not found`, ejecutar:
+``` 
+sudo systemctl daemon-reload   
+```
+y después volver a ejecutar:
+``` 
+sudo systemctl start mongod   
+```
+**2. Comprobar el estado del servidor**
+```
+sudo systemctl status mongod
+```
+**3. Configurar para que se inicie al arrancar el sistema**
 ``` 
 sudo systemctl enable mongod    
-sudo systemctl start mongod
 ```
-**8. Configurar autenticación y acceso local**
+**4. Parar y reiniciar**
+Podemos parar y reiniciar, respectivamente, con los comandos:
+``` 
+sudo systemctl stop mongod    
+sudo systemctl restart mongod
+```
+**5. Arrancar el cliente**
+```
+mongosh
+```
+
+
+<span class="mi_h4">Configurar acceso remoto</span>
+
+**1. Edita el fichero de configuración**
 ```
 sudo nano /etc/mongod.conf
 ```
 
-Comprobar que solo escucha en localhost
-
+Busca el bloque de instrucciones siguiente:
 ```
 # network interfaces
 net:
 port: 27017
 bindIp: 127.0.0.1
 ```
-Desactivar autenticación
-```
-security:
-authorization: disabled
-```
-**9. Reiniciar servicio**
+Comenta la línea bindIp: 127.0.0.1
+
+Añade la línea bindIp: 0.0.0.0
+
+Debe quedar así:
+
+![Imagen mongo7](img/mongo/mongo7.png)
+
+**2. Reiniciar servicio**
 ```
 sudo systemctl restart mongod
 ```
-**10. Crear usuario para poder administrar cualquier BD**
-```
-mongosh --port 27017
 
-text > use admin
-admin >   
+
+
+
+<span class="mi_h4">Configura el servidor para permitir tráfico entrante</span>
+
+Añade una regla en el servidor para permitir el tráfico entrante del puerto 27017. Para ello haz clic en la pestaña Seguridad y luego en el enlace de Grupos de seguridad
+
+
+foto
+
+
+
+Entra en Reglas de entrada y haz clic en el botón Editar reglas de entrada
+
+foto
+Haz clic en Agregar regla, configura el tipo, el puerto y la IP de origen 0.0.0.0/0 para permitir acceso desde cualquier lugar y por último haz clic en el botón Guardar reglas
+
+foto
+
+En unos segundos aparecerá tu nueva regla en la lista
+
+foto
+
+
+<span class="mi_h4">Crear base de datos y usuario en MongoDB</span>
+**1. Conecta al servidor**
+Ejecuta el comando siguiente:
+```
+mongosh
+```
+
+**2. Crear la BD**
+Ejecuta el comando siguiente:
+```
+use florabotanica
+```
+
+**3. Crear el usuario con permiso a esa BD**
+Ejecuta el comando siguiente:
+`db.createUser( {user: "[usuario]", pwd: "[contraseña]", roles: [ {role: "readWrite", db: "[nombreBD]"} ] } )`
+Por ejemplo para el usuario `bpl3` y contraseña `holaHOLA01+` sería:
+```
+db.createUser( {user: "bpl3", pwd: "holaHOLA", roles: [ {role: "readWrite", db: "florabotanica"} ] } )
+```
+
+**4. Consultar los usuarios creados**
+Para consultar los usuarios creados en nuestro servidor MongoDB ejecutar el comando:
+```
+db.getUsers()
+```
+
+
+<span class="mi_h4">Securizar el servidor MongoDB</span>
+Al conectar mediante `mongosh` podemos observar el siguiente aviso: `Access control is not enabled for the database. Read and write access to data and configuration is unrestricted`. Esto es porque la autenticación no está habilitada cuando se instala MongoDB. Para habilitarla seguiremos los pasos:
+
+**1.crear un usuario administrador**
+Conectar a la BD llamada `admin`
+```
+use admin
+```
+
+Crear un usuario con permiso de administrador
+```
 db.createUser({
-user: "bpl3",
-pwd: "holaHOLA01+",
-roles: [ { role: "root", db: "admin" } ]
-})
-```
-Comprobar que el usuario se ha creado correctamente
-```
-admin > db.getUsers()
-{
-users: [
-{
-_id: 'admin.bpl3',
-userId: UUID('385b7246-6f87-42b2-892d-b6cda1ede907'),
-user: 'bpl3',
-db: 'admin',
-roles: [ { role: 'root', db: 'admin' } ],
-mechanisms: [ 'SCRAM-SHA-1', 'SCRAM-SHA-256' ]
-}
-],
-ok: 1
-}
-```
-**11. Activar autenticación y reiniciar servicio**
-```
-sudo nano /etc/mongod.conf
-security:
-authorization: enabled
-
-sudo systemctl restart mongod
+user: "admin01",
+pwd: passwordPrompt(),
+roles: [
+{ role: "userAdmin", db: "pruebas" },
+{ role: "readWrite", db: "pruebas" }
+]
+});
 ```
 
 
@@ -235,5 +323,4 @@ val db = cliente.getDatabase(NOM_BD)
 val coleccion = db.getCollection(NOM_COLECCION)
 // resto de código del programa
 ```
-
 -->
