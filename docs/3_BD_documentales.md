@@ -802,7 +802,7 @@ fun variasOperaciones() {
 !!! danger "Entrega 1"
     Realiza lo siguiente:
 
-    1. Exporta tu BD a un archivo .json a la carpeta resources (Puedes consultar el apartado `Exportar la BD a un archivo .json con Kotlin` al final de este documento). 
+    1. Exporta tu BD a un archivo .json a la carpeta resources (Puedes consultar el apartado `Exportar / Importar la BD con Kotlin` al final de este documento). 
         
     2. Entrega en Aules la carpeta `main` de tu proyecto comprimida en formato .zip
 
