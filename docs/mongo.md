@@ -111,11 +111,6 @@ Si aparecen las bases de datos (admin, config, local), todo está funcionando co
 ![Imagen Windows 7](img/mongo/mongoWIN6.jpg)
 
 
-
-
-
-
-
 <!--
 
 <span class="mi_h3">MongoDB en EC2 (AWS)</span>
@@ -227,29 +222,27 @@ sudo systemctl restart mongod
 
 
 
-
 <span class="mi_h4">Configura el servidor para permitir tráfico entrante</span>
 
 Añade una regla en el servidor para permitir el tráfico entrante del puerto 27017. Para ello haz clic en la pestaña Seguridad y luego en el enlace de Grupos de seguridad
 
-
-foto
-
-
+![Imagen mongo AWS](img/mongo/mongoAWS2.png)
 
 Entra en Reglas de entrada y haz clic en el botón Editar reglas de entrada
 
-foto
+![Imagen mongo AWS](img/mongo/mongoAWS3.png)
+
 Haz clic en Agregar regla, configura el tipo, el puerto y la IP de origen 0.0.0.0/0 para permitir acceso desde cualquier lugar y por último haz clic en el botón Guardar reglas
 
-foto
+![Imagen mongo AWS](img/mongo/mongoAWS4.png)
 
 En unos segundos aparecerá tu nueva regla en la lista
 
-foto
+![Imagen mongo AWS](img/mongo/mongoAWS5.png)
 
 
 <span class="mi_h4">Crear base de datos y usuario en MongoDB</span>
+
 **1. Conecta al servidor**
 Ejecuta el comando siguiente:
 ```
@@ -263,8 +256,8 @@ use florabotanica
 ```
 
 **3. Crear el usuario con permiso a esa BD**
-Ejecuta el comando siguiente:
-`db.createUser( {user: "[usuario]", pwd: "[contraseña]", roles: [ {role: "readWrite", db: "[nombreBD]"} ] } )`
+Ejecuta el comando siguiente: `db.createUser( {user: "[usuario]", pwd: "[contraseña]", roles: [ {role: "readWrite", db: "[nombreBD]"} ] } )`
+
 Por ejemplo para el usuario `bpl3` y contraseña `holaHOLA01+` sería:
 ```
 db.createUser( {user: "bpl3", pwd: "holaHOLA", roles: [ {role: "readWrite", db: "florabotanica"} ] } )
