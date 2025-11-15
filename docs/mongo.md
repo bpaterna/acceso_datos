@@ -266,7 +266,7 @@ Comprueba que se ha creado correctamente:
 ```
 db.getUsers()
 ```
-![Imagen mongo AWS](img/mongo/mongoAWS10.png)
+![Imagen mongo AWS](img/mongo/mongoAWS10.jpg)
 
 
 **3. Activa la autenticación**
@@ -282,7 +282,7 @@ security:
   authorization: enabled
 ```
 
-![Imagen mongo AWS](img/mongo/mongoAWS13.png)
+![Imagen mongo AWS](img/mongo/mongoAWS13.jpg)
 
 
 Guarda los cambios en el fichero de configuración, reinicia el servicio y comprueba que se ha iniciado correctamente:
@@ -293,7 +293,7 @@ sudo systemctl status mongod
 
 Comprueba que no puedes realizar operaciones entrando con `mongosh`:
 
-![Imagen mongo AWS](img/mongo/mongoAWS11.png)
+![Imagen mongo AWS](img/mongo/mongoAWS11.jpg)
 
 
 Sal del shell y entra con el comando `mongosh -u [usuario] -p --authenticationDatabase admin`. Por ejemplo:
@@ -303,7 +303,7 @@ mongosh -u bpl3 -p --authenticationDatabase admin
 
 Comprueba que ya puedes ver las bd con show dbs:
 
-![Imagen mongo AWS](img/mongo/mongoAWS13.png)
+![Imagen mongo AWS](img/mongo/mongoAWS13.jpg)
 
 
 
