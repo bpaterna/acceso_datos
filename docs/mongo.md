@@ -2,9 +2,10 @@
 
 <span class="mi_h3">Revisiones</span>
 
-| Revisión | Fecha      | Descripción                                                       |
-|----------|------------|-------------------------------------------------------------------|
-| 1.0      | 10-11-2025 | Adaptación de los materiales a markdown                           |
+| Revisión | Fecha      | Descripción                             |
+|----------|------------|-----------------------------------------|
+| 1.0      | 10-11-2025 | Adaptación de los materiales a markdown |
+| 1.1      | 15-11-2025 | Sección MongoDB en EC2 (AWS)            |
 
 
 <span class="mi_h3">Opciones de instalación y despliegue</span>
