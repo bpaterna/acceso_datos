@@ -111,7 +111,7 @@ Si aparecen las bases de datos (admin, config, local), todo está funcionando co
 ![Imagen Windows 7](img/mongo/mongoWIN6.jpg)
 
 
-<!--
+
 
 <span class="mi_h3">MongoDB en EC2 (AWS)</span>
 
@@ -241,73 +241,102 @@ En unos segundos aparecerá tu nueva regla en la lista
 ![Imagen mongo AWS](img/mongo/mongoAWS5.png)
 
 
-<span class="mi_h4">Crear base de datos y usuario en MongoDB</span>
+<span class="mi_h4">Securizar MongoDB</span>
 
 **1. Conecta al servidor**
 Ejecuta el comando siguiente:
 ```
 mongosh
 ```
+**2. Crear usuario administrador**
+Conecta a la base de datos admin con el comando:
+```
+use admin
+```
 
-**2. Crear la BD**
+Crea el usuario con el comando `db.createUser({ user: "[usuario]", pwd: "[contraseña]", roles: [{ role: "root", db: "admin" }] })`
+
+El siguiente ejemplo creará un un usuario llamado `bpl3` con permisos sobre todas las bases de datos:
+```
+db.createUser({ user: "bpl3", pwd: "holaHOLA01+", roles: [{ role: "root", db: "admin" }] })
+```
+
+Comprueba que se ha creado correctamente:
+```
+db.getUsers()
+```
+![Imagen mongo AWS](img/mongo/mongoAWS10.png)
+
+
+**3. Activa la autenticación**
+
+Sal del shell de MongoDB y edita el fichero /etc/mongod.conf
+```
+sudo nano /etc/mongod.conf
+```
+
+Busca la sección `security` y descoméntala, luego añade la línea authorization: enabled.
+```
+security:
+  authorization: enabled
+```
+
+![Imagen mongo AWS](img/mongo/mongoAWS13.png)
+
+
+Guarda los cambios en el fichero de configuración, reinicia el servicio y comprueba que se ha iniciado correctamente:
+```
+sudo systemctl restart mongod
+sudo systemctl status mongod
+```
+
+Comprueba que no puedes realizar operaciones entrando con `mongosh`:
+
+![Imagen mongo AWS](img/mongo/mongoAWS11.png)
+
+
+Sal del shell y entra con el comando `mongosh -u [usuario] -p --authenticationDatabase admin`. Por ejemplo:
+```
+mongosh -u bpl3 -p --authenticationDatabase admin
+```
+
+Comprueba que ya puedes ver las bd con show dbs:
+
+![Imagen mongo AWS](img/mongo/mongoAWS13.png)
+
+
+
+
+<span class="mi_h4">Crear base de datos y conecta desde Kotlin</span>
+
+**1. Crear la BD**
 Ejecuta el comando siguiente:
 ```
 use florabotanica
 ```
 
-**3. Crear el usuario con permiso a esa BD**
-Ejecuta el comando siguiente: `db.createUser( {user: "[usuario]", pwd: "[contraseña]", roles: [ {role: "readWrite", db: "[nombreBD]"} ] } )`
-
-Por ejemplo para el usuario `bpl3` y contraseña `holaHOLA01+` sería:
+**2. Añadir información**
 ```
-db.createUser( {user: "bpl3", pwd: "holaHOLA", roles: [ {role: "readWrite", db: "florabotanica"} ] } )
-```
-
-**4. Consultar los usuarios creados**
-Para consultar los usuarios creados en nuestro servidor MongoDB ejecutar el comando:
-```
-db.getUsers()
+// Insertar documentos (si la colección no existe, se crea automáticamente)
+db.plantas.insertMany([
+  { id_planta: 1, nombre_comun: "Aloe", nombre_cientifico: "Aloe vera", altura: 30 },
+  { id_planta: 2, nombre_comun: "Pino", nombre_cientifico: "Pinus sylvestris", altura: 330 },
+  { id_planta: 3, nombre_comun: "Cactus", nombre_cientifico: "Cactaceae", altura: 120 }
+])
 ```
 
+**3. Conectar desde Kotlin**
+Para conectar desde tu aplicación Kotlin utiliza la siguiente información `mongodb://USUARIO:PASSWORD@HOST:PUERTO/BASE_DE_DATOS`
 
-<span class="mi_h4">Securizar el servidor MongoDB</span>
-Al conectar mediante `mongosh` podemos observar el siguiente aviso: `Access control is not enabled for the database. Read and write access to data and configuration is unrestricted`. Esto es porque la autenticación no está habilitada cuando se instala MongoDB. Para habilitarla seguiremos los pasos:
-
-**1.crear un usuario administrador**
-Conectar a la BD llamada `admin`
+En el siguiente ejemplo se conecta al servidor con ip `100.25.102.165` a la base de datos `florabotanica` con el uausio `bpl3`y la contraseña `holaHOLA01+`:
 ```
-use admin
+mongodb://bpl3:holaHOLA01+@100.25.102.165:27017/florabotanica
 ```
 
-Crear un usuario con permiso de administrador
-```
-db.createUser({
-user: "admin01",
-pwd: passwordPrompt(),
-roles: [
-{ role: "userAdmin", db: "pruebas" },
-{ role: "readWrite", db: "pruebas" }
-]
-});
-```
-
-
-**CONECTAR A LA BD**
-
-Con estos pasos MongoDB se está ejecutando solo en localhost (127.0.0.1). Para acceder a la BD hay que conectar desde terminal (y deja la ventana abierta)
-```
-ssh -i bpl.pem -L 27018:localhost:27017 ubuntu@100.25.102.165
-```
-
-Para conectar por shell desde otra ventana de terminal escribir:
-```
-mongosh "mongodb://bpl3:holaHOLA01+@localhost:27018/admin"
-```
-
-Para conectar desde Kotlin:
+El siguiente código muestra la conexión completa:
 
 ```kotlin
-const val NOM_SRV = "mongodb://bpl3:holaHOLA01+@localhost:27018/admin"
+const val NOM_SRV = "mongodb://bpl3:holaHOLA01+@100.25.102.165:27017"
 const val NOM_BD = "florabotanica"
 const val NOM_COLECCION = "plantas"
 
@@ -316,4 +345,4 @@ val db = cliente.getDatabase(NOM_BD)
 val coleccion = db.getCollection(NOM_COLECCION)
 // resto de código del programa
 ```
--->
+
