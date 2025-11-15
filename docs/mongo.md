@@ -303,7 +303,7 @@ mongosh -u bpl3 -p --authenticationDatabase admin
 
 Comprueba que ya puedes ver las bd con show dbs:
 
-![Imagen mongo AWS](img/mongo/mongoAWS13.jpg)
+![Imagen mongo AWS](img/mongo/mongoAWS12.jpg)
 
 
 
