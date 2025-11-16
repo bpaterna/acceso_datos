@@ -121,20 +121,19 @@ A continuación se describen los pasos para instalar y configurar MongoDB en nue
 
 <span class="mi_h4">Conectar al servidor</span>
 
-Para conectar, abre una ventana de comandos y escribe la instrucción siguiente (puedes utilizar el nombre del servidor o su IP pública) `ssh -i nombre_clave ubuntu@nombre_IP_servidor`
-
-Asegurate que el archivo .pem está en la carpeta desde la que lanzas el comando y sustituye `nombre_clave` por el de tu archivo .pem y `nombre_IP_servidor` por el nombre o la IP pública de tu servidor. Por ejemplo:
+Para conectar, abre una ventana de comandos y asegurate que el archivo .pem está en la carpeta desde la que lanzas el siguiente comando (puedes utilizar el nombre del servidor o su IP pública):
 ```
-ssh -i bpl.pem ubuntu@100.25.102.165
+ssh -i [nombre_clave] ubuntu@[nombre_IP_servidor]
 ```
 
 !!!Note ""
     Si te aparece el siguiente aviso:
+
     ![Imagen warning conexión](img/warning.png)
     
     Ejecuta el comando `chmod 400 nombre_clave`. Por ejemplo
     ```
-    chmod 400 bpl.pem
+    chmod 400 [nombre_clave]
     ```
 
 <span class="mi_h4">Instalar MongoDB Community Edition</span>
@@ -255,11 +254,9 @@ Conecta a la base de datos admin con el comando:
 use admin
 ```
 
-Crea el usuario con el comando `db.createUser({ user: "[usuario]", pwd: "[contraseña]", roles: [{ role: "root", db: "admin" }] })`
-
-El siguiente ejemplo creará un un usuario llamado `bpl3` con permisos sobre todas las bases de datos:
+Crea el usuario con permisos sobre todas las bases de datos con el comando:
 ```
-db.createUser({ user: "bpl3", pwd: "holaHOLA01+", roles: [{ role: "root", db: "admin" }] })
+db.createUser({ user: "[usuario]", pwd: "[contraseña]", roles: [{ role: "root", db: "admin" }] })
 ```
 
 Comprueba que se ha creado correctamente:
@@ -296,9 +293,9 @@ Comprueba que no puedes realizar operaciones entrando con `mongosh`:
 ![Imagen mongo AWS](img/mongo/mongoAWS11.jpg)
 
 
-Sal del shell y entra con el comando `mongosh -u [usuario] -p --authenticationDatabase admin`. Por ejemplo:
+Sal del shell y vuelve a entrar con el comando: 
 ```
-mongosh -u bpl3 -p --authenticationDatabase admin
+mongosh -u [usuario] -p --authenticationDatabase admin
 ```
 
 Comprueba que ya puedes ver las bd con show dbs:
@@ -327,19 +324,10 @@ db.plantas.insertMany([
 ```
 
 **3. Conectar desde Kotlin**
-Para conectar desde tu aplicación Kotlin utiliza la siguiente información `mongodb://USUARIO:PASSWORD@HOST:PUERTO/BASE_DE_DATOS`
-
-En el siguiente ejemplo se conecta al servidor con ip `100.25.102.165` a la base de datos `florabotanica` con el uausio `bpl3`y la contraseña `holaHOLA01+`:
-```
-mongodb://bpl3:holaHOLA01+@100.25.102.165:27017/florabotanica
-```
-
-El siguiente código muestra la conexión completa:
-
 ```kotlin
-const val NOM_SRV = "mongodb://bpl3:holaHOLA01+@100.25.102.165:27017"
-const val NOM_BD = "florabotanica"
-const val NOM_COLECCION = "plantas"
+const val NOM_SRV = "mongodb://USUARIO:PASSWORD@HOST:PUERTO"
+const val NOM_BD = "NOMBRE_BD"
+const val NOM_COLECCION = "NOMBRE_COLECCION"
 
 val cliente = MongoClients.create(NOM_SRV)
 val db = cliente.getDatabase(NOM_BD)
