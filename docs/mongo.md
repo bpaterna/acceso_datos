@@ -127,7 +127,7 @@ ssh -i [nombre_clave] ubuntu@[nombre_IP_servidor]
 ```
 
 !!!Note ""
-    Si te aparece el siguiente aviso:
+    Si aparece el siguiente aviso:
 
     ![Imagen warning conexión](img/warning.png)
     
@@ -165,14 +165,14 @@ sudo apt install -y mongodb-org
 ``` 
 sudo systemctl start mongod   
 ```
-Si aparece un error parecido a `Failed to start mongod.service: Unit mongod.service not found`, ejecutar:
-``` 
-sudo systemctl daemon-reload   
-```
-y después volver a ejecutar:
-``` 
-sudo systemctl start mongod   
-```
+
+!!!Note ""
+    Si aparece un error parecido a `Failed to start mongod.service: Unit mongod.service not found`, ejecutar estos dos comandos:
+    ``` 
+    sudo systemctl daemon-reload
+    sudo systemctl start mongod   
+    ```
+
 **2. Comprobar el estado del servidor**
 ```
 sudo systemctl status mongod
@@ -182,14 +182,9 @@ sudo systemctl status mongod
 sudo systemctl enable mongod    
 ```
 **4. Parar y reiniciar**
-Podemos parar y reiniciar, respectivamente, con los comandos:
 ``` 
 sudo systemctl stop mongod    
 sudo systemctl restart mongod
-```
-**5. Arrancar el cliente**
-```
-mongosh
 ```
 
 
@@ -243,7 +238,7 @@ En unos segundos aparecerá tu nueva regla en la lista
 
 <span class="mi_h4">Securizar MongoDB</span>
 
-**1. Conecta al servidor**
+**1. Inicia el cliente (shell)**
 Ejecuta el comando siguiente:
 ```
 mongosh
@@ -268,12 +263,12 @@ db.getUsers()
 
 **3. Activa la autenticación**
 
-Sal del shell de MongoDB y edita el fichero /etc/mongod.conf
+Sal del cliente (shell) y edita el fichero /etc/mongod.conf
 ```
 sudo nano /etc/mongod.conf
 ```
 
-Busca la sección `security` y descoméntala, luego añade la línea authorization: enabled.
+Busca la sección `security` y descoméntala, luego añade la línea `authorization: enabled`.
 ```
 security:
   authorization: enabled
@@ -282,7 +277,7 @@ security:
 ![Imagen mongo AWS](img/mongo/mongoAWS13.jpg)
 
 
-Guarda los cambios en el fichero de configuración, reinicia el servicio y comprueba que se ha iniciado correctamente:
+Guarda los cambios de configuración, reinicia el servicio y comprueba que se ha iniciado correctamente:
 ```
 sudo systemctl restart mongod
 sudo systemctl status mongod
@@ -293,7 +288,7 @@ Comprueba que no puedes realizar operaciones entrando con `mongosh`:
 ![Imagen mongo AWS](img/mongo/mongoAWS11.jpg)
 
 
-Sal del shell y vuelve a entrar con el comando: 
+Sal del cliente (shell) y vuelve a entrar con el comando: 
 ```
 mongosh -u [usuario] -p --authenticationDatabase admin
 ```
@@ -326,8 +321,8 @@ db.plantas.insertMany([
 **3. Conectar desde Kotlin**
 ```kotlin
 const val NOM_SRV = "mongodb://USUARIO:PASSWORD@HOST:PUERTO"
-const val NOM_BD = "NOMBRE_BD"
-const val NOM_COLECCION = "NOMBRE_COLECCION"
+const val NOM_BD = "florabotanica"
+const val NOM_COLECCION = "plantas"
 
 val cliente = MongoClients.create(NOM_SRV)
 val db = cliente.getDatabase(NOM_BD)
