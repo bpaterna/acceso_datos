@@ -113,15 +113,10 @@ Para poder ver el código de una función o un procedimiento almacenado en nuest
 
 
 
-
-
 ---
 
 <span class="mi_h3">Autoría</span>
 
 Obra realizada por Begoña Paterna Lluch. Publicada bajo licencia [Creative Commons Atribución/Reconocimiento-CompartirIgual 4.0 Internacional](https://creativecommons.org/licenses/by-sa/4.0/)
 
-
-
-
-
+---

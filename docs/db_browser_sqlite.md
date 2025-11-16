@@ -49,3 +49,12 @@ A continuación se describen los pasos a seguir para crear una base de datos lla
 ![Imagen 6](img/db_browser_sqlite_06.png)
 
 ![Imagen 7](img/db_browser_sqlite_07.png)
+
+
+---
+
+<span class="mi_h3">Autoría</span>
+
+Obra realizada por Begoña Paterna Lluch. Publicada bajo licencia [Creative Commons Atribución/Reconocimiento-CompartirIgual 4.0 Internacional](https://creativecommons.org/licenses/by-sa/4.0/)
+
+---
