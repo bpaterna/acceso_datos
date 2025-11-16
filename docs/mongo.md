@@ -131,7 +131,7 @@ ssh -i [nombre_clave] ubuntu@[nombre_IP_servidor]
 
     ![Imagen warning conexión](img/warning.png)
     
-    Ejecuta el comando `chmod 400 nombre_clave`. Por ejemplo
+    Ejecuta el comando siguiente:
     ```
     chmod 400 [nombre_clave]
     ```
