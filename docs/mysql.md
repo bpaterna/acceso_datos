@@ -27,7 +27,7 @@ ssh -i [nombre_clave] ubuntu@[nombre_IP_servidor]
 ```
 
 !!!Note ""
-Si aparece el siguiente aviso:
+    Si aparece el siguiente aviso:
 
     ![Imagen warning conexión](img/warning.png)
     
