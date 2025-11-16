@@ -333,3 +333,11 @@ val db = cliente.getDatabase(NOM_BD)
 val coleccion = db.getCollection(NOM_COLECCION)
 // resto de código del programa
 ```
+
+---
+
+<span class="mi_h3">Autoría</span>
+
+Obra realizada por Begoña Paterna Lluch. Publicada bajo licencia [Creative Commons Atribución/Reconocimiento-CompartirIgual 4.0 Internacional](https://creativecommons.org/licenses/by-sa/4.0/)
+
+---
