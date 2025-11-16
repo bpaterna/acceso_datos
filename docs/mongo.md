@@ -187,10 +187,9 @@ sudo systemctl stop mongod
 sudo systemctl restart mongod
 ```
 
-
 <span class="mi_h4">Configurar acceso remoto</span>
 
-**1. Edita el fichero de configuración**
+**1. Editar el fichero de configuración**
 ```
 sudo nano /etc/mongod.conf
 ```
@@ -202,19 +201,21 @@ net:
 port: 27017
 bindIp: 127.0.0.1
 ```
-Comenta la línea bindIp: 127.0.0.1
 
-Añade la línea bindIp: 0.0.0.0
+Modifícalo para que quede así:
+```
+# network interfaces
+net:
+port: 27017
+#bindIp: 127.0.0.1
+bindIp: 0.0.0.0
+```
 
-Debe quedar así:
-
-![Imagen mongo7](img/mongo/mongo7.png)
 
 **2. Reiniciar servicio**
 ```
 sudo systemctl restart mongod
 ```
-
 
 
 <span class="mi_h4">Configura el servidor para permitir tráfico entrante</span>
@@ -239,11 +240,13 @@ En unos segundos aparecerá tu nueva regla en la lista
 <span class="mi_h4">Securizar MongoDB</span>
 
 **1. Inicia el cliente (shell)**
+
 Ejecuta el comando siguiente:
 ```
 mongosh
 ```
 **2. Crear usuario administrador**
+
 Conecta a la base de datos admin con el comando:
 ```
 use admin
@@ -276,7 +279,6 @@ security:
 
 ![Imagen mongo AWS](img/mongo/mongoAWS13.jpg)
 
-
 Guarda los cambios de configuración, reinicia el servicio y comprueba que se ha iniciado correctamente:
 ```
 sudo systemctl restart mongod
@@ -296,7 +298,6 @@ mongosh -u [usuario] -p --authenticationDatabase admin
 Comprueba que ya puedes ver las bd con show dbs:
 
 ![Imagen mongo AWS](img/mongo/mongoAWS12.jpg)
-
 
 
 
@@ -329,4 +330,3 @@ val db = cliente.getDatabase(NOM_BD)
 val coleccion = db.getCollection(NOM_COLECCION)
 // resto de código del programa
 ```
-
