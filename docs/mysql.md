@@ -100,24 +100,24 @@ exit
 ```bash
 sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
 ```
-Comenta la línea `bind-address = 127.0.0.1`
 
-Añade la línea `bind-address = 0.0.0.0`
+Busca la instrucción siguiente:
+```
+bind-address = 127.0.0.1
+```
+Modifícalo para que quede así:
+```
+# bind-address = 127.0.0.1
+bind-address = 0.0.0.0
+```
+Guarda los cambios, reinicia el servicio y comprueba que ha arrancado correctamente
 
-El fichero de configuración debe quedar como se muestra en la siguiente imagen:
-
-![Imagen 18](img/mysql/imagen_018.jpg)
-
-**2. Reinicia el servicio**
-
-Rainicia y comprueba que ha arrancado correctamente
-
-```bash
+```
 sudo systemctl restart mysql
 sudo systemctl status mysql
 ```
 
-**3. Configura el servidor para permitir tráfico entrante** 
+**2. Configura el servidor para permitir tráfico entrante** 
 
 Añade una regla en el servidor para permitir el tráfico entrante del puerto 3306. Para ello haz clic en la pestaña `Seguridad` y luego en el enlace de `Grupos de seguridad`
 
@@ -135,7 +135,7 @@ En unos segundos aparecerá tu nueva regla en la lista
 
 ![Imagen 31](img/mysql/imagen_031.jpg)
 
-**4. Prueba de conexión**
+**3. Prueba de conexión**
 
 Prueba a conectar a tu base de datos desde [DBeaver](dbeaver.html)
 
