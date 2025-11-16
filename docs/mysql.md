@@ -69,23 +69,13 @@ sudo mysql -u root -p
 
 **2. Crea el usuario con su contraseña** 
 
-Ejecuta los comandos siguientes (el `%` indica que el usuario podrá conectarse desde cualquier sitio):
-
-`CREATE USER '[usuario]'@'%' IDENTIFIED BY '[contraseña]';`
-
-`GRANT ALL PRIVILEGES ON *.* TO '[usuario]'@'%';`
-
-`FLUSH PRIVILEGES;`
-
-`SHOW GRANTS FOR '[usuario]'@'%';`
-
-Por ejemplo para el usuario `bpl3` y contraseña `holaHOLA01+` sería:
+Ejecuta los comandos siguientes (el `%` indica que el usuario podrá conectarse desde cualquier sitio). Cambia `[tu_usuario]` y `[tu_contraseña]` por el usuario y contraseña que quieras:
 
 ```sql
-CREATE USER 'bpl3'@'%' IDENTIFIED BY 'holaHOLA01+';
-GRANT ALL PRIVILEGES ON *.* TO 'bpl3'@'%';    
+CREATE USER '[tu_usuario]'@'%' IDENTIFIED BY '[tu_contraseña]';
+GRANT ALL PRIVILEGES ON *.* TO '[tu_usuario]'@'%';    
 FLUSH PRIVILEGES;
-SHOW GRANTS FOR 'bpl3'@'%';
+SHOW GRANTS FOR '[tu_usuario]'@'%';
 ```
 
 **3. Crea la base de datos**
@@ -93,7 +83,7 @@ SHOW GRANTS FOR 'bpl3'@'%';
 Por ejemplo (cambia el nombre del ejemplo por el de tu BD)
 
 ```sql
-create database florabotanica;
+create database [nombre_BD];
 ```
 
 **4. Sal del servidor**
@@ -153,34 +143,30 @@ Prueba a conectar a tu base de datos desde [DBeaver](dbeaver.html)
 
 <span class="mi_h3">Exportación de la BD</span>
 
-**1. Conecta al servidor**
+**1. Conecta al servidor por ssh**
 
-Para ello utiliza el comando `ssh -i [nombre_certificado] ubuntu@[IP_nombre_servidor]` Por ejemplo:
-
-```bash
-ssh -i bpl.pem ubuntu@100.25.102.165
+Para conectar, abre una ventana de comandos y asegurate que el archivo .pem está en la carpeta desde la que lanzas el siguiente comando (puedes utilizar el nombre del servidor o su IP pública):
+```
+ssh -i [nombre_clave] ubuntu@[nombre_IP_servidor]
 ```
 
 **2. Crea un archivo con la exportación**
 
-Para hacer un `dump` de la BD se utiliza el comando `mysqldump -u [usuario_BD] -p [opciones] [nombre_BD] > [nombre_archivo_dump]` Por ejemplo:
+Para hacer un `dump` de la BD ejecuta ():
 
 ```bash
-mysqldump -u bpl3 -p --routines florabotanica > dump_florabotanica.sql
+mysqldump -u [tu_usuario] -p --routines [tu_BD] > [nombre_archivo_dump].sql
 ```
 
 Después comprueba que el archivo se ha creado y cierra sesión con el comando `exit`
 
 **3. Descarga el archivo** 
 
-Para descargar al equipo local utiliza el comando `scp -i [nombre_certificado] ubuntu@[IP_nombre_servidor]:[ruta_archivo_dump] [ruta_destino]` Por ejemplo:
+Para descargar al equipo local utiliza el comando (luego comprueba que el archivo se ha descargado correctamente y que su contenido es correcto):
 
 ```bash
-scp -i bpl.pem ubuntu@100.25.102.165:/home/ubuntu/dump_florabotanica.sql /home/b.paternalluch/.
+scp -i [nombre_certificado] ubuntu@[IP_nombre_servidor]:[ruta_archivo_dump].sql [ruta_destino]
 ```
-
-Para finalizar comprueba que el archivo se ha descargado correctamente y que su contenido es correcto.
-
 
 
 ---

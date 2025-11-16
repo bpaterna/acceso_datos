@@ -114,7 +114,7 @@ Si aparecen las bases de datos (admin, config, local), todo está funcionando co
 
 
 
-<span class="mi_h3">MongoDB en EC2 (AWS)</span>
+<span class="mi_h3">Instalación de MongoDB en EC2 (AWS)</span>
 
 A continuación se describen los pasos para instalar y configurar MongoDB en nuestra instancia EC2 de AWS.
 
@@ -213,8 +213,11 @@ bindIp: 0.0.0.0
 
 
 **2. Reiniciar servicio**
+
+Rainicia y comprueba que ha arrancado correctamente
 ```
 sudo systemctl restart mongod
+sudo systemctl status mongod
 ```
 
 
