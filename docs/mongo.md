@@ -119,7 +119,7 @@ Si aparecen las bases de datos (admin, config, local), todo está funcionando co
 A continuación se describen los pasos para instalar y configurar MongoDB en nuestra instancia EC2 de AWS.
 
 
-<span class="mi_h4">Conectar al servidor</span>
+<span class="mi_h4">Conectar al servidor por ssh</span>
 
 Para conectar, abre una ventana de comandos y asegurate que el archivo .pem está en la carpeta desde la que lanzas el siguiente comando (puedes utilizar el nombre del servidor o su IP pública):
 ```
