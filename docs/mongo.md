@@ -280,8 +280,6 @@ security:
   authorization: enabled
 ```
 
-![Imagen mongo AWS](img/mongo/mongoAWS13.jpg)
-
 Guarda los cambios de configuración, reinicia el servicio y comprueba que se ha iniciado correctamente:
 ```
 sudo systemctl restart mongod
