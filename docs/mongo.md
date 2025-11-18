@@ -121,7 +121,7 @@ A continuación se describen los pasos para instalar y configurar MongoDB en nue
 
 <span class="mi_h4">Conectar al servidor por ssh</span>
 
-Para conectar, abre una ventana de comandos y asegurate que el archivo .pem está en la carpeta desde la que lanzas el siguiente comando (puedes utilizar el nombre del servidor o su IP pública):
+Para conectar, abre una ventana de comandos y asegurate que el archivo .pem está en la carpeta desde la que lanzas el siguiente comando (puedes utilizar el nombre del servidor o su IP pública). Sustituye `[nombre_clave]` por el nombre del archivo de tu clave y `[nombre_IP_servidor]` por el nombre o IP de tu servidor:
 ```
 ssh -i [nombre_clave] ubuntu@[nombre_IP_servidor]
 ```
@@ -255,7 +255,7 @@ Conecta a la base de datos admin con el comando:
 use admin
 ```
 
-Crea el usuario con permisos sobre todas las bases de datos con el comando:
+Crea el usuario con permisos sobre todas las bases de datos con el comando siguiente. Sustituye `[usuario]` y `[contraseña]` por los datos que quieras utilizar:
 ```
 db.createUser({ user: "[usuario]", pwd: "[contraseña]", roles: [{ role: "root", db: "admin" }] })
 ```
@@ -291,7 +291,7 @@ Comprueba que no puedes realizar operaciones entrando con `mongosh`:
 ![Imagen mongo AWS](img/mongo/mongoAWS11.jpg)
 
 
-Sal del cliente (shell) y vuelve a entrar con el comando: 
+Sal del cliente (shell) y vuelve a entrar con el comando siguiente. Sustituye `[usuario]` por el usuario que has creado anteriormente y espera a que te pida la contraseña: 
 ```
 mongosh -u [usuario] -p --authenticationDatabase admin
 ```
@@ -320,15 +320,36 @@ db.plantas.insertMany([
 ```
 
 **3. Conectar desde Kotlin**
+
+Para conectar desde `Kotlin` necesitarás añadir la siguiente dependencia en al fichero `build.gradle.kts`
+```kotlin
+    implementation("org.mongodb:mongodb-driver-sync:4.11.0")
+```
+Prueba el siguiente fragmento de código para comprobar que puedes acceder a la base de datos y mostrar la información que has insertado anteriormente. Sustituye `USUARIO` por tu nombre de uauario, `PASSWORD` por tu contraseña, `HOST` por el nombre o IP de tu servidor y `PUERTO` por 27017:
+
 ```kotlin
 const val NOM_SRV = "mongodb://USUARIO:PASSWORD@HOST:PUERTO"
 const val NOM_BD = "florabotanica"
 const val NOM_COLECCION = "plantas"
 
-val cliente = MongoClients.create(NOM_SRV)
-val db = cliente.getDatabase(NOM_BD)
-val coleccion = db.getCollection(NOM_COLECCION)
-// resto de código del programa
+import com.mongodb.client.MongoClients
+
+fun mostrarPlantas() {
+    val cliente = MongoClients.create(NOM_SRV)
+    val db = cliente.getDatabase(NOM_BD)
+    val coleccion = db.getCollection(NOM_COLECCION)
+
+    // Mostrar documentos de la colección plantas
+    val cursor = coleccion.find().iterator()
+    cursor.use {
+        while (it.hasNext()) {
+            val doc = it.next()
+            println(doc.toJson())
+        }
+    }
+
+    cliente.close()
+}
 ```
 
 ---
