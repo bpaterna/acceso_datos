@@ -301,7 +301,6 @@ Comprueba que ya puedes ver las bd con show dbs:
 ![Imagen mongo AWS](img/mongo/mongoAWS12.jpg)
 
 
-
 <span class="mi_h4">Crear base de datos y conecta desde Kotlin</span>
 
 **1. Crear la BD**
