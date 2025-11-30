@@ -954,7 +954,7 @@ En este punto vamos a profundizar en la utilización de **`aggregate()`** para p
 
 Ya hemos visto que listar el contenido de una colección es muy fácil utilizando `find`, pero si queremos realizar consultas que obtengan datos de varias colecciones hay que realizar operaciones similares al `JOIN` de `SQL`.
 
-Antes de ver un ejemplo, presentamos la colección `facturas` con la que vamos a trabajar y cuya estructura e información inicial son las siguientes:
+Para los ejemplos siguientes añadiremos una nueva colección (`facturas`) a nuestra BD. A continuación se muestra su estructura e información inicial:
 
 | Campo           | Tipo                        |
 |-----------------|-----------------------------|
