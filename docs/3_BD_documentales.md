@@ -2,9 +2,10 @@
 
 <span class="mi_h3">Revisiones</span>
 
-| Revisión | Fecha      | Descripción                             |
-| -------- | ---------- | --------------------------------------- |
-| 1.0      | 31-10-2025 | Adaptación de los materiales a markdown |
+| Revisión | Fecha      | Descripción                                          |
+|----------|------------|------------------------------------------------------|
+| 1.0      | 31-10-2025 | Adaptación de los materiales a markdown              |
+| 1.1      | 28-11-2025 | Modificación de funciones de importación y exportación |
 
 ## 3.1. Introducción
 
@@ -810,6 +811,444 @@ fun variasOperaciones() {
 
 
 
+<span class="mi_h3">Otras formas de trabajar con BD MongoDB</span>
+
+Además de instalar el servidor en local en nuestro ordenador, podemos utilizar el laboratorio de AWS. Tienes las instrucciones en la guía [Instalación y administración de MongoDB](mongo.html).
+
+También podemos trabajar directamente del servidor online `Atlas` que proporciona MongoDB.
+
+Por último se puede trabajar en local sin necesidad de servidor aunque, en este caso, la información no se guarda en disco sino en memoria y, por tanto, al cerrar la aplicación los datos se borran. Esto no es problema si se exportan a un fichero json antes de cerrar el programa y se importan al iniciarlo. Veamos un ejemplo:
+
+<span class="mis_ejemplos">Ejemplo 8: Trabajando MongoDB en local (en memoria)</span>
+
+Partimos del fichero `json` de la `Entrega 1`. A continuación se muestra la infromación de la colección `plantas`de la BD `florabotanica`:
+
+```json
+[
+{
+  "_id": {
+    "$oid": "69160748005c40ac579dc29d"
+  },
+  "id_planta": 1,
+  "nombre_comun": "Aloe",
+  "nombre_cientifico": "Aloe barbadensis miller",
+  "altura": 60
+},
+{
+  "_id": {
+    "$oid": "69160748005c40ac579dc29e"
+  },
+  "id_planta": 2,
+  "nombre_comun": "Ficus",
+  "nombre_cientifico": "Ficus benjamina",
+  "altura": 330
+},
+{
+  "_id": {
+    "$oid": "69160748005c40ac579dc29f"
+  },
+  "id_planta": 3,
+  "nombre_comun": "Romero",
+  "nombre_cientifico": "Rosmarinus officinalis",
+  "altura": 120
+},
+{
+  "_id": {
+    "$oid": "69160928005c40ac579dc2a0"
+  },
+  "id_planta": 4,
+  "nombre_comun": "Lavanda",
+  "nombre_cientifico": "Lavandula angustifolia",
+  "altura": 50
+},
+{
+  "_id": {
+    "$oid": "69160928005c40ac579dc2a1"
+  },
+  "id_planta": 5,
+  "nombre_comun": "Clavel",
+  "nombre_cientifico": "Dianthus caryophyllus",
+  "altura": 60
+}]
+```
+
+El código Kotlin para trabajar con MongoDB en memoria de forma local es el siguiente:
+
+```kotlin
+//variables globales definidas sin inicializar
+lateinit var servidor: MongoServer
+lateinit var cliente: MongoClient
+lateinit var uri: String
+lateinit var coleccionPlantas: MongoCollection<Document>
+
+//BD y colección con la que se trabajará
+const val NOM_BD = "florabotanica"
+const val NOM_COLECCION = "plantas"
+
+// Función para conectar a la BD
+fun conectarBD() {
+    servidor = MongoServer(MemoryBackend())
+    val address = servidor.bind()
+    uri = "mongodb://${address.hostName}:${address.port}"
+
+    cliente = MongoClients.create(uri)
+    coleccionPlantas = cliente.getDatabase(NOM_BD).getCollection(NOM_COLECCION)
+
+    println("Servidor MongoDB en memoria iniciado en $uri")
+}
+
+// Función para desconectar a la BD
+fun desconectarBD() {
+    cliente.close()
+    servidor.shutdown()
+    println("Servidor MongoDB en memoria finalizado")
+}
+
+fun main() {
+    conectarBD()
+    importarBD("src/main/resources/florabotanica_plantas.json", coleccionPlantas)
+
+    menu()
+    
+    exportarBD(coleccionPlantas,"src/main/resources/florabotanica_plantas.json")
+    desconectarBD()
+}
+
+// ****************
+// **** MENÚ   ****
+// ****************
+
+fun menu(){
+    //llamada a listar todas las plantas de la BD
+    mostrarPlantas()
+}
+
+fun mostrarPlantas() {
+    println();
+    println("**** Listado de plantas:")
+    coleccionPlantas.find().forEach { doc ->
+        val id = doc.getInteger("id_planta")
+        val nombre_comun = doc.getString("nombre_comun")
+        val nombre_cientifico = doc.getString("nombre_cientifico")
+        val altura = doc.getInteger("altura")
+        println("[$id] $nombre_comun ($nombre_cientifico): ${altura} cm")
+    }
+}
+```
+
+Hay que tener en cuenta que cuando se trabaja con un servidor en memoria no podemos abrir y cerrar la conexión a la BD en cada operación ya que todo está en la RAM y no en disco. Cada vez que se cierra la conexión y el servidor, la base de datos desaparece y por esta razón la abrimos al iniciar el programa y la cerramos al finalizarlo. También importamos la informaación y la exportamos para tener siempre una copia en formato `json`.
+
+!!! success "Prueba y analiza el ejemplo 8"
+    Prueba el código del ejemplo y verifica que funciona correctamente.
+
+!!! warning "Práctica 10: Trabaja con tu BD"
+    1. Crea un nuevo proyecto kotlin.
+    2. Copia el fichero `json` que exportaste en la práctica anterior a la carpeta `resources`.
+    3. Copia el código del ejemplo y añade el código de tu anterior proyecto de forma que funcionen todas las opciones de la práctica anterior.
+    4. Comprueba que al salir del programa el fichero `json` contiene la información actualizada. 
+
+
+<span class="mi_h3">Trabajando con más de una colección</span>
+
+En este punto vamos a profundizar en el manejo de las etapas del método **`aggregate()`** para poder realizar **consultas complejas** y **procesamientos de datos**. Para ello utilizaremos una lista de etapas (*stages*) que MongoDB ejecutará **en orden** para transformar, combinar o procesar documentos de una colección. Esa lista la guardaremos en una **tubería de pasos** (`pipeline`), donde la salida de un paso es la entrada del siguiente.
+
+Ya hemos visto que listar el contenido de una colección es muy fácil utilizando `find`, pero si queremos realizar consultas que obtengan datos de varias colecciones hay que definir muy bien los pasos para obtener resultados similares a los de un `JOIN` de `SQL`.
+
+Antes de ver un ejemplo, presentamos la colección `facturas` con la siguiente estructura e información inicial:
+
+| Campo           | Tipo                      |
+|-----------------|---------------------------|
+| fecha | String (formato YYYY-MM-DD |
+| id_factura      | Integer                   |
+| id_planta      | Integer                   |
+| precio      | Integer                   |
+| cantidad      | Integer                   |
+
+
+```json
+[
+{
+"fecha": "2025-11-28",
+"id_factura": 1,
+"id_planta": 1,
+"precio": 13,
+"cantidad": 3
+},
+{
+"fecha": "2025-11-28",
+"id_factura": 1,
+"id_planta": 3,
+"precio": 7,
+"cantidad": 2
+},
+{
+"fecha": "2025-11-28",
+"id_factura": 1,
+"id_planta": 5,
+"precio": 5,
+"cantidad": 1
+},
+{
+"fecha": "2025-11-28",
+"id_factura": 2,
+"id_planta": 2,
+"precio": 35,
+"cantidad": 1
+},
+{
+"fecha": "2025-11-28",
+"id_factura": 2,
+"id_planta": 4,
+"precio": 9,
+"cantidad": 2
+},
+{
+"fecha": "2025-11-29",
+"id_factura": 3,
+"id_planta": 1,
+"precio": 13,
+"cantidad": 1
+},
+{
+"fecha": "2025-11-29",
+"id_factura": 3,
+"id_planta": 3,
+"precio": 7,
+"cantidad": 3
+},
+{
+"fecha": "2025-11-29",
+"id_factura": 4,
+"id_planta": 2,
+"precio": 35,
+"cantidad": 2
+},
+{
+"fecha": "2025-11-29",
+"id_factura": 4,
+"id_planta": 5,
+"precio": 5,
+"cantidad": 4
+}
+]
+```
+Para realizar el JOIN entre las dos colecciones (`plantas` y `facturas`) utilizaremos **lookup y unwind**.
+
+`lookup` añade un nuevo campo que contiene un array con los documentos completos de otra colección cuyo campo coincide con el del documento actual. Incluso si solo encuentra un documento, el resultado sigue siendo un array con un único elemento.
+
+Partimos del primer documento de la colección `facturas`:
+
+```
+{
+  "fecha": "2025-11-28",
+  "id_factura": 1,
+  "id_planta": 1,
+  "precio": 13,
+  "cantidad": 3
+}
+```
+
+Utilizamos `lookup` para buscar en la colección **plantas** todos los documentos cuyo campo `id_planta` coincida con el `id_planta` de la factura y gurdarlos en un nuevo campo llamado `planta`. El código es el siguiente:
+
+```
+Document("\$lookup", Document()
+.append("from", "plantas")
+.append("localField", "id_planta")
+.append("foreignField", "id_planta")
+.append("as", "planta")
+)
+```
+
+El resultado (equivalente a un **JOIN** en SQL) es un campo llamado `planta` añadido al documento:
+
+```
+{
+  "fecha": "2025-11-28",
+  "id_factura": 1,
+  "id_planta": 1,
+  "precio": 13,
+  "cantidad": 3
+  "planta": [
+    {
+      "nombre_comun": "Romero",
+      "nombre_cientifico": "Rosmarinus officinalis",
+      "altura": 120,
+      "id_planta": 3
+    }
+  ]
+}
+```
+
+Para poder leer la información hemos de convertir el resultado del lookup (array) en un objeto normal. Eso es lo que hace `unwind`. Si partimos del array que se ha creado con `lookup`:
+
+```
+"planta": [
+  { nombre_comun: "Romero", ... }
+]
+```
+
+Después de aplicar `unwind` el documento de planta sale del array y queda como un objeto normal para poder leer sus campos.
+
+```
+"planta": {
+  nombre_comun: "Romero",
+  ...
+}
+```
+
+
+En este caso, el pipeline es una secuencia de dos pasos:
+
+1. `lookup` que junta facturas con plantas (como un JOIN).
+
+2. `unwind` que convierte el resultado del lookup (array) en un objeto normal
+
+
+<span class="mis_ejemplos">Ejemplo 9: Mostrar listado de factura con el nombre de la planta</span>
+
+Este ejemplo utiliza el `pipeline` explicado anteriormente con la secuencia `lookup` y `unwind` para mostrar el nombre de la planta al listar los documentos de la colección `facturas`.
+
+```kotlin
+ val pipeline = listOf(
+        Document("\$lookup", Document()
+            .append("from", "plantas")
+            .append("localField", "id_planta")
+            .append("foreignField", "id_planta")
+            .append("as", "planta")
+        ),
+        Document("\$unwind", "\$planta")
+    )
+
+    coleccionFacturas.aggregate(pipeline).forEach { doc ->
+        val idFactura = doc.getInteger("id_factura")
+        val fecha = doc.getString("fecha")
+        val idPlanta = doc.getInteger("id_planta")
+        val cantidad = doc.getInteger("cantidad")
+        val precio = doc.getInteger("precio")
+
+        val planta = doc["planta"] as Document
+        val nombreComun = planta.getString("nombre_comun")
+
+        println("[$idFactura] ($fecha): $nombreComun (id $idPlanta) – $cantidad uds. $precio €")
+    }
+```
+
+!!! success "Prueba y analiza el ejemplo 9"
+    Prueba el código del ejemplo y verifica que funciona correctamente.
+
+!!! warning "Práctica 11: Trabaja con tu BD"
+    1. Añade una nueva colección a tu BS.
+    2. Programa una función parecida a la del ejemplo en la que tengas que realizar una consulta para extraer infromación de las dos colecciones de tu BD.
+
+
+<span class="mis_ejemplos">Ejemplo 10: Mostrar datos de una factura</span>
+
+En este ejemplo se pide un número de factura por consola y se muestran sus datos.
+
+```kotlin
+fun mostrarFactura() {
+    val idFactura = pedirEntero("ID de la factura: ")
+
+    // Obtener la fecha de la factura y verificar que la factura indicada existe
+    val facturaDoc = coleccionFacturas
+        .find(Document("id_factura", idFactura))
+        .first()
+
+    if (facturaDoc == null) {
+        println("No existe ninguna factura con ID $idFactura")
+        return
+    }
+
+    val fecha = facturaDoc["fecha"] as String
+
+    // Crear un pipeline de agregación para obtener las líneas de la factura con datos de la planta
+    val pipeline = listOf(
+        Document("\$match", Document("id_factura", idFactura)),
+        Document("\$lookup", Document()
+            .append("from", "plantas")
+            .append("localField", "id_planta")
+            .append("foreignField", "id_planta")
+            .append("as", "planta")
+        ),
+        Document("\$unwind", "\$planta"),
+        Document("\$project", Document()
+            .append("nombre_planta", "\$planta.nombre_comun")
+            .append("cantidad", 1)
+            .append("precio", 1)
+            .append("subtotal", Document("\$multiply", listOf("\$precio", "\$cantidad")))
+        )
+    )
+
+    // Ejecutar la agregación para obtener la lista de líneas
+    val lineas = coleccionFacturas.aggregate(pipeline).toList()
+
+    if (lineas.isEmpty()) {
+        println("No se encontraron líneas para la factura $idFactura")
+        return
+    }
+
+   // val fmt = NumberFormat.getCurrencyInstance(Locale("es", "ES"))
+
+    // Encabezado de la factura
+    println("===============================================================")
+    println("Factura ID: $idFactura")
+    println("Fecha: $fecha")
+    println("---------------------------------------------------------------")
+    println(String.format("%-15s %-10s %-10s %-12s", "Planta", "Cantidad", "Precio", "Subtotal"))
+    println("---------------------------------------------------------------")
+
+    var totalFactura = 0.0
+
+    // Iterar sobre las líneas de la factura
+    lineas.forEach { linea ->
+        val nombre = linea["nombre_planta"] as String
+        val cantidad = linea["cantidad"] as Int
+        val precio = linea["precio"] as Int
+        val subtotal = (linea["subtotal"] as Number).toDouble()
+
+        totalFactura += subtotal
+
+        println(String.format("%-15s %-10d %-10s %-12s",
+            nombre, cantidad, precio, subtotal
+        ))
+    }
+
+    var totalIVA =totalFactura*0.21
+
+    // Mostrar pie de factura con totales
+    println("---------------------------------------------------------------")
+    println(String.format("%-15s %-10s %-10s %-12s", "", "TOTAL:", totalFactura, ""))
+    println(String.format("%-15s %-10s %-10s %-12s", "", "IVA 21%:", totalIVA, ""))
+    println(String.format("%-15s %-10s %-10s %-12s", "", "TOTAL CON IVA:", totalFactura + totalIVA, ""))
+    println("===============================================================")
+}
+```
+
+!!! success "Prueba y analiza el ejemplo 10"
+    Prueba el código del ejemplo y verifica que funciona correctamente.
+
+!!! warning "Práctica 12: Trabaja con tu BD"
+    Programa una función parecida a la del ejemplo en la que tengas que realizar una consulta para extraer infromación de las dos colecciones de tu BD.
+
+!!! danger "Entrega 2"
+    Realiza lo siguiente:
+
+    1. Crea un fichero `README.md` dentro de la carpeta `main`. Su contenido debe ser un manual de usuario con los siguientes apartados:
+    * 1. Descripción general.
+    * 2. Requisitos. 
+    * 3. Base de datos.
+    * 4. Cómo ejecutar.
+    * 5. Opciones del programa y ejemplos de uso (salida por consola).
+    * 7. Notas importantes (si hay algo que destacar).
+
+    2. Asegúrate que tu aplicación exporta correctamente las dos colecciones de tu BD a dos archivos `.json` y que se guardan en la carpeta `resources` (consulta el apartado `Exportar / Importar la BD con Kotlin` al final de este documento). 
+        
+    3. Entrega en Aules la carpeta `main` de tu proyecto comprimida en formato .zip
+
+    **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
+
+
+
 <span class="mi_h3">Resumen</span>
 
 | Categoría         | Comandos clave                                                                        |
@@ -860,7 +1299,7 @@ implementation("org.json:json:20231013")
 ```
 
 
-A continuación se muestra el código que exporta la BD a un archivo .json 
+A continuación se muestra el código que exporta la BD a un archivo `.json` (actualizado para tomar como parámetros la ruta del `json` y el nombre de la colección).
 
 ```kotlin
 import com.mongodb.client.MongoClients
@@ -868,13 +1307,6 @@ import org.bson.json.JsonWriterSettings
 import java.io.File
 
 fun exportarBD() {
-    val rutaJSON="src/main/resources/florabotanica.json"
-
-    //conectar con la BD
-    val cliente = MongoClients.create(NOM_SRV)
-    val db = cliente.getDatabase(NOM_BD)
-    val coleccion = db.getCollection(NOM_COLECCION)
-
     val settings = JsonWriterSettings.builder().indent(true).build()
     val file = File(rutaJSON)
     file.printWriter().use { out ->
@@ -891,14 +1323,11 @@ fun exportarBD() {
         cursor.close()
     }
 
-    println("Exportación completada")
-
-    cliente.close()
-    println("Conexión cerrada")
+    println("Exportación de ${coleccion.namespace.collectionName} completada")
 }
 ```
 
-A continuación se muestra el código que importa la BD desde un archivo .json
+A continuación se muestra el código que importa la BD desde un archivo `.json`(actualizado para tomar como parámetros la ruta del `json` y el nombre de la colección).
 
 ```kotlin
 import com.mongodb.client.MongoClients
@@ -907,91 +1336,61 @@ import org.json.JSONArray
 import java.io.File
 
 fun importarBD() {
-    val rutaJSON="src/main/resources/florabotanica.json"
+    println("Iniciando importación de datos desde JSON...")
 
-    //conectar con la BD
-    val cliente = MongoClients.create(NOM_SRV)
-    val db = cliente.getDatabase(NOM_BD)
-
-
-    println("Iniciando importación de datos...")
-
-    // Leer el archivo JSON exportado
     val jsonFile = File(rutaJSON)
     if (!jsonFile.exists()) {
         println("No se encontró el archivo JSON a importar")
-        cliente.close()
         return
     }
 
-    val json = jsonFile.readText()
-    val array = JSONArray(json)
+    // Leer JSON del archivo
+    val jsonText = try {
+        jsonFile.readText()
+    } catch (e: Exception) {
+        println("Error leyendo el archivo JSON: ${e.message}")
+        return
+    }
 
-    // Convertir el JSON a documentos MongoDB
+    val array = try {
+        JSONArray(jsonText)
+    } catch (e: Exception) {
+        println("Error al parsear JSON: ${e.message}")
+        return
+    }
+
+    // Convertir JSON a Document y eliminar _id si existe
     val documentos = mutableListOf<Document>()
     for (i in 0 until array.length()) {
-        documentos.add(Document.parse(array.getJSONObject(i).toString()))
+        val doc = Document.parse(array.getJSONObject(i).toString())
+        doc.remove("_id")  // <-- eliminar _id para que MongoDB genere uno nuevo
+        documentos.add(doc)
     }
 
     if (documentos.isEmpty()) {
-        println("No se encontraron documentos en el archivo JSON.")
-        cliente.close()
+        println("El archivo JSON está vacío")
         return
     }
 
-    // Obtener nombres de colecciones existentes
-    val colecciones = db.listCollectionNames().toList()
+    val db = cliente.getDatabase(NOM_BD)
 
-    // Si existe la colección, eliminarla justo antes de la inserción
-    if (NOM_COLECCION in colecciones) {
-        println("Eliminando colección existente '$NOM_COLECCION' antes de importar...")
-        db.getCollection(NOM_COLECCION).drop()
-    } else {
-        println("La colección '$NOM_COLECCION' no existe, se creará automáticamente.")
+    val nombreColeccion =coleccion.namespace.collectionName
+
+    // Borrar colección si existe
+    if (db.listCollectionNames().contains(nombreColeccion)) {
+        db.getCollection(nombreColeccion).drop()
+        println("Colección '$nombreColeccion' eliminada antes de importar.")
     }
 
-    // Ahora obtener la colección (Mongo la creará si no existe)
-    val coleccion = db.getCollection(NOM_COLECCION)
-
-
-    // Insertar los documentos nuevos
-    coleccion.insertMany(documentos)
-    println("Se importaron ${documentos.size} documentos correctamente")
-
-    cliente.close()
-    println("Conexión cerrada.")
+    // Insertar documentos
+    try {
+        coleccion.insertMany(documentos)
+        println("Importación completada: ${documentos.size} documentos de $nombreColeccion.")
+    } catch (e: Exception) {
+        println("Error importando documentos: ${e.message}")
+    }
 }
 ```
-
-
-
-<!--
-
-
-## 3.4. Firebase
-
-
-
-
-
-
-En construcción
-
-!!! success "Prueba y analiza el ejemplo 5"
-    Prueba el código de ejemplo y verifica que funciona correctamente.
-
-!!! warning "Práctica 5: Amplía tu proyecto"
-    Incluye .
-
-!!! danger "Entrega 2"
-    Entrega en Aules la carpeta `main/kotlin` de tu proyecto comprimida en formato .zip
-
-    **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
-
-
--->
-
-
 
 
 ---
