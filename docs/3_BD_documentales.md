@@ -944,25 +944,25 @@ Hay que tener en cuenta que cuando se trabaja con un servidor en memoria no pode
 !!! warning "Práctica 10: Trabaja con tu BD"
     1. Crea un nuevo proyecto kotlin.
     2. Copia el fichero `json` que exportaste en la práctica anterior a la carpeta `resources`.
-    3. Copia el código del ejemplo y añade el código de tu anterior proyecto de forma que funcionen todas las opciones de la práctica anterior.
+    3. Añade el código de tu anterior proyecto modificando lo que sea necesario para que funcionen todas las opciones de la práctica anterior pero trabajando la BD en memoria.
     4. Comprueba que al salir del programa el fichero `json` contiene la información actualizada. 
 
 
 <span class="mi_h3">Trabajando con más de una colección</span>
 
-En este punto vamos a profundizar en el manejo de las etapas del método **`aggregate()`** para poder realizar **consultas complejas** y **procesamientos de datos**. Para ello utilizaremos una lista de etapas (*stages*) que MongoDB ejecutará **en orden** para transformar, combinar o procesar documentos de una colección. Esa lista la guardaremos en una **tubería de pasos** (`pipeline`), donde la salida de un paso es la entrada del siguiente.
+En este punto vamos a profundizar en la utilización de **`aggregate()`** para poder realizar **consultas complejas** y **procesamientos de datos**. Para ello utilizaremos una lista de etapas (*stages*) que MongoDB ejecutará **en orden** para transformar, combinar o procesar documentos de una colección. Esa lista la guardaremos en una **tubería de pasos** (*pipeline*), donde la salida de un paso es la entrada del siguiente.
 
 Ya hemos visto que listar el contenido de una colección es muy fácil utilizando `find`, pero si queremos realizar consultas que obtengan datos de varias colecciones hay que definir muy bien los pasos para obtener resultados similares a los de un `JOIN` de `SQL`.
 
-Antes de ver un ejemplo, presentamos la colección `facturas` con la siguiente estructura e información inicial:
+Antes de ver un ejemplo, presentamos la colección `facturas` con la que vamos a trabajar y cuya estructura e información inicial son las siguientes:
 
-| Campo           | Tipo                      |
-|-----------------|---------------------------|
-| fecha | String (formato YYYY-MM-DD |
-| id_factura      | Integer                   |
-| id_planta      | Integer                   |
-| precio      | Integer                   |
-| cantidad      | Integer                   |
+| Campo           | Tipo                        |
+|-----------------|-----------------------------|
+| fecha | String (formato YYYY-MM-DD) |
+| id_factura      | Integer                     |
+| id_planta      | Integer                     |
+| precio      | Integer                     |
+| cantidad      | Integer                     |
 
 
 ```json
@@ -1087,7 +1087,7 @@ Para poder leer la información hemos de convertir el resultado del lookup (arra
 ]
 ```
 
-Después de aplicar `unwind` el documento de planta sale del array y queda como un objeto normal para poder leer sus campos.
+Después de aplicar `unwind` el documento de planta ya no es un `array` y queda como un objeto normal para poder leer sus campos.
 
 ```
 "planta": {
@@ -1101,7 +1101,7 @@ En este caso, el pipeline es una secuencia de dos pasos:
 
 1. `lookup` que junta facturas con plantas (como un JOIN).
 
-2. `unwind` que convierte el resultado del lookup (array) en un objeto normal
+2. `unwind` que convierte el resultado del lookup (array) en un objeto normal.
 
 
 <span class="mis_ejemplos">Ejemplo 9: Mostrar listado de factura con el nombre de la planta</span>
@@ -1137,8 +1137,8 @@ Este ejemplo utiliza el `pipeline` explicado anteriormente con la secuencia `loo
     Prueba el código del ejemplo y verifica que funciona correctamente.
 
 !!! warning "Práctica 11: Trabaja con tu BD"
-    1. Añade una nueva colección a tu BS.
-    2. Programa una función parecida a la del ejemplo en la que tengas que realizar una consulta para extraer infromación de las dos colecciones de tu BD.
+    1. Añade una nueva colección a tu BD.
+    2. Programa una función parecida a la del ejemplo en la que tengas que realizar una consulta para extraer información de las dos colecciones de tu BD.
 
 
 <span class="mis_ejemplos">Ejemplo 10: Mostrar datos de una factura</span>
@@ -1234,12 +1234,12 @@ fun mostrarFactura() {
     Realiza lo siguiente:
 
     1. Crea un fichero `README.md` dentro de la carpeta `main`. Su contenido debe ser un manual de usuario con los siguientes apartados:
-    * 1. Descripción general.
-    * 2. Requisitos. 
-    * 3. Base de datos.
-    * 4. Cómo ejecutar.
-    * 5. Opciones del programa y ejemplos de uso (salida por consola).
-    * 7. Notas importantes (si hay algo que destacar).
+        * 1. Descripción general.
+        * 2. Requisitos. 
+        * 3. Base de datos.
+        * 4. Cómo ejecutar.
+        * 5. Opciones del programa y ejemplos de uso (salida por consola).
+        * 6. Notas importantes (si hay algo que destacar).
 
     2. Asegúrate que tu aplicación exporta correctamente las dos colecciones de tu BD a dos archivos `.json` y que se guardan en la carpeta `resources` (consulta el apartado `Exportar / Importar la BD con Kotlin` al final de este documento). 
         
@@ -1306,7 +1306,7 @@ import com.mongodb.client.MongoClients
 import org.bson.json.JsonWriterSettings
 import java.io.File
 
-fun exportarBD() {
+fun exportarBD(coleccion: MongoCollection<Document>, rutaJSON: String) {
     val settings = JsonWriterSettings.builder().indent(true).build()
     val file = File(rutaJSON)
     file.printWriter().use { out ->
@@ -1335,7 +1335,7 @@ import org.bson.Document
 import org.json.JSONArray
 import java.io.File
 
-fun importarBD() {
+fun importarBD(rutaJSON: String, coleccion: MongoCollection<Document>) {
     println("Iniciando importación de datos desde JSON...")
 
     val jsonFile = File(rutaJSON)
