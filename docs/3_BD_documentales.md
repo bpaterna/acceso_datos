@@ -952,7 +952,7 @@ Hay que tener en cuenta que cuando se trabaja con un servidor en memoria no pode
 
 En este punto vamos a profundizar en la utilización de **`aggregate()`** para poder realizar **consultas complejas** y **procesamientos de datos**. Para ello utilizaremos una lista de etapas (*stages*) que MongoDB ejecutará **en orden** para transformar, combinar o procesar documentos de una colección. Esa lista la guardaremos en una **tubería de pasos** (*pipeline*), donde la salida de un paso es la entrada del siguiente.
 
-Ya hemos visto que listar el contenido de una colección es muy fácil utilizando `find`, pero si queremos realizar consultas que obtengan datos de varias colecciones hay que definir muy bien los pasos para obtener resultados similares a los de un `JOIN` de `SQL`.
+Ya hemos visto que listar el contenido de una colección es muy fácil utilizando `find`, pero si queremos realizar consultas que obtengan datos de varias colecciones hay que realizar operaciones similares al `JOIN` de `SQL`.
 
 Antes de ver un ejemplo, presentamos la colección `facturas` con la que vamos a trabajar y cuya estructura e información inicial son las siguientes:
 
@@ -1234,19 +1234,18 @@ fun mostrarFactura() {
     Realiza lo siguiente:
 
     1. Crea un fichero `README.md` dentro de la carpeta `main`. Su contenido debe ser un manual de usuario con los siguientes apartados:
-        * 1. Descripción general.
-        * 2. Requisitos. 
-        * 3. Base de datos.
-        * 4. Cómo ejecutar.
-        * 5. Opciones del programa y ejemplos de uso (salida por consola).
-        * 6. Notas importantes (si hay algo que destacar).
+        * Descripción general.
+        * Requisitos. 
+        * Base de datos.
+        * Cómo ejecutar.
+        * Opciones del programa y ejemplos de uso (salida por consola).
+        * Notas importantes (si hay algo que destacar).
 
     2. Asegúrate que tu aplicación exporta correctamente las dos colecciones de tu BD a dos archivos `.json` y que se guardan en la carpeta `resources` (consulta el apartado `Exportar / Importar la BD con Kotlin` al final de este documento). 
         
     3. Entrega en Aules la carpeta `main` de tu proyecto comprimida en formato .zip
 
     **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
-
 
 
 <span class="mi_h3">Resumen</span>
