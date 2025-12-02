@@ -874,7 +874,40 @@ Partimos del fichero `json` de la `Entrega 1`. A continuación se muestra la inf
 
 El código Kotlin para trabajar con MongoDB en memoria de forma local es el siguiente:
 
+Dependencias Gradle:
+
 ```kotlin
+dependencies {
+    implementation("org.mongodb:mongodb-driver-sync:4.10.2")
+    implementation("de.bwaldvogel:mongo-java-server:1.45.0")
+    implementation("org.json:json:20231013")
+
+    // Backend de logging para SLF4J
+    //implementation("ch.qos.logback:logback-classic:1.5.6")
+
+    //desactivar logs en consola
+    implementation("org.slf4j:slf4j-nop:2.0.12")
+}
+```
+
+
+```kotlin
+import java.util.Scanner
+import java.io.File
+import org.bson.Document
+import org.json.JSONArray
+import org.bson.json.JsonWriterSettings
+
+import de.bwaldvogel.mongo.MongoServer
+import de.bwaldvogel.mongo.backend.memory.MemoryBackend
+
+import com.mongodb.client.MongoClients
+import com.mongodb.client.MongoClient
+import com.mongodb.client.MongoCollection
+import com.mongodb.client.model.Filters
+import com.mongodb.client.model.Projections
+import com.mongodb.client.model.Aggregates
+
 //variables globales definidas sin inicializar
 lateinit var servidor: MongoServer
 lateinit var cliente: MongoClient
