@@ -874,8 +874,7 @@ Partimos del fichero `json` de la `Entrega 1`. A continuación se muestra la inf
 
 El código Kotlin para trabajar con MongoDB en memoria de forma local es el siguiente:
 
-Dependencias Gradle:
-
+**build.gradle.kts**
 ```kotlin
 dependencies {
     implementation("org.mongodb:mongodb-driver-sync:4.10.2")
@@ -890,7 +889,7 @@ dependencies {
 }
 ```
 
-
+**Main.kt**
 ```kotlin
 import java.util.Scanner
 import java.io.File
@@ -1220,7 +1219,6 @@ fun mostrarFactura() {
         return
     }
 
-   // val fmt = NumberFormat.getCurrencyInstance(Locale("es", "ES"))
 
     // Encabezado de la factura
     println("===============================================================")
