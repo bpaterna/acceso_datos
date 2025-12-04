@@ -1102,20 +1102,21 @@ El resultado (equivalente a un **JOIN** en SQL) es un campo llamado `planta` añ
   "cantidad": 3
   "planta": [
     {
-      "nombre_comun": "Romero",
-      "nombre_cientifico": "Rosmarinus officinalis",
-      "altura": 120,
-      "id_planta": 3
+      "nombre_comun": "Aloe",
+      "nombre_cientifico": "Aloe barbadensis miller",
+      "altura": 60,
+      "id_planta": 1
     }
   ]
 }
 ```
 
+
 Para poder leer la información hemos de convertir el resultado del lookup (array) en un objeto normal. Eso es lo que hace `unwind`. Si partimos del array que se ha creado con `lookup`:
 
 ```
 "planta": [
-  { nombre_comun: "Romero", ... }
+  { nombre_comun: "Aloe", ... }
 ]
 ```
 
@@ -1123,7 +1124,7 @@ Después de aplicar `unwind` el documento de planta ya no es un `array` y queda 
 
 ```
 "planta": {
-  nombre_comun: "Romero",
+  nombre_comun: "Aloe",
   ...
 }
 ```
@@ -1167,10 +1168,6 @@ Este ejemplo utiliza el `pipeline` explicado anteriormente con la secuencia `loo
 
 !!! success "Prueba y analiza el ejemplo 9"
     Prueba el código del ejemplo y verifica que funciona correctamente.
-
-!!! warning "Práctica 11: Trabaja con tu BD"
-    1. Añade una nueva colección a tu BD.
-    2. Programa una función parecida a la del ejemplo en la que tengas que realizar una consulta para extraer información de las dos colecciones de tu BD.
 
 
 <span class="mis_ejemplos">Ejemplo 10: Mostrar datos de una factura</span>
@@ -1219,7 +1216,6 @@ fun mostrarFactura() {
         return
     }
 
-
     // Encabezado de la factura
     println("===============================================================")
     println("Factura ID: $idFactura")
@@ -1258,23 +1254,176 @@ fun mostrarFactura() {
 !!! success "Prueba y analiza el ejemplo 10"
     Prueba el código del ejemplo y verifica que funciona correctamente.
 
+
+!!! warning "Práctica 11: Trabaja con tu BD"
+    1. Añade una nueva colección a tu BD.
+    2. Programa una función parecida a la de los ejemplos en la que tengas que realizar una consulta para extraer información de las dos colecciones de tu BD.
+    3. Recuerda importar y exportar la nueva colección.
+
+
+<span class="mis_ejemplos">Ejemplo 11: Trabajando con una tercera colección</span>
+
+Vamos a completar un poco más nuestra aplicación añadiendo la colección de `Clientes`. Los datos iniciales son los sigueintes:
+
+```json
+[{
+"nombre": "Pol",
+"id_cliente": 1
+},
+{
+"nombre": "Ade",
+"id_cliente": 2
+}]
+```
+
+Vamos a practicar realizando las siguientes consultas:
+
+**Consulta 1: Mostrar el nombre del cliente en la factura del ejemplo anterior**
+
+La cabecera de la función `mostrarFactura` del ejemplo anterior era la siguiente:
+
+```
+===============================================================
+Factura ID: 1
+Fecha: 2025-11-28
+```
+
+Con la modificación queda así:
+
+```
+===============================================================
+Factura ID: 1
+Fecha: 2025-11-28
+Cliente: Pol
+```
+
+Para obtener el nombre del cliente hay que añadir las siguientes instrucciones:
+
+```kotlin
+val idCliente = facturaDoc.getInteger("id_cliente")
+
+val clienteDoc = coleccionClientes
+    .find(Document("id_cliente", idCliente))
+    .first()
+
+val nomCliente = clienteDoc.getString("nombre")
+```
+
+**Consulta 2: Historial de compras**
+
+Para este ejemplo vamos a unir las tres colecciones para mostrar el historial de compras. El resultado  (sin formatear) será el siguiente:
+
+```
+{"cliente": "Ade", "id_factura": 4, "fecha": "2025-11-29", "planta": "Ficus", "cantidad": 2, "precio": 35}
+{"cliente": "Ade", "id_factura": 4, "fecha": "2025-11-29", "planta": "Clavel", "cantidad": 4, "precio": 5}
+{"cliente": "Pol", "id_factura": 1, "fecha": "2025-11-28", "planta": "Aloe", "cantidad": 3, "precio": 13}
+{"cliente": "Pol", "id_factura": 1, "fecha": "2025-11-28", "planta": "Romero", "cantidad": 2, "precio": 7}
+{"cliente": "Pol", "id_factura": 1, "fecha": "2025-11-28", "planta": "Clavel", "cantidad": 1, "precio": 5}
+{"cliente": "Pol", "id_factura": 2, "fecha": "2025-11-28", "planta": "Ficus", "cantidad": 1, "precio": 35}
+{"cliente": "Pol", "id_factura": 2, "fecha": "2025-11-28", "planta": "Lavanda", "cantidad": 2, "precio": 9}
+{"cliente": "Pol", "id_factura": 3, "fecha": "2025-11-29", "planta": "Aloe", "cantidad": 1, "precio": 13}
+{"cliente": "Pol", "id_factura": 3, "fecha": "2025-11-29", "planta": "Romero", "cantidad": 3, "precio": 7}
+{"cliente": "Pol", "id_factura": 90, "fecha": "2025-12-02", "planta": "dfdfdfd", "cantidad": 2, "precio": 50}
+```
+
+Para obtener el nombre del cliente en cada una de las líneas de factura, habrá que hacer un nuevo **lookup** y un nuevo **unwind** con la colección de clientes, por tanto añadiremos a la 'pipeline' el siguiente código:
+
+```kotlin
+    Document("\$lookup", Document()
+        .append("from", "clientes")
+        .append("localField", "id_cliente")
+        .append("foreignField", "id_cliente")
+        .append("as", "cliente")
+    ),
+    Document("\$unwind", "\$cliente"),
+```
+
+y la proyección quedará de esta forma:
+
+```kotlin
+Document("\$project", Document()
+    .append("_id", 0)
+    .append("id_factura", 1)
+    .append("fecha", 1)
+    .append("planta", "\$planta.nombre_comun")
+    .append("cantidad", 1)
+    .append("precio", 1)
+    .append("subtotal", Document("\$multiply", listOf("\$precio", "\$cantidad")))
+)
+```
+
+
+**Consulta 3: Total gastado por cliente**
+
+Esta consulta saca como resultado una línea por cada cliente con su nombre, la suma total de todas las líneas de facturas (precio * cantidad) y el número total de líneas:
+
+```
+{"_id": "Ade", "total_gastado": 90, "lineas_compradas": 2}
+{"_id": "Pol", "total_gastado": 245, "lineas_compradas": 8}
+```
+
+En este caso, los `lookup` y `unwind` serán los mismos que en la consulta anterior pero en vez de una proyección necesitamos un agrupamiento. Este es el código:
+
+```kotlin
+    Document("\$group", Document()
+        .append("_id", "\$cliente.nombre")
+        .append("total_gastado", Document("\$sum",
+            Document("\$multiply", listOf("\$precio", "\$cantidad"))
+        ))
+        .append("lineas_compradas", Document("\$sum", 1))
+    )
+```
+
+
+**Consulta 4: Plantas más vendidas con clientes compradores**
+
+En este caso vamos a obtener la información ordenada de las plantas que se han vendido junto a los clientes que las han comprado. El listado (sin formatear) es el sigueinte:
+
+```
+{"_id": "Clavel", "total_vendida": 5, "clientes": ["Ade", "Pol"]}
+{"_id": "Romero", "total_vendida": 5, "clientes": ["Pol"]}
+{"_id": "Aloe", "total_vendida": 4, "clientes": ["Pol"]}
+{"_id": "Ficus", "total_vendida": 3, "clientes": ["Ade", "Pol"]}
+{"_id": "Lavanda", "total_vendida": 2, "clientes": ["Pol"]}
+{"_id": "dfdfdfd", "total_vendida": 2, "clientes": ["Pol"]}
+```
+
+Para obtener la información de esta forma el código necesario, además de los `lookup` y `unwind` es el siguiente:
+
+```kotlin
+Document("\$group", Document()
+    .append("_id", "\$planta.nombre_comun")
+    .append("total_vendida", Document("\$sum", "\$cantidad"))
+    .append("clientes", Document("\$addToSet", "\$cliente.nombre"))
+),
+Document("\$sort", Document("total_vendida", -1))
+```
+
+
+!!! success "Prueba y analiza el ejemplo 11"
+    Prueba el código de las consultas del ejemplo y verifica que todas funcionan correctamente.
+
+
 !!! warning "Práctica 12: Trabaja con tu BD"
-    Programa una función parecida a la del ejemplo en la que tengas que realizar una consulta para extraer infromación de las dos colecciones de tu BD.
-
-!!! danger "Entrega 2"
-    Realiza lo siguiente:
-
-    1. Crea un fichero `README.md` dentro de la carpeta `main`. Su contenido debe ser un manual de usuario con los siguientes apartados:
+    1. Añade una nueva colección a tu BD.
+    2. Programa al menos tres funciones parecidas a las de los ejemplos. Formatea el resultado para que salga `bonito`.
+    3. Añade al menú de tu aplicación todas las opciones necesarias para poder ejecutar cada función.
+    4. Recuerda importar y exportar la nueva colección.
+    5. Crea un fichero `README.md` dentro de la carpeta `main`. Su contenido debe ser un manual de usuario con los siguientes apartados:
         * Descripción general.
-        * Requisitos. 
+        * Requisitos.
         * Base de datos.
         * Cómo ejecutar.
         * Opciones del programa y ejemplos de uso (salida por consola).
         * Notas importantes (si hay algo que destacar).
 
-    2. Asegúrate que tu aplicación exporta correctamente las dos colecciones de tu BD a dos archivos `.json` y que se guardan en la carpeta `resources` (consulta el apartado `Exportar / Importar la BD con Kotlin` al final de este documento). 
-        
-    3. Entrega en Aules la carpeta `main` de tu proyecto comprimida en formato .zip
+
+!!! danger "Entrega 2"
+    Realiza lo siguiente:
+
+    1. Asegúrate que tu aplicación exporta correctamente todas las colecciones de tu BD (cada una a un archivo `.json`) y que se guardan en la carpeta `resources` (consulta el apartado `Exportar / Importar la BD con Kotlin` al final de este documento).
+
+    2. Entrega en Aules la carpeta `main` de tu proyecto comprimida en formato .zip
 
     **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
 
