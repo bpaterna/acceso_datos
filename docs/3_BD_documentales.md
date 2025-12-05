@@ -1257,8 +1257,9 @@ fun mostrarFactura() {
 
 !!! warning "Práctica 11: Trabaja con tu BD"
     1. Añade una nueva colección a tu BD.
-    2. Programa una función parecida a la de los ejemplos en la que tengas que realizar una consulta para extraer información de las dos colecciones de tu BD.
-    3. Recuerda importar y exportar la nueva colección.
+    2. Añade al menú las operaciones CRUD.
+    3. Programa una función parecida a la de los ejemplos en la que tengas que realizar una consulta para extraer información de las dos colecciones de tu BD.
+    4. Recuerda importar y exportar la nueva colección.
 
 
 <span class="mis_ejemplos">Ejemplo 11: Trabajando con una tercera colección</span>
@@ -1406,10 +1407,11 @@ Document("\$sort", Document("total_vendida", -1))
 
 !!! warning "Práctica 12: Trabaja con tu BD"
     1. Añade una nueva colección a tu BD.
-    2. Programa al menos tres funciones parecidas a las de los ejemplos. Formatea el resultado para que salga `bonito`.
-    3. Añade al menú de tu aplicación todas las opciones necesarias para poder ejecutar cada función.
-    4. Recuerda importar y exportar la nueva colección.
-    5. Crea un fichero `README.md` dentro de la carpeta `main`. Su contenido debe ser un manual de usuario con los siguientes apartados:
+    2. Añade al menú las operaciones CRUD.
+    3. Programa al menos tres funciones parecidas a las de los ejemplos. Formatea el resultado para que salga `bonito`.
+    4. Añade al menú de tu aplicación todas las opciones necesarias para poder ejecutar cada función.
+    5. Recuerda importar y exportar la nueva colección.
+    6. Crea un fichero `README.md` dentro de la carpeta `main`. Su contenido debe ser un manual de usuario con los siguientes apartados:
         * Descripción general.
         * Requisitos.
         * Base de datos.
