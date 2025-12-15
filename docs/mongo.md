@@ -48,22 +48,21 @@ Si el servidor ha arrancado correctamente, aparecerán una serie de mensajes inf
 
 **Alternativa: Contenedor docker**
 
-Como alternativa al servidor en los ordenadores de clase podemos crear un contenedor con el servidor de MongoDB siguiendo estos pasos (los ordenadores ya tienen instalado Docker):
+Como alternativa al servidor en los ordenadores de clase podemos crear un contenedor con el servidor de MongoDB siguiendo estos pasos (los ordenadores de clase ya tienen instalado Docker):
 
 Podemos crearlo de dos formas:
 
-    1. Para quen se inicie cuando arranque el sistema:
+1. Para quen se inicie cuando arranque el sistema:
    `docker run --name [nombre_contenedor] -d -p 27017:27017 --restart unless-stopped mongo:4.4`
 
-    2. Iniciarlo manualmente cada vez que lo necesitemos:
+2. Iniciarlo manualmente cada vez que lo necesitemos:
 
-    Crearlo: `docker run --name [nombre_contenedor] -d -p 27017:27017 mongo:4.4`
+    - Crearlo: `docker run --name [nombre_contenedor] -d -p 27017:27017 mongo:4.4`
 
-    Iniciarlo: `docker start [nombre_contenedor]`
+    - Iniciarlo: `docker start [nombre_contenedor]`
 
 
 Para ver los contenedores (incluyendo los detenidos) podemos ejecutar el comando `docker ps -a`
-
   
 
 
