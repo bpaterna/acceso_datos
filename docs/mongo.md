@@ -59,7 +59,7 @@ Podemos crearlo de dos formas:
 
 Para ver los contenedores (incluyendo los detenidos): `docker ps -a`
 
-Para inicial un contenedor: `docker start [nombre_contenedor]`   
+Para iniciar un contenedor: `docker start [nombre_contenedor]`   
 
 
 <span class="mi_h3">Instalación del cliente Mongo Shell (Linux)</span>
@@ -83,7 +83,7 @@ Si aparecen las bases de datos (admin, config, local), todo está funcionando co
 ![Imagen Linux 4](img/mongo/mongo4.png)
 
 
-
+<!--
 <span class="mi_h3">Instalación del servidor (Windows)</span>
 
 Descargamos la versión apropiada para el sistema operativo con el que se está trabajando desde la página oficial de MongoDB: [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community) Para ello entramos al menú **Products → Community Edition → Community Server**. (Para la realización de estos apuntes se ha descargado la versión 8.2.1 para Windows de 64 bits en formato .msi)
@@ -129,7 +129,7 @@ Si aparecen las bases de datos (admin, config, local), todo está funcionando co
 
 ![Imagen Windows 7](img/mongo/mongoWIN6.jpg)
 
-
+-->
 
 
 <span class="mi_h3">Instalación de MongoDB en EC2 (AWS)</span>
