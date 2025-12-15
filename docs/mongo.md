@@ -6,6 +6,7 @@
 |----------|------------|-----------------------------------------|
 | 1.0      | 10-11-2025 | Adaptación de los materiales a markdown |
 | 1.1      | 15-11-2025 | Sección MongoDB en EC2 (AWS)            |
+| 1.2      | 15-12-2025 | Servidor en Docker                      |
 
 
 <span class="mi_h3">Opciones de instalación y despliegue</span>
@@ -43,6 +44,28 @@ Si el servidor ha arrancado correctamente, aparecerán una serie de mensajes inf
 
 !!!Note ""
     No se debe cerrar esa ventana de terminal, porque el servidor se detendría.
+
+
+**Alternativa: Contenedor docker**
+
+Como alternativa al servidor en los ordenadores de clase podemos crear un contenedor con el servidor de MongoDB siguiendo estos pasos (los ordenadores ya tienen instalado Docker):
+
+Podemos crearlo de dos formas:
+
+    1. Para quen se inicie cuando arranque el sistema:
+   `docker run --name [nombre_contenedor] -d -p 27017:27017 --restart unless-stopped mongo:4.4`
+
+    2. Iniciarlo manualmente cada vez que lo necesitemos:
+
+    Crearlo: `docker run --name [nombre_contenedor] -d -p 27017:27017 mongo:4.4`
+
+    Iniciarlo: `docker start [nombre_contenedor]`
+
+
+Para ver los contenedores (incluyendo los detenidos) podemos ejecutar el comando `docker ps -a`
+
+  
+
 
 <span class="mi_h3">Instalación del cliente Mongo Shell (Linux)</span>
 
