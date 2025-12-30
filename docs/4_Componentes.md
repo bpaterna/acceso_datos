@@ -103,7 +103,6 @@ En la siguiente tabla se recogen las anotaciones más importantes que utilizarem
 **Spring** es el framework completo; **Spring Boot** es la forma fácil y moderna de usar Spring. Tradicionalmente Spring era complicado de configurar, había que preparar servidores, XML, dependencias, etc. Spring Boot se enfoca en simplificar y acelerar el desarrollo de aplicaciones web y microservicios, ofreciendo una configuración automática y la capacidad de crear aplicaciones que se ejecutan de forma independiente sin necesidad de un servidor web externo.
 
 **Spring Boot** es una capa por encima de Spring que lo hace fácil:
-
 - configura todo automáticamente
 - trae un servidor web incorporado
 - evita escribir XML
@@ -112,7 +111,6 @@ En la siguiente tabla se recogen las anotaciones más importantes que utilizarem
 - permite crear proyectos en segundos
 
 **Pasos para crear una aplicación con Spring Boot**
-
 1. Crear un proyecto Maven/Gradle y descargar las dependencias necesarias. 
 2. Desarrollar la aplicación
 3. Desplegar la aplicación en un servidor.
@@ -121,6 +119,7 @@ SpringBoot nace con la intención de simplificar los pasos 1 y 3 y que nos podam
 centrar en el desarrollo de nuestra aplicación. Eso lo hace a través de los archivos siguientes:
 
 - **applicantion.properties** que será donde configuraremos aspectos tales como las conexiones a base de datos o el puerto por donde acceder a nuestra aplicación por ejemplo. 
+- 
 - **pom.xml** en el que podemos ver todas las dependencias.
 
 
@@ -135,14 +134,12 @@ Para crear un proyecto Spring Boot hay dos opciones:
 
 El siguiente ejemplo crea una aplicación que saluda al usuario a través del navegador web:
 
-Creamos el proyecto con Spring Initializr. En este caso solo necesitaremos la dependenica **Spring Web**:
-
-     * Se utiliza para desarrollar aplicaciones web, ya sea basadas en REST o tradicionales con HTML dinámico.   
-     * Incluye un servidor web embebido (por defecto, Tomcat) para ejecutar la aplicación sin necesidad de configurarlo manualmente.   
-     * Facilita el manejo de rutas HTTP (GET, POST, PUT, DELETE, etc.) y parámetros de solicitud a través de métodos en los controladores.  
-     * Usa la biblioteca Jackson (incluida por defecto) para convertir automáticamente objetos Kotlin/Java a JSON y viceversa.  
-     * Ofrece herramientas para manejar errores y excepciones de forma global mediante @ControllerAdvice o controladores personalizados.
-
+Creamos el proyecto con Spring Initializr. En este caso solo necesitaremos la dependenica **Spring Web** que:
+* Se utiliza para desarrollar aplicaciones web, ya sea basadas en REST o tradicionales con HTML dinámico.   
+* Incluye un servidor web embebido (por defecto, Tomcat) para ejecutar la aplicación sin necesidad de configurarlo manualmente.   
+* Facilita el manejo de rutas HTTP (GET, POST, PUT, DELETE, etc.) y parámetros de solicitud a través de métodos en los controladores.  
+* Usa la biblioteca Jackson (incluida por defecto) para convertir automáticamente objetos Kotlin/Java a JSON y viceversa.  
+* Ofrece herramientas para manejar errores y excepciones de forma global mediante @ControllerAdvice o controladores personalizados.
 
 ![Spring 1](img/spring/spring01.jpg)
 
@@ -154,9 +151,7 @@ Vemos que, además de los archivos **applicantion.properties** y **pom.xml** se 
 
 Tambien vemos que aparece **runApplication** que es una función de extensión proporcionada por Spring Boot que sirve para lanzar la aplicación.
 
-Añadimos el código necesario para que nuestra aplicaciónenvíe un saludo
-
-Agregaremos el método sayHello() directamente a la clase principal, SaludoApplication, con todas las anotaciones e importaciones necesarias:
+Añadimos el código necesario para que nuestra aplicaciónenvíe un saludo, en este caso el método sayHello() directamente a la clase principal (SaludoApplication) con todas las anotaciones e importaciones necesarias:
 
 ```kotlin
 @SpringBootApplication
@@ -176,35 +171,36 @@ class SaludoApplication{
     * @ResponseBody: Indica que los métodos devolverán directamente el cuerpo de la respuesta (en este caso, texto plano en lugar de una vista HTML).
 
 * **@GetMapping("/hello")**: Es una anotación de Spring que indica que este método debe manejar las solicitudes HTTP GET que lleguen a la URL /hello.
-
     * Enlaza la URL /hello con el método sayHello.
-
     * Cada vez que se acceda a esa ruta en un navegador con un método GET, Spring ejecutará el método sayHello. Por ejemplo, al visitar <http://localhost:8080/hello> (asumiendo el puerto predeterminado 8080), este método será invocado.
 
 * **@RequestParam**: se usa para extraer un parámetro de la consulta (query parameter) enviado en la URL.
-
     * El método espera un parámetro de consulta llamado myName.
-
     * Si el cliente no incluye myName en la solicitud, el valor predeterminado será "World", gracias a defaultValue = "World".
 
-
-
-Al ejecutar la aplicación, la pestaña Consola muestra la salida de los mensajes de registro de Spring.
+    
+Al ejecutar la aplicación veremos por Consola la salida de los mensajes de registro de Spring.
 
 ![Spring 3](img/spring/spring03.jpg)
 
 
 !!!Note ""
-Si el puerto 8080 está ocupado aparecerá un mensaje diciento que no se puede iniciar el servidor Tomcat. Puedes cambiar el puerto, por ejemplo al 8888, añadiendo la sigueinte línea en el archivo `application.properties` (que se encuentra en la carpeta resources del proyecto):
-
+    Si el puerto 8080 está ocupado aparecerá un mensaje diciento que no se puede iniciar el servidor Tomcat. Puedes cambiar el puerto, por ejemplo al 8888, añadiendo la sigueinte línea en el archivo `application.properties` (que se encuentra en la carpeta resources del proyecto):
     ```
     server.port=8888
     ``` 
 
 
 
-Ahora si abres la dirección http://localhost:8080/hello en el navegador web a verás que tu aplicación responde con Hello World!.
+Una vez la aplicación está en ejecución, si se abre la dirección [http://localhost:8080/hello](http://localhost:8080/hello) en el navegador web la aplicación responde con Hello World!
 
+![Spring 4](img/spring/spring04.jpg)
+
+
+La aplicación también admite un parámetro, así si se abre 
+[http://localhost:8080/hello?myName=Atenea](http://localhost:8080/hello?myName=Atenea) el navegador muestra la siguiente respuesta:
+
+![Spring 5](img/spring/spring05.jpg)
 
 
 
