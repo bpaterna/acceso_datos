@@ -98,8 +98,6 @@ En la siguiente tabla se recogen las anotaciones más importantes que utilizarem
 
 
 
-
-
 ## 4.3. Spring Boot
 
 **Spring** es el framework completo; **Spring Boot** es la forma fácil y moderna de usar Spring. Tradicionalmente Spring era complicado de configurar, había que preparar servidores, XML, dependencias, etc. Spring Boot se enfoca en simplificar y acelerar el desarrollo de aplicaciones web y microservicios, ofreciendo una configuración automática y la capacidad de crear aplicaciones que se ejecutan de forma independiente sin necesidad de un servidor web externo.
@@ -135,9 +133,16 @@ Para crear un proyecto Spring Boot hay dos opciones:
 
 <span class="mis_ejemplos">Ejemplo 1: Saludo</span>
 
-El siguiente ejemplo crea una aplicación que saluda al usuario a través del navegador web.
+El siguiente ejemplo crea una aplicación que saluda al usuario a través del navegador web:
 
-Creamos el proyecto con Spring Initializr
+Creamos el proyecto con Spring Initializr. En este caso solo necesitaremos la dependenica **Spring Web**:
+
+     * Se utiliza para desarrollar aplicaciones web, ya sea basadas en REST o tradicionales con HTML dinámico.   
+     * Incluye un servidor web embebido (por defecto, Tomcat) para ejecutar la aplicación sin necesidad de configurarlo manualmente.   
+     * Facilita el manejo de rutas HTTP (GET, POST, PUT, DELETE, etc.) y parámetros de solicitud a través de métodos en los controladores.  
+     * Usa la biblioteca Jackson (incluida por defecto) para convertir automáticamente objetos Kotlin/Java a JSON y viceversa.  
+     * Ofrece herramientas para manejar errores y excepciones de forma global mediante @ControllerAdvice o controladores personalizados.
+
 
 ![Spring 1](img/spring/spring01.jpg)
 
@@ -145,9 +150,54 @@ Abrimos el proyecto con IntelliJ
 
 ![Spring 2](img/spring/spring02.jpg)
 
+Vemos que, además de los archivos **applicantion.properties** y **pom.xml** se ha creado automaticamente la clase **SaludoApplication** (y que aparece con la anotación **@SpringBootApplication**.
+
+Tambien vemos que aparece **runApplication** que es una función de extensión proporcionada por Spring Boot que sirve para lanzar la aplicación.
+
+Añadimos el código necesario para que nuestra aplicaciónenvíe un saludo
+
+Agregaremos el método sayHello() directamente a la clase principal, SaludoApplication, con todas las anotaciones e importaciones necesarias:
+
+```kotlin
+@SpringBootApplication
+@RestController
+class SaludoApplication{
+    @GetMapping("/hello")
+    fun sayHello(
+        @RequestParam(value = "myName", defaultValue = "World") name: String): String
+    {
+        return "Hello $name!"
+    }
+}
+```
+
+* **@RestController**: se utiliza para que Spring reconozca la clase como un controlador que maneja solicitudes HTTP. Combina:
+    * @Controller: Define la clase como un controlador web.
+    * @ResponseBody: Indica que los métodos devolverán directamente el cuerpo de la respuesta (en este caso, texto plano en lugar de una vista HTML).
+
+* **@GetMapping("/hello")**: Es una anotación de Spring que indica que este método debe manejar las solicitudes HTTP GET que lleguen a la URL /hello.
+
+    * Enlaza la URL /hello con el método sayHello.
+
+    * Cada vez que se acceda a esa ruta en un navegador con un método GET, Spring ejecutará el método sayHello. Por ejemplo, al visitar <http://localhost:8080/hello> (asumiendo el puerto predeterminado 8080), este método será invocado.
+
+* **@RequestParam**: se usa para extraer un parámetro de la consulta (query parameter) enviado en la URL.
+
+    * El método espera un parámetro de consulta llamado myName.
+
+    * Si el cliente no incluye myName en la solicitud, el valor predeterminado será "World", gracias a defaultValue = "World".
 
 
 
+Al ejecutar la aplicación, la pestaña Consola muestra la salida de los mensajes de registro de Spring.
+
+![Spring 3](img/spring/spring03.jpg)
+
+Si el puerto 8080 está ocupado aparecerá un mensaje diciento que no se puede iniciar el servidor Tomcat. Puedes cambiar el puerto, por ejemplo al 8888, añadiendo la sigueinte línea en el archivo `application.properties` (que se encuentra en la carpeta resources del proyecto):
+
+```
+server.port=8888
+``` 
 
 
 <!--
