@@ -193,11 +193,21 @@ Al ejecutar la aplicación, la pestaña Consola muestra la salida de los mensaje
 
 ![Spring 3](img/spring/spring03.jpg)
 
+
+!!!Note ""
 Si el puerto 8080 está ocupado aparecerá un mensaje diciento que no se puede iniciar el servidor Tomcat. Puedes cambiar el puerto, por ejemplo al 8888, añadiendo la sigueinte línea en el archivo `application.properties` (que se encuentra en la carpeta resources del proyecto):
 
-```
-server.port=8888
-``` 
+    ```
+    server.port=8888
+    ``` 
+
+
+
+Ahora si abres la dirección http://localhost:8080/hello en el navegador web a verás que tu aplicación responde con Hello World!.
+
+
+
+
 
 
 <!--
