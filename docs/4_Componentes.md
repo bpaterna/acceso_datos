@@ -8,44 +8,7 @@
 
 ## 4.1. Introducción
 
-Spring es un framework de código abierto para crear aplicaciones en Java o Kotlin de forma más fácil, rápida y ordenada. Facilita el trabajo de crear objetos, conectar clases, preparar la base de datos y configurar servidores. Se basa principalmente en dos ideas fundamentales:
-
-- **Inversión de Control (IoC):** Spring se encarga de crear y gestionar los objetos de la aplicación.
-
-- **Inyección de Dependencias (DI):** Spring coloca los objetos donde hacen falta automáticamente.
-
-
-Además de IoC y DI, Spring se basa en tres pilares prácticos:
-
-**1. Anotaciones: indican qué hace cada clase**
-
-| Anotación       | Descripción               |
-|-----------------|---------------------------|
-| @Controller     | muestra páginas           |
-| @RestController | devuelve JSON             |
-| @Service        | lógica de negocio         |
-| @Repository     | acceso a datos            |
-| @Entity         | tabla de la base de datos |
-
-
-**2. Autoconfiguración (Spring Boot): prepara el proyecto por ti**
-
-- Servidor web.
-
-- Conexión a base de datos.
-
-- Estructura de proyecto.
-
-- Dependencias necesarias.
-
-
-**3. Starters: paquetes listos para usar según lo que quieras hacer**
-
-| Starter                        | Descripción                   |
-|--------------------------------|-------------------------------|
-| spring-boot-starter-web        | para rutas y controladores    |
-| spring-boot-starter-data-jpa   | para BD y CRUD                |
-| spring-boot-starter-thymeleaf  | para páginas HTML             |
+Spring es un framework de código abierto para crear aplicaciones en Java o Kotlin de forma más fácil, rápida y ordenada. Facilita el trabajo de crear objetos, conectar clases, preparar la base de datos y configurar servidores.
 
 
 Los componentes principales de Spring Framework son:
@@ -61,43 +24,147 @@ Los componentes principales de Spring Framework son:
 
 
 
-## 4.2. Anotaciones
+Spring se basa principalmente en:
+
+- **Inversión de Control (IoC):** Se encarga de crear y gestionar los objetos de la aplicación.
+
+- **Inyección de Dependencias (DI):** Coloca los objetos donde hacen falta automáticamente.
+
+
+
+Además tiene tres pilares:
+
+**1. Autoconfiguración (Spring Boot): prepara el proyecto por ti**
+
+- Servidor web.
+
+- Conexión a base de datos.
+
+- Estructura de proyecto.
+
+- Dependencias necesarias.
+
+
+
+
+**2. Starters: paquetes listos para usar según lo que quieras hacer**
+
+| Starter                        | Descripción                   |
+|--------------------------------|-------------------------------|
+| spring-boot-starter-web        | para rutas y controladores    |
+| spring-boot-starter-data-jpa   | para BD y CRUD                |
+| spring-boot-starter-thymeleaf  | para páginas HTML             |
+
+
+
+
+**3. Anotaciones: indican qué hace cada clase**
+
+
+
 
 Las anotaciones son etiquetas especiales que se colocan encima de clases, funciones o atributos para decirle a Spring cómo debe comportarse con ese código. Las anotaciones son, por tanto, la forma en la que Spring entiende la aplicación. Spring tiene muchísimas anotaciones, porque es un framework muy grande y sirve para muchos tipos de proyectos (web MVC, microservicios, seguridad, batch, mensajería, etc.).
 
 En nuestro caso, como vamos a trabajar únicamente con Spring Boot, API REST, vistas HTML y JPA, no es necesario aprender todas las anotaciones que ofrece Spring. Basta con conocer un conjunto reducido de anotaciones básicas, suficientes para desarrollar un backend completo y funcional.
 
-En la siguiente tabla se recogen las anotaciones más importantes que utilizaremos a lo largo del tema. A medida que avancemos, irán apareciendo otras anotaciones adicionales que se introducirán solo cuando sean necesarias para la aplicación.
+En la siguiente tabla se recogen las anotaciones más importantes que utilizaremos a lo largo del tema (para API REST/vistas HTML + JPA). A medida que avancemos, irán apareciendo otras anotaciones adicionales que se introducirán solo cuando sean necesarias para la aplicación.
 
-**Tabla de anotaciones básicas en Spring (para API REST/vistas HTML + JPA)**
+**Anotaciones de arranque de la app**
 
-| Categoría               | Anotación                | Dónde se usa           | Para qué sirve                                                                                                      |
-| ----------------------- | ------------------------ | ---------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Anotación                | Dónde se usa           | Para qué sirve                          |
+| ------------------------ | ---------------------- | --------------------------------------- |
+| @SpringBootApplication | Clase principal        | Marca la clase de arranque de la aplicación Spring Boot y activa la auto-configuración y el escaneo de componentes |
+
+**Anotaciones API REST**
+
+| Anotación          | Dónde se usa | Para qué sirve |
+| ------------------ |--------------|----------------|
+| @RestController    | Clase            | Indica que la clase es un controlador REST y que los métodos devuelven directamente datos (normalmente JSON). |
+| @RequestMapping    | Clase o método   | Define la ruta base o una ruta concreta para acceder a un recurso                    |
+| @GetMapping        | Método           | Atiende peticiones HTTP **GET** (lectura de datos)                                   |
+| @PostMapping       | Método           | Atiende peticiones HTTP **POST** (creación de datos)                                 |
+| @PutMapping        | Método           | Atiende peticiones HTTP **PUT** (actualización de datos)                             |
+| @DeleteMapping     | Método           | Atiende peticiones HTTP **DELETE** (eliminación de datos)                            |
+| @RequestBody       | Parámetro        | Permite recibir datos enviados en el cuerpo de la petición (JSON)                    |
+| @PathVariable      | Parámetro        | Permite recoger valores de la URL (por ejemplo, un identificador)                    |
+
+
+**Anotaciones MVC (vistas)**
+
+| Anotación        | Dónde se usa | Para qué sirve |
+| ---------------- |--------------|----------------|
+| @Controller      | Clase        | Marca una clase como controlador MVC tradicional, devolviendo vistas (HTML con Thymeleaf)       |
+
+
+**Anotaciones de lógica de negocio**
+
+| Anotación       | Dónde se usa | Para qué sirve |
+| --------------- |--------------|----------------|
+| @Service        | Clase            | Marca una clase como servicio, donde se implementa la lógica de negocio                  |
+| @Autowired      | Atributo o constructor | Inyecta automáticamente una dependencia gestionada por Spring                      |
+
+
+**Anotaciones JPA / Base de datos**
+
+| Anotación       | Dónde se usa | Para qué sirve |
+| --------------- |--------------|----------------|
+| @Entity         | Clase        | Indica que la clase representa una tabla de la base de datos |
+| @Table          | Clase        | Define el nombre de la tabla asociada a la entidad  |
+| @Id             | Atributo     | Marca el atributo como clave primaria        |
+| @GeneratedValue | Atributo     | Indica que el valor de la clave primaria se genera automáticamente |
+| @Column         | Atributo     | Configura una columna de la tabla (nombre, restricciones, unicidad, etc.) |
+| @OneToMany      | Atributo     | Define una relación uno-a-muchos entre entidades   |
+| @ManyToOne      | Atributo     | Define una relación muchos-a-uno entre entidades    |
+| @JoinColumn     | Atributo     | Especifica la columna usada como clave foránea en una relación |
+
+
+
+**Anotaciones de acceso a datos**
+
+| Anotación   | Dónde se usa | Para qué sirve |
+| ----------- |--------------|----------------|
+| @Repository | Clase o interfaz | Indica que la clase o interfaz se encarga del acceso a datos y de la gestión de excepciones de base de datos |
+
+
+
+
+| Categoría               | Anotación                | Dónde se usa           | Para qué sirve                                                                   |
+| ----------------------- | ------------------------ | ---------------------- | -------------------------------------------------------------------------------- |
 | Arranque de la app   | `@SpringBootApplication` | Clase principal        | Marca la clase de arranque de la aplicación Spring Boot y activa la auto-configuración y el escaneo de componentes. |
-| API REST             | `@RestController`        | Clase                  | Indica que la clase es un controlador REST y que los métodos devuelven directamente datos (normalmente JSON).       |
-|                         | `@RequestMapping`        | Clase o método         | Define la ruta base o una ruta concreta para acceder a un recurso.                                                  |
-|                         | `@GetMapping`            | Método                 | Atiende peticiones HTTP **GET** (lectura de datos).                                                                 |
-|                         | `@PostMapping`           | Método                 | Atiende peticiones HTTP **POST** (creación de datos).                                                               |
-|                         | `@PutMapping`            | Método                 | Atiende peticiones HTTP **PUT** (actualización de datos).                                                           |
-|                         | `@DeleteMapping`         | Método                 | Atiende peticiones HTTP **DELETE** (eliminación de datos).                                                          |
-|                         | `@RequestBody`           | Parámetro              | Permite recibir datos enviados en el cuerpo de la petición (JSON).                                                  |
-|                         | `@PathVariable`          | Parámetro              | Permite recoger valores de la URL (por ejemplo, un identificador).                                                  |
-| MVC (vistas)        | `@Controller`            | Clase                  | Marca una clase como controlador MVC tradicional, devolviendo vistas (HTML con Thymeleaf).                          |
-| Lógica de negocio    | `@Service`               | Clase                  | Marca una clase como servicio, donde se implementa la lógica de negocio.                                            |
-|                         | `@Autowired`             | Atributo o constructor | Inyecta automáticamente una dependencia gestionada por Spring.                                                      |
-| JPA / Base de datos | `@Entity`                | Clase                  | Indica que la clase representa una tabla de la base de datos.                                                       |
-|                         | `@Table`                 | Clase                  | Define el nombre de la tabla asociada a la entidad.                                                                 |
-|                         | `@Id`                    | Atributo               | Marca el atributo como clave primaria.                                                                              |
-|                         | `@GeneratedValue`        | Atributo               | Indica que el valor de la clave primaria se genera automáticamente.                                                 |
-|                         | `@Column`                | Atributo               | Configura una columna de la tabla (nombre, restricciones, unicidad, etc.).                                          |
-|                         | `@OneToMany`             | Atributo               | Define una relación uno-a-muchos entre entidades.                                                                   |
-|                         | `@ManyToOne`             | Atributo               | Define una relación muchos-a-uno entre entidades.                                                                   |
-|                         | `@JoinColumn`            | Atributo               | Especifica la columna usada como clave foránea en una relación.                                                     |
-| Acceso a datos      | `@Repository`            | Clase o interfaz       | Indica que la clase o interfaz se encarga del acceso a datos y de la gestión de excepciones de base de datos.       |
+| API REST             | `@RestController`        | Clase                  | Indica que la clase es un controlador REST y que los métodos devuelven directamente datos (normalmente JSON). |
+|                         | `@RequestMapping`        | Clase o método         | Define la ruta base o una ruta concreta para acceder a un recurso.               |
+|                         | `@GetMapping`            | Método                 | Atiende peticiones HTTP **GET** (lectura de datos).                              |
+|                         | `@PostMapping`           | Método                 | Atiende peticiones HTTP **POST** (creación de datos).                            |
+|                         | `@PutMapping`            | Método                 | Atiende peticiones HTTP **PUT** (actualización de datos).                        |
+|                         | `@DeleteMapping`         | Método                 | Atiende peticiones HTTP **DELETE** (eliminación de datos).                       |
+|                         | `@RequestBody`           | Parámetro              | Permite recibir datos enviados en el cuerpo de la petición (JSON).               |
+|                         | `@PathVariable`          | Parámetro              | Permite recoger valores de la URL (por ejemplo, un identificador).               |
+| MVC (vistas)        | `@Controller`            | Clase                  | Marca una clase como controlador MVC tradicional, devolviendo vistas (HTML con Thymeleaf). |
+| Lógica de negocio    | `@Service`               | Clase                  | Marca una clase como servicio, donde se implementa la lógica de negocio.         |
+|                         | `@Autowired`             | Atributo o constructor | Inyecta automáticamente una dependencia gestionada por Spring.                   |
+| JPA / Base de datos | `@Entity`                | Clase                  | Indica que la clase representa una tabla de la base de datos.     |
+|                         | `@Table`                 | Clase                  | Define el nombre de la tabla asociada a la entidad.      |
+|                         | `@Id`                    | Atributo               | Marca el atributo como clave primaria.        |
+|                         | `@GeneratedValue`        | Atributo               | Indica que el valor de la clave primaria se genera automáticamente |
+|                         | `@Column`                | Atributo               | Configura una columna de la tabla (nombre, restricciones, unicidad, etc.).       |
+|                         | `@OneToMany`             | Atributo               | Define una relación uno-a-muchos entre entidades.    |
+|                         | `@ManyToOne`             | Atributo               | Define una relación muchos-a-uno entre entidades.      |
+|                         | `@JoinColumn`            | Atributo               | Especifica la columna usada como clave foránea en una relación.   |
+| Acceso a datos      | `@Repository`            | Clase o interfaz       | Indica que la clase o interfaz se encarga del acceso a datos y de la gestión de excepciones de base de datos. |
 
 
+<!--
+| Anotación       | Descripción               |
+|-----------------|---------------------------|
+| @Controller     | muestra páginas           |
+| @RestController | devuelve JSON             |
+| @Service        | lógica de negocio         |
+| @Repository     | acceso a datos            |
+| @Entity         | tabla de la base de datos |
 
-## 4.3. Spring Boot
+-->
+
+## 4.2. Spring Boot
 
 **Spring** es el framework completo y **Spring Boot** es la forma fácil y moderna de usar Spring. Se enfoca en simplificar y acelerar el desarrollo de aplicaciones web ya que:
 
