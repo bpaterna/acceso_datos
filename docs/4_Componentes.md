@@ -375,27 +375,8 @@ Spring se organiza siguiendo una arquitectura en capas en la que cada capa tiene
 
 
 
-**Correspondencia Spring ↔ MVC**
-
-| Capa Spring | MVC | Responsabilidad principal | Detalles                                                                                                                                                                           |
-|-----------|-----|---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Controller** | Controller | Gestiona las peticiones HTTP | • Recibe peticiones HTTP<br>• Extrae parámetros<br>• Llama a la capa Service<br>• Devuelve una vista o una respuesta (JSON)<br>**No contiene lógica de negocio ni acceso a datos** |
-| **Model (Entity)** | Model | Representa los datos del dominio | • Clases que modelan la información del negocio                                                                                                                                    |
-| **Service** | Model | Lógica de negocio | • Aplica reglas y validaciones<br>• Realiza operaciones del negocio<br>• Coordina repositorios                                                                                     |
-| **Repository** | Model | Persistencia de datos | • Acceso a la base de datos<br>• Operaciones CRUD<br>• Aísla la BD del resto de la aplicación                                                                                      |
-| **View** | View | Representación de los datos | • HTML (Thymeleaf, JSP) en apps web tradicionales<br>• JSON / XML en apps REST<br>**En REST, el JSON actúa como la vista**                                                         |
-
-
 ![MCV1](img/MVC2.png)
 
-
-**Anotaciones habituales por capa en Spring**
-
-| Capa MVC | Capas Spring incluidas | Anotaciones habituales | Función |
-|---------|------------------------|------------------------|--------|
-| <span style="color:#1f77b4"><b>Controller</b></span> | <span style="color:#1f77b4">Controller</span> | `@Controller`<br>`@RestController`<br>`@RequestMapping`<br>`@GetMapping`<br> `@RequestParam` <br> `@PostMapping`<br>`@PutMapping`<br>`@DeleteMapping` | Recibe peticiones HTTP, gestiona rutas y parámetros, llama a Service y devuelve la respuesta |
-| <span style="color:#2ca02c"><b>Model</b></span> | <span style="color:#2ca02c">Entity<br>Service<br>Repository</span> | `@Entity`, `@Table`, `@Id`<br>`@Service`, `@Transactional`<br>`@Repository` | Contiene los datos del dominio, la lógica de negocio y el acceso a la base de datos |
-| <span style="color:#ff7f0e"><b>View</b></span> | <span style="color:#ff7f0e">HTML / JSON</span> | *(sin anotaciones)* | Representa los datos al usuario (HTML o JSON) |
 
 
 
