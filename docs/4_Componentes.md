@@ -151,7 +151,7 @@ Una vez creado el proyecto tendremos las configuraciones y dependencias en los a
 - **pom.xml:** dependencias necesarias para que la aplicación funcione.
 
 
-<span class="mis_ejemplos">Ejemplo 1: Aplicación que saluda al usuario a través del navegador web</span>
+<span class="mis_ejemplos">Ejemplo 1: Aplicación que saluda al usuario utilizando Spring Boot</span>
 
 Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
 
@@ -379,7 +379,6 @@ Spring se organiza siguiendo una arquitectura en capas en la que cada capa tiene
 
 
 
-
 **Vista con Thymeleaf**
 
 Thymeleaf es un motor de plantillas que permite mezclar HTML con datos dinámicos proporcionados por el controlador en Spring MVC. Utiliza atributos especiales que comienzan con th: para manipular estos datos de forma dinámica. LA siguiente tabla muestra los atributos Thymeleaf más comunes:
@@ -469,6 +468,16 @@ Formulario:
 * th:action="@{/planta/editar/{id}(id=${planta.id})}" define la acción del formulario para editar la planta.
 
 
+<span class="mis_ejemplos">Ejemplo 2: Aplicación que muestra un listado de plantas utilizando Spring MVC</span>
+
+Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
+
+**PASO 1: Crear el proyecto**
+
+Para ello accedemos a Spring Initializr, indicamos el nombre de la aplicación y, en este caso, ademas de la dependencia **Spring Web** necesitamos también **Thymeleaf**
+
+
+![Spring 7](img/spring/spring07.jpg)
 
 
 
