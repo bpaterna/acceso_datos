@@ -8,9 +8,7 @@
 
 ## 4.1. Introducción
 
-Spring es un framework de código abierto para crear aplicaciones en Java o Kotlin de forma más fácil, rápida y ordenada.
-Facilita el trabajo de crear objetos, conectar clases, preparar la base de datos, configurar servidores.
-Spring se basa principalmente en dos ideas fundamentales:
+Spring es un framework de código abierto para crear aplicaciones en Java o Kotlin de forma más fácil, rápida y ordenada. Facilita el trabajo de crear objetos, conectar clases, preparar la base de datos y configurar servidores. Se basa principalmente en dos ideas fundamentales:
 
 - **Inversión de Control (IoC):** Spring se encarga de crear y gestionar los objetos de la aplicación.
 
@@ -31,10 +29,15 @@ Además de IoC y DI, Spring se basa en tres pilares prácticos:
 
 
 **2. Autoconfiguración (Spring Boot): prepara el proyecto por ti**
-- servidor web
-- conexión a BD
-- estructura de proyecto
-- dependencias necesarias
+
+- Servidor web.
+
+- Conexión a base de datos.
+
+- Estructura de proyecto.
+
+- Dependencias necesarias.
+
 
 **3. Starters: paquetes listos para usar según lo que quieras hacer**
 
@@ -60,13 +63,9 @@ Los componentes principales de Spring Framework son:
 
 ## 4.2. Anotaciones
 
-Las anotaciones son etiquetas especiales que se colocan encima de clases, funciones o atributos para decirle a Spring cómo debe comportarse con ese código. Las anotaciones son, por tanto, la forma en la que Spring entiende la aplicación.
+Las anotaciones son etiquetas especiales que se colocan encima de clases, funciones o atributos para decirle a Spring cómo debe comportarse con ese código. Las anotaciones son, por tanto, la forma en la que Spring entiende la aplicación. Spring tiene muchísimas anotaciones, porque es un framework muy grande y sirve para muchos tipos de proyectos (web MVC, microservicios, seguridad, batch, mensajería, etc.).
 
-Spring tiene muchísimas anotaciones, porque es un framework muy grande y sirve para muchos tipos de proyectos (web MVC, microservicios, seguridad, batch, mensajería, etc.).
-
-En nuestro caso, como vamos a trabajar únicamente con Spring Boot, API REST, vistas HTML y JPA, no es necesario aprender todas las anotaciones que ofrece Spring.
-
-Basta con conocer un conjunto reducido de anotaciones básicas, suficientes para desarrollar un backend completo y funcional.
+En nuestro caso, como vamos a trabajar únicamente con Spring Boot, API REST, vistas HTML y JPA, no es necesario aprender todas las anotaciones que ofrece Spring. Basta con conocer un conjunto reducido de anotaciones básicas, suficientes para desarrollar un backend completo y funcional.
 
 En la siguiente tabla se recogen las anotaciones más importantes que utilizaremos a lo largo del tema. A medida que avancemos, irán apareciendo otras anotaciones adicionales que se introducirán solo cuando sean necesarias para la aplicación.
 
@@ -102,30 +101,31 @@ En la siguiente tabla se recogen las anotaciones más importantes que utilizarem
 
 **Spring** es el framework completo y **Spring Boot** es la forma fácil y moderna de usar Spring. Se enfoca en simplificar y acelerar el desarrollo de aplicaciones web ya que:
 
-- configura todo automáticamente
+- Configura todo automáticamente.
 
-- trae un servidor web incorporado (permite crear aplicaciones que se ejecutan de forma independiente sin necesidad de un servidor web externo)
+- Trae un servidor web incorporado (permite crear aplicaciones que se ejecutan de forma independiente sin necesidad de un servidor web externo).
 
-- evita escribir XML
+- Evita escribir XML.
 
-- permite arrancar una app con un botón
+- Permite arrancar una app con un botón.
 
-- usa starters (dependencias ya preparadas)
+- Usa starters (dependencias ya preparadas).
 
-- permite crear proyectos en segundos
+- Permite crear proyectos en segundos.
 
 
 **Pasos para crear una aplicación con Spring Boot**
 
-1. Crear el proyecto Maven/Gradle y descargar las dependencias necesarias. Para ello hay dos opciones:
+**1. Crear el proyecto Maven/Gradle y descargar las dependencias necesarias** 
+Para ello hay dos opciones:
 
-   - Crear un proyecto Spring Boot utilizando la herramienta Spring Initializr (https://start.spring.io/) la cual genera un proyecto base con la estructura de una aplicación Spring Boot en un archivo .zip que podemos abrir directamente desde un IDE.
+- Crear un proyecto Spring Boot utilizando la herramienta Spring Initializr (https://start.spring.io/) la cual genera un proyecto base con la estructura de una aplicación Spring Boot en un archivo .zip que podemos abrir directamente desde un IDE.
 
-   - Crear un proyecto Spring Boot utilizando un IDE que tenga instalados los plugins necesarios. En el caso de IntelliJ solamente es posible utilizar el plugin de Spring en la versión Ultimate.
+- Crear un proyecto Spring Boot utilizando un IDE que tenga instalados los plugins necesarios. En el caso de IntelliJ solamente es posible utilizar el plugin de Spring en la versión Ultimate.
 
-2. Desarrollar la aplicación.
+**2. Desarrollar la aplicación**
 
-3. Desplegar la aplicación en un servidor.
+**3. Desplegar la aplicación en un servidor**
 
 
 **Spring Boot** nace con la intención de simplificar los pasos 1 y 3 y que nos podamos centrar en el desarrollo de nuestra aplicación. Eso lo hace a través de los archivos siguientes:
@@ -196,10 +196,10 @@ class SaludoApplication{
 
 * **@GetMapping("/hello")**: Es una anotación de Spring que indica que este método debe manejar las solicitudes HTTP GET que lleguen a la URL /hello.
     * Enlaza la URL /hello con el método sayHello.
-    * Cada vez que se acceda a esa ruta en un navegador con un método GET, Spring ejecutará el método sayHello. Por ejemplo, al visitar <http://localhost:8080/hello> (asumiendo el puerto predeterminado 8080), este método será invocado.
+    * Cada vez que se acceda a la ruta http://localhost:8080/hello (asumiendo el puerto predeterminado 8080) en un navegador con un método GET, Spring ejecutará el método `sayHello`.
 
 * **@RequestParam**: se usa para extraer un parámetro de la consulta (query parameter) enviado en la URL.
-    * El método espera un parámetro de consulta llamado myName.
+    * El método espera un parámetro de consulta llamado `myName`.
     * Si el cliente no incluye myName en la solicitud, el valor predeterminado será "World", gracias a defaultValue = "World".
 
 **PASO 4: Volvemos a ejecutar la aplicación**
@@ -209,7 +209,7 @@ Ejecutamos la aplicación para levantar el servidor Tomacat y abrimos la direcci
 ![Spring 4](img/spring/spring04.jpg)
 
 
-La aplicación también admite un parámetro, así si se abre 
+La aplicación también admite un parámetro, si abrimos 
 [http://localhost:8080/hello?myName=Atenea](http://localhost:8080/hello?myName=Atenea) el navegador muestra la siguiente respuesta:
 
 ![Spring 5](img/spring/spring05.jpg)
@@ -243,7 +243,7 @@ Los pasos que sigue la ejecución de la aplicación son los siguientes:
 
 - **Inicio de la aplicación:** Se ejecuta el método main, lo que inicia un servidor web embebido (por defecto, `Tomcat`) en el puerto 8080.
 
-- **Solicitudes HTTP:**  En nuestro caso la aplicación solamente está disponible en `/hello` y Cuando un cliente envía una `solicitud GET` a [http://localhost:8080/hello](http://localhost:8080/hello) (con o sin el parámetro `myName`), el método `sayHello` maneja la solicitud. [http://localhost:8080](http://localhost:8080) dará error porque no hay ningún recurso raíz definido.
+- **Solicitudes HTTP:**  En nuestro caso la aplicación solamente está disponible en `/hello` y cuando un cliente envía una `solicitud GET` a [http://localhost:8080/hello](http://localhost:8080/hello) (con o sin el parámetro `myName`), el método `sayHello` maneja la solicitud. [http://localhost:8080](http://localhost:8080) dará error porque no hay ningún recurso raíz definido.
 
 - **Respuesta:**  La aplicación devuelve un mensaje personalizado en texto plano según el parámetro `myName`.
 
