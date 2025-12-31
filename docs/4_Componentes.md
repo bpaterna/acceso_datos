@@ -12,9 +12,9 @@ Spring es un framework de código abierto para crear aplicaciones en Java o Kotl
 Facilita el trabajo de crear objetos, conectar clases, preparar la base de datos, configurar servidores.
 Spring se basa principalmente en dos ideas fundamentales:
 
-- Inversión de Control (IoC): Spring se encarga de crear y gestionar los objetos de la aplicación.
+- **Inversión de Control (IoC):** Spring se encarga de crear y gestionar los objetos de la aplicación.
 
-- Inyección de Dependencias (DI): Spring coloca los objetos donde hacen falta automáticamente.
+- **Inyección de Dependencias (DI):** Spring coloca los objetos donde hacen falta automáticamente.
 
 
 Además de IoC y DI, Spring se basa en tres pilares prácticos:
@@ -100,29 +100,35 @@ En la siguiente tabla se recogen las anotaciones más importantes que utilizarem
 
 ## 4.3. Spring Boot
 
-**Spring** es el framework completo; **Spring Boot** es la forma fácil y moderna de usar Spring. Tradicionalmente Spring era complicado de configurar, había que preparar servidores, XML, dependencias, etc. Spring Boot se enfoca en simplificar y acelerar el desarrollo de aplicaciones web y microservicios, ofreciendo una configuración automática y la capacidad de crear aplicaciones que se ejecutan de forma independiente sin necesidad de un servidor web externo.
+**Spring** es el framework completo y **Spring Boot** es la forma fácil y moderna de usar Spring. Se enfoca en simplificar y acelerar el desarrollo de aplicaciones web ya que:
 
-**Spring Boot** es una capa por encima de Spring que lo hace fácil:
 - configura todo automáticamente
-- trae un servidor web incorporado
+
+- trae un servidor web incorporado (permite crear aplicaciones que se ejecutan de forma independiente sin necesidad de un servidor web externo)
+
 - evita escribir XML
+
 - permite arrancar una app con un botón
+
 - usa starters (dependencias ya preparadas)
+
 - permite crear proyectos en segundos
+
 
 **Pasos para crear una aplicación con Spring Boot**
 
-1. Crear un proyecto Maven/Gradle y descargar las dependencias necesarias. Para crear un proyecto Spring Boot hay dos opciones:
+1. Crear el proyecto Maven/Gradle y descargar las dependencias necesarias. Para ello hay dos opciones:
 
-- Mediante la herramienta Spring Initializr (https://start.spring.io/) la cual genera un proyecto base con la estructura de una aplicación Spring Boot en un archivo .zip que podemos abrir directamente desde un IDE.
+   - Crear un proyecto Spring Boot utilizando la herramienta Spring Initializr (https://start.spring.io/) la cual genera un proyecto base con la estructura de una aplicación Spring Boot en un archivo .zip que podemos abrir directamente desde un IDE.
 
-- Mediante un IDE teniendo instalados los plugins necesarios. En el caso de IntelliJ solamente es posible utilizar el plugin de Spring en la versión Ultimate.
+   - Crear un proyecto Spring Boot utilizando un IDE que tenga instalados los plugins necesarios. En el caso de IntelliJ solamente es posible utilizar el plugin de Spring en la versión Ultimate.
 
-2. Desarrollar la aplicación
+2. Desarrollar la aplicación.
 
 3. Desplegar la aplicación en un servidor.
 
-SpringBoot nace con la intención de simplificar los pasos 1 y 3 y que nos podamos centrar en el desarrollo de nuestra aplicación. Eso lo hace a través de los archivos siguientes:
+
+**Spring Boot** nace con la intención de simplificar los pasos 1 y 3 y que nos podamos centrar en el desarrollo de nuestra aplicación. Eso lo hace a través de los archivos siguientes:
 
 - **applicantion.properties** que será donde configuraremos aspectos tales como las conexiones a base de datos o el puerto por donde acceder a nuestra aplicación por ejemplo. 
 
@@ -137,20 +143,20 @@ Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
 
 Para ello accedemos a Spring Initializr, indicamos el nombre de la aplicación y añadimos la dependencia **Spring Web** que:
 
-* Se utiliza para desarrollar aplicaciones web, ya sea basadas en REST o tradicionales con HTML dinámico.   
+- Se utiliza para desarrollar aplicaciones web, ya sea basadas en REST o tradicionales con HTML dinámico.   
 
-* Incluye un servidor web embebido (por defecto, Tomcat) para ejecutar la aplicación sin necesidad de configurarlo manualmente.   
+- Incluye un servidor web embebido (por defecto, Tomcat) para ejecutar la aplicación sin necesidad de configurarlo manualmente.   
 
-* Facilita el manejo de rutas HTTP (GET, POST, PUT, DELETE, etc.) y parámetros de solicitud a través de métodos en los controladores.  
+- Facilita el manejo de rutas HTTP (GET, POST, PUT, DELETE, etc.) y parámetros de solicitud a través de métodos en los controladores.  
 
-* Usa la biblioteca Jackson (incluida por defecto) para convertir automáticamente objetos Kotlin/Java a JSON y viceversa.  
+- Usa la biblioteca Jackson (incluida por defecto) para convertir automáticamente objetos Kotlin/Java a JSON y viceversa.  
 
-* Ofrece herramientas para manejar errores y excepciones de forma global mediante @ControllerAdvice o controladores personalizados.
+- Ofrece herramientas para manejar errores y excepciones de forma global mediante @ControllerAdvice o controladores personalizados.
 
 ![Spring 1](img/spring/spring01.jpg)
 
 
-**PASO 2: Ebrir el proyecto y ejecutarlo**
+**PASO 2: Abrir el proyecto y ejecutarlo**
 
 Abrimos el proyecto con IntelliJ. Vemos que, además de los archivos **applicantion.properties** y **pom.xml** se ha creado automaticamente la clase **SaludoApplication** (con la anotación **@SpringBootApplication**) y la función de extensión **runApplication** que sirve para lanzar la aplicación.
 
@@ -196,6 +202,7 @@ class SaludoApplication{
     * El método espera un parámetro de consulta llamado myName.
     * Si el cliente no incluye myName en la solicitud, el valor predeterminado será "World", gracias a defaultValue = "World".
 
+**PASO 4: Volvemos a ejecutar la aplicación**
 
 Ejecutamos la aplicación para levantar el servidor Tomacat y abrimos la dirección [http://localhost:8080/hello](http://localhost:8080/hello) en el navegador web. La aplicación responde con Hello World!
 
@@ -208,34 +215,43 @@ La aplicación también admite un parámetro, así si se abre
 ![Spring 5](img/spring/spring05.jpg)
 
 
-**PASO 4: Entender el funcionamiento**
+**PASO 5: Entender el funcionamiento**
 
 Spring Boot está configurado para servir automáticamente cualquier archivo colocado en:
-    - static/
-    - public/
-    - resources/
-    - META-INF/resources/
+
+- static/
+
+- public/
+
+- resources/
+
+- META-INF/resources/
+
 
 Esto significa que al poner un archivo estático ahí:
-    - el servidor embebido (Tomcat) lo devuelve tal cual
-    - no pasa por ningún controlador
-    - no necesita anotaciones 
-    - no tienes que hacer un @GetMapping.  
+
+- el servidor embebido (Tomcat) lo devuelve tal cual.
+
+- no pasa por ningún controlador.
+
+- no necesita anotaciones.
+
+- no tienes que hacer un @GetMapping.  
 
 
 Los pasos que sigue la ejecución de la aplicación son los siguientes:
 
-* **Inicio de la aplicación:** Se ejecuta el método main, lo que inicia un servidor web embebido (por defecto, `Tomcat`) en el puerto 8080.
+- **Inicio de la aplicación:** Se ejecuta el método main, lo que inicia un servidor web embebido (por defecto, `Tomcat`) en el puerto 8080.
 
-* **Solicitudes HTTP:**  En nuestro caso la aplicación solamente está disponible en `/hello` y Cuando un cliente envía una `solicitud GET` a [http://localhost:8080/hello](http://localhost:8080/hello) (con o sin el parámetro `myName`), el método `sayHello` maneja la solicitud. [http://localhost:8080](http://localhost:8080) dará error porque no hay ningún recurso raíz definido.
+- **Solicitudes HTTP:**  En nuestro caso la aplicación solamente está disponible en `/hello` y Cuando un cliente envía una `solicitud GET` a [http://localhost:8080/hello](http://localhost:8080/hello) (con o sin el parámetro `myName`), el método `sayHello` maneja la solicitud. [http://localhost:8080](http://localhost:8080) dará error porque no hay ningún recurso raíz definido.
 
-* **Respuesta:**  La aplicación devuelve un mensaje personalizado en texto plano según el parámetro `myName`.
+- **Respuesta:**  La aplicación devuelve un mensaje personalizado en texto plano según el parámetro `myName`.
 
 
 
-**PASO 5: Añadir una página de inicio HTML** 
+**PASO 6: Añadir una página de inicio HTML** 
 
-Para ello hay que crear el archivo `index.html` en `/src/main/resources/static/` y sustituir su contenido por:
+Creamos el archivo `index.html` en `/src/main/resources/static/` y sustituimos su contenido por:
 
 ```html
 <!DOCTYPE HTML>
@@ -258,16 +274,16 @@ Para ello hay que crear el archivo `index.html` en `/src/main/resources/static/`
 </html>
 ```
 
-Ahora la aplicación ya se ejecuta en [http://localhost:8080/](http://localhost:8080/) y servirá index.html como recurso raíz.
+Ahora la aplicación ya se ejecutará en [http://localhost:8080/](http://localhost:8080/) y servirá index.html como recurso raíz.
 
 
-![Spring 5](img/spring/spring05.jpg)
+![Spring 6](img/spring/spring06.jpg)
 
 
 
 !!! success "Prueba y analiza el ejemplo 1"
     1. Crea tu primer proyecto Stpring Boot.
-    2. Prueba el código de ejemplo y verifica que funciona correctamente.
+    2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
 
 
 
