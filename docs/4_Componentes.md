@@ -304,7 +304,6 @@ Ahora la aplicación ya se ejecutará en [http://localhost:8080/](http://localho
 
 
 
-
 ## 4.3. Spring MVC
 
 **Spring MVC** es el módulo de Spring orientado al desarrollo de aplicaciones web siguiendo el patrón **Modelo‑Vista‑Controlador**.
@@ -338,7 +337,7 @@ El **Modelo-Vista-Controlador (MVC)** es un patrón de diseño que organiza una 
     * Seleccionar y devolver la vista adecuada para responder al usuario.
 
 
-FALTA imagen modelo-controlador
+
 ![MCV1](img/MVC1.png)
 
 
@@ -366,20 +365,28 @@ Spring se organiza siguiendo una arquitectura en capas en la que cada capa tiene
 - Capa View (Representación)
 
 
+**Anotaciones por capa y correspondencia Spring ↔ MVC**
+
+| Capa MVC | Capas Spring incluidas | Anotaciones habituales | Función                                                                                                                                                                                                                                     |
+|---------|------------------------|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Controller | Controller | `@Controller`<br>`@RestController`<br>`@RequestMapping`<br>`@GetMapping`<br> `@RequestParam` <br> `@PostMapping`<br>`@PutMapping`<br>`@DeleteMapping` | Recibe peticiones HTTP, gestiona rutas y parámetros, llama a Service y devuelve la respuesta<br>• Gestiona las peticiones HTTP<br>• Recibe peticiones HTTP<br>• Extrae parámetros<br>• Llama a la capa Service<br>• Devuelve una vista o una respuesta (JSON) **No contiene lógica de negocio ni acceso a datos**|
+| Model | Entity<br>Service<br>Repository | `@Entity`, `@Table`, `@Id`<br>`@Service`, `@Transactional`<br>`@Repository` | Contiene los datos del dominio, la lógica de negocio y el acceso a la base de datos<br>• Clases que modelan la información del negocio<br>• Aplica reglas y validaciones<br>• Realiza operaciones del negocio<br>• Coordina repositorios<br>• Acceso a la base de datos<br>• Operaciones CRUD<br>• Aísla la BD del resto de la aplicación|
+| View | HTML / JSON | *(sin anotaciones)* | Representa los datos al usuario (HTML o JSON)<br>• Con Thymeleaf / JSP 	(Archivo HTML con sintaxis específica para contenido dinámico) Ubicación (Thymeleaf): `src/main/resources/templates`<br>• Sin motor de plantillas (REST) (Datos en formato JSON / XML) |
+
+
 
 **Correspondencia Spring ↔ MVC**
 
-| Capa Spring | MVC | Responsabilidad principal | Detalles |
-|-----------|-----|---------------------------|----------|
-| **Controller** | <span style="color:#1f77b4"><b>Controller</b></span> | Gestiona las peticiones HTTP | • Recibe peticiones HTTP<br>• Extrae parámetros<br>• Llama a la capa Service<br>• Devuelve una vista o una respuesta (JSON)<br>📌 No contiene lógica de negocio ni acceso a datos |
-| **Model (Entity)** | <span style="color:#2ca02c"><b>Model</b></span> | Representa los datos del dominio | • Clases que modelan la información del negocio |
-| **Service** | <span style="color:#2ca02c"><b>Model</b></span> | Lógica de negocio | • Aplica reglas y validaciones<br>• Realiza operaciones del negocio<br>• Coordina repositorios |
-| **Repository** | <span style="color:#2ca02c"><b>Model</b></span> | Persistencia de datos | • Acceso a la base de datos<br>• Operaciones CRUD<br>• Aísla la BD del resto de la aplicación |
-| **View** | <span style="color:#ff7f0e"><b>View</b></span> | Representación de los datos | • HTML (Thymeleaf, JSP) en apps web tradicionales<br>• JSON / XML en apps REST<br>📌 En REST, el JSON actúa como la vista |
+| Capa Spring | MVC | Responsabilidad principal | Detalles                                                                                                                                                                           |
+|-----------|-----|---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Controller** | Controller | Gestiona las peticiones HTTP | • Recibe peticiones HTTP<br>• Extrae parámetros<br>• Llama a la capa Service<br>• Devuelve una vista o una respuesta (JSON)<br>**No contiene lógica de negocio ni acceso a datos** |
+| **Model (Entity)** | Model | Representa los datos del dominio | • Clases que modelan la información del negocio                                                                                                                                    |
+| **Service** | Model | Lógica de negocio | • Aplica reglas y validaciones<br>• Realiza operaciones del negocio<br>• Coordina repositorios                                                                                     |
+| **Repository** | Model | Persistencia de datos | • Acceso a la base de datos<br>• Operaciones CRUD<br>• Aísla la BD del resto de la aplicación                                                                                      |
+| **View** | View | Representación de los datos | • HTML (Thymeleaf, JSP) en apps web tradicionales<br>• JSON / XML en apps REST<br>**En REST, el JSON actúa como la vista**                                                         |
 
 
 ![MCV1](img/MVC2.png)
-
 
 
 **Anotaciones habituales por capa en Spring**
@@ -389,20 +396,6 @@ Spring se organiza siguiendo una arquitectura en capas en la que cada capa tiene
 | <span style="color:#1f77b4"><b>Controller</b></span> | <span style="color:#1f77b4">Controller</span> | `@Controller`<br>`@RestController`<br>`@RequestMapping`<br>`@GetMapping`<br> `@RequestParam` <br> `@PostMapping`<br>`@PutMapping`<br>`@DeleteMapping` | Recibe peticiones HTTP, gestiona rutas y parámetros, llama a Service y devuelve la respuesta |
 | <span style="color:#2ca02c"><b>Model</b></span> | <span style="color:#2ca02c">Entity<br>Service<br>Repository</span> | `@Entity`, `@Table`, `@Id`<br>`@Service`, `@Transactional`<br>`@Repository` | Contiene los datos del dominio, la lógica de negocio y el acceso a la base de datos |
 | <span style="color:#ff7f0e"><b>View</b></span> | <span style="color:#ff7f0e">HTML / JSON</span> | *(sin anotaciones)* | Representa los datos al usuario (HTML o JSON) |
-
-**La capa Vista**
-
-En Spring MVC, la vista puede ser un HTML generado con Thymeleaf o una respuesta JSON en una API REST; en ambos casos, cumple la función de View dentro del patrón MVC.
-
-
-| Aspecto | Descripción |
-|------|-------------|
-| Función | Representación de los datos |
-| Qué se devuelve | Depende del tipo de aplicación |
-| Con Thymeleaf / JSP | Archivo HTML con sintaxis específica para contenido dinámico |
-| Sin motor de plantillas (REST) | Datos en formato JSON / XML |
-| Anotaciones | No tiene anotaciones propias |
-| Ubicación (Thymeleaf) | `src/main/resources/templates` |
 
 
 
