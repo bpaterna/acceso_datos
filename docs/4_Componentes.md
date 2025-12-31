@@ -112,32 +112,30 @@ En la siguiente tabla se recogen las anotaciones más importantes que utilizarem
 
 **Pasos para crear una aplicación con Spring Boot**
 
-1. Crear un proyecto Maven/Gradle y descargar las dependencias necesarias. 
+1. Crear un proyecto Maven/Gradle y descargar las dependencias necesarias. Para crear un proyecto Spring Boot hay dos opciones:
+
+- Mediante la herramienta Spring Initializr (https://start.spring.io/) la cual genera un proyecto base con la estructura de una aplicación Spring Boot en un archivo .zip que podemos abrir directamente desde un IDE.
+
+- Mediante un IDE teniendo instalados los plugins necesarios. En el caso de IntelliJ solamente es posible utilizar el plugin de Spring en la versión Ultimate.
 
 2. Desarrollar la aplicación
 
 3. Desplegar la aplicación en un servidor.
 
-SpringBoot nace con la intención de simplificar los pasos 1 y 3 y que nos podamos
-centrar en el desarrollo de nuestra aplicación. Eso lo hace a través de los archivos siguientes:
+SpringBoot nace con la intención de simplificar los pasos 1 y 3 y que nos podamos centrar en el desarrollo de nuestra aplicación. Eso lo hace a través de los archivos siguientes:
 
 - **applicantion.properties** que será donde configuraremos aspectos tales como las conexiones a base de datos o el puerto por donde acceder a nuestra aplicación por ejemplo. 
 
 - **pom.xml** en el que podemos ver todas las dependencias.
 
 
-Para crear un proyecto Spring Boot hay dos opciones:
+<span class="mis_ejemplos">Ejemplo 1: Aplicación que saluda al usuario a través del navegador web</span>
 
-1. Crearlo mediante la herramienta Spring Initializr (https://start.spring.io/) la cual genera un proyecto base con la estructura de una aplicación Spring Boot en un archivo .zip que podemos abrir directamente desde un IDE.
+Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
 
-2. Mediante un IDE teniendo instalados los plugins necesarios. En el caso de IntelliJ solamente es posible utilizar el plugin de Spring en la versión Ultimate.
+**PASO 1: Crear el proyecto**
 
-
-<span class="mis_ejemplos">Ejemplo 1: Saludo</span>
-
-El siguiente ejemplo crea una aplicación que saluda al usuario a través del navegador web:
-
-Creamos el proyecto con Spring Initializr. En este caso solo necesitaremos la dependenica **Spring Web** que:
+Para ello accedemos a Spring Initializr, indicamos el nombre de la aplicación y añadimos la dependencia **Spring Web** que:
 
 * Se utiliza para desarrollar aplicaciones web, ya sea basadas en REST o tradicionales con HTML dinámico.   
 
@@ -151,22 +149,25 @@ Creamos el proyecto con Spring Initializr. En este caso solo necesitaremos la de
 
 ![Spring 1](img/spring/spring01.jpg)
 
-Abrimos el proyecto con IntelliJ. en él vemos que, además de los archivos **applicantion.properties** y **pom.xml** se ha creado automaticamente la clase **SaludoApplication** (con la anotación **@SpringBootApplication**) y la función de extensión proporcionada por Spring Boot que sirve para lanzar la aplicación **runApplication**.
+
+**PASO 2: Ebrir el proyecto y ejecutarlo**
+
+Abrimos el proyecto con IntelliJ. Vemos que, además de los archivos **applicantion.properties** y **pom.xml** se ha creado automaticamente la clase **SaludoApplication** (con la anotación **@SpringBootApplication**) y la función de extensión **runApplication** que sirve para lanzar la aplicación.
 
 ![Spring 2](img/spring/spring02.jpg)
-
-
 
 Al ejecutar la aplicación veremos por Consola la salida de los mensajes de registro de Spring.
 
 ![Spring 3](img/spring/spring03.jpg)
-
 
 !!!Note ""
     Si el puerto 8080 está ocupado aparecerá un mensaje diciento que no se puede iniciar el servidor Tomcat. Puedes cambiar el puerto, por ejemplo al 8888, añadiendo la sigueinte línea en el archivo `application.properties` (que se encuentra en la carpeta resources del proyecto):
     ```
     server.port=8888
     ```
+
+
+**PASO 3: Añadir el código para saludar**
 
 Añadimos el código necesario para que nuestra aplicación envíe un saludo directamente a la clase principal (SaludoApplication). En este caso es el método sayHello() con todas las anotaciones e importaciones necesarias:
 
@@ -207,15 +208,76 @@ La aplicación también admite un parámetro, así si se abre
 ![Spring 5](img/spring/spring05.jpg)
 
 
+**PASO 4: Entender el funcionamiento**
+
+Spring Boot está configurado para servir automáticamente cualquier archivo colocado en:
+    - static/
+    - public/
+    - resources/
+    - META-INF/resources/
+
+Esto significa que al poner un archivo estático ahí:
+    - el servidor embebido (Tomcat) lo devuelve tal cual
+    - no pasa por ningún controlador
+    - no necesita anotaciones 
+    - no tienes que hacer un @GetMapping.  
+
+
+Los pasos que sigue la ejecución de la aplicación son los siguientes:
+
+* **Inicio de la aplicación:** Se ejecuta el método main, lo que inicia un servidor web embebido (por defecto, `Tomcat`) en el puerto 8080.
+
+* **Solicitudes HTTP:**  En nuestro caso la aplicación solamente está disponible en `/hello` y Cuando un cliente envía una `solicitud GET` a [http://localhost:8080/hello](http://localhost:8080/hello) (con o sin el parámetro `myName`), el método `sayHello` maneja la solicitud. [http://localhost:8080](http://localhost:8080) dará error porque no hay ningún recurso raíz definido.
+
+* **Respuesta:**  La aplicación devuelve un mensaje personalizado en texto plano según el parámetro `myName`.
+
+
+
+**PASO 5: Añadir una página de inicio HTML** 
+
+Para ello hay que crear el archivo `index.html` en `/src/main/resources/static/` y sustituir su contenido por:
+
+```html
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Saludo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<a href="/hello">Link a saludar</a>
+
+<form action="/hello" method="GET" id="nameForm">
+    <div>
+        <label for="nameField">Indica tu nombre</label>
+        <input name="myName" id="nameField">
+        <button>Saludar</button>
+    </div>
+</form>
+</body>
+</html>
+```
+
+Ahora la aplicación ya se ejecuta en [http://localhost:8080/](http://localhost:8080/) y servirá index.html como recurso raíz.
+
+
+![Spring 5](img/spring/spring05.jpg)
+
+
+
+!!! success "Prueba y analiza el ejemplo 1"
+    1. Crea tu primer proyecto Stpring Boot.
+    2. Prueba el código de ejemplo y verifica que funciona correctamente.
+
+
+
+
+
+
 
 <!--
 
 <span class="mi_h3">Proyecto</span>
-
-
-
-
-
 
 
 
