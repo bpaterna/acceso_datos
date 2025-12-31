@@ -382,53 +382,91 @@ Spring se organiza siguiendo una arquitectura en capas en la que cada capa tiene
 
 **Vista con Thymeleaf**
 
-Si usas **Thymeleaf** para la vista, las anotaciones en los archivos de plantilla son prefijos para atributos de HTML. Estos prefijos permiten el manejo dinámico de datos en la vista.
-
-<u>Ejemplo</u>
-
-    <h1>Lista de Comarcas</h1>
-    <table>
-        <tr th:each="comarca : ${comarcas}">
-            <td th:text="${comarca.nombre}"></td>
-            <td th:text="${comarca.poblacion}"></td>
-        </tr>
-    </table>
+Thymeleaf es un motor de plantillas que permite mezclar HTML con datos dinámicos proporcionados por el controlador en Spring MVC. Utiliza atributos especiales que comienzan con th: para manipular estos datos de forma dinámica. LA siguiente tabla muestra los atributos Thymeleaf más comunes:
 
 
-A continuación, se detallan los elementos comunes de las vistas con **Thymeleaf**:
+| **Atributo**    | **Descripción**                                                                                        | **Ejemplo**                                                                                           |
+| --------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| **`th:text`**   | Rellena el contenido de un elemento HTML con un valor dinámico.                                        | `<p th:text="${mensaje}">Texto por defecto</p>`                                                       |
+| **`th:each`**   | Itera sobre una colección (lista, array, etc.) y genera un nuevo elemento HTML para cada item.         | `<ul><li th:each="planta : ${plantas}" th:text="${planta.nombre}">Nombre de la planta</li></ul>`      |
+| **`th:if`**     | Muestra el contenido solo si la condición es verdadera.                                                | `<p th:if="${hayPlantas}">Hay plantas registradas</p>`                                                |
+| **`th:unless`** | Muestra el contenido solo si la condición es falsa.                                                    | `<p th:unless="${hayPlantas}">No hay plantas registradas</p>`                                         |
+| **`th:href`**   | Construye enlaces dinámicos para el atributo `href` de un enlace `<a>`.                                | `<a th:href="@{/planta/{id}(id=${planta.id})}">Ver detalles</a>`                                      |
+| **`th:src`**    | Construye enlaces dinámicos para el atributo `src` de una imagen `<img>`.                              | `<img th:src="@{/imagenes/{nombreImagen}(nombreImagen=${planta.imagen})}" alt="Imagen de la planta">` |
+| **`th:action`** | Define la URL a la que se enviará un formulario cuando se haga submit.                                 | `<form th:action="@{/planta/guardar}" method="post"><button type="submit">Guardar</button></form>`    |
+| **`th:value`**  | Rellena el valor de un campo de formulario (`input`, `textarea`, etc.) con un valor dinámico.          | `<input type="text" th:value="${planta.nombre}" />`                                                   |
+| **`th:field`**  | Asocia un campo de formulario con un atributo del modelo de Spring, vincula los datos automáticamente. | `<input type="text" th:field="*{nombre}" />`                                                          |
 
-* **th:text**: Rellena el contenido de un elemento HTML con el valor dinámico.
 
-        <p th:text="${mensaje}">Mensaje por defecto</p>
 
-* **th:each**: Itera sobre una colección.
 
-        <ul>
-            <li th:each="item : ${items}" th:text="${item}"></li>
-        </ul>
+Ejemplo: Mostrar información sobre plantas usando todos los atributos
+Plantilla HTML (plantas.html)
 
->>>Esto genera una lista basada en los elementos de la colección items.
 
-* **th:if** y **th:unless**: Renderiza un contenido condicionalmente.
+```html
+<h1>Lista de Plantas</h1>
 
-        <p th:if="${condicion}">Esto se muestra si la condición es verdadera</p>
-        <p th:unless="${condicion}">Esto se muestra si la condición es falsa</p>
+<p th:if="${plantas.size() > 0}">Aquí tienes las plantas registradas:</p>
+<p th:unless="${plantas.size() > 0}">No hay plantas registradas en el sistema.</p>
 
-* **th:href** y **th:src**: Construye enlaces dinámicos para atributos como href o src.
+<ul>
+    <li th:each="planta : ${plantas}">
+        <!-- Mostrar nombre de la planta -->
+        <p th:text="${planta.nombre}">Nombre de la planta</p>
+        
+        <!-- Mostrar tipo de la planta -->
+        <p th:text="'Tipo: ' + ${planta.tipo}">Tipo de planta</p>
 
-        <a th:href="@{/ruta/{id}(id=${itemId})}">Ver detalle</a>
-        <img th:src="@{/imagenes/logo.png}" alt="Logo">
+        <!-- Mostrar altura de la planta -->
+        <p th:text="'Altura: ' + ${planta.altura} + ' metros'">Altura de la planta</p>
 
-* **th:action**: Define la URL para un formulario.
+        <!-- Mostrar enlace a la página de detalles de la planta -->
+        <a th:href="@{/planta/{id}(id=${planta.id})}">Ver detalles</a>
+        
+        <!-- Mostrar imagen de la planta -->
+        <img th:src="@{/imagenes/{nombreImagen}(nombreImagen=${planta.imagen})}" alt="Imagen de la planta">
 
-        <form th:action="@{/procesar}" method="post">
-            <input type="text" name="nombre">
-            <button type="submit">Enviar</button>
+        <!-- Formulario para editar planta -->
+        <form th:action="@{/planta/editar/{id}(id=${planta.id})}" method="get">
+            <button type="submit">Editar planta</button>
         </form>
+    </li>
+</ul>
+```
 
-* **th:value** y **th:field**: Usado para rellenar valores dinámicos en campos de formulario.
 
-        <input type="text" th:field="*{nombre}" />
+Explicación del ejemplo:
+
+Condicionales:
+
+* th:if muestra un mensaje si hay plantas registradas.
+
+* th:unless muestra un mensaje alternativo si no hay plantas.
+
+Iteración sobre la colección:
+
+* th:each="planta : ${plantas}" recorre la lista de plantas (plantas) y crea un <li> para cada planta.
+
+Mostrar datos dinámicos:
+
+* th:text="${planta.nombre}" muestra el nombre de la planta.
+
+* th:text="'Tipo: ' + ${planta.tipo}" concatena el texto "Tipo: " con el tipo de la planta.
+
+* th:text="'Altura: ' + ${planta.altura} + ' metros'" muestra la altura de la planta en metros.
+
+Enlaces dinámicos:
+
+* th:href="@{/planta/{id}(id=${planta.id})}" genera un enlace a la página de detalles de la planta usando el id de la planta.
+
+Imágenes dinámicas:
+
+* th:src="@{/imagenes/{nombreImagen}(nombreImagen=${planta.imagen})}" carga una imagen para la planta.
+
+Formulario:
+
+* th:action="@{/planta/editar/{id}(id=${planta.id})}" define la acción del formulario para editar la planta.
 
 
 
