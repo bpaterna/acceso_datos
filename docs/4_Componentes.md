@@ -10,7 +10,6 @@
 
 Spring es un framework de código abierto para crear aplicaciones en Java o Kotlin de forma más fácil, rápida y ordenada. Facilita el trabajo de crear objetos, conectar clases, preparar la base de datos y configurar servidores.
 
-
 Los componentes principales de Spring Framework son:
 
 | Componente      | Descripción                                                                             |
@@ -21,7 +20,6 @@ Los componentes principales de Spring Framework son:
 | Spring Data     | Simplifica el acceso a datos con soporte para JPA, MongoDB, Redis, entre otros          |
 | Spring Security | Proporciona herramientas para implementar seguridad en aplicaciones                     |
 | Spring Cloud    | Ayuda en la construcción de aplicaciones distribuidas y microservicios                  |
-
 
 
 Spring se basa principalmente en:
@@ -46,7 +44,6 @@ Además tiene tres pilares:
 
 
 
-
 **2. Starters: paquetes listos para usar según lo que quieras hacer**
 
 | Starter                        | Descripción                   |
@@ -57,11 +54,7 @@ Además tiene tres pilares:
 
 
 
-
 **3. Anotaciones: indican qué hace cada clase**
-
-
-
 
 Las anotaciones son etiquetas especiales que se colocan encima de clases, funciones o atributos para decirle a Spring cómo debe comportarse con ese código. Las anotaciones son, por tanto, la forma en la que Spring entiende la aplicación. Spring tiene muchísimas anotaciones, porque es un framework muy grande y sirve para muchos tipos de proyectos (web MVC, microservicios, seguridad, batch, mensajería, etc.).
 
@@ -118,7 +111,6 @@ En las siguientes tablas se recogen las anotaciones más importantes que utiliza
 | @JoinColumn     | Atributo     | Especifica la columna usada como clave foránea en una relación |
 
 
-
 **Anotaciones de acceso a datos**
 
 | Anotación   | Dónde se usa | Para qué sirve |
@@ -144,25 +136,19 @@ En las siguientes tablas se recogen las anotaciones más importantes que utiliza
 - Permite crear proyectos en segundos.
 
 
-**Pasos para crear una aplicación con Spring Boot**
+Para crear una aplicación con Spring Boot se necesitan 3 cosas: crear el proyecto, desarrollar la aplicación y desplegarla en un servisor. **Spring Boot** simplifica los pasos 1 y 3 para así poder centrar esfuerzos en el desarrollo.
 
-**1. Crear el proyecto Maven/Gradle y descargar las dependencias necesarias** 
-Para ello hay dos opciones:
+Para crear el proyecto Maven/Gradle y descargar las dependencias necesarias tenemos dos opciones:
 
 - Crear un proyecto Spring Boot utilizando la herramienta Spring Initializr (https://start.spring.io/) la cual genera un proyecto base con la estructura de una aplicación Spring Boot en un archivo .zip que podemos abrir directamente desde un IDE.
 
 - Crear un proyecto Spring Boot utilizando un IDE que tenga instalados los plugins necesarios. En el caso de IntelliJ solamente es posible utilizar el plugin de Spring en la versión Ultimate.
 
-**2. Desarrollar la aplicación**
+Una vez creado el proyecto tendremos las configuraciones y dependencias en los archivos siguientes:
 
-**3. Desplegar la aplicación en un servidor**
+- **applicantion.properties:** configuración de aspectos como las conexiones a base de datos o el puerto por donde acceder a nuestra aplicación.
 
-
-**Spring Boot** nace con la intención de simplificar los pasos 1 y 3 y que nos podamos centrar en el desarrollo de nuestra aplicación. Eso lo hace a través de los archivos siguientes:
-
-- **applicantion.properties** que será donde configuraremos aspectos tales como las conexiones a base de datos o el puerto por donde acceder a nuestra aplicación por ejemplo. 
-
-- **pom.xml** en el que podemos ver todas las dependencias.
+- **pom.xml:** dependencias necesarias para que la aplicación funcione.
 
 
 <span class="mis_ejemplos">Ejemplo 1: Aplicación que saluda al usuario a través del navegador web</span>
@@ -314,6 +300,161 @@ Ahora la aplicación ya se ejecutará en [http://localhost:8080/](http://localho
 !!! success "Prueba y analiza el ejemplo 1"
     1. Crea tu primer proyecto Stpring Boot.
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
+
+
+
+
+
+## 4.3. Spring MVC
+
+**Spring MVC** es el módulo de Spring orientado al desarrollo de aplicaciones web siguiendo el patrón **Modelo‑Vista‑Controlador**.
+
+El ejemplo visto en Spring Boot es tan sencillo que no necesita un patrón de diseño especial. Para aplicaciones más complejas necesitamos de un patrón que nos permita crear aplicaciones con un código bien estructurado y más fácil de modificar, así como reutilizar sus componentes en diferentes puntos de la aplicación y que puedan evolucionar de manera independiente.
+
+Spring MVC forma parte del ecosistema Spring y proporciona toda la infraestructura necesaria para manejar peticiones HTTP, invocar controladores y devolver vistas (HTML, JSON, etc.).
+
+El **Modelo-Vista-Controlador (MVC)** es un patrón de diseño que organiza una aplicación en tres **componentes principales**:
+
+* **Modelo**: Son los datos. Es responsable de:
+
+    * Gestionar el estado de la aplicación.
+
+    * Interactuar con la base de datos u otros servicios para obtener y procesar datos.
+
+    * Proveer datos a la vista.
+
+* **Vista**: Es lo que ve el usuario. Es responsable de:
+
+    * Renderizar información en un formato adecuado, como HTML.
+
+    * Mostrar al usuario los resultados de las acciones ejecutadas.
+
+* **Controlador**: Actúa como intermediario entre el modelo y la vista. Es responsable de:
+
+    * Procesar las solicitudes del usuario (peticiones HTTP).
+
+    * Interactuar con el modelo para obtener o modificar datos.
+
+    * Seleccionar y devolver la vista adecuada para responder al usuario.
+
+
+FALTA imagen modelo-controlador
+![MCV1](img/MVC1.png)
+
+
+Estos tres componentes trabajan de la siguiente forma:
+
+1) El usuario interactúa con la **Vista** (interfaz). Envia un formulario o hace clic en un enlace.
+
+2) La petición es enviada al **Controlador**.
+
+3) El **Controlador** procesa la petición, interactúa con el **Modelo** si es necesario y selecciona la **Vista** que debe renderizar la respuesta.
+
+4) La **Vista** presenta la respuesta al usuario.
+
+
+Spring se organiza siguiendo una arquitectura en capas en la que cada capa tiene una función concreta y se comunica únicamente con las capas adyacentes. Esto permite aplicaciones más mantenibles, escalables y fáciles de entender. Esta arquitectura encaja perfectamente con el patrón MVC (Model–View–Controller). Las capas más habituales en una aplicación Spring son:
+
+- Capa Controller (Web)
+
+- Capa Service (Negocio)
+
+- Capa Repository (Persistencia)
+
+- Capa Model (Dominio / Entidades)
+
+- Capa View (Representación)
+
+
+
+**Correspondencia Spring ↔ MVC**
+
+| Capa Spring | MVC | Responsabilidad principal | Detalles |
+|-----------|-----|---------------------------|----------|
+| **Controller** | <span style="color:#1f77b4"><b>Controller</b></span> | Gestiona las peticiones HTTP | • Recibe peticiones HTTP<br>• Extrae parámetros<br>• Llama a la capa Service<br>• Devuelve una vista o una respuesta (JSON)<br>📌 No contiene lógica de negocio ni acceso a datos |
+| **Model (Entity)** | <span style="color:#2ca02c"><b>Model</b></span> | Representa los datos del dominio | • Clases que modelan la información del negocio |
+| **Service** | <span style="color:#2ca02c"><b>Model</b></span> | Lógica de negocio | • Aplica reglas y validaciones<br>• Realiza operaciones del negocio<br>• Coordina repositorios |
+| **Repository** | <span style="color:#2ca02c"><b>Model</b></span> | Persistencia de datos | • Acceso a la base de datos<br>• Operaciones CRUD<br>• Aísla la BD del resto de la aplicación |
+| **View** | <span style="color:#ff7f0e"><b>View</b></span> | Representación de los datos | • HTML (Thymeleaf, JSP) en apps web tradicionales<br>• JSON / XML en apps REST<br>📌 En REST, el JSON actúa como la vista |
+
+
+![MCV1](img/MVC2.png)
+
+
+
+**Anotaciones habituales por capa en Spring**
+
+| Capa MVC | Capas Spring incluidas | Anotaciones habituales | Función |
+|---------|------------------------|------------------------|--------|
+| <span style="color:#1f77b4"><b>Controller</b></span> | <span style="color:#1f77b4">Controller</span> | `@Controller`<br>`@RestController`<br>`@RequestMapping`<br>`@GetMapping`<br> `@RequestParam` <br> `@PostMapping`<br>`@PutMapping`<br>`@DeleteMapping` | Recibe peticiones HTTP, gestiona rutas y parámetros, llama a Service y devuelve la respuesta |
+| <span style="color:#2ca02c"><b>Model</b></span> | <span style="color:#2ca02c">Entity<br>Service<br>Repository</span> | `@Entity`, `@Table`, `@Id`<br>`@Service`, `@Transactional`<br>`@Repository` | Contiene los datos del dominio, la lógica de negocio y el acceso a la base de datos |
+| <span style="color:#ff7f0e"><b>View</b></span> | <span style="color:#ff7f0e">HTML / JSON</span> | *(sin anotaciones)* | Representa los datos al usuario (HTML o JSON) |
+
+**La capa Vista**
+
+En Spring MVC, la vista puede ser un HTML generado con Thymeleaf o una respuesta JSON en una API REST; en ambos casos, cumple la función de View dentro del patrón MVC.
+
+
+| Aspecto | Descripción |
+|------|-------------|
+| Función | Representación de los datos |
+| Qué se devuelve | Depende del tipo de aplicación |
+| Con Thymeleaf / JSP | Archivo HTML con sintaxis específica para contenido dinámico |
+| Sin motor de plantillas (REST) | Datos en formato JSON / XML |
+| Anotaciones | No tiene anotaciones propias |
+| Ubicación (Thymeleaf) | `src/main/resources/templates` |
+
+
+
+**Vista con Thymeleaf**
+
+Si usas **Thymeleaf** para la vista, las anotaciones en los archivos de plantilla son prefijos para atributos de HTML. Estos prefijos permiten el manejo dinámico de datos en la vista.
+
+<u>Ejemplo</u>
+
+    <h1>Lista de Comarcas</h1>
+    <table>
+        <tr th:each="comarca : ${comarcas}">
+            <td th:text="${comarca.nombre}"></td>
+            <td th:text="${comarca.poblacion}"></td>
+        </tr>
+    </table>
+
+
+A continuación, se detallan los elementos comunes de las vistas con **Thymeleaf**:
+
+* **th:text**: Rellena el contenido de un elemento HTML con el valor dinámico.
+
+        <p th:text="${mensaje}">Mensaje por defecto</p>
+
+* **th:each**: Itera sobre una colección.
+
+        <ul>
+            <li th:each="item : ${items}" th:text="${item}"></li>
+        </ul>
+
+>>>Esto genera una lista basada en los elementos de la colección items.
+
+* **th:if** y **th:unless**: Renderiza un contenido condicionalmente.
+
+        <p th:if="${condicion}">Esto se muestra si la condición es verdadera</p>
+        <p th:unless="${condicion}">Esto se muestra si la condición es falsa</p>
+
+* **th:href** y **th:src**: Construye enlaces dinámicos para atributos como href o src.
+
+        <a th:href="@{/ruta/{id}(id=${itemId})}">Ver detalle</a>
+        <img th:src="@{/imagenes/logo.png}" alt="Logo">
+
+* **th:action**: Define la URL para un formulario.
+
+        <form th:action="@{/procesar}" method="post">
+            <input type="text" name="nombre">
+            <button type="submit">Enviar</button>
+        </form>
+
+* **th:value** y **th:field**: Usado para rellenar valores dinámicos en campos de formulario.
+
+        <input type="text" th:field="*{nombre}" />
 
 
 
