@@ -67,7 +67,7 @@ Las anotaciones son etiquetas especiales que se colocan encima de clases, funcio
 
 En nuestro caso, como vamos a trabajar únicamente con Spring Boot, API REST, vistas HTML y JPA, no es necesario aprender todas las anotaciones que ofrece Spring. Basta con conocer un conjunto reducido de anotaciones básicas, suficientes para desarrollar un backend completo y funcional.
 
-En la siguiente tabla se recogen las anotaciones más importantes que utilizaremos a lo largo del tema (para API REST/vistas HTML + JPA). A medida que avancemos, irán apareciendo otras anotaciones adicionales que se introducirán solo cuando sean necesarias para la aplicación.
+En las siguientes tablas se recogen las anotaciones más importantes que utilizaremos a lo largo del tema (para API REST/vistas HTML + JPA). A medida que avancemos, irán apareciendo otras anotaciones adicionales que se introducirán solo cuando sean necesarias para la aplicación.
 
 **Anotaciones de arranque de la app**
 
@@ -126,43 +126,6 @@ En la siguiente tabla se recogen las anotaciones más importantes que utilizarem
 | @Repository | Clase o interfaz | Indica que la clase o interfaz se encarga del acceso a datos y de la gestión de excepciones de base de datos |
 
 
-
-
-| Categoría               | Anotación                | Dónde se usa           | Para qué sirve                                                                   |
-| ----------------------- | ------------------------ | ---------------------- | -------------------------------------------------------------------------------- |
-| Arranque de la app   | `@SpringBootApplication` | Clase principal        | Marca la clase de arranque de la aplicación Spring Boot y activa la auto-configuración y el escaneo de componentes. |
-| API REST             | `@RestController`        | Clase                  | Indica que la clase es un controlador REST y que los métodos devuelven directamente datos (normalmente JSON). |
-|                         | `@RequestMapping`        | Clase o método         | Define la ruta base o una ruta concreta para acceder a un recurso.               |
-|                         | `@GetMapping`            | Método                 | Atiende peticiones HTTP **GET** (lectura de datos).                              |
-|                         | `@PostMapping`           | Método                 | Atiende peticiones HTTP **POST** (creación de datos).                            |
-|                         | `@PutMapping`            | Método                 | Atiende peticiones HTTP **PUT** (actualización de datos).                        |
-|                         | `@DeleteMapping`         | Método                 | Atiende peticiones HTTP **DELETE** (eliminación de datos).                       |
-|                         | `@RequestBody`           | Parámetro              | Permite recibir datos enviados en el cuerpo de la petición (JSON).               |
-|                         | `@PathVariable`          | Parámetro              | Permite recoger valores de la URL (por ejemplo, un identificador).               |
-| MVC (vistas)        | `@Controller`            | Clase                  | Marca una clase como controlador MVC tradicional, devolviendo vistas (HTML con Thymeleaf). |
-| Lógica de negocio    | `@Service`               | Clase                  | Marca una clase como servicio, donde se implementa la lógica de negocio.         |
-|                         | `@Autowired`             | Atributo o constructor | Inyecta automáticamente una dependencia gestionada por Spring.                   |
-| JPA / Base de datos | `@Entity`                | Clase                  | Indica que la clase representa una tabla de la base de datos.     |
-|                         | `@Table`                 | Clase                  | Define el nombre de la tabla asociada a la entidad.      |
-|                         | `@Id`                    | Atributo               | Marca el atributo como clave primaria.        |
-|                         | `@GeneratedValue`        | Atributo               | Indica que el valor de la clave primaria se genera automáticamente |
-|                         | `@Column`                | Atributo               | Configura una columna de la tabla (nombre, restricciones, unicidad, etc.).       |
-|                         | `@OneToMany`             | Atributo               | Define una relación uno-a-muchos entre entidades.    |
-|                         | `@ManyToOne`             | Atributo               | Define una relación muchos-a-uno entre entidades.      |
-|                         | `@JoinColumn`            | Atributo               | Especifica la columna usada como clave foránea en una relación.   |
-| Acceso a datos      | `@Repository`            | Clase o interfaz       | Indica que la clase o interfaz se encarga del acceso a datos y de la gestión de excepciones de base de datos. |
-
-
-<!--
-| Anotación       | Descripción               |
-|-----------------|---------------------------|
-| @Controller     | muestra páginas           |
-| @RestController | devuelve JSON             |
-| @Service        | lógica de negocio         |
-| @Repository     | acceso a datos            |
-| @Entity         | tabla de la base de datos |
-
--->
 
 ## 4.2. Spring Boot
 
