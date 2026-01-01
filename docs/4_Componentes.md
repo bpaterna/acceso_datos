@@ -374,9 +374,7 @@ Spring se organiza siguiendo una arquitectura en capas en la que cada capa tiene
 | View | HTML / JSON | *(sin anotaciones)* | Representa los datos al usuario:<br>• Archivo HTML con sintaxis específica para contenido dinámico si se utiliza Thymeleaf / JSP 	(Ubicación Thymeleaf: `src/main/resources/templates`)<br>• Datos en formato JSON / XML en apps REST (si no se utiliza un motor de plantillas). En REST, el JSON actúa como la vista  |
 
 
-
 ![MCV1](img/MVC2.png)
-
 
 
 **Vista con Thymeleaf**
@@ -396,14 +394,114 @@ Thymeleaf es un motor de plantillas que permite mezclar HTML con datos dinámico
 | **`th:value`**  | Rellena el valor de un campo de formulario (`input`, `textarea`, etc.) con un valor dinámico.          | `<input type="text" th:value="${planta.nombre}" />`                                                   |
 | **`th:field`**  | Asocia un campo de formulario con un atributo del modelo de Spring, vincula los datos automáticamente. | `<input type="text" th:field="*{nombre}" />`                                                          |
 
+A continuación veremos un ejemplo en el que se aplican algunos de estos atributos.
+
+<span class="mis_ejemplos">Ejemplo 2: Aplicación que muestra un listado de plantas utilizando Spring MVC</span>
+
+Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
+
+**PASO 1: Crear el proyecto**
+
+Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y, en este caso, ademas de la dependencia **Spring Web** necesitamos también **Thymeleaf**
+
+![Spring 7](img/spring/spring07.jpg)
 
 
+**PASO 2: Abrir el proyecto y comprobar**
 
-Ejemplo: Mostrar información sobre plantas usando todos los atributos
-Plantilla HTML (plantas.html)
+Abrimos el proyecto y comprobamos que la Clase Principal de la Aplicación en Kotlin `PlantasApplication.kt` se encuentra en la carpeta `/src/main/kotlin/com.example.plantas/` y que contiene el siguiente código:
 
+```kotlin
+package com.example.plantas
+
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
+
+@SpringBootApplication
+class PlantasApplication
+
+fun main(args: Array<String>) {
+	runApplication<PlantasApplication>(*args)
+}
+```
+
+**PASO 3: Añadir el controlador**
+
+Es quién manejará las solicitudes. Creamos el archivo `PlantaController.kt` dentro de la carpeta `/controller` con el código:
+
+```kotlin
+package com.example.plantas.controller
+
+import com.example.plantas.model.Planta
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+
+@Controller
+class PlantaController {
+
+
+    private val plantas = listOf(
+        Planta(1, "Rosa", "Flor", 0.5, "rosa.jpg"),
+        Planta(2, "Cactus", "Suculenta", 1.2, "cactus.jpg"),
+        Planta(3, "Orquídea", "Flor", 0.3, "orquidea.jpg")
+    )
+
+
+    @GetMapping("/plantas")
+    fun mostrarPlantas(model: Model): String {
+        model.addAttribute("plantas", plantas)
+        return "plantas" // vista de la lista de plantas (Nombre del archivo HTML en src/main/resources/templates)
+    }
+
+    // Detalles de una planta
+    @GetMapping("/planta/{id_planta}")
+    fun verPlanta(@PathVariable id_planta: Int, model: Model): String {
+        // Buscar la planta por id
+        val planta = plantas.find { it.id_planta == id_planta }
+
+        // Comprobamos si existe
+        if (planta == null) {
+            return "errorPlanta" // vista de error sencilla
+        }
+
+        model.addAttribute("planta", planta)
+        return "detallePlanta" // vista de detalle de una planta
+    }
+}
+```
+
+**PASO 4: Crear la Clase del Modelo**
+
+Representará un objeto planta. Creamos el archivo `Planta.kt` dentro de la carpeta `/model` con el código:
+
+```kotlin
+package com.example.plantas.model
+
+data class Planta(
+    val id_planta: Int,
+    val nombre: String,
+    val tipo: String,
+    val altura: Double,
+    val foto: String
+)
+```
+
+**PASO 5: Crear las Vistas con Thymeleaf**
+
+Para el ejemplo necesitamos tres vistas, una para la lista de plantas, otra para el detalle de una planta y una tercera de error. Por tanto tendremos tres archivos html todos ellos dentro de la carpeta `templates`.
+
+El archivo que mostrará la lista de plantas será `plantas.html` y su código es:
 
 ```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Plantas</title>
+</head>
+<body>
 <h1>Lista de Plantas</h1>
 
 <p th:if="${plantas.size() > 0}">Aquí tienes las plantas registradas:</p>
@@ -413,7 +511,7 @@ Plantilla HTML (plantas.html)
     <li th:each="planta : ${plantas}">
         <!-- Mostrar nombre de la planta -->
         <p th:text="${planta.nombre}">Nombre de la planta</p>
-        
+
         <!-- Mostrar tipo de la planta -->
         <p th:text="'Tipo: ' + ${planta.tipo}">Tipo de planta</p>
 
@@ -421,21 +519,68 @@ Plantilla HTML (plantas.html)
         <p th:text="'Altura: ' + ${planta.altura} + ' metros'">Altura de la planta</p>
 
         <!-- Mostrar enlace a la página de detalles de la planta -->
-        <a th:href="@{/planta/{id}(id=${planta.id})}">Ver detalles</a>
-        
-        <!-- Mostrar imagen de la planta -->
-        <img th:src="@{/imagenes/{nombreImagen}(nombreImagen=${planta.imagen})}" alt="Imagen de la planta">
-
-        <!-- Formulario para editar planta -->
-        <form th:action="@{/planta/editar/{id}(id=${planta.id})}" method="get">
-            <button type="submit">Editar planta</button>
-        </form>
+        <a th:href="@{/planta/{id_planta}(id_planta=${planta.id_planta})}">Ver detalles</a>
     </li>
 </ul>
+</body>
+</html>
+```
+
+El archivo que mostrará el detalle de una plantas será `detallePlanta.html` y su código es:
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles de la Planta</title>
+</head>
+<body>
+<h1 th:text="${planta.nombre}">Nombre de la planta</h1>
+<p th:text="'Tipo: ' + ${planta.tipo}">Tipo de planta</p>
+<p th:text="'Altura: ' + ${planta.altura} + ' metros'">Altura de la planta</p>
+<!-- Mostrar foto de la planta -->
+<img th:src="@{/fotos/{nombreImagen}(nombreImagen=${planta.foto})}" alt="Foto de la planta" style="width: 200px;">
+
+<p></p><a th:href="@{/plantas}">Volver a la lista de plantas</a></p>
+</body>
+</html>
+```
+
+El archivo que mostrará el aviso en caso de error será `errorPlanta.html` y su código es:
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Planta no encontrada</title>
+</head>
+<body>
+
+<h1>Error</h1>
+
+<p>La planta que estás buscando no existe.</p>
+
+<a th:href="@{/plantas}">Volver a la lista de plantas</a>
+
+</body>
+</html>
 ```
 
 
-Explicación del ejemplo:
+En este punto la estructura del proyecto debe ser la siguiente:
+
+![Spring 9](img/spring/spring09.jpg)
+
+
+
+**PASO 6: Ejecutar el proyecto**
+
+Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos en el navegador la url [http://localhost:8080/plantas](http://localhost:8080/plantas) para que aparezca la lista de plantas.
+
+
+**PASO 7: Explicación del ejemplo**
 
 Condicionales:
 
@@ -457,137 +602,17 @@ Mostrar datos dinámicos:
 
 Enlaces dinámicos:
 
-* th:href="@{/planta/{id}(id=${planta.id})}" genera un enlace a la página de detalles de la planta usando el id de la planta.
+* th:href="@{/planta/{id_planta}(id_planta=${planta.id_planta})}" genera un enlace a la página de detalles de la planta usando el id_planta de la planta.
 
 Imágenes dinámicas:
 
-* th:src="@{/imagenes/{nombreImagen}(nombreImagen=${planta.imagen})}" carga una imagen para la planta.
+* th:src="@{/fotos/{nombreImagen}(nombreImagen=${planta.foto})}" carga foto de la planta.
 
+<!--
 Formulario:
 
-* th:action="@{/planta/editar/{id}(id=${planta.id})}" define la acción del formulario para editar la planta.
-
-
-<span class="mis_ejemplos">Ejemplo 2: Aplicación que muestra un listado de plantas utilizando Spring MVC</span>
-
-Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
-
-**PASO 1: Crear el proyecto**
-
-Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y, en este caso, ademas de la dependencia **Spring Web** necesitamos también **Thymeleaf**
-
-
-![Spring 7](img/spring/spring07.jpg)
-
-
-**PASO 2: Abrir el proyecto y comprobar**
-
-Abrimos el proyecto y comprobamos que la Clase Principal de la Aplicación en Kotlin `PlantasApplication.kt` se encuentra en la carpeta `/src/main/kotlin/com.example.plantas/` y que contiene el siguiente código:
-
-
-```kotlin
-package com.example.plantas
-
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
-
-@SpringBootApplication
-class PlantasApplication
-
-fun main(args: Array<String>) {
-	runApplication<PlantasApplication>(*args)
-}
-```
-
-
-
-**PASO 3: Añadir el controlador**
-
-Es quién manejará las solicitudes. Creamos el archivo `PlantaController.kt` dentro de la carpeta `/controller` con el código:
-
-```kotlin
-package com.example.plantas.controller
-
-import com.example.plantas.model.Planta
-import org.springframework.stereotype.Controller
-import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-
-@Controller
-class PlantaController {
-
-    @GetMapping("/plantas")
-    fun mostrarPlantas(model: Model): String {
-        val plantas = listOf(
-            Planta("Rosa", "Flor", 0.5),
-            Planta("Cactus", "Suculenta", 1.2),
-            Planta("Orquídea", "Flor", 0.3)
-        )
-
-        model.addAttribute("plantas", plantas)
-        return "plantas" // Nombre del archivo HTML en src/main/resources/templates
-    }
-}
-```
-
-
-
-**PASO 4: Crear la Clase del Modelo**
-
-Representará un objeto planta. Creamos el archivo `Planta.kt` dentro de la carpeta `/model` con el código:
-
-```kotlin
-package com.example.plantas.model
-
-data class Planta(
-    val nombre: String,
-    val tipo: String,
-    val altura: Double
-)
-```
-
-
-**PASO 5: Crear la Vista con Thymeleaf**
-
-Es la vista que muestra la lista de plantas. Creamos el archivo `plantas.html` dentro de la carpeta `templates` con el código:
-
-```html
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Plantas</title>
-</head>
-<body>
-    <h1>Lista de Plantas</h1>
-
-    <p th:if="${plantas.size() > 0}">Aquí tienes las plantas registradas:</p>
-    <p th:unless="${plantas.size() > 0}">No hay plantas registradas en el sistema.</p>
-
-    <ul>
-        <li th:each="planta : ${plantas}">
-            <p th:text="${planta.nombre}">Nombre de la planta</p>
-            <p th:text="'Tipo: ' + ${planta.tipo}">Tipo de planta</p>
-            <p th:text="'Altura: ' + ${planta.altura} + ' metros'">Altura de la planta</p>
-        </li>
-    </ul>
-</body>
-</html>
-
-```
-
-
-En este punto la estructura del proyecto debe ser la siguiente:
-
-![Spring 9](img/spring/spring09.jpg)
-
-
-
-
-**PASO 6: Ejecutar el proyecto**
-Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos en el navegador la 
-
-Abrimos la url [http://localhost:8080/plantas](http://localhost:8080/plantas) en el navegador  para que aparezca la lista de plantas.
+* th:action="@{/planta/editar/{id_planta}(id_planta=${planta.id_planta})}" define la acción del formulario para editar la planta.
+-->
 
 
 
@@ -595,8 +620,6 @@ Abrimos la url [http://localhost:8080/plantas](http://localhost:8080/plantas) en
 <!--
 
 <span class="mi_h3">Proyecto</span>
-
-
 
 
 
