@@ -577,6 +577,13 @@ Es la vista que muestra la lista de plantas. Creamos el archivo `plantas.html` d
 ```
 
 
+En este punto la estructura del proyecto debe ser la siguiente:
+
+![Spring 9](img/spring/spring09.jpg)
+
+
+
+
 **PASO 6: Ejecutar el proyecto**
 Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos en el navegador la 
 
