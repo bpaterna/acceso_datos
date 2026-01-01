@@ -151,30 +151,33 @@ Una vez creado el proyecto tendremos las configuraciones y dependencias en los a
 - **pom.xml:** dependencias necesarias para que la aplicación funcione.
 
 
+**Dependencia Spring Web**
+
+- Se utiliza para desarrollar aplicaciones web, ya sea basadas en REST o tradicionales con HTML dinámico.
+
+- Incluye un servidor web embebido (por defecto, Tomcat) para ejecutar la aplicación sin necesidad de configurarlo manualmente.
+
+- Facilita el manejo de rutas HTTP (GET, POST, PUT, DELETE, etc.) y parámetros de solicitud a través de métodos en los controladores.
+
+- Usa la biblioteca Jackson (incluida por defecto) para convertir automáticamente objetos Kotlin/Java a JSON y viceversa.
+
+- Ofrece herramientas para manejar errores y excepciones de forma global mediante @ControllerAdvice o controladores personalizados.
+
+
 <span class="mis_ejemplos">Ejemplo 1: Aplicación que saluda al usuario utilizando Spring Boot</span>
 
 Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
 
 **PASO 1: Crear el proyecto**
 
-Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y añadimos la dependencia **Spring Web** que:
-
-- Se utiliza para desarrollar aplicaciones web, ya sea basadas en REST o tradicionales con HTML dinámico.   
-
-- Incluye un servidor web embebido (por defecto, Tomcat) para ejecutar la aplicación sin necesidad de configurarlo manualmente.   
-
-- Facilita el manejo de rutas HTTP (GET, POST, PUT, DELETE, etc.) y parámetros de solicitud a través de métodos en los controladores.  
-
-- Usa la biblioteca Jackson (incluida por defecto) para convertir automáticamente objetos Kotlin/Java a JSON y viceversa.  
-
-- Ofrece herramientas para manejar errores y excepciones de forma global mediante @ControllerAdvice o controladores personalizados.
+Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y añadimos la dependencia **Spring Web** y hacemos clic en el botón GENERATE. Esto hará que se descargue un archivo .zip con el proyecto ya creado. 
 
 ![Spring 1](img/spring/spring01.jpg)
 
 
 **PASO 2: Abrir el proyecto y ejecutarlo**
 
-Abrimos el proyecto con IntelliJ. Vemos que, además de los archivos **applicantion.properties** y **pom.xml** se ha creado automaticamente la clase **SaludoApplication** (con la anotación **@SpringBootApplication**) y la función de extensión **runApplication** que sirve para lanzar la aplicación.
+Descomprimimos el proyecto obtenido en el paso anterior y lo abrimos con IntelliJ. Vemos que, además de los archivos **applicantion.properties** y **pom.xml** se ha creado automaticamente la clase **SaludoApplication** (con la anotación **@SpringBootApplication**) y la función de extensión **runApplication** que sirve para lanzar la aplicación.
 
 ![Spring 2](img/spring/spring02.jpg)
 
@@ -296,11 +299,9 @@ Ahora la aplicación ya se ejecutará en [http://localhost:8080/](http://localho
 ![Spring 6](img/spring/spring06.jpg)
 
 
-
 !!! success "Prueba y analiza el ejemplo 1"
-    1. Crea tu primer proyecto Stpring Boot.
+    1. Crea tu primer proyecto Spring Boot utilizando Spring Initializr. 
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
-
 
 
 
@@ -377,10 +378,9 @@ Spring se organiza siguiendo una arquitectura en capas en la que cada capa tiene
 ![MCV1](img/MVC2.png)
 
 
-**Vista con Thymeleaf**
+**Vistas con Thymeleaf**
 
 Thymeleaf es un motor de plantillas que permite mezclar HTML con datos dinámicos proporcionados por el controlador en Spring MVC. Utiliza atributos especiales que comienzan con th: para manipular estos datos de forma dinámica. LA siguiente tabla muestra los atributos Thymeleaf más comunes:
-
 
 | **Atributo**    | **Descripción**                                                                                        | **Ejemplo**                                                                                           |
 | --------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
@@ -394,22 +394,22 @@ Thymeleaf es un motor de plantillas que permite mezclar HTML con datos dinámico
 | **`th:value`**  | Rellena el valor de un campo de formulario (`input`, `textarea`, etc.) con un valor dinámico.          | `<input type="text" th:value="${planta.nombre}" />`                                                   |
 | **`th:field`**  | Asocia un campo de formulario con un atributo del modelo de Spring, vincula los datos automáticamente. | `<input type="text" th:field="*{nombre}" />`                                                          |
 
-A continuación veremos un ejemplo en el que se aplican algunos de estos atributos.
+A continuación veremos un ejemplo en el que se utiliza Thymeleaf para mostrar información HTML.
 
-<span class="mis_ejemplos">Ejemplo 2: Aplicación que muestra un listado de plantas utilizando Spring MVC</span>
+<span class="mis_ejemplos">Ejemplo 2: Aplicación que muestra un listado de plantas utilizando Spring MVC y Thymeleaf</span>
 
 Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
 
 **PASO 1: Crear el proyecto**
 
-Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y, en este caso, ademas de la dependencia **Spring Web** necesitamos también **Thymeleaf**
+Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y, en este caso, ademas de la dependencia **Spring Web** necesitamos también **Thymeleaf**. Por último hacemos clic en el botón GENERATE para descargar nuestro nuevo proyecto.
 
 ![Spring 7](img/spring/spring07.jpg)
 
 
 **PASO 2: Abrir el proyecto y comprobar**
 
-Abrimos el proyecto y comprobamos que la Clase Principal de la Aplicación en Kotlin `PlantasApplication.kt` se encuentra en la carpeta `/src/main/kotlin/com.example.plantas/` y que contiene el siguiente código:
+Descomprimimos el proyecto obtenido en el paso anterior y lo abrimos con IntelliJ. Vemos que la Clase Principal de la Aplicación en Kotlin `PlantasApplication.kt` se encuentra en la carpeta `/src/main/kotlin/com.example.plantas/` y que contiene el siguiente código:
 
 ```kotlin
 package com.example.plantas
@@ -427,7 +427,7 @@ fun main(args: Array<String>) {
 
 **PASO 3: Añadir el controlador**
 
-Es quién manejará las solicitudes. Creamos el archivo `PlantaController.kt` dentro de la carpeta `/controller` con el código:
+Es quién manejará las solicitudes. Creamos el archivo `PlantaController.kt` dentro de la carpeta `/controller` con el código siguiente:
 
 ```kotlin
 package com.example.plantas.controller
@@ -474,7 +474,7 @@ class PlantaController {
 
 **PASO 4: Crear la Clase del Modelo**
 
-Representará un objeto planta. Creamos el archivo `Planta.kt` dentro de la carpeta `/model` con el código:
+Representará un objeto planta. Creamos el archivo `Planta.kt` dentro de la carpeta `/model` con el código siguiente:
 
 ```kotlin
 package com.example.plantas.model
@@ -490,9 +490,9 @@ data class Planta(
 
 **PASO 5: Crear las Vistas con Thymeleaf**
 
-Para el ejemplo necesitamos tres vistas, una para la lista de plantas, otra para el detalle de una planta y una tercera de error. Por tanto tendremos tres archivos html todos ellos dentro de la carpeta `templates`.
+Tal como hemos indicado en el controlador, necesitamos tres vistas, una para la lista de plantas, otra para el detalle de una planta y una tercera para avisar en caso de producirse un error. Por tanto tendremos tres archivos html todos ellos dentro de la carpeta `templates`.
 
-El archivo que mostrará la lista de plantas será `plantas.html` y su código es:
+El archivo que mostrará la lista de plantas será `plantas.html` y su código es el siguiente:
 
 ```html
 <!DOCTYPE html>
@@ -526,7 +526,7 @@ El archivo que mostrará la lista de plantas será `plantas.html` y su código e
 </html>
 ```
 
-El archivo que mostrará el detalle de una plantas será `detallePlanta.html` y su código es:
+El archivo que mostrará el detalle de una plantas será `detallePlanta.html` y su código es el siguiente:
 
 ```html
 <!DOCTYPE html>
@@ -547,7 +547,7 @@ El archivo que mostrará el detalle de una plantas será `detallePlanta.html` y 
 </html>
 ```
 
-El archivo que mostrará el aviso en caso de error será `errorPlanta.html` y su código es:
+El archivo que mostrará el aviso en caso de error será `errorPlanta.html` y su código es el siguiente:
 
 ```html
 <!DOCTYPE html>
@@ -568,19 +568,23 @@ El archivo que mostrará el aviso en caso de error será `errorPlanta.html` y su
 </html>
 ```
 
-
 En este punto la estructura del proyecto debe ser la siguiente:
 
 ![Spring 9](img/spring/spring09.jpg)
 
+Como puedes comprobar, hemos guardado las fotos de las plantas en una carpeta llamada `fotos` dentro de `src/main/resources/static`
 
 
 **PASO 6: Ejecutar el proyecto**
 
 Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos en el navegador la url [http://localhost:8080/plantas](http://localhost:8080/plantas) para que aparezca la lista de plantas.
 
+En la siguiente imagen se muestran las tres vistas que hemos programado. La lista de plantas, el detalle de la planta con id_planta = 1 y el error (en este caso por indicar en la url el id_planta de una planta que no existe)
 
-**PASO 7: Explicación del ejemplo**
+![Spring 10](img/spring/spring10.jpg)
+
+
+**PASO 7: Explicación de las vistas Thymeleaf**
 
 Condicionales:
 
@@ -613,6 +617,13 @@ Formulario:
 
 * th:action="@{/planta/editar/{id_planta}(id_planta=${planta.id_planta})}" define la acción del formulario para editar la planta.
 -->
+
+
+
+!!! success "Prueba y analiza el ejemplo 2"
+   1. Crea un nuevo proyecto Spring Boot utilizando Spring Initializr.
+   2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
+
 
 
 
