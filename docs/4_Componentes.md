@@ -608,8 +608,8 @@ Formulario:
 
 
 !!! success "Prueba y analiza el ejemplo 2"
-   1. Crea un nuevo proyecto Spring Boot utilizando Spring Initializr.
-   2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
+    1. Crea un nuevo proyecto Spring Boot utilizando Spring Initializr.
+    2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
 
 
 
