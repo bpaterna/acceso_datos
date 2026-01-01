@@ -170,7 +170,7 @@ Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
 
 **PASO 1: Crear el proyecto**
 
-Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y añadimos la dependencia **Spring Web** y hacemos clic en el botón GENERATE. Esto hará que se descargue un archivo .zip con el proyecto ya creado. 
+Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y añadimos la dependencia **Spring Web** (el resto de opciones las podemos dejar como se ve en la imagen). Por último hacemos clic en el botón GENERATE. Esto hará que se descargue un archivo .zip con el proyecto ya creado. 
 
 ![Spring 1](img/spring/spring01.jpg)
 
@@ -353,26 +353,26 @@ Estos tres componentes trabajan de la siguiente forma:
 4) La **Vista** presenta la respuesta al usuario.
 
 
-Spring se organiza siguiendo una arquitectura en capas en la que cada capa tiene una función concreta y se comunica únicamente con las capas adyacentes. Esto permite aplicaciones más mantenibles, escalables y fáciles de entender. Esta arquitectura encaja perfectamente con el patrón MVC (Model–View–Controller). Las capas más habituales en una aplicación Spring son:
+Spring se organiza siguiendo una arquitectura en capas en la que cada capa tiene una función concreta y se comunica únicamente con las capas adyacentes. Esto permite aplicaciones más mantenibles, escalables y fáciles de entender. Esta arquitectura encaja perfectamente con el patrón MVC (Model–View–Controller). En la siguiente tabla se muestran las capas más habituales en una aplicación Spring con su equivamencia en Spring MVC y la función que realiza cada una de ellas:
 
-- Capa Controller (Web)
+- Capa Controller 
 
-- Capa Service (Negocio)
+- Capa Service 
 
-- Capa Repository (Persistencia)
+- Capa Repository 
 
-- Capa Model (Dominio / Entidades)
+- Capa Model 
 
-- Capa View (Representación)
+- Capa View 
 
 
 **Anotaciones por capa y correspondencia Spring ↔ MVC**
 
-| Capa MVC | Capas Spring incluidas | Anotaciones habituales | Función                                                                                                                                                                                                                                                                                                                |
-|---------|------------------------|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Controller | Controller | `@Controller`<br>`@RestController`<br>`@RequestMapping`<br>`@GetMapping`<br> `@RequestParam` <br> `@PostMapping`<br>`@PutMapping`<br>`@DeleteMapping` | Recibe peticiones HTTP, gestiona rutas y parámetros, llama a la capa Service y devuelve una vista o una respuesta (JSON)<br>**No contiene lógica de negocio ni acceso a datos**                                                                                                                                        |
-| Model | Entity<br>Service<br>Repository | `@Entity`, `@Table`, `@Id`<br>`@Service`, `@Transactional`<br>`@Repository` | Contiene las clases que modelan la información del negocio, aplica reglas y validaciones y accede a la base de datos para realizar operaciones CRUD (manteniendo aislada la BD del resto de la aplicación)                                                                                                             |
-| View | HTML / JSON | *(sin anotaciones)* | Representa los datos al usuario:<br>• Archivo HTML con sintaxis específica para contenido dinámico si se utiliza Thymeleaf / JSP 	(Ubicación Thymeleaf: `src/main/resources/templates`)<br>• Datos en formato JSON / XML en apps REST (si no se utiliza un motor de plantillas). En REST, el JSON actúa como la vista  |
+| Capa MVC   | Capas Spring incluidas                                    | Anotaciones habituales | Función                                                                                                                                                                                                                                                                                                                |
+|------------|-----------------------------------------------------------|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Controller | Controller (Web)                                          | `@Controller`<br>`@RestController`<br>`@RequestMapping`<br>`@GetMapping`<br> `@RequestParam` <br> `@PostMapping`<br>`@PutMapping`<br>`@DeleteMapping` | Recibe peticiones HTTP, gestiona rutas y parámetros, llama a la capa Service y devuelve una vista o una respuesta (JSON)<br>**No contiene lógica de negocio ni acceso a datos**                                                                                                                                        |
+| Model      | Entity (Dominio / Entidades)<br>Service (Negocio)<br>Repository (Persistencia) | `@Entity`, `@Table`, `@Id`<br>`@Service`, `@Transactional`<br>`@Repository` | Contiene las clases que modelan la información del negocio, aplica reglas y validaciones y accede a la base de datos para realizar operaciones CRUD (manteniendo aislada la BD del resto de la aplicación)                                                                                                             |
+| View (Representación)      | HTML / JSON                                               | *(sin anotaciones)* | Representa los datos al usuario:<br>• Archivo HTML con sintaxis específica para contenido dinámico si se utiliza Thymeleaf / JSP 	(Ubicación Thymeleaf: `src/main/resources/templates`)<br>• Datos en formato JSON / XML en apps REST (si no se utiliza un motor de plantillas). En REST, el JSON actúa como la vista  |
 
 
 ![MCV1](img/MVC2.png)
@@ -380,7 +380,7 @@ Spring se organiza siguiendo una arquitectura en capas en la que cada capa tiene
 
 **Vistas con Thymeleaf**
 
-Thymeleaf es un motor de plantillas que permite mezclar HTML con datos dinámicos proporcionados por el controlador en Spring MVC. Utiliza atributos especiales que comienzan con th: para manipular estos datos de forma dinámica. LA siguiente tabla muestra los atributos Thymeleaf más comunes:
+Thymeleaf es un motor de plantillas que permite mezclar HTML con datos dinámicos proporcionados por el controlador en Spring MVC. Utiliza atributos especiales que comienzan con th: para manipular estos datos de forma dinámica. La siguiente tabla muestra los atributos Thymeleaf más comunes:
 
 | **Atributo**    | **Descripción**                                                                                        | **Ejemplo**                                                                                           |
 | --------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
@@ -394,15 +394,13 @@ Thymeleaf es un motor de plantillas que permite mezclar HTML con datos dinámico
 | **`th:value`**  | Rellena el valor de un campo de formulario (`input`, `textarea`, etc.) con un valor dinámico.          | `<input type="text" th:value="${planta.nombre}" />`                                                   |
 | **`th:field`**  | Asocia un campo de formulario con un atributo del modelo de Spring, vincula los datos automáticamente. | `<input type="text" th:field="*{nombre}" />`                                                          |
 
-A continuación veremos un ejemplo en el que se utiliza Thymeleaf para mostrar información HTML.
-
 <span class="mis_ejemplos">Ejemplo 2: Aplicación que muestra un listado de plantas utilizando Spring MVC y Thymeleaf</span>
 
 Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
 
 **PASO 1: Crear el proyecto**
 
-Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y, en este caso, ademas de la dependencia **Spring Web** necesitamos también **Thymeleaf**. Por último hacemos clic en el botón GENERATE para descargar nuestro nuevo proyecto.
+Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y, en este caso, ademas de la dependencia **Spring Web** necesitamos también **Thymeleaf** (el resto de opciones las podemos dejar como se ve en la imagen). Por último hacemos clic en el botón GENERATE para descargar nuestro nuevo proyecto.
 
 ![Spring 7](img/spring/spring07.jpg)
 
@@ -572,14 +570,14 @@ En este punto la estructura del proyecto debe ser la siguiente:
 
 ![Spring 9](img/spring/spring09.jpg)
 
-Como puedes comprobar, hemos guardado las fotos de las plantas en una carpeta llamada `fotos` dentro de `src/main/resources/static`
+Hemos guardado las fotos de las plantas en una carpeta llamada `fotos` dentro de `src/main/resources/static` para que se muestren en la vista de detalle.
 
 
 **PASO 6: Ejecutar el proyecto**
 
 Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos en el navegador la url [http://localhost:8080/plantas](http://localhost:8080/plantas) para que aparezca la lista de plantas.
 
-En la siguiente imagen se muestran las tres vistas que hemos programado. La lista de plantas, el detalle de la planta con id_planta = 1 y el error (en este caso por indicar en la url el id_planta de una planta que no existe)
+En la siguiente imagen se muestran las tres vistas que hemos programado. La lista de plantas, el detalle de la planta con id_planta = 1 (que aparece al hacer clic en el enlace `Ver detalles` y el error (en este caso por indicar en la url el id_planta de una planta que no existe).
 
 ![Spring 10](img/spring/spring10.jpg)
 
