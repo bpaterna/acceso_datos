@@ -140,7 +140,7 @@ Para crear una aplicación con Spring Boot se necesitan 3 cosas: crear el proyec
 
 Para crear el proyecto Maven/Gradle y descargar las dependencias necesarias tenemos dos opciones:
 
-- Crear un proyecto Spring Boot utilizando la herramienta Spring Initializr (https://start.spring.io/) la cual genera un proyecto base con la estructura de una aplicación Spring Boot en un archivo .zip que podemos abrir directamente desde un IDE.
+- Crear un proyecto Spring Boot utilizando la herramienta Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/) la cual genera un proyecto base con la estructura de una aplicación Spring Boot en un archivo .zip que podemos abrir directamente desde un IDE.
 
 - Crear un proyecto Spring Boot utilizando un IDE que tenga instalados los plugins necesarios. En el caso de IntelliJ solamente es posible utilizar el plugin de Spring en la versión Ultimate.
 
@@ -157,7 +157,7 @@ Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
 
 **PASO 1: Crear el proyecto**
 
-Para ello accedemos a Spring Initializr, indicamos el nombre de la aplicación y añadimos la dependencia **Spring Web** que:
+Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y añadimos la dependencia **Spring Web** que:
 
 - Se utiliza para desarrollar aplicaciones web, ya sea basadas en REST o tradicionales con HTML dinámico.   
 
@@ -212,7 +212,7 @@ class SaludoApplication{
 
 * **@GetMapping("/hello")**: Es una anotación de Spring que indica que este método debe manejar las solicitudes HTTP GET que lleguen a la URL /hello.
     * Enlaza la URL /hello con el método sayHello.
-    * Cada vez que se acceda a la ruta http://localhost:8080/hello (asumiendo el puerto predeterminado 8080) en un navegador con un método GET, Spring ejecutará el método `sayHello`.
+    * Cada vez que se acceda a la ruta [http://localhost:8080/hello](http://localhost:8080/hello) (asumiendo el puerto predeterminado 8080) en un navegador con un método GET, Spring ejecutará el método `sayHello`.
 
 * **@RequestParam**: se usa para extraer un parámetro de la consulta (query parameter) enviado en la URL.
     * El método espera un parámetro de consulta llamado `myName`.
@@ -474,11 +474,113 @@ Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
 
 **PASO 1: Crear el proyecto**
 
-Para ello accedemos a Spring Initializr, indicamos el nombre de la aplicación y, en este caso, ademas de la dependencia **Spring Web** necesitamos también **Thymeleaf**
+Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y, en este caso, ademas de la dependencia **Spring Web** necesitamos también **Thymeleaf**
 
 
 ![Spring 7](img/spring/spring07.jpg)
 
+
+**PASO 2: Abrir el proyecto y comprobar**
+
+Abrimos el proyecto y comprobamos que la Clase Principal de la Aplicación en Kotlin `PlantasApplication.kt` se encuentra en la carpeta `/src/main/kotlin/com.example.plantas/` y que contiene el siguiente código:
+
+
+```kotlin
+package com.example.plantas
+
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
+
+@SpringBootApplication
+class PlantasApplication
+
+fun main(args: Array<String>) {
+	runApplication<PlantasApplication>(*args)
+}
+```
+
+
+
+**PASO 3: Añadir el controlador**
+
+Es quién manejará las solicitudes. Creamos el archivo `PlantaController.kt` dentro de la carpeta `/controller` con el código:
+
+```kotlin
+package com.example.plantas.controller
+
+import com.example.plantas.model.Planta
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
+import org.springframework.web.bind.annotation.GetMapping
+
+@Controller
+class PlantaController {
+
+    @GetMapping("/plantas")
+    fun mostrarPlantas(model: Model): String {
+        val plantas = listOf(
+            Planta("Rosa", "Flor", 0.5),
+            Planta("Cactus", "Suculenta", 1.2),
+            Planta("Orquídea", "Flor", 0.3)
+        )
+
+        model.addAttribute("plantas", plantas)
+        return "plantas" // Nombre del archivo HTML en src/main/resources/templates
+    }
+}
+```
+
+
+
+**PASO 4: Crear la Clase del Modelo**
+
+Representará un objeto planta. Creamos el archivo `Planta.kt` dentro de la carpeta `/model` con el código:
+
+```kotlin
+package com.example.plantas.model
+
+data class Planta(
+    val nombre: String,
+    val tipo: String,
+    val altura: Double
+)
+```
+
+
+**PASO 5: Crear la Vista con Thymeleaf**
+
+Es la vista que muestra la lista de plantas. Creamos el archivo `plantas.html` dentro de la carpeta `templates` con el código:
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Plantas</title>
+</head>
+<body>
+    <h1>Lista de Plantas</h1>
+
+    <p th:if="${plantas.size() > 0}">Aquí tienes las plantas registradas:</p>
+    <p th:unless="${plantas.size() > 0}">No hay plantas registradas en el sistema.</p>
+
+    <ul>
+        <li th:each="planta : ${plantas}">
+            <p th:text="${planta.nombre}">Nombre de la planta</p>
+            <p th:text="'Tipo: ' + ${planta.tipo}">Tipo de planta</p>
+            <p th:text="'Altura: ' + ${planta.altura} + ' metros'">Altura de la planta</p>
+        </li>
+    </ul>
+</body>
+</html>
+
+```
+
+
+**PASO 6: Ejecutar el proyecto**
+Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos en el navegador la 
+
+Abrimos la url [http://localhost:8080/plantas](http://localhost:8080/plantas) en el navegador  para que aparezca la lista de plantas.
 
 
 
