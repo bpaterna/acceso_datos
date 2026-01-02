@@ -223,13 +223,9 @@ class SaludoApplication{
 
 **PASO 4: Volvemos a ejecutar la aplicación**
 
-Ejecutamos la aplicación para levantar el servidor Tomacat y abrimos la dirección [http://localhost:8080/hello](http://localhost:8080/hello) en el navegador web. La aplicación responde con Hello World!
+Ejecutamos la aplicación para levantar el servidor Tomacat y abrimos la dirección [http://localhost:8080/hello](http://localhost:8080/hello) o [http://localhost:8080/hello?myName=Atenea](http://localhost:8080/hello?myName=Atenea) en el navegador web. La aplicación responde con `Hello World!` o con `Hello Atenea!` (que es el nombre pasado como parámetro): 
 
 ![Spring 4](img/spring/spring04.jpg)
-
-
-La aplicación también admite un parámetro, si abrimos 
-[http://localhost:8080/hello?myName=Atenea](http://localhost:8080/hello?myName=Atenea) el navegador muestra la siguiente respuesta:
 
 ![Spring 5](img/spring/spring05.jpg)
 
@@ -430,7 +426,7 @@ fun main(args: Array<String>) {
 
 **PASO 3: Añadir el controlador**
 
-Es quién manejará las solicitudes. Creamos el archivo `PlantaController.kt` dentro de la carpeta `/controller` con el código siguiente:
+Es quién manejará las solicitudes. Creamos el archivo `PlantaController.kt` dentro de la carpeta `/src/main/kotlin/com/example/plantas/controller` con el código siguiente:
 
 ```kotlin
 package com.example.plantas.controller
@@ -477,7 +473,7 @@ class PlantaController {
 
 **PASO 4: Crear la Clase del Modelo**
 
-Representará un objeto planta. Creamos el archivo `Planta.kt` dentro de la carpeta `/model` con el código siguiente:
+Representará un objeto planta. Creamos el archivo `Planta.kt` dentro de la carpeta `/src/main/kotlin/com/example/plantas/model` con el código siguiente:
 
 ```kotlin
 package com.example.plantas.model
@@ -493,7 +489,7 @@ data class Planta(
 
 **PASO 5: Crear las Vistas con Thymeleaf**
 
-Tal como hemos indicado en el controlador, necesitamos tres vistas, una para la lista de plantas, otra para el detalle de una planta y una tercera para avisar en caso de producirse un error. Por tanto tendremos tres archivos html todos ellos dentro de la carpeta `templates`.
+Tal como hemos indicado en el controlador, necesitamos tres vistas, una para la lista de plantas, otra para el detalle de una planta y una tercera para avisar en caso de producirse un error. Por tanto tendremos tres archivos `html` todos ellos dentro de la carpeta `/src/main/resources/templates`.
 
 El archivo que mostrará la lista de plantas será `plantas.html` y su código es el siguiente:
 
@@ -575,14 +571,14 @@ En este punto la estructura del proyecto debe ser la siguiente:
 
 ![Spring 9](img/spring/spring09.jpg)
 
-Hemos guardado las fotos de las plantas en una carpeta llamada `fotos` dentro de `src/main/resources/static` para que se muestren en la vista de detalle.
+Hemos guardado las fotos de las plantas en una carpeta llamada `fotos` dentro de `/src/main/resources/static` para que se muestren en la vista de detalle.
 
 
 **PASO 6: Ejecutar el proyecto**
 
 Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos en el navegador la url [http://localhost:8080/plantas](http://localhost:8080/plantas) para que aparezca la lista de plantas.
 
-En la siguiente imagen se muestran las tres vistas que hemos programado. La lista de plantas, el detalle de la planta con id_planta = 1 (que aparece al hacer clic en el enlace `Ver detalles` y el error (en este caso por indicar en la url el id_planta de una planta que no existe).
+En la siguiente imagen se muestran las tres vistas que hemos programado. La lista de plantas, el detalle de la planta con id_planta = 1 (que aparece al hacer clic en el enlace `Ver detalles`) y el error (en este caso por indicar en la url el id_planta de una planta que no existe).
 
 ![Spring 10](img/spring/spring10.jpg)
 
@@ -641,7 +637,6 @@ com.example.plantas
 │   └── PlantaService.kt   ← NUEVO
 └── repository
     └── PlantaFileRepository.kt ← NUEVO
-
 
 
 
