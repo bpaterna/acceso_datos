@@ -136,7 +136,7 @@ En las siguientes tablas se recogen las anotaciones más importantes que utiliza
 - Permite crear proyectos en segundos.
 
 
-Para crear una aplicación con Spring Boot se necesitan 3 cosas: crear el proyecto, desarrollar la aplicación y desplegarla en un servisor. **Spring Boot** simplifica los pasos 1 y 3 para así poder centrar esfuerzos en el desarrollo.
+Para crear una aplicación con Spring Boot se necesitan 3 cosas: crear el proyecto, desarrollar la aplicación y desplegarla en un servidor. **Spring Boot** simplifica los pasos 1 y 3 para así poder centrar esfuerzos en el desarrollo.
 
 Para crear el proyecto Maven/Gradle y descargar las dependencias necesarias tenemos dos opciones:
 
@@ -164,20 +164,20 @@ Una vez creado el proyecto tendremos las configuraciones y dependencias en los a
 - Ofrece herramientas para manejar errores y excepciones de forma global mediante @ControllerAdvice o controladores personalizados.
 
 
-<span class="mis_ejemplos">Ejemplo 1: Aplicación que saluda al usuario utilizando Spring Boot</span>
+<span class="mis_ejemplos">Ejemplo 1: Aplicación que saluda al usuario utilizando Spring Boot con Spring Web</span>
 
 Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
 
 **PASO 1: Crear el proyecto**
 
-Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y añadimos la dependencia **Spring Web** (el resto de opciones las podemos dejar como se ve en la imagen). Por último hacemos clic en el botón GENERATE. Esto hará que se descargue un archivo .zip con el proyecto ya creado. 
+Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y añadimos la dependencia **Spring Web** (el resto de opciones las podemos dejar como se ve en la imagen). Por último hacemos clic en el botón GENERATE. Esto hará que se cree el proyecto en un archivo .zip y se descargue. 
 
 ![Spring 1](img/spring/spring01.jpg)
 
 
 **PASO 2: Abrir el proyecto y ejecutarlo**
 
-Descomprimimos el proyecto obtenido en el paso anterior y lo abrimos con IntelliJ. Vemos que, además de los archivos **applicantion.properties** y **pom.xml** se ha creado automaticamente la clase **SaludoApplication** (con la anotación **@SpringBootApplication**) y la función de extensión **runApplication** que sirve para lanzar la aplicación.
+Descomprimimos el archivo obtenido en el paso anterior y lo abrimos con IntelliJ. Vemos que, además de los archivos **applicantion.properties** y **pom.xml** se ha creado automaticamente la clase **SaludoApplication** (con la anotación **@SpringBootApplication**) y la función de extensión **runApplication** que sirve para lanzar la aplicación.
 
 ![Spring 2](img/spring/spring02.jpg)
 
@@ -403,7 +403,7 @@ Para tener estas funciones activas, además de añadir la dependencia, hay confi
 
 - Allow auto-make to start even if developed application is currently running (Settings → Advanced Settings)
 
-De esta forma, cuando realicemos un cambio en un archivo de nuestra aplicación, bastará con guardar el archivo y recarga el navegador (sin reiniciar la app) para ver los cambios inmediatamente.
+De esta forma, cuando realicemos un cambio en un archivo de nuestra aplicación, bastará con guardar el archivo y recargar el navegador (sin reiniciar la app) para ver los cambios inmediatamente.
 
 
 ![Spring 7](img/spring/spring07.jpg)
@@ -412,7 +412,7 @@ De esta forma, cuando realicemos un cambio en un archivo de nuestra aplicación,
 
 **PASO 2: Abrir el proyecto y comprobar**
 
-Descomprimimos el proyecto obtenido en el paso anterior y lo abrimos con IntelliJ. Vemos que la Clase Principal de la Aplicación en Kotlin `PlantasApplication.kt` se encuentra en la carpeta `/src/main/kotlin/com.example.plantas/` y que contiene el siguiente código:
+Descomprimimos el proyecto obtenido en el paso anterior y lo abrimos con IntelliJ. Vemos que la Clase Principal de la Aplicación en Kotlin `PlantasApplication.kt` se encuentra en la carpeta `/src/main/kotlin/com/example/plantas/` y que contiene el siguiente código:
 
 ```kotlin
 package com.example.plantas
@@ -621,11 +621,28 @@ Formulario:
 * th:action="@{/planta/editar/{id_planta}(id_planta=${planta.id_planta})}" define la acción del formulario para editar la planta.
 -->
 
-
-
 !!! success "Prueba y analiza el ejemplo 2"
     1. Crea un nuevo proyecto Spring Boot utilizando Spring Initializr.
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
+
+
+## 4.4. Trabajando con ficheros
+
+En el ejemplo anterior teníamos la información en memoria (en una lista de plantas), ahora pasaremos a tener la infromación en un fichero (en este caso .csv) para tener persistencia de datos.
+
+Para ello vamos a ampliar la estructura de nuestro proyecto.
+
+com.example.plantas
+├── controller
+│   └── PlantaController.kt
+├── model
+│   └── Planta.kt
+├── service
+│   └── PlantaService.kt   ← NUEVO
+└── repository
+    └── PlantaFileRepository.kt ← NUEVO
+
+
 
 
 
