@@ -266,7 +266,7 @@ Los pasos que sigue la ejecución de la aplicación son los siguientes:
 
 **PASO 6: Añadir una página de inicio HTML** 
 
-Creamos el archivo `index.html` en `/src/main/resources/static/` y sustituimos su contenido por:
+Creamos el archivo `index.html` en `src/main/resources/static/` y sustituimos su contenido por:
 
 ```html
 <!DOCTYPE HTML>
@@ -357,7 +357,7 @@ Spring se organiza siguiendo una arquitectura en capas en la que cada capa tiene
 |------------------------------------------------------------------------|--------------------------------------------------------------------------------|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Controller (Web)                                                       | Controller  | `@Controller`<br>`@RestController`<br>`@RequestMapping`<br>`@GetMapping`<br> `@RequestParam` <br> `@PostMapping`<br>`@PutMapping`<br>`@DeleteMapping` | Recibe peticiones HTTP, gestiona rutas y parámetros, llama a la capa Service y devuelve una vista o una respuesta (JSON)<br>**No contiene lógica de negocio ni acceso a datos**                                                                                                                                        |
 | Model (Entidades)<br>Service (Negocio)<br>Repository (Persistencia) | Model | `@Entity`, `@Table`, `@Id`<br>`@Service`, `@Transactional`<br>`@Repository` | Contiene las clases que modelan la información del negocio, aplica reglas y validaciones y accede a la base de datos para realizar operaciones CRUD (manteniendo aislada la BD del resto de la aplicación)                                                                                                             |
-| View (Representación HTML / JSON)                                      | View | *(sin anotaciones)* | Representa los datos al usuario:<br>• Archivo HTML con sintaxis específica para contenido dinámico si se utiliza Thymeleaf / JSP 	(Ubicación Thymeleaf: `src/main/resources/templates`)<br>• Datos en formato JSON / XML en apps REST (si no se utiliza un motor de plantillas). En REST, el JSON actúa como la vista  |
+| View (Representación HTML / JSON)                                      | View | *(sin anotaciones)* | Representa los datos al usuario:<br>• Archivo HTML con sintaxis específica para contenido dinámico si se utiliza Thymeleaf / JSP 	(Ubicación Thymeleaf: `src/main/resources/templates/`)<br>• Datos en formato JSON / XML en apps REST (si no se utiliza un motor de plantillas). En REST, el JSON actúa como la vista |
 
 
 ![MCV1](img/MVC2.png)
@@ -408,7 +408,7 @@ De esta forma, cuando realicemos un cambio en un archivo de nuestra aplicación,
 
 **PASO 2: Abrir el proyecto y comprobar**
 
-Descomprimimos el proyecto obtenido en el paso anterior y lo abrimos con IntelliJ. Vemos que la Clase Principal de la Aplicación en Kotlin `PlantasApplication.kt` se encuentra en la carpeta `/src/main/kotlin/com/example/plantas/` y que contiene el siguiente código:
+Descomprimimos el proyecto obtenido en el paso anterior y lo abrimos con IntelliJ. Vemos que la Clase Principal de la Aplicación en Kotlin `PlantasApplication.kt` se encuentra en la carpeta `src/main/kotlin/com/example/plantas/` y que contiene el siguiente código:
 
 ```kotlin
 package com.example.plantas
@@ -426,7 +426,7 @@ fun main(args: Array<String>) {
 
 **PASO 3: Añadir el controlador**
 
-Es quién manejará las solicitudes. Creamos el archivo `PlantaController.kt` dentro de la carpeta `/src/main/kotlin/com/example/plantas/controller` con el código siguiente:
+Es quién manejará las solicitudes. Creamos el archivo `PlantaController.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/controller/` con el código siguiente:
 
 ```kotlin
 package com.example.plantas.controller
@@ -451,7 +451,7 @@ class PlantaController {
     @GetMapping("/plantas")
     fun mostrarPlantas(model: Model): String {
         model.addAttribute("plantas", plantas)
-        return "plantas" // vista de la lista de plantas (Nombre del archivo HTML en src/main/resources/templates)
+        return "plantas" // vista de la lista de plantas (Nombre del archivo HTML en src/main/resources/templates/)
     }
 
     // Detalles de una planta
@@ -473,7 +473,7 @@ class PlantaController {
 
 **PASO 4: Crear la Clase del Modelo**
 
-Representará un objeto planta. Creamos el archivo `Planta.kt` dentro de la carpeta `/src/main/kotlin/com/example/plantas/model` con el código siguiente:
+Representará un objeto planta. Creamos el archivo `Planta.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/model/` con el código siguiente:
 
 ```kotlin
 package com.example.plantas.model
@@ -489,7 +489,7 @@ data class Planta(
 
 **PASO 5: Crear las Vistas con Thymeleaf**
 
-Tal como hemos indicado en el controlador, necesitamos tres vistas, una para la lista de plantas, otra para el detalle de una planta y una tercera para avisar en caso de producirse un error. Por tanto tendremos tres archivos `html` todos ellos dentro de la carpeta `/src/main/resources/templates`.
+Tal como hemos indicado en el controlador, necesitamos tres vistas, una para la lista de plantas, otra para el detalle de una planta y una tercera para avisar en caso de producirse un error. Por tanto tendremos tres archivos `html` todos ellos dentro de la carpeta `src/main/resources/templates/`.
 
 El archivo que mostrará la lista de plantas será `plantas.html` y su código es el siguiente:
 
@@ -571,7 +571,7 @@ En este punto la estructura del proyecto debe ser la siguiente:
 
 ![Spring 9](img/spring/spring09.jpg)
 
-Hemos guardado las fotos de las plantas en una carpeta llamada `fotos` dentro de `/src/main/resources/static` para que se muestren en la vista de detalle.
+Hemos guardado las fotos de las plantas en una carpeta llamada `fotos` dentro de `src/main/resources/static/` para que se muestren en la vista de detalle.
 
 
 **PASO 6: Ejecutar el proyecto**
@@ -624,20 +624,141 @@ Formulario:
 
 ## 4.4. Trabajando con ficheros
 
-En el ejemplo anterior teníamos la información en memoria (en una lista de plantas), ahora pasaremos a tener la infromación en un fichero (en este caso .csv) para tener persistencia de datos.
+En el ejemplo anterior teníamos la información de las plantas en memoria (en una lista), ahora, para tener persistencia de datos, tendremos la información en un fichero CSV.
 
-Para ello vamos a ampliar la estructura de nuestro proyecto.
+Además tendremos que modificar nuestro proyecto para tener las tareas de cada capa correctamente separadas ya que el controlador NO debe leer ni escribir ficheros directamente.
 
-com.example.plantas
-├── controller
-│   └── PlantaController.kt
-├── model
-│   └── Planta.kt
-├── service
-│   └── PlantaService.kt   ← NUEVO
-└── repository
-    └── PlantaFileRepository.kt ← NUEVO
+Para conseguir esto, hay que crear un componente que se encargue del acceso a los datos del fichero a través de un servicio intermedio.
 
+Dado que vamos a utilizar un archivo de texto planos, la estrategia más sencilla es: "Leer todo -> Modificar la lista en memoria -> Sobrescribir todo el archivo".
+
+<span class="mis_ejemplos">Ejemplo 3: CRUD (CSV) con Spring MVC y Thymeleaf</span>
+
+Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
+
+**PASO 1: Crear el proyecto**
+
+Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación (en este caso le llamamos `plantasCSV` para diferenciala de la del ejemplo anterior) y añadimos las dependencias **Spring Web**, **Thymeleaf** y **Spring Boot DevTools**
+
+
+**PASO 2: Abrir el proyecto**
+
+Para partir de una base copiaremos la estructura y archivos del ejemplo anterior. Haremos los cambios necesarios para que todo funcione correctamente.
+
+
+**PASO 3: Crear el fichero CSV**
+Creamos un archivo llamado `plantas.csv` con los datos iniciales, lo ubicamos en la carpeta `src/main/resources/data/`. Su contenido inicial será:
+
+```csv
+1;Rosa;Flor;0.5;rosa.jpg
+2;Cactus;Suculenta;1.2;cactus.jpg
+3;Orquídea;Flor;0.3;orquidea.jpg
+```
+
+**PASO 4: Crear el archivo que accede a los datos**
+
+Crear `PlantaFileRepository.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/repository/` con el siguiente código:
+
+```kotlin
+package com.example.plantasCSV.repository
+
+import com.example.plantasCSV.model.Planta
+import org.springframework.stereotype.Repository
+import java.io.File
+
+@Repository
+class PlantaFileRepository {
+
+    private val filePath = "src/main/resources/data/plantas.csv"
+
+    fun findAll(): MutableList<Planta> =
+        File(filePath).readLines().map { linea ->
+            val partes = linea.split(";")
+            Planta(
+                id_planta = partes[0].toInt(),
+                nombre = partes[1],
+                tipo = partes[2],
+                altura = partes[3].toDouble(),
+                foto = partes[4]
+            )
+        }.toMutableList()
+}
+```
+
+**PASO 5: Crear el archivo de servicio intermedio**
+
+Crear `PlantaService.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/service/` con el siguiente código:
+
+```kotlin
+package com.example.plantasCSV.service
+
+import com.example.plantasCSV.model.Planta
+import com.example.plantasCSV.repository.PlantaFileRepository
+import org.springframework.stereotype.Service
+
+@Service
+class PlantaService(
+    private val repository: PlantaFileRepository
+) {
+
+    fun listarPlantas(): MutableList<Planta> =
+        repository.findAll()
+
+    fun buscarPorId(id_planta: Int): Planta? =
+        repository.findAll().find { it.id_planta == id_planta }
+}
+```
+
+La estructura de nuestro proyecto quedará así:
+
+
+![Spring 11](img/spring/spring11.jpg)
+
+
+**PASO 6: Modificar el controlador**
+
+Y modificar el controlador para que lo utilice
+
+```kotlin
+package com.example.plantasCSV.controller
+
+import com.example.plantasCSV.service.PlantaService
+
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+
+@Controller
+class PlantaController(
+    private val plantaService: PlantaService
+) {
+
+    @GetMapping("/plantas")
+    fun listar(model: Model): String {
+        model.addAttribute("plantas", plantaService.listarPlantas())
+        return "plantas"
+    }
+    
+    @GetMapping("/planta/{id_planta}")
+    fun detalle(@PathVariable id_planta: Int, model: Model): String {
+        val planta = plantaService.buscarPorId(id_planta)
+            ?: return "errorPlanta"
+
+        model.addAttribute("planta", planta)
+        return "detallePlanta"
+    }
+}
+```
+
+**PASO 7: Probar la aplicación**
+
+
+A tener en cuenta: DevTools detectará el cambio en el archivo dentro de `src/main/resources` mientras la aplicación se ejecuta y reiniciará el servidor automáticamente. Esto puede ser molesto (se rellena el formulario, se guarda, y la app se reinicia). Para evitar se puede excluir la carpeta data del reinicio añadiendo al archivo `application.properties` la sigueinte línea:
+
+```kotlin
+spring.devtools.restart.exclude=static/**,public/**,data/**
+```
 
 
 
