@@ -391,7 +391,23 @@ Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
 
 Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y, en este caso, ademas de la dependencia **Spring Web** necesitamos también **Thymeleaf** (el resto de opciones las podemos dejar como se ve en la imagen). Por último hacemos clic en el botón GENERATE para descargar nuestro nuevo proyecto.
 
+Opcionalmente podemos añadir **Spring Boot DevTools** que nos ahorrará tiempo de desarrollo ya que:
+
+- Reinicia automáticamente la aplicación cuando cambias código.
+
+- Recarga las plantillas Thymeleaf sin reiniciar manualmente.
+
+Para tener estas funciones activas, además de añadir la dependencia, hay configurar IntelliJ para que compile al guardar activando las opciones siguientes: 
+
+- Build project automatically (Settings → Build, Execution, Deployment → Compiler)
+
+- Allow auto-make to start even if developed application is currently running (Settings → Advanced Settings)
+
+De esta forma, cuando realicemos un cambio en un archivo de nuestra aplicación, bastará con guardar el archivo y recarga el navegador (sin reiniciar la app) para ver los cambios inmediatamente.
+
+
 ![Spring 7](img/spring/spring07.jpg)
+
 
 
 **PASO 2: Abrir el proyecto y comprobar**
@@ -610,7 +626,6 @@ Formulario:
 !!! success "Prueba y analiza el ejemplo 2"
     1. Crea un nuevo proyecto Spring Boot utilizando Spring Initializr.
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
-
 
 
 
