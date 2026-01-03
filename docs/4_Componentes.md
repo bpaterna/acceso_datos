@@ -379,9 +379,9 @@ Thymeleaf es un motor de plantillas que permite mezclar HTML con datos dinámico
 | **`th:value`**  | Rellena el valor de un campo de formulario (`input`, `textarea`, etc.) con un valor dinámico.          | `<input type="text" th:value="${planta.nombre}" />`                                                   |
 | **`th:field`**  | Asocia un campo de formulario con un atributo del modelo de Spring, vincula los datos automáticamente. | `<input type="text" th:field="*{nombre}" />`                                                          |
 
-<span class="mis_ejemplos">Ejemplo 2: Aplicación que muestra un listado de plantas utilizando Spring MVC y Thymeleaf</span>
+<span class="mis_ejemplos">Ejemplo 2: Aplicación utilizando Spring MVC y Thymeleaf</span>
 
-Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
+A continuación se describen los pasos para crear una aplicación que muestra una lista con nombres de planas y junto a cada nombre un enlace que mostrará los detalles de la planta. Desde la pantalla de detalles, se podrá acceder a un formulario para modificar la infromación de la planta.
 
 **PASO 1: Crear el proyecto**
 
@@ -426,7 +426,7 @@ fun main(args: Array<String>) {
 
 **PASO 3: Añadir el controlador**
 
-Es quién manejará las solicitudes. Creamos el archivo `PlantaController.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/controller/` con el código siguiente:
+El controlador es quién manejará las solicitudes ya que recibe las peticiones HTTP, decide qué datos se usan y devuelve la vista adecuada. Es decir, gestionar la visualización y edición de plantas en la web. Para añadir el controlador, creamos el archivo `PlantaController.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/controller/` con el código siguiente:
 
 ```kotlin
 package com.example.plantas.controller
@@ -436,22 +436,22 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+
 
 @Controller
 class PlantaController {
 
-
-    private val plantas = listOf(
+    private val plantas = mutableListOf(
         Planta(1, "Rosa", "Flor", 0.5, "rosa.jpg"),
         Planta(2, "Cactus", "Suculenta", 1.2, "cactus.jpg"),
-        Planta(3, "Orquídea", "Flor", 0.3, "orquidea.jpg")
+        Planta(5, "Orquídea", "Flor", 0.3, "orquidea.jpg")
     )
-
 
     @GetMapping("/plantas")
     fun mostrarPlantas(model: Model): String {
         model.addAttribute("plantas", plantas)
-        return "plantas" // vista de la lista de plantas (Nombre del archivo HTML en src/main/resources/templates/)
+        return "plantas" // vista de la lista de plantas (Nombre del archivo HTML en src/main/resources/templates)
     }
 
     // Detalles de una planta
@@ -468,28 +468,80 @@ class PlantaController {
         model.addAttribute("planta", planta)
         return "detallePlanta" // vista de detalle de una planta
     }
+
+    // formulario para modificar
+    @GetMapping("/planta/editar/{id_planta}")
+    fun editarPlanta(
+        @PathVariable id_planta: Int,
+        model: Model
+    ): String {
+
+        val planta = plantas.find { it.id_planta == id_planta }
+            ?: return "errorPlanta"
+
+        model.addAttribute("planta", planta)
+        return "editarPlanta"
+    }
+
+    @PostMapping("/planta/guardar")
+    fun guardarCambios(plantaModificada: Planta): String {
+
+        val planta = plantas.find { it.id_planta == plantaModificada.id_planta }
+
+        if (planta != null) {
+            planta.nombre = plantaModificada.nombre
+            planta.tipo = plantaModificada.tipo
+            planta.altura = plantaModificada.altura
+            planta.foto = plantaModificada.foto
+        }
+        return "redirect:/planta/${plantaModificada.id_planta}"
+    }
 }
 ```
 
-**PASO 4: Crear la Clase del Modelo**
+Explicación del código:
 
-Representará un objeto planta. Creamos el archivo `Planta.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/model/` con el código siguiente:
+`@Controller` Indica a Spring que esta clase maneja peticiones web y devuelve vistas HTML.
+
+`@GetMapping` Muestra páginas HTML
+
+| Función             | Descripción                              |
+|--------------------|--------------------------------------------|
+| `@GetMapping("/plantas")`    | Muestra una lista de todas las plantas en `plantas.html`.                        |
+| `@GetMapping("/planta/{id_planta}")`  | Muestra información de detalle de una planta específica en `detallePlanta.html`. Si no existe, muestra `errorPlanta.html`. |
+| `@GetMapping("/planta/editar/{id_planta}")`   |  Carga la planta en un formulario de edición `editarPlanta.html`.             |
+
+`@PostMapping` Procesa el formulario para editar la infromación de una planta
+
+| Función         | Descripción                                                  |
+|--------------------|-------------------------------|
+| `@PostMapping("/planta/guardar")`   | Actualiza la planta en memoria y redirige al detalle con `redirect:/planta/{id}`.  Se utiliza `redirect` para evitar el reenvío de formularios |
+
+
+`Model`	Pasa datos a la vista
+
+`@PathVariable`	Lee datos de la URL
+	
+
+**PASO 4: Añadir el modelo**
+
+El modelo representa los datos que maneja la aplicación. Para añadir el modelo creamos el archivo `Planta.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/model/` con el código siguiente:
 
 ```kotlin
 package com.example.plantas.model
 
 data class Planta(
-    val id_planta: Int,
-    val nombre: String,
-    val tipo: String,
-    val altura: Double,
-    val foto: String
+    var id_planta: Int,
+    var nombre: String,
+    var tipo: String,
+    var altura: Double,
+    var foto: String
 )
 ```
 
-**PASO 5: Crear las Vistas con Thymeleaf**
+**PASO 5: Añadir las Vistas con Thymeleaf**
 
-Tal como hemos indicado en el controlador, necesitamos tres vistas, una para la lista de plantas, otra para el detalle de una planta y una tercera para avisar en caso de producirse un error. Por tanto tendremos tres archivos `html` todos ellos dentro de la carpeta `src/main/resources/templates/`.
+Tal como hemos indicado en el controlador, necesitamos cuatro vistas, una para la lista de plantas, otra para el detalle de una planta, una tercera para avisar en caso de producirse un error y la última para modificar la información de la planta. Por tanto tendremos cuatro archivos `html` todos ellos dentro de la carpeta `src/main/resources/templates/`.
 
 El archivo que mostrará la lista de plantas será `plantas.html` y su código es el siguiente:
 
@@ -501,26 +553,21 @@ El archivo que mostrará la lista de plantas será `plantas.html` y su código e
     <title>Lista de Plantas</title>
 </head>
 <body>
-<h1>Lista de Plantas</h1>
 
-<p th:if="${plantas.size() > 0}">Aquí tienes las plantas registradas:</p>
-<p th:unless="${plantas.size() > 0}">No hay plantas registradas en el sistema.</p>
+<div class="container mt-4">
 
-<ul>
-    <li th:each="planta : ${plantas}">
-        <!-- Mostrar nombre de la planta -->
-        <p th:text="${planta.nombre}">Nombre de la planta</p>
-
-        <!-- Mostrar tipo de la planta -->
-        <p th:text="'Tipo: ' + ${planta.tipo}">Tipo de planta</p>
-
-        <!-- Mostrar altura de la planta -->
-        <p th:text="'Altura: ' + ${planta.altura} + ' metros'">Altura de la planta</p>
+    <h1 class="mb-4">Plantas</h1>
+    <p th:if="${plantas.size() > 0}">Aquí tienes una lista de todas las plantas:</p>
+    <p th:unless="${plantas.size() > 0}">No se han encontrado plantas.</p>
+    
+    <p th:each="planta : ${plantas}">
+        <label th:text="${planta.id_planta}">Id de la planta</label> -
+        <label th:text="${planta.nombre}">Nombre de la planta</label> (<label th:text="${planta.altura}">Altura de la planta</label> m)
 
         <!-- Mostrar enlace a la página de detalles de la planta -->
         <a th:href="@{/planta/{id_planta}(id_planta=${planta.id_planta})}">Ver detalles</a>
-    </li>
-</ul>
+    </p>
+</div>
 </body>
 </html>
 ```
@@ -535,13 +582,18 @@ El archivo que mostrará el detalle de una plantas será `detallePlanta.html` y 
     <title>Detalles de la Planta</title>
 </head>
 <body>
-<h1 th:text="${planta.nombre}">Nombre de la planta</h1>
-<p th:text="'Tipo: ' + ${planta.tipo}">Tipo de planta</p>
-<p th:text="'Altura: ' + ${planta.altura} + ' metros'">Altura de la planta</p>
+
 <!-- Mostrar foto de la planta -->
 <img th:src="@{/fotos/{nombreImagen}(nombreImagen=${planta.foto})}" alt="Foto de la planta" style="width: 200px;">
 
+<h1 th:text="${planta.nombre}">Nombre de la planta</h1>
+<p th:text="'Tipo: ' + ${planta.tipo}">Tipo de planta</p>
+<p th:text="'Altura: ' + ${planta.altura} + ' metros'">Altura de la planta</p>
+
+<a th:href="@{/planta/editar/{id_planta}(id_planta=${planta.id_planta})}">Modificar planta</a>
+
 <p></p><a th:href="@{/plantas}">Volver a la lista de plantas</a></p>
+
 </body>
 </html>
 ```
@@ -562,6 +614,39 @@ El archivo que mostrará el aviso en caso de error será `errorPlanta.html` y su
 <p>La planta que estás buscando no existe.</p>
 
 <a th:href="@{/plantas}">Volver a la lista de plantas</a>
+
+</body>
+</html>
+```
+
+El archivo que mostrará el formulario para modificar la información de una planta será `editarPlanta.html` y su código es el siguiente:
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar planta</title>
+</head>
+<body>
+
+<h1>Modificar planta</h1>
+
+<form th:action="@{/planta/guardar}"
+      th:object="${planta}"
+      method="post">
+
+    <input type="hidden" th:field="*{id_planta}">
+
+    <p><label>Nombre: </label><input type="text" th:field="*{nombre}"></p>
+    <p><label>Tipo: </label><input type="text" th:field="*{tipo}"></p>
+    <p><label>Altura: </label><input type="number" step="0.1" th:field="*{altura}"></p>
+    <p><label>Foto: </label><input type="text" th:field="*{foto}"></p>
+
+    <button type="submit">Guardar cambios</button>
+</form>
+
+<p><a th:href="@{/planta/{id_planta}(id_planta=${planta.id_planta})}">Volver al detalle</a></p>
 
 </body>
 </html>
