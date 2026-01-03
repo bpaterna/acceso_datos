@@ -664,23 +664,24 @@ La estructura del proyecto debe ser la siguiente:
 ![Spring 9](img/spring/spring09.jpg)
 
 
-
 **PASO 9: Ejecutar el proyecto**
 
 Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos la url [http://localhost:8080/plantas](http://localhost:8080/plantas) en el navegador. Las sigueintes imágenes muestran el funcionamiento de nuestra aplicación:
 
+Lista de plantas:
+
 ![Spring 10a](img/spring/spring10a.jpg)
-*Lista de plantas*
+
+Detalle de la planta con id_planta = 1 (que aparece al hacer clic en el enlace `Ver detalles` junto al nombre de la planta):
 
 ![Spring 10b](img/spring/spring10b.jpg)
-*Detalle de la planta con id_planta = 1 (que aparece al hacer clic en el enlace `Ver detalles` junto al nombre de la planta)*
+
+Error (en este caso por indicar en la url el id_planta de una planta que no existe):
 
 ![Spring 10c](img/spring/spring10c.jpg)
-*Error (en este caso por indicar en la url el id_planta de una planta que no existe)*
 
+Formulario de edición:
 ![Spring 10d](img/spring/spring10d.jpg)
-*Formulario de edición*
-
 
 
 
