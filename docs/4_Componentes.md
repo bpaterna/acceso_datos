@@ -375,9 +375,11 @@ Thymeleaf es un motor de plantillas que permite mezclar HTML con datos dinámico
 | **`th:unless`** | Muestra el contenido solo si la condición es falsa.                                                    | `<p th:unless="${hayPlantas}">No hay plantas registradas</p>`                                         |
 | **`th:href`**   | Construye enlaces dinámicos para el atributo `href` de un enlace `<a>`.                                | `<a th:href="@{/planta/{id}(id=${planta.id})}">Ver detalles</a>`                                      |
 | **`th:src`**    | Construye enlaces dinámicos para el atributo `src` de una imagen `<img>`.                              | `<img th:src="@{/imagenes/{nombreImagen}(nombreImagen=${planta.imagen})}" alt="Imagen de la planta">` |
-| **`th:action`** | Define la URL a la que se enviará un formulario cuando se haga submit.                                 | `<form th:action="@{/planta/guardar}" method="post"><button type="submit">Guardar</button></form>`    |
-| **`th:value`**  | Rellena el valor de un campo de formulario (`input`, `textarea`, etc.) con un valor dinámico.          | `<input type="text" th:value="${planta.nombre}" />`                                                   |
-| **`th:field`**  | Asocia un campo de formulario con un atributo del modelo de Spring, vincula los datos automáticamente. | `<input type="text" th:field="*{nombre}" />`                                                          |
+| **`th:action`** | Define la URL a la que se enviará un formulario cuando se haga submit.              | `<form th:action="@{/planta/guardar}" method="post"><button type="submit">Guardar</button></form>`    |
+| **`th:object`**   | Asocia un objeto del modelo de con el formulario, permitiendo vincular automáticamente sus atributos. | `<form th:object="${planta}" th:action="@{/planta/guardar}" method="post">...</form>`                |
+| **`th:value`**  | Rellena el valor de un campo de formulario (`input`, `textarea`, etc.) con un valor dinámico.          | `<input type="text" th:value="${planta.nombre}" />`                            |
+| **`th:field`**  | Asocia un campo de formulario con un atributo del modelo de Spring, vincula los datos automáticamente. | `<input type="text" th:field="*{nombre}" />`                                     |
+
 
 <span class="mis_ejemplos">Ejemplo 2: Aplicación utilizando Spring MVC y Thymeleaf</span>
 
@@ -707,7 +709,15 @@ Imágenes dinámicas:
 
 Formulario:
 
-* th:action="@{/planta/editar/{id_planta}(id_planta=${planta.id_planta})}" define la acción del formulario para editar la planta.
+* th:action="@{/planta/guardar}" indica la URL a la que se enviarán los datos del formulario cuando se haga submit.
+
+
+* th:object="${planta}" asocia un objeto del modelo de Spring (Model) con el formulario.
+
+${planta} hace referencia a la planta que se pasó al modelo desde el controlador: model.addAttribute("planta", planta)
+
+Esto permite usar atributos de planta en los campos del formulario, por ejemplo:
+
 
 
 !!! success "Prueba y analiza el ejemplo 2"
