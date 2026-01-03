@@ -652,19 +652,19 @@ El archivo que mostrará el formulario para modificar la información de una pla
 </html>
 ```
 
-**PASO 7: Fotos de las plantas**
+**PASO 6: Añadir las fotos de las plantas**
 
 Como queremos mostrar las fotos de nuestras plantas en la vista de detalle, hemos guardado las fotos en una carpeta llamada `fotos` dentro de `src/main/resources/static/`.
 
 
-**PASO 8: Comprobar que todo está correcto**
+**PASO 7: Comprobar que todo está correcto**
 
 La estructura del proyecto debe ser la siguiente:
 
 ![Spring 9](img/spring/spring09.jpg)
 
 
-**PASO 9: Ejecutar el proyecto**
+**PASO 8: Ejecutar el proyecto**
 
 Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos la url [http://localhost:8080/plantas](http://localhost:8080/plantas) en el navegador. Las sigueintes imágenes muestran el funcionamiento de nuestra aplicación:
 
@@ -681,8 +681,8 @@ Error (en este caso por indicar en la url el id_planta de una planta que no exis
 ![Spring 10c](img/spring/spring10c.jpg)
 
 Formulario de edición:
-![Spring 10d](img/spring/spring10d.jpg)
 
+![Spring 10d](img/spring/spring10d.jpg)
 
 
 **Explicación de las vistas Thymeleaf**
@@ -718,13 +718,11 @@ Formulario:
 
 * th:action="@{/planta/guardar}" indica la URL a la que se enviarán los datos del formulario cuando se haga submit.
 
-
 * th:object="${planta}" asocia un objeto del modelo de Spring (Model) con el formulario.
 
 ${planta} hace referencia a la planta que se pasó al modelo desde el controlador: model.addAttribute("planta", planta)
 
 Esto permite usar atributos de planta en los campos del formulario, por ejemplo:
-
 
 
 !!! success "Prueba y analiza el ejemplo 2"
@@ -748,12 +746,25 @@ Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
 
 **PASO 1: Crear el proyecto**
 
-Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación (en este caso le llamamos `plantasCSV` para diferenciala de la del ejemplo anterior) y añadimos las dependencias **Spring Web**, **Thymeleaf** y **Spring Boot DevTools**
+Para crear el nuevo proyecto podemos optar por dos opciones:
+
+Opción1: Crearlo con Spring Initializr. En este caso habrá que :
+
+- Copiar los archivos del proyecto del ejemplo anterior.
+
+- Actualizar todos los imports de `com.example.plantas` a `com.example.plantasCSV`
 
 
-**PASO 2: Abrir el proyecto**
+Opción 2: Duplicar la carpeta del proyecto. En este caso habrá que:
 
-Para partir de una base copiaremos la estructura y archivos del ejemplo anterior. Haremos los cambios necesarios para que todo funcione correctamente.
+- Cambiar el nombre del proyecto en Maven cambiando en el archivo `pom.xml` estas líneas:
+```xml
+  <name>plantasCSV</name>
+  <artifactId>plantasCSV</artifactId>
+```
+
+- Renombra el paquete base de com.example.plantas a com.example.plantasCSV haciendo clic derecho en la carpeta `plantas` dentro de `src/main/kotlin/com/example/` → Refactor → Rename.
+
 
 
 **PASO 3: Crear el fichero CSV**
