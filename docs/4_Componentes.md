@@ -663,9 +663,17 @@ Hemos guardado las fotos de las plantas en una carpeta llamada `fotos` dentro de
 
 Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos en el navegador la url [http://localhost:8080/plantas](http://localhost:8080/plantas) para que aparezca la lista de plantas.
 
-En la siguiente imagen se muestran las tres vistas que hemos programado. La lista de plantas, el detalle de la planta con id_planta = 1 (que aparece al hacer clic en el enlace `Ver detalles`) y el error (en este caso por indicar en la url el id_planta de una planta que no existe).
+Las sigueintes imágenes muestran las vistas que hemos programado. Lista de plantas, el detalle de la planta con id_planta = 1 (que aparece al hacer clic en el enlace `Ver detalles`), el error (en este caso por indicar en la url el id_planta de una planta que no existe) y el formulario de edición:
 
-![Spring 10](img/spring/spring10.jpg)
+![Spring 10a](img/spring/spring10a.jpg)
+
+![Spring 10b](img/spring/spring10b.jpg)
+
+![Spring 10c](img/spring/spring10c.jpg)
+
+![Spring 10d](img/spring/spring10d.jpg)
+
+
 
 
 **PASO 7: Explicación de las vistas Thymeleaf**
@@ -696,11 +704,11 @@ Imágenes dinámicas:
 
 * th:src="@{/fotos/{nombreImagen}(nombreImagen=${planta.foto})}" carga foto de la planta.
 
-<!--
+
 Formulario:
 
 * th:action="@{/planta/editar/{id_planta}(id_planta=${planta.id_planta})}" define la acción del formulario para editar la planta.
--->
+
 
 !!! success "Prueba y analiza el ejemplo 2"
     1. Crea un nuevo proyecto Spring Boot utilizando Spring Initializr.
