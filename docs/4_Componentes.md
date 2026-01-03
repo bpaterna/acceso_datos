@@ -376,7 +376,7 @@ Thymeleaf es un motor de plantillas que permite mezclar HTML con datos dinámico
 | **`th:href`**   | Construye enlaces dinámicos para el atributo `href` de un enlace `<a>`.                                | `<a th:href="@{/planta/{id}(id=${planta.id})}">Ver detalles</a>`                                      |
 | **`th:src`**    | Construye enlaces dinámicos para el atributo `src` de una imagen `<img>`.                              | `<img th:src="@{/imagenes/{nombreImagen}(nombreImagen=${planta.imagen})}" alt="Imagen de la planta">` |
 | **`th:action`** | Define la URL a la que se enviará un formulario cuando se haga submit.              | `<form th:action="@{/planta/guardar}" method="post"><button type="submit">Guardar</button></form>`    |
-| **`th:object`**   | Asocia un objeto del modelo de con el formulario, permitiendo vincular automáticamente sus atributos. | `<form th:object="${planta}" th:action="@{/planta/guardar}" method="post">...</form>`                |
+| **`th:object`**   | Asocia un objeto del modelo con el formulario, permitiendo vincular automáticamente sus atributos. | `<form th:object="${planta}" th:action="@{/planta/guardar}" method="post">...</form>`                |
 | **`th:value`**  | Rellena el valor de un campo de formulario (`input`, `textarea`, etc.) con un valor dinámico.          | `<input type="text" th:value="${planta.nombre}" />`                            |
 | **`th:field`**  | Asocia un campo de formulario con un atributo del modelo de Spring, vincula los datos automáticamente. | `<input type="text" th:field="*{nombre}" />`                                     |
 
@@ -395,22 +395,20 @@ Opcionalmente podemos añadir **Spring Boot DevTools** que nos ahorrará tiempo 
 
 - Recarga las plantillas Thymeleaf sin reiniciar manualmente.
 
-Para tener estas funciones activas, además de añadir la dependencia, hay configurar IntelliJ para que compile al guardar activando las opciones siguientes: 
+Para tener estas funciones activas, además de añadir la dependencia, hay que configurar IntelliJ para que compile al guardar activando las opciones siguientes: 
 
 - Build project automatically (Settings → Build, Execution, Deployment → Compiler)
 
 - Allow auto-make to start even if developed application is currently running (Settings → Advanced Settings)
 
-De esta forma, cuando realicemos un cambio en un archivo de nuestra aplicación, bastará con guardar el archivo y recargar el navegador (sin reiniciar la app) para ver los cambios inmediatamente.
-
+De esta forma, cuando realicemos un cambio en un archivo de código de nuestra aplicación, bastará con guardarlo y recargar el navegador (sin reiniciar la app) para ver los cambios inmediatamente.
 
 ![Spring 7](img/spring/spring07.jpg)
 
 
-
 **PASO 2: Abrir el proyecto y comprobar**
 
-Descomprimimos el proyecto obtenido en el paso anterior y lo abrimos con IntelliJ. Vemos que la Clase Principal de la Aplicación en Kotlin `PlantasApplication.kt` se encuentra en la carpeta `src/main/kotlin/com/example/plantas/` y que contiene el siguiente código:
+Descomprimimos fichero obtenido en el paso anterior y abrimos el proyecto con IntelliJ. La Clase principal de la aplicación en Kotlin es `PlantasApplication.kt`, se encuentra en la carpeta `src/main/kotlin/com/example/plantas/` y contiene el siguiente código:
 
 ```kotlin
 package com.example.plantas
@@ -428,7 +426,7 @@ fun main(args: Array<String>) {
 
 **PASO 3: Añadir el controlador**
 
-El controlador es quién manejará las solicitudes ya que recibe las peticiones HTTP, decide qué datos se usan y devuelve la vista adecuada. Es decir, gestionar la visualización y edición de plantas en la web. Para añadir el controlador, creamos el archivo `PlantaController.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/controller/` con el código siguiente:
+El controlador es quién manejará las solicitudes: recibe las peticiones HTTP, decide qué datos se usan y devuelve la vista adecuada. Es decir, gestionar la visualización y edición de plantas en la web. Para añadir el controlador, creamos el archivo `PlantaController.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/controller/` con el código siguiente:
 
 ```kotlin
 package com.example.plantas.controller
@@ -543,7 +541,7 @@ data class Planta(
 
 **PASO 5: Añadir las Vistas con Thymeleaf**
 
-Tal como hemos indicado en el controlador, necesitamos cuatro vistas, una para la lista de plantas, otra para el detalle de una planta, una tercera para avisar en caso de producirse un error y la última para modificar la información de la planta. Por tanto tendremos cuatro archivos `html` todos ellos dentro de la carpeta `src/main/resources/templates/`.
+Para nuestra aplicación necesitamos cuatro vistas, una para la lista de plantas, otra para el detalle de una planta, una tercera para avisar en caso de producirse un error y la última para modificar la información de la planta. Por tanto tendremos cuatro archivos `html` todos ellos dentro de la carpeta `src/main/resources/templates/`.
 
 El archivo que mostrará la lista de plantas será `plantas.html` y su código es el siguiente:
 
@@ -654,31 +652,39 @@ El archivo que mostrará el formulario para modificar la información de una pla
 </html>
 ```
 
-En este punto la estructura del proyecto debe ser la siguiente:
+**PASO 7: Fotos de las plantas**
+
+Como queremos mostrar las fotos de nuestras plantas en la vista de detalle, hemos guardado las fotos en una carpeta llamada `fotos` dentro de `src/main/resources/static/`.
+
+
+**PASO 8: Comprobar que todo está correcto**
+
+La estructura del proyecto debe ser la siguiente:
 
 ![Spring 9](img/spring/spring09.jpg)
 
-Hemos guardado las fotos de las plantas en una carpeta llamada `fotos` dentro de `src/main/resources/static/` para que se muestren en la vista de detalle.
 
 
-**PASO 6: Ejecutar el proyecto**
+**PASO 9: Ejecutar el proyecto**
 
-Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos en el navegador la url [http://localhost:8080/plantas](http://localhost:8080/plantas) para que aparezca la lista de plantas.
-
-Las sigueintes imágenes muestran las vistas que hemos programado. Lista de plantas, el detalle de la planta con id_planta = 1 (que aparece al hacer clic en el enlace `Ver detalles`), el error (en este caso por indicar en la url el id_planta de una planta que no existe) y el formulario de edición:
+Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos la url [http://localhost:8080/plantas](http://localhost:8080/plantas) en el navegador. Las sigueintes imágenes muestran el funcionamiento de nuestra aplicación:
 
 ![Spring 10a](img/spring/spring10a.jpg)
+*Lista de plantas*
 
 ![Spring 10b](img/spring/spring10b.jpg)
+*Detalle de la planta con id_planta = 1 (que aparece al hacer clic en el enlace `Ver detalles` junto al nombre de la planta)*
 
 ![Spring 10c](img/spring/spring10c.jpg)
+*Error (en este caso por indicar en la url el id_planta de una planta que no existe)*
 
 ![Spring 10d](img/spring/spring10d.jpg)
+*Formulario de edición*
 
 
 
 
-**PASO 7: Explicación de las vistas Thymeleaf**
+**Explicación de las vistas Thymeleaf**
 
 Condicionales:
 
