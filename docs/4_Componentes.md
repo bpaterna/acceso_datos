@@ -10,24 +10,12 @@
 
 Spring es un framework de código abierto para crear aplicaciones en Java o Kotlin de forma más fácil, rápida y ordenada. Facilita el trabajo de crear objetos, conectar clases, preparar la base de datos y configurar servidores.
 
-Los componentes principales de Spring Framework son:
-
-| Componente      | Descripción                                                                             |
-|-----------------|-----------------------------------------------------------------------------------------|
-| Spring Core     | El núcleo del framework, encargado de la inyección de dependencias                      |
-| Spring MVC      | Permite el desarrollo de aplicaciones web utilizando el patrón Modelo-Vista-Controlador |
-| Spring Boot     | Facilita la creación de aplicaciones basadas en Spring con una configuración mínima     |
-| Spring Data     | Simplifica el acceso a datos con soporte para JPA, MongoDB, Redis, entre otros          |
-| Spring Security | Proporciona herramientas para implementar seguridad en aplicaciones                     |
-| Spring Cloud    | Ayuda en la construcción de aplicaciones distribuidas y microservicios                  |
-
 
 Spring se basa principalmente en:
 
 - **Inversión de Control (IoC):** Se encarga de crear y gestionar los objetos de la aplicación.
 
 - **Inyección de Dependencias (DI):** Coloca los objetos donde hacen falta automáticamente.
-
 
 
 Además tiene tres pilares:
@@ -43,7 +31,6 @@ Además tiene tres pilares:
 - Dependencias necesarias.
 
 
-
 **2. Starters: paquetes listos para usar según lo que quieras hacer**
 
 | Starter                        | Descripción                   |
@@ -51,7 +38,6 @@ Además tiene tres pilares:
 | spring-boot-starter-web        | para rutas y controladores    |
 | spring-boot-starter-data-jpa   | para BD y CRUD                |
 | spring-boot-starter-thymeleaf  | para páginas HTML             |
-
 
 
 **3. Anotaciones: indican qué hace cada clase**
@@ -119,9 +105,23 @@ En las siguientes tablas se recogen las anotaciones más importantes que utiliza
 
 
 
+Los componentes principales de Spring Framework son:
+
+| Componente      | Descripción                                                                             |
+|-----------------|-----------------------------------------------------------------------------------------|
+| Spring Core     | El núcleo del framework, encargado de la inyección de dependencias                      |
+| Spring Boot     | Facilita la creación de aplicaciones basadas en Spring con una configuración mínima     |
+| Spring MVC      | Permite el desarrollo de aplicaciones web utilizando el patrón Modelo-Vista-Controlador |
+| Spring Data     | Simplifica el acceso a datos con soporte para JPA, MongoDB, Redis, entre otros          |
+| Spring Security | Proporciona herramientas para implementar seguridad en aplicaciones                     |
+| Spring Cloud    | Ayuda en la construcción de aplicaciones distribuidas y microservicios                  |
+
+
+
+
 ## 4.2. Spring Boot
 
-**Spring** es el framework completo y **Spring Boot** es la forma fácil y moderna de usar Spring. Se enfoca en simplificar y acelerar el desarrollo de aplicaciones web ya que:
+**Spring Boot** es la forma fácil y moderna de usar Spring. Se enfoca en simplificar y acelerar el desarrollo de aplicaciones web ya que:
 
 - Configura todo automáticamente.
 
@@ -136,7 +136,7 @@ En las siguientes tablas se recogen las anotaciones más importantes que utiliza
 - Permite crear proyectos en segundos.
 
 
-Para crear una aplicación con Spring Boot se necesitan 3 cosas: crear el proyecto, desarrollar la aplicación y desplegarla en un servidor. **Spring Boot** simplifica los pasos 1 y 3 para así poder centrar esfuerzos en el desarrollo.
+Para crear una aplicación se necesita crear el proyecto, desarrollar la aplicación y desplegarla en un servidor. **Spring Boot** simplifica las tareas de crear el proyecto y desplegar la aplicación para así poder centrar esfuerzos en el desarrollo.
 
 Para crear el proyecto Maven/Gradle y descargar las dependencias necesarias tenemos dos opciones:
 
@@ -170,7 +170,7 @@ Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
 
 **PASO 1: Crear el proyecto**
 
-Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y añadimos la dependencia **Spring Web** (el resto de opciones las podemos dejar como se ve en la imagen). Por último hacemos clic en el botón GENERATE. Esto hará que se cree el proyecto en un archivo .zip y se descargue. 
+Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y añadimos la dependencia **Spring Web** (el resto de opciones las podemos dejar como se ve en la imagen). Por último hacemos clic en el botón GENERATE. Esto hará que se cree el proyecto y se descargue en un archivo .zip. 
 
 ![Spring 1](img/spring/spring01.jpg)
 
@@ -191,10 +191,9 @@ Al ejecutar la aplicación veremos por Consola la salida de los mensajes de regi
     server.port=8888
     ```
 
-
 **PASO 3: Añadir el código para saludar**
 
-Añadimos el código necesario para que nuestra aplicación envíe un saludo directamente a la clase principal (SaludoApplication). En este caso es el método sayHello() con todas las anotaciones e importaciones necesarias:
+Añadimos a la clase principal `SaludoApplication` la función `sayHello()` con el código necesario para que nuestra aplicación envíe un saludo:
 
 ```kotlin
 @SpringBootApplication
@@ -209,6 +208,9 @@ class SaludoApplication{
 }
 ```
 
+Como puedes ver, se han incluido anotaciones e importaciones, a continuación se explica cada una de ellas:
+
+
 * **@RestController**: se utiliza para que Spring reconozca la clase como un controlador que maneja solicitudes HTTP. Combina:
     * @Controller: Define la clase como un controlador web.
     * @ResponseBody: Indica que los métodos devolverán directamente el cuerpo de la respuesta (en este caso, texto plano en lugar de una vista HTML).
@@ -221,9 +223,10 @@ class SaludoApplication{
     * El método espera un parámetro de consulta llamado `myName`.
     * Si el cliente no incluye myName en la solicitud, el valor predeterminado será "World", gracias a defaultValue = "World".
 
+
 **PASO 4: Volvemos a ejecutar la aplicación**
 
-Ejecutamos la aplicación para levantar el servidor Tomacat y abrimos la dirección [http://localhost:8080/hello](http://localhost:8080/hello) o [http://localhost:8080/hello?myName=Atenea](http://localhost:8080/hello?myName=Atenea) en el navegador web. La aplicación responde con `Hello World!` o con `Hello Atenea!` (que es el nombre pasado como parámetro): 
+Ejecutamos la aplicación para levantar el servidor y abrimos la dirección [http://localhost:8080/hello](http://localhost:8080/hello) o [http://localhost:8080/hello?myName=Atenea](http://localhost:8080/hello?myName=Atenea) en el navegador web. La aplicación responde con `Hello World!` o con `Hello Atenea!` (que es el nombre pasado como parámetro): 
 
 ![Spring 4](img/spring/spring04.jpg)
 
@@ -305,10 +308,6 @@ Ahora la aplicación ya se ejecutará en [http://localhost:8080/](http://localho
 
 **Spring MVC** es el módulo de Spring orientado al desarrollo de aplicaciones web siguiendo el patrón **Modelo‑Vista‑Controlador**.
 
-El ejemplo visto en Spring Boot es tan sencillo que no necesita un patrón de diseño especial. Para aplicaciones más complejas necesitamos de un patrón que nos permita crear aplicaciones con un código bien estructurado y más fácil de modificar, así como reutilizar sus componentes en diferentes puntos de la aplicación y que puedan evolucionar de manera independiente.
-
-Spring MVC forma parte del ecosistema Spring y proporciona toda la infraestructura necesaria para manejar peticiones HTTP, invocar controladores y devolver vistas (HTML, JSON, etc.).
-
 El **Modelo-Vista-Controlador (MVC)** es un patrón de diseño que organiza una aplicación en tres **componentes principales**:
 
 * **Modelo**: Son los datos. Es responsable de:
@@ -335,9 +334,6 @@ El **Modelo-Vista-Controlador (MVC)** es un patrón de diseño que organiza una 
 
 
 
-![MCV1](img/MVC1.png)
-
-
 Estos tres componentes trabajan de la siguiente forma:
 
 1) El usuario interactúa con la **Vista** (interfaz). Envia un formulario o hace clic en un enlace.
@@ -349,15 +345,20 @@ Estos tres componentes trabajan de la siguiente forma:
 4) La **Vista** presenta la respuesta al usuario.
 
 
-Spring se organiza siguiendo una arquitectura en capas en la que cada capa tiene una función concreta y se comunica únicamente con las capas adyacentes. Esto permite aplicaciones más mantenibles, escalables y fáciles de entender. Esta arquitectura encaja perfectamente con el patrón MVC (Model–View–Controller). En la siguiente tabla se muestran las capas más habituales en una aplicación Spring con su equivamencia en Spring MVC, sus anotaciones más habituales y la función que realiza cada una de ellas:
+![MCV1](img/MVC1.png)
+
+
+Spring MVC forma parte del ecosistema Spring y se organiza siguiendo una arquitectura en capas en la que cada capa tiene una función concreta y se comunica únicamente con las capas adyacentes. Esta arquitectura encaja perfectamente con el patrón MVC (Model–View–Controller) y proporciona toda la infraestructura necesaria para manejar peticiones HTTP, invocar controladores y devolver vistas (HTML, JSON, etc.) lo que permite aplicaciones más mantenibles, escalables y fáciles de entender.  
+
+En la siguiente tabla se muestran las capas más habituales en una aplicación Spring con su equivamencia en Spring MVC, sus anotaciones más habituales y la función que realiza cada una de ellas:
 
 **Anotaciones por capa y correspondencia Spring ↔ MVC**
 
-| Capas Spring         | Capa MVC      | Anotaciones  | Función                                                                                                                                                                                                                                                                                                                |
-|------------------------------------------------------------------------|--------------------------------------------------------------------------------|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Controller (Web)                                                       | Controller  | `@Controller`<br>`@RestController`<br>`@RequestMapping`<br>`@GetMapping`<br> `@RequestParam` <br> `@PostMapping`<br>`@PutMapping`<br>`@DeleteMapping` | Recibe peticiones HTTP, gestiona rutas y parámetros, llama a la capa Service y devuelve una vista o una respuesta (JSON)<br>**No contiene lógica de negocio ni acceso a datos**                                                                                                                                        |
-| Model (Entidades)<br>Service (Negocio)<br>Repository (Persistencia) | Model | `@Entity`, `@Table`, `@Id`<br>`@Service`, `@Transactional`<br>`@Repository` | Contiene las clases que modelan la información del negocio, aplica reglas y validaciones y accede a la base de datos para realizar operaciones CRUD (manteniendo aislada la BD del resto de la aplicación)                                                                                                             |
-| View (Representación HTML / JSON)                                      | View | *(sin anotaciones)* | Representa los datos al usuario:<br>• Archivo HTML con sintaxis específica para contenido dinámico si se utiliza Thymeleaf / JSP 	(Ubicación Thymeleaf: `src/main/resources/templates/`)<br>• Datos en formato JSON / XML en apps REST (si no se utiliza un motor de plantillas). En REST, el JSON actúa como la vista |
+| Capas Spring      | Capa MVC    | Anotaciones  | Función           |
+|-------------------|-------------|--------------|-------------------|
+| Controller (Web)                    | Controller  | `@Controller`<br>`@RestController`<br>`@RequestMapping`<br>`@GetMapping`<br> `@RequestParam` <br> `@PostMapping`<br>`@PutMapping`<br>`@DeleteMapping` | Recibe peticiones HTTP, gestiona rutas y parámetros, llama a la capa Service y devuelve una vista o una respuesta (JSON)<br>**No contiene lógica de negocio ni acceso a datos**                         |
+| Model (Entidades)<br>Service (Negocio)<br>Repository (Persistencia) | Model | `@Entity`, `@Table`, `@Id`<br>`@Service`, `@Transactional`<br>`@Repository` | Contiene las clases que modelan la información del negocio, aplica reglas y validaciones y accede a la base de datos para realizar operaciones CRUD (manteniendo aislada la BD del resto de la aplicación)        |
+| View (Representación HTML / JSON)               | View | *(sin anotaciones)* | Representa los datos al usuario:<br>• Archivo HTML con sintaxis específica para contenido dinámico si se utiliza Thymeleaf / JSP 	(Ubicación Thymeleaf: `src/main/resources/templates/`)<br>• Datos en formato JSON / XML en apps REST (si no se utiliza un motor de plantillas). En REST, el JSON actúa como la vista |
 
 
 ![MCV1](img/MVC2.png)
@@ -395,7 +396,7 @@ Opcionalmente podemos añadir **Spring Boot DevTools** que nos ahorrará tiempo 
 
 - Recarga las plantillas Thymeleaf sin reiniciar manualmente.
 
-Para tener estas funciones activas, además de añadir la dependencia, hay que configurar IntelliJ para que compile al guardar activando las opciones siguientes: 
+Para tener estas funciones activas, además de añadir la dependencia, hay que configurar IntelliJ para que compile al guardar.Esto se consigue activando las opciones siguientes: 
 
 - Build project automatically (Settings → Build, Execution, Deployment → Compiler)
 
@@ -406,7 +407,7 @@ De esta forma, cuando realicemos un cambio en un archivo de código de nuestra a
 ![Spring 7](img/spring/spring07.jpg)
 
 
-**PASO 2: Abrir el proyecto y comprobar**
+**PASO 2: Abrir el proyecto**
 
 Descomprimimos fichero obtenido en el paso anterior y abrimos el proyecto con IntelliJ. La Clase principal de la aplicación en Kotlin es `PlantasApplication.kt`, se encuentra en la carpeta `src/main/kotlin/com/example/plantas/` y contiene el siguiente código:
 
@@ -426,7 +427,7 @@ fun main(args: Array<String>) {
 
 **PASO 3: Añadir el controlador**
 
-El controlador es quién manejará las solicitudes: recibe las peticiones HTTP, decide qué datos se usan y devuelve la vista adecuada. Es decir, gestionar la visualización y edición de plantas en la web. Para añadir el controlador, creamos el archivo `PlantaController.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/controller/` con el código siguiente:
+El controlador es quién manejará las solicitudes, es decir, gestionar la visualización y edición de plantas en la web, ya que recibe las peticiones HTTP, decide qué datos se usan y devuelve la vista adecuada. Para añadir el controlador, creamos el archivo `PlantaController.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/controller/` con el código siguiente:
 
 ```kotlin
 package com.example.plantas.controller
@@ -539,7 +540,7 @@ data class Planta(
 )
 ```
 
-**PASO 5: Añadir las Vistas con Thymeleaf**
+**PASO 5: Añadir las vistas con Thymeleaf**
 
 Para nuestra aplicación necesitamos cuatro vistas, una para la lista de plantas, otra para el detalle de una planta, una tercera para avisar en caso de producirse un error y la última para modificar la información de la planta. Por tanto tendremos cuatro archivos `html` todos ellos dentro de la carpeta `src/main/resources/templates/`.
 
@@ -652,38 +653,6 @@ El archivo que mostrará el formulario para modificar la información de una pla
 </html>
 ```
 
-**PASO 6: Añadir las fotos de las plantas**
-
-Como queremos mostrar las fotos de nuestras plantas en la vista de detalle, hemos guardado las fotos en una carpeta llamada `fotos` dentro de `src/main/resources/static/`.
-
-
-**PASO 7: Comprobar que todo está correcto**
-
-La estructura del proyecto debe ser la siguiente:
-
-![Spring 9](img/spring/spring09.jpg)
-
-
-**PASO 8: Ejecutar el proyecto**
-
-Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos la url [http://localhost:8080/plantas](http://localhost:8080/plantas) en el navegador. Las sigueintes imágenes muestran el funcionamiento de nuestra aplicación:
-
-Lista de plantas:
-
-![Spring 10a](img/spring/spring10a.jpg)
-
-Detalle de la planta con id_planta = 1 (que aparece al hacer clic en el enlace `Ver detalles` junto al nombre de la planta):
-
-![Spring 10b](img/spring/spring10b.jpg)
-
-Error (en este caso por indicar en la url el id_planta de una planta que no existe):
-
-![Spring 10c](img/spring/spring10c.jpg)
-
-Formulario de edición:
-
-![Spring 10d](img/spring/spring10d.jpg)
-
 
 **Explicación de las vistas Thymeleaf**
 
@@ -718,11 +687,40 @@ Formulario:
 
 * th:action="@{/planta/guardar}" indica la URL a la que se enviarán los datos del formulario cuando se haga submit.
 
-* th:object="${planta}" asocia un objeto del modelo de Spring (Model) con el formulario.
+* th:object="${planta}" asocia un objeto del modelo de Spring (Model) con el formulario. en este caso `${planta}` hace referencia a la planta que se pasó al modelo desde el controlador: `model.addAttribute("planta", planta)`. Esto permite usar atributos de planta en los campos del formulario, por ejemplo:
 
-${planta} hace referencia a la planta que se pasó al modelo desde el controlador: model.addAttribute("planta", planta)
 
-Esto permite usar atributos de planta en los campos del formulario, por ejemplo:
+
+**PASO 6: Añadir las fotos de las plantas**
+
+Como queremos mostrar las fotos de nuestras plantas en la vista de detalle, hemos guardado las fotos en una carpeta llamada `fotos` dentro de `src/main/resources/static/`.
+
+
+**PASO 7: Comprobar y ejecutar**
+
+La estructura del proyecto debe ser la siguiente:
+
+![Spring 9](img/spring/spring09.jpg)
+
+
+Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos la url [http://localhost:8080/plantas](http://localhost:8080/plantas) en el navegador. Las siguientes imágenes muestran el funcionamiento de nuestra aplicación:
+
+Lista de plantas:
+
+![Spring 10a](img/spring/spring10a.jpg)
+
+Detalle de la planta con id_planta = 1 (que aparece al hacer clic en el enlace `Ver detalles` junto al nombre de la planta):
+
+![Spring 10b](img/spring/spring10b.jpg)
+
+Error (en este caso por indicar en la url el id_planta de una planta que no existe):
+
+![Spring 10c](img/spring/spring10c.jpg)
+
+Formulario de edición:
+
+![Spring 10d](img/spring/spring10d.jpg)
+
 
 
 !!! success "Prueba y analiza el ejemplo 2"
@@ -732,17 +730,13 @@ Esto permite usar atributos de planta en los campos del formulario, por ejemplo:
 
 ## 4.4. Trabajando con ficheros
 
-En el ejemplo anterior teníamos la información de las plantas en memoria (en una lista), ahora, para tener persistencia de datos, tendremos la información en un fichero CSV.
+En el ejemplo anterior, la información de las plantas se almacenaba en memoria mediante una lista. Ahora vamos a trabajar con los datos en un fichero CSV para disponer de persistencia. Para ello, es necesario añadir al proyecto un servicio intermedio encargado del acceso al fichero, ya que el controlador no debe leer ni escribir datos directamente. De esta forma, cada capa del patrón MVC mantiene su responsabilidad bien definida.
 
-Además tendremos que modificar nuestro proyecto para tener las tareas de cada capa correctamente separadas ya que el controlador NO debe leer ni escribir ficheros directamente.
-
-Para conseguir esto, hay que crear un componente que se encargue del acceso a los datos del fichero a través de un servicio intermedio.
-
-Dado que vamos a utilizar un archivo de texto planos, la estrategia más sencilla es: "Leer todo -> Modificar la lista en memoria -> Sobrescribir todo el archivo".
 
 <span class="mis_ejemplos">Ejemplo 3: CRUD (CSV) con Spring MVC y Thymeleaf</span>
 
 Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
+
 
 **PASO 1: Crear el proyecto**
 
@@ -750,7 +744,7 @@ Para crear el nuevo proyecto podemos optar por dos opciones:
 
 Opción1: Crearlo con Spring Initializr. En este caso habrá que :
 
-- Copiar los archivos del proyecto del ejemplo anterior.
+- Copiar carpetas y archivos del proyecto del anterior.
 
 - Actualizar todos los imports de `com.example.plantas` a `com.example.plantasCSV`
 
@@ -763,11 +757,11 @@ Opción 2: Duplicar la carpeta del proyecto. En este caso habrá que:
   <artifactId>plantasCSV</artifactId>
 ```
 
-- Renombra el paquete base de com.example.plantas a com.example.plantasCSV haciendo clic derecho en la carpeta `plantas` dentro de `src/main/kotlin/com/example/` → Refactor → Rename.
+- Renombrar el paquete base de com.example.plantas a com.example.plantasCSV haciendo clic derecho en la carpeta `plantas` dentro de `src/main/kotlin/com/example/` → Refactor → Rename.
 
 
 
-**PASO 3: Crear el fichero CSV**
+**PASO 2: Crear el fichero CSV**
 Creamos un archivo llamado `plantas.csv` con los datos iniciales, lo ubicamos en la carpeta `src/main/resources/data/`. Su contenido inicial será:
 
 ```csv
@@ -776,7 +770,7 @@ Creamos un archivo llamado `plantas.csv` con los datos iniciales, lo ubicamos en
 3;Orquídea;Flor;0.3;orquidea.jpg
 ```
 
-**PASO 4: Crear el archivo que accede a los datos**
+**PASO 3: Crear el archivo que accede a los datos**
 
 Crear `PlantaFileRepository.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/repository/` con el siguiente código:
 
@@ -806,7 +800,7 @@ class PlantaFileRepository {
 }
 ```
 
-**PASO 5: Crear el archivo de servicio intermedio**
+**PASO 4: Crear el archivo del servicio intermedio**
 
 Crear `PlantaService.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/service/` con el siguiente código:
 
@@ -836,7 +830,7 @@ La estructura de nuestro proyecto quedará así:
 ![Spring 11](img/spring/spring11.jpg)
 
 
-**PASO 6: Modificar el controlador**
+**PASO 5: Modificar el controlador**
 
 Y modificar el controlador para que lo utilice
 
@@ -882,6 +876,9 @@ spring.devtools.restart.exclude=static/**,public/**,data/**
 ```
 
 
+## 4.5. Spring Data
+
+Spring Data
 
 
 <!--
