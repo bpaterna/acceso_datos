@@ -8,17 +8,16 @@
 
 ## 4.1. Introducción
 
-Spring es un framework de código abierto para crear aplicaciones en Java o Kotlin de forma más fácil, rápida y ordenada. Facilita el trabajo de crear objetos, conectar clases, preparar la base de datos y configurar servidores.
+Spring es un framework de código abierto para crear aplicaciones en Java o Kotlin de forma más fácil, rápida y ordenada. Facilita el trabajo de crear objetos, conectar clases, preparar la base de datos y configurar servidores. 
 
-
-Spring se basa principalmente en:
+🔴 Spring se basa principalmente en:
 
 - **Inversión de Control (IoC):** Se encarga de crear y gestionar los objetos de la aplicación.
 
 - **Inyección de Dependencias (DI):** Coloca los objetos donde hacen falta automáticamente.
 
 
-Además tiene tres pilares:
+🔴 Además tiene tres pilares:
 
 **1. Autoconfiguración (Spring Boot): prepara el proyecto por ti**
 
@@ -105,7 +104,7 @@ En las siguientes tablas se recogen las anotaciones más importantes que utiliza
 
 
 
-Los componentes principales de Spring Framework son:
+🔴 Los componentes principales de Spring Framework son:
 
 | Componente      | Descripción                                                                             |
 |-----------------|-----------------------------------------------------------------------------------------|
