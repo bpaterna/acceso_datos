@@ -723,41 +723,27 @@ Formulario de edición:
 
 **PASO 8: Cambiar el aspecto**
 
-Como hemos visto en las capturas anteriores, nuestas vistas html no tienen aplicado ningún estilo. Utilizaremos `bootstrap` para darle a nuestra aplicación un aspecto más profesional. Puedes encontrar mucha documentacion en internet sobre como utilizarlo. Por ejemplo en:
+Como hemos visto en las capturas anteriores, nuestas vistas html no tienen aplicado ningún estilo. Vamos a darle a nuestra aplicación un aspecto más profesional utilizando `bootstrap`. Podemos encontrar mucha documentacion en internet sobre como utilizarlo. Por ejemplo en:
 
 * [https://getbootstrap.com/docs/5.3/getting-started/introduction/](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
 
 * [https://www.w3schools.com/bootstrap5/](https://www.w3schools.com/bootstrap5/)
 
 
-En nuestro caso lo vamos a descargar para incluirlo de forma local en nuestro proyecto. Para ello, seguiremos estos pasos:
+En nuestro caso vamos a descargarlo para incluirlo de forma local en nuestro proyecto y vamos a modificar nuestras vistas `html` para que lo utilicen. Para ello, seguiremos estos pasos:
 
+1. Entrar en [https://getbootstrap.com](https://getbootstrap.com) 
 
-1. Descargar Bootstrap para añadirlo a nuestro proyecto
+2. Hacer clic en el botón `Download` y descargar la versión **Compiled CSS and JS**
 
-* Entrar en [https://getbootstrap.com](https://getbootstrap.com) 
+3. Descomprir el ZIP y copiar la carpeta `bootstrap` en `src/main/resources/static/`
 
-* Hacer clic en el botón `Download`
+4. Modificar los archivos html para añadir en el `<head>` la línea `<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">` y `<div class="container mt-5">` dentro del `<body>`
 
-* Descargar la versión **Compiled CSS and JS**, descomprir el ZIP y copiar la carpeta `bootstrap` en  `src/main/resources/static/`
-
-2. Modificar los archivos html así:
-
-En el `<head>` añadir la línea: 
-```html
-<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
-```
 <!--
 Antes de cerrar </body> (opcional, JS)
 <script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
 -->
-
-Justo debajo de `<body>` añadir:
-```html
-<div class="container mt-5">
-```
-
-y cerrar `</div>` justo antes de `</body>` 
 
 Solamente con estos pequeños cambios nuestra aplicación cambiará su aspecto a:
 
