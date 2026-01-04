@@ -35,8 +35,8 @@ Spring es un framework de código abierto para crear aplicaciones en Java o Kotl
 | Starter                        | Descripción                   |
 |--------------------------------|-------------------------------|
 | spring-boot-starter-web        | para rutas y controladores    |
-| spring-boot-starter-data-jpa   | para BD y CRUD                |
 | spring-boot-starter-thymeleaf  | para páginas HTML             |
+| spring-boot-starter-data-jpa   | para BD y CRUD                |
 
 
 **3. Anotaciones: indican qué hace cada clase**
@@ -721,10 +721,68 @@ Formulario de edición:
 ![Spring 10d](img/spring/spring10d.jpg)
 
 
+**PASO 8: Cambiar el aspecto**
+
+Como hemos visto en las capturas anteriores, nuestas vistas html no tienen aplicado ningún estilo. Utilizaremos `bootstrap` para darle a nuestra aplicación un aspecto más profesional. Puedes encontrar mucha documentacion en internet sobre como utilizarlo. Por ejemplo en:
+
+* [https://getbootstrap.com/docs/5.3/getting-started/introduction/](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
+
+* [https://www.w3schools.com/bootstrap5/](https://www.w3schools.com/bootstrap5/)
+
+
+En nuestro caso lo vamos a descargar para incluirlo de forma local en nuestro proyecto. Para ello, seguiremos estos pasos:
+
+
+1. Descargar Bootstrap para añadirlo a nuestro proyecto
+
+* Entrar en [https://getbootstrap.com](https://getbootstrap.com) 
+
+* Hacer clic en el botón `Download`
+
+* Descargar la versión **Compiled CSS and JS**, descomprir el ZIP y copiar la carpeta `bootstrap` en  `src/main/resources/static/`
+
+2. Modificar los archivos html así:
+
+En el `<head>` añadir la línea: 
+```html
+<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+```
+<!--
+Antes de cerrar </body> (opcional, JS)
+<script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+-->
+
+Justo debajo de `<body>` añadir:
+```html
+<div class="container mt-5">
+```
+
+y cerrar `</div>` justo antes de `</body>` 
+
+Solamente con estos pequeños cambios nuestra aplicación cambiará su aspecto a:
+
+
+Lista de plantas:
+
+![Spring 10a](img/spring/spring10a2.jpg)
+
+Detalle de la planta con id_planta = 1 (que aparece al hacer clic en el enlace `Ver detalles` junto al nombre de la planta):
+
+![Spring 10b](img/spring/spring10b2.jpg)
+
+Error (en este caso por indicar en la url el id_planta de una planta que no existe):
+
+![Spring 10c](img/spring/spring10c2.jpg)
+
+Formulario de edición:
+
+![Spring 10d](img/spring/spring10d2.jpg)
+
 
 !!! success "Prueba y analiza el ejemplo 2"
     1. Crea un nuevo proyecto Spring Boot utilizando Spring Initializr.
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
+    3. Modifica el aspecto de tu aplicación aplicando alguna característica de `bootstrap` para que el resultado quede diferente del del ejemplo.
 
 
 ## 4.4. Trabajando con ficheros
@@ -873,6 +931,12 @@ A tener en cuenta: DevTools detectará el cambio en el archivo dentro de `src/ma
 ```kotlin
 spring.devtools.restart.exclude=static/**,public/**,data/**
 ```
+
+
+
+
+
+
 
 
 ## 4.5. Spring Data
