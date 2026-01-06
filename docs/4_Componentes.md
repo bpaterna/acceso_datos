@@ -404,7 +404,7 @@ De esta forma, cuando realicemos un cambio en un archivo de código de nuestra a
 
 <span class="mi_sombreado">**PASO 2: Abrir el proyecto**</span>
 
-Descomprimimos fichero obtenido en el paso anterior y abrimos el proyecto con IntelliJ. Comprobamos que la clase principal de la aplicación es `PlantasApplication.kt`, se encuentra en la carpeta `src/main/kotlin/com/example/plantas/` y contiene el siguiente código:
+Descomprimimos el archivo obtenido en el paso anterior y abrimos el proyecto con IntelliJ. Comprobamos que la clase principal de la aplicación es `PlantasApplication.kt`, que se encuentra en la carpeta `src/main/kotlin/com/example/plantas/` y que contiene el siguiente código:
 
 ```kotlin
 package com.example.plantas
@@ -422,7 +422,7 @@ fun main(args: Array<String>) {
 
 <span class="mi_sombreado">**PASO 3: Añadir el controlador**</span>
 
-El controlador maneja las solicitudes al recibir las peticiones HTTP, decide qué datos se usan y devuelve la vista adecuada. Para añadir el controlador, creamos el archivo `PlantaController.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/controller/` con el código siguiente:
+En este caso, como la aplicación es muy sencilla el controlador maneja las solicitudes al recibir las peticiones HTTP, decide qué datos se usan y devuelve la vista adecuada. Para añadir el controlador, creamos el archivo `PlantaController.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/controller/` con el código siguiente:
 
 ```kotlin
 package com.example.plantas.controller
