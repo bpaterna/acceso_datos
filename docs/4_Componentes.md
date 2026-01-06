@@ -45,15 +45,15 @@ Las anotaciones son etiquetas especiales que se colocan encima de clases, funcio
 
 En nuestro caso, como vamos a trabajar únicamente con Spring Boot, API REST, vistas HTML y JPA, no es necesario aprender todas las anotaciones que ofrece Spring. Basta con conocer un conjunto reducido de anotaciones básicas, suficientes para desarrollar un backend completo y funcional.
 
-En las siguientes tablas se recogen las anotaciones más importantes que utilizaremos a lo largo del tema (para API REST/vistas HTML + JPA). 
+En las siguientes tablas se recogen las anotaciones más importantes que utilizaremos a lo largo del tema (para API REST/vistas HTML + JPA) (a medida que avancemos, irán apareciendo otras anotaciones adicionales que se introducirán solo cuando sean necesarias para la aplicación): 
 
-Anotaciones de arranque de la app
+- Anotaciones de arranque de la app
 
 | Anotación                | Dónde se usa           | Para qué sirve                          |
 | ------------------------ | ---------------------- | --------------------------------------- |
 | @SpringBootApplication | Clase principal        | Marca la clase de arranque de la aplicación Spring Boot y activa la auto-configuración y el escaneo de componentes |
 
-Anotaciones API REST
+- Anotaciones API REST
 
 | Anotación          | Dónde se usa | Para qué sirve |
 | ------------------ |--------------|----------------|
@@ -67,14 +67,14 @@ Anotaciones API REST
 | @PathVariable      | Parámetro        | Permite recoger valores de la URL (por ejemplo, un identificador)                    |
 
 
-Anotaciones MVC (vistas)
+- Anotaciones MVC (vistas)
 
 | Anotación        | Dónde se usa | Para qué sirve |
 | ---------------- |--------------|----------------|
 | @Controller      | Clase        | Marca una clase como controlador MVC tradicional, devolviendo vistas (HTML con Thymeleaf)       |
 
 
-Anotaciones de lógica de negocio
+- Anotaciones de lógica de negocio
 
 | Anotación       | Dónde se usa | Para qué sirve |
 | --------------- |--------------|----------------|
@@ -82,7 +82,7 @@ Anotaciones de lógica de negocio
 | @Autowired      | Atributo o constructor | Inyecta automáticamente una dependencia gestionada por Spring                      |
 
 
-Anotaciones JPA / Base de datos
+- Anotaciones JPA / Base de datos
 
 | Anotación       | Dónde se usa | Para qué sirve |
 | --------------- |--------------|----------------|
@@ -96,14 +96,11 @@ Anotaciones JPA / Base de datos
 | @JoinColumn     | Atributo     | Especifica la columna usada como clave foránea en una relación |
 
 
-Anotaciones de acceso a datos
+- Anotaciones de acceso a datos
 
 | Anotación   | Dónde se usa | Para qué sirve |
 | ----------- |--------------|----------------|
 | @Repository | Clase o interfaz | Indica que la clase o interfaz se encarga del acceso a datos y de la gestión de excepciones de base de datos |
-
-
-A medida que avancemos, irán apareciendo otras anotaciones adicionales que se introducirán solo cuando sean necesarias para la aplicación.
 
 
 
