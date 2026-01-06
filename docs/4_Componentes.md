@@ -698,7 +698,7 @@ Como queremos mostrar las fotos de nuestras plantas en la vista de detalle, hemo
 
 **PASO 7: Comprobar y ejecutar**
 
-La estructura del proyecto debe ser la siguiente:
+La estructura del proyecto será la siguiente:
 
 ![Spring 9](img/spring/spring09.jpg)
 
@@ -765,7 +765,7 @@ Formulario de edición:
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
 
 
-## 4.4. Trabajando con ficheros
+<span class="mi_h3">Trabajando con ficheros</span>
 
 En el ejemplo anterior, la información de las plantas se almacenaba en memoria mediante una lista y el controlador accedía directamente a ella. Ahora vamos a trabajar con los datos en un fichero CSV para disponer de persistencia y vamos a separar la responsabilidad de cada capa del patrón MVC de forma que:
 
@@ -773,21 +773,21 @@ En el ejemplo anterior, la información de las plantas se almacenaba en memoria 
 
 - Repositorio: maneja los datos.
 
-- Servicio intermedio:  intermediario entre el controlador y el Repositorio.
+- Servicio intermedio: hace de intermediario entre el controlador y el repositorio.
 
 
 <span class="mis_ejemplos">Ejemplo 3: CRUD (CSV) con Spring MVC y Thymeleaf</span>
 
-Este ejemplo modifica el el anterior ampliando las funciones CRUD y definiendo las capas de la arquitectura MVC. A continuación se describen los pasos necesarios para realizar dichos cambios:
+Este ejemplo modifica el anterior ampliando las funciones CRUD y definiendo las capas de la arquitectura MVC. A continuación se describen los pasos necesarios para realizar dichos cambios:
 
 
-**PASO 1: Crear el proyecto**
+**PASO 1: Crear el proyecto `plantasCSV`**
 
 Para crear el nuevo proyecto a partir del anterior tenemos dos opciones:
 
 Opción 1: Spring Initializr
 
-- Crear un proyecto nuevo con Spring Initializr.
+- Crear un proyecto nuevo llamado `plantasCSV` con Spring Initializr.
 
 - Copiar carpetas y archivos del proyecto del anterior.
 
@@ -796,7 +796,7 @@ Opción 1: Spring Initializr
 
 Opción 2: Duplicar el proyecto anterior
 
-- Crear una copia del proyecto anterior.
+- Crear una copia de la carpeta del proyecto anterior y llamarla `plantasCSV`.
 
 - Cambiar el nombre del proyecto en el archivo `pom.xml` (cambiando estas líneas):
 ```xml
@@ -821,7 +821,7 @@ Creamos un archivo llamado `plantas.csv` con los datos iniciales y lo ubicamos e
 
 **PASO 3: Modificar el controlador**
 
-En la arquitectura MVC (Modelo-Vista-Controlador), el controlador es el encargado de recibir las peticiones del usuario (cuando hace clic en un enlace o envía un formulario en el navegador) y decidir qué respuesta dar (normalmente, mostrar una página HTML). Vamos a modificar el controlador que teníamos de la aplicación anterior para que solamente interactúe con el usuario y no acceda a los datos. Además añadimos el código necesario para las funciones de crear nueva planta o borrar una existente. El código ha de quedar de la siguiente manera: 
+En la arquitectura MVC (Modelo-Vista-Controlador), el controlador es el encargado de recibir las peticiones del usuario (cuando hace clic en un enlace o envía un formulario en el navegador) y decidir qué respuesta dar (normalmente, mostrar una página HTML). Vamos a modificar el controlador que teníamos de la aplicación anterior para que solamente interactúe con el usuario y no acceda a los datos. Además añadiremos el código necesario para las funciones de crear nueva planta y borrar una existente. El código es el siguiente: 
 
 ```kotlin
 
@@ -894,7 +894,7 @@ class PlantaController(
 
 **PASO 4: Añadir la clase que maneja los datos**
 
-Esta clase se encarga de acceder a los datos y gestionarlos, es decir, leer, crear, actualizar y borrar información sobre plantas. Para añadirla crearemos el archivo `PlantaFileRepository.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/repository/` con el siguiente código:
+Esta clase se encarga de acceder a los datos y gestionarlos, es decir, leer, crear, actualizar y borrar información sobre plantas. Para añadirla creamos el archivo `PlantaFileRepository.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/repository/` con el siguiente código:
 
 ```kotlin
 package com.example.plantasCSV.repository
@@ -955,7 +955,7 @@ class PlantaFileRepository {
 
 **PASO 5: Añadir la clase del servicio intermedio**
 
-En la arquitectura MVC el servicio actúa como el intermediario entre la parte que interactúa con el usuario o controlador y la parte que maneja los datos (el repositorio que vimos antes). Para añadirla creamos el archivo `PlantaService.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/service/` con el siguiente código:
+En la arquitectura MVC el servicio actúa como el intermediario entre el controlador (parte que interactúa con el usuario) y el repositorio (parte que maneja los datos). Para añadirla creamos el archivo `PlantaService.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/service/` con el siguiente código:
 
 ```kotlin
 package com.example.plantasCSV.service
@@ -986,15 +986,15 @@ class PlantaService(
 ```
 
 
-**PASO 6: Comprobar y ejecutar**
+<span class="mi_sombreado">**PASO 6: Comprobar y ejecutar**</span>
 
-Llegados a este punto, la estructura de nuestro proyecto habrá quedado así:
-
+Llegados a este punto, la estructura del proyecto será la siguiente:
 
 ![Spring 11](img/spring/spring11.jpg)
 
 
-Ejecutamos la aplicación usando la clase PlantasApplication.kt como clase principal y abrimos la url http://localhost:8080/plantas en el navegador. Las siguientes imágenes muestran el funcionamiento de nuestra aplicación:
+Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos la url [http://localhost:8080/plantas](http://localhost:8080/plantas) en el navegador. Las siguientes imágenes muestran el funcionamiento de nuestra aplicación:
+
 
 Lista de plantas (en este caso se ha cambiado la lista por una tabla y se han añadido botones de acciones a cada planta):
 
@@ -1034,9 +1034,6 @@ Al ejecutar el programa se produce esta secuendia de acciones:
 
 
 
-
-
-
 <!--
 A tener en cuenta: DevTools detectará el cambio en el archivo dentro de `src/main/resources` mientras la aplicación se ejecuta y reiniciará el servidor automáticamente. Esto puede ser molesto (se rellena el formulario, se guarda, y la app se reinicia). Para evitar se puede excluir la carpeta data del reinicio añadiendo al archivo `application.properties` la sigueinte línea:
 
@@ -1057,14 +1054,14 @@ spring.devtools.restart.exclude=static/**,public/**,data/**
     3. Modifica el aspecto de tu aplicación aplicando alguna característica de `bootstrap` para que el resultado quede personalizado a tu gusto.
 
 
+<!--
 
-
-## 4.5. Spring Data
+## 4.4. Spring Data
 
 Spring Data
 
 
-<!--
+
 
 <span class="mi_h3">Proyecto</span>
 
