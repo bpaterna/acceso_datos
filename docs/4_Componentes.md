@@ -303,9 +303,7 @@ Ahora la aplicación ya se ejecutará en [http://localhost:8080/](http://localho
 
 ## 4.3. Spring MVC
 
-**Spring MVC** es el módulo de Spring orientado al desarrollo de aplicaciones web siguiendo el patrón **Modelo‑Vista‑Controlador**.
-
-El **Modelo-Vista-Controlador (MVC)** es un patrón de diseño que organiza una aplicación en tres **componentes principales**:
+**Spring MVC** es el módulo de Spring orientado al desarrollo de aplicaciones web siguiendo el patrón **Modelo‑Vista‑Controlador (MVC)**, el cual organiza una aplicación en tres **componentes principales**:
 
 * **Modelo**: Son los datos. Es responsable de:
 
