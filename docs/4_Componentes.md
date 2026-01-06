@@ -296,7 +296,7 @@ Ahora la aplicación ya se ejecutará en [http://localhost:8080/](http://localho
 
 
 !!! success "Prueba y analiza el ejemplo 1"
-    1. Crea tu primer proyecto Spring Boot utilizando Spring Initializr. 
+    1. Crea un proyecto Spring Boot llamado `saludo` utilizando Spring Initializr. 
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
 
 
@@ -756,7 +756,7 @@ Solamente con estos pequeños cambios nuestra aplicación cambiará su aspecto a
 
 
 !!! success "Prueba y analiza el ejemplo 2"
-    1. Crea un nuevo proyecto Spring Boot utilizando Spring Initializr.
+    1. Crea un proyecto Spring Boot llamado `plantas` utilizando Spring Initializr.
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
 
 
@@ -1029,24 +1029,16 @@ Al ejecutar el programa se produce esta secuendia de acciones:
 
 
 
-<!--
-A tener en cuenta: DevTools detectará el cambio en el archivo dentro de `src/main/resources` mientras la aplicación se ejecuta y reiniciará el servidor automáticamente. Esto puede ser molesto (se rellena el formulario, se guarda, y la app se reinicia). Para evitar se puede excluir la carpeta data del reinicio añadiendo al archivo `application.properties` la sigueinte línea:
-
-```kotlin
-spring.devtools.restart.exclude=static/**,public/**,data/**
-```
--->
-
-
 !!! success "Prueba y analiza el ejemplo 3"
-    1. Crea un nuevo proyecto Spring Boot utilizando Spring Initializr.
+    1. Crea un proyecto Spring Boot llamado `plantasCSV` utilizando Spring Initializr o duplica el proyecto utilizado en el ejemplo anterior.
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
 
 
 !!! warning "Práctica 1: Trabaja en tu aplicación"
-    1. Crea un nuevo proyecto Spring Boot utilizando Spring Initializr.
+    1. Crea un nuevo proyecto Spring Boot (con el nombre de tu aplicación) utilizando Spring Initializr.
     2. Partiendo del fichero CSV que utilizaste anteriormente crea tu aplicación CRUD.
     3. Modifica el aspecto de tu aplicación aplicando alguna característica de `bootstrap` para que el resultado quede personalizado a tu gusto.
+
 
 
 <!--
@@ -1056,64 +1048,11 @@ spring.devtools.restart.exclude=static/**,public/**,data/**
 Spring Data
 
 
-
-
-<span class="mi_h3">Proyecto</span>
-
-
-
-```
-    {
-        "id_planta": 301,
-        "nombre": "Rosa silvestre",
-        "tipo": "Arbust",
-        "jardinero": {
-            "nombre": "Eli",
-            "apellidos": "Martínez Serra",
-            "anyo_nacimiento": 1985
-        },
-        "localitzacio": "Jardí Mediterrani"
-    },
-  
-```
-
-!!! warning "Práctica 2: Amplía tu JSON"
-    1. Amplía el JSON de la práctica anterior para que contenga información estructurada como la del ejemplo anterior (utilizando uno de los dos ejemplos).
-    2. Valida el archivo utilizando [https://jsonlint.com](https://jsonlint.com)
-
-
-
-!!! warning "Práctica 3: Instala MongoDB"
-    Instala MongoDB en tu ordenador siguiendo la guía [Instalación y administración de MongoDB](mongo.html).
-
-
-<span class="mis_ejemplos">Ejemplo 2: Crear BD, insertar plantas y mostrarlas</span>
-
-
-
-!!! success "Prueba y analiza el ejemplo 2"
-    Prueba el código de ejemplo y verifica que funciona correctamente.
-
-!!! warning "Práctica 4: Crea tu BD, inserta y muestra información"
-    2. Abre la terminal (`mongosh`) y crea tu BD.
-    3. Crea una colección e inserta tres documentos con los campos que quieras.
-    4. Muestra todas las bases de datos y las colecciones creadas.
-
-
-
-    <span class="mi_consola">**** Listado de plantas: <br>
-    [1] Aloe (Aloe vera): 30 cm <br>
-    [2] Pino (Pinus sylvestris): 330 cm <br>
-    [3] Cactus (Cactaceae): 120 cm </span>
-
-
-!!!Note ""
-    **Operadores comunes**:  
-    `$eq` (igual), `$ne` (distinto), `$gt` (mayor que), `$lt` (menor que), `$gte` (mayor o igual), `$lte` (menor o igual), `$in`, `$and`, `$or`.
-
-
-
 -->
+
+
+
+
 
 ---
 
