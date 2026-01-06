@@ -991,21 +991,19 @@ Llegados a este punto, la estructura del proyecto será la siguiente:
 Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos la url [http://localhost:8080/plantas](http://localhost:8080/plantas) en el navegador. Las siguientes imágenes muestran el funcionamiento de nuestra aplicación:
 
 
-Lista de plantas (en este caso se ha cambiado la lista por una tabla y se han añadido botones de acciones a cada planta):
+- Lista de plantas (en este caso se ha cambiado la lista por una tabla y se han añadido botones de acciones a cada planta):
 
 ![Spring 12a](img/spring/spring12a.jpg)
 
-
-Detalle de la planta:
+- Detalle de la planta:
 
 ![Spring 12b](img/spring/spring12b.jpg)
 
-Formulario de edición (sirve tanto para añadir una nueva planta como para modificar una ya existente):
+- Formulario de edición (sirve tanto para añadir una nueva planta como para modificar una ya existente):
 
 ![Spring 12c](img/spring/spring12c.jpg)
 
-
-Mensaje de confirmación de borrado:
+- Mensaje de confirmación de borrado:
 
 ![Spring 12d](img/spring/spring12d.jpg)
 
@@ -1025,7 +1023,6 @@ Al ejecutar el programa se produce esta secuendia de acciones:
 5. El **controlador** mete esos objetos en el **modelo** y carga la plantilla HTML plantas.html.
 
 6. El **usuario** le la información de las plantas en su navegador.
-
 
 
 
