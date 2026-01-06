@@ -10,14 +10,14 @@
 
 Spring es un framework de código abierto para crear aplicaciones en Java o Kotlin de forma más fácil, rápida y ordenada. Facilita el trabajo de crear objetos, conectar clases, preparar la base de datos y configurar servidores. 
 
-🔴 Spring se basa principalmente en:
+Spring se basa principalmente en:
 
 - **Inversión de Control (IoC):** Se encarga de crear y gestionar los objetos de la aplicación.
 
 - **Inyección de Dependencias (DI):** Coloca los objetos donde hacen falta automáticamente.
 
 
-🔴 Además tiene tres pilares:
+Además tiene tres pilares:
 
 **1. Autoconfiguración (Spring Boot): prepara el proyecto por ti**
 
@@ -45,15 +45,15 @@ Las anotaciones son etiquetas especiales que se colocan encima de clases, funcio
 
 En nuestro caso, como vamos a trabajar únicamente con Spring Boot, API REST, vistas HTML y JPA, no es necesario aprender todas las anotaciones que ofrece Spring. Basta con conocer un conjunto reducido de anotaciones básicas, suficientes para desarrollar un backend completo y funcional.
 
-En las siguientes tablas se recogen las anotaciones más importantes que utilizaremos a lo largo del tema (para API REST/vistas HTML + JPA). A medida que avancemos, irán apareciendo otras anotaciones adicionales que se introducirán solo cuando sean necesarias para la aplicación.
+En las siguientes tablas se recogen las anotaciones más importantes que utilizaremos a lo largo del tema (para API REST/vistas HTML + JPA). 
 
-**Anotaciones de arranque de la app**
+Anotaciones de arranque de la app
 
 | Anotación                | Dónde se usa           | Para qué sirve                          |
 | ------------------------ | ---------------------- | --------------------------------------- |
 | @SpringBootApplication | Clase principal        | Marca la clase de arranque de la aplicación Spring Boot y activa la auto-configuración y el escaneo de componentes |
 
-**Anotaciones API REST**
+Anotaciones API REST
 
 | Anotación          | Dónde se usa | Para qué sirve |
 | ------------------ |--------------|----------------|
@@ -67,14 +67,14 @@ En las siguientes tablas se recogen las anotaciones más importantes que utiliza
 | @PathVariable      | Parámetro        | Permite recoger valores de la URL (por ejemplo, un identificador)                    |
 
 
-**Anotaciones MVC (vistas)**
+Anotaciones MVC (vistas)
 
 | Anotación        | Dónde se usa | Para qué sirve |
 | ---------------- |--------------|----------------|
 | @Controller      | Clase        | Marca una clase como controlador MVC tradicional, devolviendo vistas (HTML con Thymeleaf)       |
 
 
-**Anotaciones de lógica de negocio**
+Anotaciones de lógica de negocio
 
 | Anotación       | Dónde se usa | Para qué sirve |
 | --------------- |--------------|----------------|
@@ -82,7 +82,7 @@ En las siguientes tablas se recogen las anotaciones más importantes que utiliza
 | @Autowired      | Atributo o constructor | Inyecta automáticamente una dependencia gestionada por Spring                      |
 
 
-**Anotaciones JPA / Base de datos**
+Anotaciones JPA / Base de datos
 
 | Anotación       | Dónde se usa | Para qué sirve |
 | --------------- |--------------|----------------|
@@ -96,15 +96,18 @@ En las siguientes tablas se recogen las anotaciones más importantes que utiliza
 | @JoinColumn     | Atributo     | Especifica la columna usada como clave foránea en una relación |
 
 
-**Anotaciones de acceso a datos**
+Anotaciones de acceso a datos
 
 | Anotación   | Dónde se usa | Para qué sirve |
 | ----------- |--------------|----------------|
 | @Repository | Clase o interfaz | Indica que la clase o interfaz se encarga del acceso a datos y de la gestión de excepciones de base de datos |
 
 
+A medida que avancemos, irán apareciendo otras anotaciones adicionales que se introducirán solo cuando sean necesarias para la aplicación.
 
-🔴 Los componentes principales de Spring Framework son:
+
+
+Los componentes principales de Spring Framework son:
 
 | Componente      | Descripción                                                                             |
 |-----------------|-----------------------------------------------------------------------------------------|
@@ -764,7 +767,7 @@ Formulario de edición:
 
 ## 4.4. Trabajando con ficheros
 
-En el ejemplo anterior, la información de las plantas se almacenaba en memoria mediante una lista. Ahora vamos a trabajar con los datos en un fichero CSV para disponer de persistencia. Para ello, es necesario añadir al proyecto un servicio intermedio encargado del acceso al fichero, ya que el controlador no debe leer ni escribir datos directamente. De esta forma, cada capa del patrón MVC mantiene su responsabilidad bien definida:
+En el ejemplo anterior, la información de las plantas se almacenaba en memoria mediante una lista y el controlador accedía directamente a ella. Ahora vamos a trabajar con los datos en un fichero CSV para disponer de persistencia y vamos a separar la responsabilidad de cada capa del patrón MVC de forma que:
 
 - Controlador: interactúa con el usuario.
 
@@ -775,12 +778,12 @@ En el ejemplo anterior, la información de las plantas se almacenaba en memoria 
 
 <span class="mis_ejemplos">Ejemplo 3: CRUD (CSV) con Spring MVC y Thymeleaf</span>
 
-Como se desarrolla este ejemplo a partir del anterior solamente se describen los pasos sobre las nuevas funcionalidades o modificaciones de las anteriores.
+Este ejemplo modifica el el anterior ampliando las funciones CRUD y definiendo las capas de la arquitectura MVC. A continuación se describen los pasos necesarios para realizar dichos cambios:
 
 
 **PASO 1: Crear el proyecto**
 
-Para crear el nuevo proyecto tenemos dos opciones:
+Para crear el nuevo proyecto a partir del anterior tenemos dos opciones:
 
 Opción 1: Spring Initializr
 
@@ -806,6 +809,7 @@ Opción 2: Duplicar el proyecto anterior
 
 
 **PASO 2: Crear el fichero CSV**
+
 Creamos un archivo llamado `plantas.csv` con los datos iniciales y lo ubicamos en la carpeta `src/main/resources/data/`. Su contenido inicial será:
 
 ```csv
@@ -817,7 +821,7 @@ Creamos un archivo llamado `plantas.csv` con los datos iniciales y lo ubicamos e
 
 **PASO 3: Modificar el controlador**
 
-En la arquitectura MVC (Modelo-Vista-Controlador), el controlador es el encargado de recibir las peticiones del usuario (cuando hace clic en un enlace o envía un formulario en el navegador) y decidir qué respuesta dar (normalmente, mostrar una página HTML). Vamos a modificar el controlador que teníamos de la aplicación anterior para que solamente interactúe con el usuario y no acceda a los datos. El código ha de quedar de la siguiente manera: 
+En la arquitectura MVC (Modelo-Vista-Controlador), el controlador es el encargado de recibir las peticiones del usuario (cuando hace clic en un enlace o envía un formulario en el navegador) y decidir qué respuesta dar (normalmente, mostrar una página HTML). Vamos a modificar el controlador que teníamos de la aplicación anterior para que solamente interactúe con el usuario y no acceda a los datos. Además añadimos el código necesario para las funciones de crear nueva planta o borrar una existente. El código ha de quedar de la siguiente manera: 
 
 ```kotlin
 
@@ -828,9 +832,6 @@ import com.example.plantasCSV.service.PlantaService
 
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-//import org.springframework.web.bind.annotation.GetMapping
-//import org.springframework.web.bind.annotation.PathVariable
-
 import org.springframework.web.bind.annotation.*
 
 
@@ -893,7 +894,7 @@ class PlantaController(
 
 **PASO 4: Añadir la clase que maneja los datos**
 
-Esta clase se encarga de acceder y gestionar los datos, es decir, leer, crear, actualizar y borrar información sobre plantas. Para añadirla crearemos el archivo `PlantaFileRepository.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/repository/` con el siguiente código:
+Esta clase se encarga de acceder a los datos y gestionarlos, es decir, leer, crear, actualizar y borrar información sobre plantas. Para añadirla crearemos el archivo `PlantaFileRepository.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/repository/` con el siguiente código:
 
 ```kotlin
 package com.example.plantasCSV.repository
@@ -984,40 +985,64 @@ class PlantaService(
 }
 ```
 
-Una vez llegados a este punto, la estructura de nuestro proyecto habrá quedado así:
+
+**PASO 6: Comprobar y ejecutar**
+
+Llegados a este punto, la estructura de nuestro proyecto habrá quedado así:
 
 
 ![Spring 11](img/spring/spring11.jpg)
 
 
+Ejecutamos la aplicación usando la clase PlantasApplication.kt como clase principal y abrimos la url http://localhost:8080/plantas en el navegador. Las siguientes imágenes muestran el funcionamiento de nuestra aplicación:
 
-**PASO 5: Añadir la clase del servicio intermedio**
+Lista de plantas (en este caso se ha cambiado la lista por una tabla y se han añadido botones de acciones a cada planta):
 
-    Usuario: Entra a /plantas.
+![Spring 12a](img/spring/spring12a.jpg)
 
-    Controlador: Recibe la petición, llama al Servicio (listarPlantas).
 
-    Servicio: Llama al Repositorio (findAll).
+Detalle de la planta:
 
-    Repositorio: Lee el archivo plantas.csv, convierte el texto en objetos y los devuelve.
+![Spring 12b](img/spring/spring12b.jpg)
 
-    Controlador: Mete esos objetos en el Model y carga la plantilla HTML plantas.html.
+Formulario de edición (sirve tanto para añadir una nueva planta como para modificar una ya existente):
 
-    Usuario: Ve la lista de plantas en su navegador.
+![Spring 12c](img/spring/spring12c.jpg)
+
+
+Mensaje de confirmación de borrado:
+
+![Spring 12d](img/spring/spring12d.jpg)
+
+
+**PASO 7: Entender el funcionamiento**
+
+Al ejecutar el programa se produce esta secuendia de acciones:
+
+1. El **usuario** entra a /plantas.
+
+2. El **controlador** recibe la petición y llama al **servicio (listarPlantas)**.
+
+3. El **servicio** llama al **repositorio (findAll)**.
+
+4. El **repositorio** lee el archivo plantas.csv, convierte el texto en objetos y los devuelve.
+
+5. El **controlador** mete esos objetos en el **modelo** y carga la plantilla HTML plantas.html.
+
+6. El **usuario** le la información de las plantas en su navegador.
+
+
+
 
 
 
 
 <!--
-**PASO 7: Probar la aplicación**
-
-
 A tener en cuenta: DevTools detectará el cambio en el archivo dentro de `src/main/resources` mientras la aplicación se ejecuta y reiniciará el servidor automáticamente. Esto puede ser molesto (se rellena el formulario, se guarda, y la app se reinicia). Para evitar se puede excluir la carpeta data del reinicio añadiendo al archivo `application.properties` la sigueinte línea:
 
 ```kotlin
 spring.devtools.restart.exclude=static/**,public/**,data/**
 ```
-
 -->
 
 
