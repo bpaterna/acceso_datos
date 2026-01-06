@@ -1036,7 +1036,7 @@ Al ejecutar el programa se produce esta secuendia de acciones:
 
 !!! warning "Práctica 1: Trabaja en tu aplicación"
     1. Crea un nuevo proyecto Spring Boot (con el nombre de tu aplicación) utilizando Spring Initializr.
-    2. Partiendo del fichero CSV que utilizaste anteriormente crea tu aplicación CRUD.
+    2. Partiendo del un fichero CSV con información crea tu aplicación CRUD.
     3. Modifica el aspecto de tu aplicación aplicando alguna característica de `bootstrap` para que el resultado quede personalizado a tu gusto.
 
 
