@@ -165,14 +165,14 @@ Una vez creado el proyecto tendremos las configuraciones y dependencias en los a
 
 A continuación se describen los pasos para a crear una aplicación que saluda al usuario utilizando Spring Web.
 
-**PASO 1: Crear el proyecto**
+<span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
 
 Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y añadimos la dependencia **Spring Web** (el resto de opciones las podemos dejar como se ve en la imagen). Por último hacemos clic en el botón GENERATE. Esto hará que se cree el proyecto y se descargue en un archivo .zip. 
 
 ![Spring 1](img/spring/spring01.jpg)
 
 
-**PASO 2: Abrir el proyecto y ejecutarlo**
+<span class="mi_sombreado">**PASO 2: Abrir el proyecto y ejecutarlo**</span>
 
 Descomprimimos el archivo obtenido en el paso anterior y lo abrimos con IntelliJ. Vemos que, además de los archivos **applicantion.properties** y **pom.xml** se ha creado automaticamente la clase **SaludoApplication** (con la anotación **@SpringBootApplication**) y la función de extensión **runApplication** que sirve para lanzar la aplicación.
 
@@ -188,7 +188,7 @@ Al ejecutar la aplicación veremos por Consola la salida de los mensajes de regi
     server.port=8888
     ```
 
-**PASO 3: Añadir el código para saludar**
+<span class="mi_sombreado">**PASO 3: Añadir el código para saludar**</span>
 
 Añadimos a la clase principal `SaludoApplication` la función `sayHello()` con el código necesario para que nuestra aplicación envíe un saludo:
 
@@ -221,7 +221,7 @@ Como puedes ver, se han incluido anotaciones e importaciones, a continuación se
     * Si el cliente no incluye myName en la solicitud, el valor predeterminado será "World", gracias a defaultValue = "World".
 
 
-**PASO 4: Volvemos a ejecutar la aplicación**
+<span class="mi_sombreado">**PASO 4: Volvemos a ejecutar la aplicación**</span>
 
 Ejecutamos la aplicación para levantar el servidor y abrimos la dirección [http://localhost:8080/hello](http://localhost:8080/hello) o [http://localhost:8080/hello?myName=Atenea](http://localhost:8080/hello?myName=Atenea) en el navegador web. La aplicación responde con `Hello World!` o con `Hello Atenea!` (que es el nombre pasado como parámetro): 
 
@@ -230,7 +230,7 @@ Ejecutamos la aplicación para levantar el servidor y abrimos la dirección [htt
 ![Spring 5](img/spring/spring05.jpg)
 
 
-**PASO 5: Entender el funcionamiento**
+<span class="mi_sombreado">**PASO 5: Entender el funcionamiento**</span>
 
 Spring Boot está configurado para servir automáticamente cualquier archivo colocado en:
 
@@ -264,7 +264,7 @@ Los pasos que sigue la ejecución de la aplicación son los siguientes:
 
 
 
-**PASO 6: Añadir una página de inicio HTML** 
+<span class="mi_sombreado">**PASO 6: Añadir una página de inicio HTML**</span>
 
 Creamos el archivo `index.html` en `src/main/resources/static/` y sustituimos su contenido por:
 
@@ -383,7 +383,7 @@ Thymeleaf es un motor de plantillas que permite mezclar HTML con datos dinámico
 
 A continuación se describen los pasos para crear una aplicación que muestra una lista con nombres de planas y junto a cada nombre un enlace que mostrará los detalles de la planta. Desde la pantalla de detalles, se podrá acceder a un formulario para modificar la infromación de la planta.
 
-**PASO 1: Crear el proyecto**
+<span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
 
 Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y, en este caso, ademas de la dependencia **Spring Web** necesitamos también **Thymeleaf** (el resto de opciones las podemos dejar como se ve en la imagen). Por último hacemos clic en el botón GENERATE para descargar nuestro nuevo proyecto.
 
@@ -404,7 +404,7 @@ De esta forma, cuando realicemos un cambio en un archivo de código de nuestra a
 ![Spring 7](img/spring/spring07.jpg)
 
 
-**PASO 2: Abrir el proyecto**
+<span class="mi_sombreado">**PASO 2: Abrir el proyecto**</span>
 
 Descomprimimos fichero obtenido en el paso anterior y abrimos el proyecto con IntelliJ. La Clase principal de la aplicación en Kotlin es `PlantasApplication.kt`, se encuentra en la carpeta `src/main/kotlin/com/example/plantas/` y contiene el siguiente código:
 
@@ -422,7 +422,7 @@ fun main(args: Array<String>) {
 }
 ```
 
-**PASO 3: Añadir el controlador**
+<span class="mi_sombreado">**PASO 3: Añadir el controlador**</span>
 
 El controlador es quién manejará las solicitudes, es decir, gestionar la visualización y edición de plantas en la web, ya que recibe las peticiones HTTP, decide qué datos se usan y devuelve la vista adecuada. Para añadir el controlador, creamos el archivo `PlantaController.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/controller/` con el código siguiente:
 
@@ -497,7 +497,7 @@ class PlantaController {
 }
 ```
 
-Explicación del código:
+**Explicación del código**
 
 `@Controller` Indica a Spring que esta clase maneja peticiones web y devuelve vistas HTML.
 
@@ -519,9 +519,9 @@ Explicación del código:
 `Model`	Pasa datos a la vista
 
 `@PathVariable`	Lee datos de la URL
-	
 
-**PASO 4: Añadir el modelo**
+
+<span class="mi_sombreado">**PASO 4: Añadir el modelo**</span>
 
 El modelo representa los datos que maneja la aplicación. Para añadir el modelo creamos el archivo `Planta.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/model/` con el código siguiente:
 
@@ -537,7 +537,7 @@ data class Planta(
 )
 ```
 
-**PASO 5: Añadir las vistas con Thymeleaf**
+<span class="mi_sombreado">**PASO 5: Añadir las vistas con Thymeleaf**</span>
 
 Para nuestra aplicación necesitamos cuatro vistas, una para la lista de plantas, otra para el detalle de una planta, una tercera para avisar en caso de producirse un error y la última para modificar la información de la planta. Por tanto tendremos cuatro archivos `html` todos ellos dentro de la carpeta `src/main/resources/templates/`.
 
@@ -688,12 +688,12 @@ Formulario:
 
 
 
-**PASO 6: Añadir las fotos de las plantas**
+<span class="mi_sombreado">**PASO 6: Añadir las fotos de las plantas**</span>
 
 Como queremos mostrar las fotos de nuestras plantas en la vista de detalle, hemos guardado las fotos en una carpeta llamada `fotos` dentro de `src/main/resources/static/`.
 
 
-**PASO 7: Comprobar y ejecutar**
+<span class="mi_sombreado">**PASO 7: Comprobar y ejecutar**</span>
 
 La estructura del proyecto será la siguiente:
 
@@ -719,7 +719,7 @@ Formulario de edición:
 ![Spring 10d](img/spring/spring10d.jpg)
 
 
-**PASO 8: Cambiar el aspecto**
+<span class="mi_sombreado">**PASO 8: Cambiar el aspecto**</span>
 
 Como hemos visto en las capturas anteriores, nuestas vistas html no tienen aplicado ningún estilo. Vamos a darle a nuestra aplicación un aspecto más profesional utilizando `bootstrap`. Podemos encontrar mucha documentacion en internet sobre como utilizarlo. Por ejemplo en:
 
@@ -778,7 +778,7 @@ En el ejemplo anterior, la información de las plantas se almacenaba en memoria 
 Este ejemplo modifica el anterior ampliando las funciones CRUD y definiendo las capas de la arquitectura MVC. A continuación se describen los pasos necesarios para realizar dichos cambios:
 
 
-**PASO 1: Crear el proyecto `plantasCSV`**
+<span class="mi_sombreado">**PASO 1: Crear el proyecto `plantasCSV`**</span>
 
 Para crear el nuevo proyecto a partir del anterior tenemos dos opciones:
 
@@ -805,7 +805,7 @@ Opción 2: Duplicar el proyecto anterior
 
 
 
-**PASO 2: Crear el fichero CSV**
+<span class="mi_sombreado">**PASO 2: Crear el fichero CSV**</span>
 
 Creamos un archivo llamado `plantas.csv` con los datos iniciales y lo ubicamos en la carpeta `src/main/resources/data/`. Su contenido inicial será:
 
@@ -816,7 +816,7 @@ Creamos un archivo llamado `plantas.csv` con los datos iniciales y lo ubicamos e
 ```
 
 
-**PASO 3: Modificar el controlador**
+<span class="mi_sombreado">**PASO 3: Modificar el controlador**</span>
 
 En la arquitectura MVC (Modelo-Vista-Controlador), el controlador es el encargado de recibir las peticiones del usuario (cuando hace clic en un enlace o envía un formulario en el navegador) y decidir qué respuesta dar (normalmente, mostrar una página HTML). Vamos a modificar el controlador que teníamos de la aplicación anterior para que solamente interactúe con el usuario y no acceda a los datos. Además añadiremos el código necesario para las funciones de crear nueva planta y borrar una existente. El código es el siguiente: 
 
@@ -889,7 +889,7 @@ class PlantaController(
 ```
 
 
-**PASO 4: Añadir la clase que maneja los datos**
+<span class="mi_sombreado">**PASO 4: Añadir la clase que maneja los datos**</span>
 
 Esta clase se encarga de acceder a los datos y gestionarlos, es decir, leer, crear, actualizar y borrar información sobre plantas. Para añadirla creamos el archivo `PlantaFileRepository.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/repository/` con el siguiente código:
 
@@ -950,7 +950,7 @@ class PlantaFileRepository {
 }
 ```
 
-**PASO 5: Añadir la clase del servicio intermedio**
+<span class="mi_sombreado">**PASO 5: Añadir la clase del servicio intermedio**</span>
 
 En la arquitectura MVC el servicio actúa como el intermediario entre el controlador (parte que interactúa con el usuario) y el repositorio (parte que maneja los datos). Para añadirla creamos el archivo `PlantaService.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/service/` con el siguiente código:
 
@@ -1012,7 +1012,7 @@ Mensaje de confirmación de borrado:
 ![Spring 12d](img/spring/spring12d.jpg)
 
 
-**PASO 7: Entender el funcionamiento**
+<span class="mi_sombreado">**PASO 7: Entender el funcionamiento**</span>
 
 Al ejecutar el programa se produce esta secuendia de acciones:
 
