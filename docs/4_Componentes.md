@@ -120,7 +120,7 @@ En las siguientes tablas se recogen las anotaciones más importantes que utiliza
 
 ## 4.2. Spring Boot
 
-**Spring Boot** es la forma fácil y moderna de usar Spring. Se enfoca en simplificar y acelerar el desarrollo de aplicaciones web ya que:
+Para crear una aplicación se necesita crear el proyecto, desarrollar la aplicación y desplegarla en un servidor. **Spring Boot** simplifica las tareas de crear el proyecto y desplegar la aplicación ya que:
 
 - Configura todo automáticamente.
 
@@ -135,9 +135,7 @@ En las siguientes tablas se recogen las anotaciones más importantes que utiliza
 - Permite crear proyectos en segundos.
 
 
-Para crear una aplicación se necesita crear el proyecto, desarrollar la aplicación y desplegarla en un servidor. **Spring Boot** simplifica las tareas de crear el proyecto y desplegar la aplicación para así poder centrar esfuerzos en el desarrollo.
-
-Para crear el proyecto Maven/Gradle y descargar las dependencias necesarias tenemos dos opciones:
+Para crear un proyecto **Spring Boot** Maven/Gradle con las dependencias necesarias tenemos dos opciones:
 
 - Crear un proyecto Spring Boot utilizando la herramienta Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/) la cual genera un proyecto base con la estructura de una aplicación Spring Boot en un archivo .zip que podemos abrir directamente desde un IDE.
 
@@ -163,9 +161,9 @@ Una vez creado el proyecto tendremos las configuraciones y dependencias en los a
 - Ofrece herramientas para manejar errores y excepciones de forma global mediante @ControllerAdvice o controladores personalizados.
 
 
-<span class="mis_ejemplos">Ejemplo 1: Aplicación que saluda al usuario utilizando Spring Boot con Spring Web</span>
+<span class="mis_ejemplos">Ejemplo 1: Aplicación Spring Boot con Spring Web</span>
 
-Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
+A continuación se describen los pasos para a crear una aplicación que saluda al usuario utilizando Spring Web.
 
 **PASO 1: Crear el proyecto**
 
@@ -738,15 +736,9 @@ En nuestro caso vamos a descargarlo para incluirlo de forma local en nuestro pro
 
 3. Descomprir el ZIP y copiar la carpeta `bootstrap` en `src/main/resources/static/`
 
-4. Modificar los archivos html para añadir en el `<head>` la línea `<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">` y `<div class="container mt-5">` dentro del `<body>`
-
-<!--
-Antes de cerrar </body> (opcional, JS)
-<script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
--->
+4. Modificar los archivos html para añadir la línea `<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">` dentro de la etiqueta `<head>` y añadir `<div class="container mt-5">` justo debajo de la etiqueta `<body>` (no olvides añadir tambien `</div>` justo antes de `</body>`).
 
 Solamente con estos pequeños cambios nuestra aplicación cambiará su aspecto a:
-
 
 Lista de plantas:
 
@@ -768,33 +760,42 @@ Formulario de edición:
 !!! success "Prueba y analiza el ejemplo 2"
     1. Crea un nuevo proyecto Spring Boot utilizando Spring Initializr.
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
-    3. Modifica el aspecto de tu aplicación aplicando alguna característica de `bootstrap` para que el resultado quede diferente del del ejemplo.
 
 
 ## 4.4. Trabajando con ficheros
 
-En el ejemplo anterior, la información de las plantas se almacenaba en memoria mediante una lista. Ahora vamos a trabajar con los datos en un fichero CSV para disponer de persistencia. Para ello, es necesario añadir al proyecto un servicio intermedio encargado del acceso al fichero, ya que el controlador no debe leer ni escribir datos directamente. De esta forma, cada capa del patrón MVC mantiene su responsabilidad bien definida.
+En el ejemplo anterior, la información de las plantas se almacenaba en memoria mediante una lista. Ahora vamos a trabajar con los datos en un fichero CSV para disponer de persistencia. Para ello, es necesario añadir al proyecto un servicio intermedio encargado del acceso al fichero, ya que el controlador no debe leer ni escribir datos directamente. De esta forma, cada capa del patrón MVC mantiene su responsabilidad bien definida:
+
+- Controlador: interactúa con el usuario.
+
+- Repositorio: maneja los datos.
+
+- Servicio intermedio:  intermediario entre el controlador y el Repositorio.
 
 
 <span class="mis_ejemplos">Ejemplo 3: CRUD (CSV) con Spring MVC y Thymeleaf</span>
 
-Vamos a crear la aplicación paso a paso para poder explicar cada concepto.
+Como se desarrolla este ejemplo a partir del anterior solamente se describen los pasos sobre las nuevas funcionalidades o modificaciones de las anteriores.
 
 
 **PASO 1: Crear el proyecto**
 
-Para crear el nuevo proyecto podemos optar por dos opciones:
+Para crear el nuevo proyecto tenemos dos opciones:
 
-Opción1: Crearlo con Spring Initializr. En este caso habrá que :
+Opción 1: Spring Initializr
+
+- Crear un proyecto nuevo con Spring Initializr.
 
 - Copiar carpetas y archivos del proyecto del anterior.
 
 - Actualizar todos los imports de `com.example.plantas` a `com.example.plantasCSV`
 
 
-Opción 2: Duplicar la carpeta del proyecto. En este caso habrá que:
+Opción 2: Duplicar el proyecto anterior
 
-- Cambiar el nombre del proyecto en Maven cambiando en el archivo `pom.xml` estas líneas:
+- Crear una copia del proyecto anterior.
+
+- Cambiar el nombre del proyecto en el archivo `pom.xml` (cambiando estas líneas):
 ```xml
   <name>plantasCSV</name>
   <artifactId>plantasCSV</artifactId>
@@ -805,7 +806,7 @@ Opción 2: Duplicar la carpeta del proyecto. En este caso habrá que:
 
 
 **PASO 2: Crear el fichero CSV**
-Creamos un archivo llamado `plantas.csv` con los datos iniciales, lo ubicamos en la carpeta `src/main/resources/data/`. Su contenido inicial será:
+Creamos un archivo llamado `plantas.csv` con los datos iniciales y lo ubicamos en la carpeta `src/main/resources/data/`. Su contenido inicial será:
 
 ```csv
 1;Rosa;Flor;0.5;rosa.jpg
@@ -813,9 +814,86 @@ Creamos un archivo llamado `plantas.csv` con los datos iniciales, lo ubicamos en
 3;Orquídea;Flor;0.3;orquidea.jpg
 ```
 
-**PASO 3: Crear el archivo que accede a los datos**
 
-Crear `PlantaFileRepository.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/repository/` con el siguiente código:
+**PASO 3: Modificar el controlador**
+
+En la arquitectura MVC (Modelo-Vista-Controlador), el controlador es el encargado de recibir las peticiones del usuario (cuando hace clic en un enlace o envía un formulario en el navegador) y decidir qué respuesta dar (normalmente, mostrar una página HTML). Vamos a modificar el controlador que teníamos de la aplicación anterior para que solamente interactúe con el usuario y no acceda a los datos. El código ha de quedar de la siguiente manera: 
+
+```kotlin
+
+package com.example.plantasCSV.controller
+
+import com.example.plantasCSV.model.Planta
+import com.example.plantasCSV.service.PlantaService
+
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
+//import org.springframework.web.bind.annotation.GetMapping
+//import org.springframework.web.bind.annotation.PathVariable
+
+import org.springframework.web.bind.annotation.*
+
+
+@Controller
+class PlantaController(
+    private val plantaService: PlantaService
+) {
+
+    @GetMapping("/plantas")
+    fun listar(model: Model): String {
+        model.addAttribute("plantas", plantaService.listarPlantas())
+        return "plantas"
+    }
+    
+    @GetMapping("/planta/{id_planta}")
+    fun detalle(@PathVariable id_planta: Int, model: Model): String {
+        val planta = plantaService.buscarPorId(id_planta)
+            ?: return "errorPlanta"
+
+        model.addAttribute("planta", planta)
+        return "detallePlanta"
+    }
+    
+    // CREAR nueva planta
+    @GetMapping("/plantas/nueva")
+    fun nuevaPlanta(model: Model): String {
+        // Pasamos un objeto vacío (o con ID 0/null) para el formulario
+        // Como tu data class tiene tipos primitivos, pon valores por defecto dummy
+        val plantaVacia = Planta(0, "", "", 0.0, "")
+        model.addAttribute("planta", plantaVacia)
+        model.addAttribute("titulo", "Nueva Planta")
+        return "formularioPlanta"
+    }
+    
+    // EDITAR planta existente
+    @GetMapping("/plantas/editar/{id_planta}")
+    fun editarPlanta(@PathVariable id_planta: Int, model: Model): String {
+        val planta = plantaService.buscarPorId(id_planta) ?: return "redirect:/plantas"
+        model.addAttribute("planta", planta)
+        model.addAttribute("titulo", "Editar Planta")
+        return "formularioPlanta"
+    }
+
+    // Procesar el GUARDADO (sirve para crear y editar)
+    @PostMapping("/plantas/guardar")
+    fun guardarPlanta(@ModelAttribute planta: Planta): String {
+        plantaService.guardar(planta)
+        return "redirect:/plantas"
+    }
+
+    // Procesar el BORRADO
+    @GetMapping("/plantas/borrar/{id_planta}")
+    fun borrarPlanta(@PathVariable id_planta: Int): String {
+        plantaService.borrar(id_planta)
+        return "redirect:/plantas"
+    }
+}
+```
+
+
+**PASO 4: Añadir la clase que maneja los datos**
+
+Esta clase se encarga de acceder y gestionar los datos, es decir, leer, crear, actualizar y borrar información sobre plantas. Para añadirla crearemos el archivo `PlantaFileRepository.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/repository/` con el siguiente código:
 
 ```kotlin
 package com.example.plantasCSV.repository
@@ -840,12 +918,43 @@ class PlantaFileRepository {
                 foto = partes[4]
             )
         }.toMutableList()
+    
+    fun save(planta: Planta) {
+        val plantas = findAll()
+
+        // Buscamos si la planta ya existe para saber si es EDITAR o CREAR
+        val index = plantas.indexOfFirst { it.id_planta == planta.id_planta }
+
+        if (index != -1) {
+            // EDITAR: Reemplazamos la planta existente
+            plantas[index] = planta
+        } else {
+            // CREAR: Calculamos nuevo ID (Simulación de Auto-Increment)
+            val nuevoId = (plantas.maxOfOrNull { it.id_planta } ?: 0) + 1
+            // Usamos copy porque los val son inmutables, asignando el nuevo ID
+            plantas.add(planta.copy(id_planta = nuevoId))
+        }
+        escribirArchivo(plantas)
+    }
+
+    fun deleteById(id_planta: Int) {
+        val plantas = findAll()
+        plantas.removeIf { it.id_planta == id_planta }
+        escribirArchivo(plantas)
+    }
+
+    private fun escribirArchivo(plantas: List<Planta>) {
+        val contenido = plantas.joinToString(separator = "\n") { planta ->
+            "${planta.id_planta};${planta.nombre};${planta.tipo};${planta.altura};${planta.foto}"
+        }
+        File(filePath).writeText(contenido)
+    }
 }
 ```
 
-**PASO 4: Crear el archivo del servicio intermedio**
+**PASO 5: Añadir la clase del servicio intermedio**
 
-Crear `PlantaService.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/service/` con el siguiente código:
+En la arquitectura MVC el servicio actúa como el intermediario entre la parte que interactúa con el usuario o controlador y la parte que maneja los datos (el repositorio que vimos antes). Para añadirla creamos el archivo `PlantaService.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/service/` con el siguiente código:
 
 ```kotlin
 package com.example.plantasCSV.service
@@ -864,51 +973,42 @@ class PlantaService(
 
     fun buscarPorId(id_planta: Int): Planta? =
         repository.findAll().find { it.id_planta == id_planta }
+
+    fun guardar(planta: Planta) {
+        repository.save(planta)
+    }
+
+    fun borrar(id_planta: Int) {
+        repository.deleteById(id_planta)
+    }
 }
 ```
 
-La estructura de nuestro proyecto quedará así:
+Una vez llegados a este punto, la estructura de nuestro proyecto habrá quedado así:
 
 
 ![Spring 11](img/spring/spring11.jpg)
 
 
-**PASO 5: Modificar el controlador**
 
-Y modificar el controlador para que lo utilice
+**PASO 5: Añadir la clase del servicio intermedio**
 
-```kotlin
-package com.example.plantasCSV.controller
+    Usuario: Entra a /plantas.
 
-import com.example.plantasCSV.service.PlantaService
+    Controlador: Recibe la petición, llama al Servicio (listarPlantas).
 
-import org.springframework.stereotype.Controller
-import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
+    Servicio: Llama al Repositorio (findAll).
 
-@Controller
-class PlantaController(
-    private val plantaService: PlantaService
-) {
+    Repositorio: Lee el archivo plantas.csv, convierte el texto en objetos y los devuelve.
 
-    @GetMapping("/plantas")
-    fun listar(model: Model): String {
-        model.addAttribute("plantas", plantaService.listarPlantas())
-        return "plantas"
-    }
-    
-    @GetMapping("/planta/{id_planta}")
-    fun detalle(@PathVariable id_planta: Int, model: Model): String {
-        val planta = plantaService.buscarPorId(id_planta)
-            ?: return "errorPlanta"
+    Controlador: Mete esos objetos en el Model y carga la plantilla HTML plantas.html.
 
-        model.addAttribute("planta", planta)
-        return "detallePlanta"
-    }
-}
-```
+    Usuario: Ve la lista de plantas en su navegador.
 
+
+
+
+<!--
 **PASO 7: Probar la aplicación**
 
 
@@ -918,9 +1018,18 @@ A tener en cuenta: DevTools detectará el cambio en el archivo dentro de `src/ma
 spring.devtools.restart.exclude=static/**,public/**,data/**
 ```
 
+-->
 
 
+!!! success "Prueba y analiza el ejemplo 3"
+    1. Crea un nuevo proyecto Spring Boot utilizando Spring Initializr.
+    2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
 
+
+!!! warning "Práctica 1: Trabaja en tu aplicación"
+    1. Crea un nuevo proyecto Spring Boot utilizando Spring Initializr.
+    2. Partiendo del fichero CSV que utilizaste anteriormente crea tu aplicación CRUD.
+    3. Modifica el aspecto de tu aplicación aplicando alguna característica de `bootstrap` para que el resultado quede personalizado a tu gusto.
 
 
 
