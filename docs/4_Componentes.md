@@ -383,7 +383,7 @@ A continuación se describen los pasos para crear una aplicación que muestra un
 
 <span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
 
-Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y, en este caso, ademas de la dependencia **Spring Web** necesitamos también **Thymeleaf** (el resto de opciones las podemos dejar como se ve en la imagen). Por último hacemos clic en el botón GENERATE para descargar nuestro nuevo proyecto.
+Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación (`plantas`) y, en este caso, además de la dependencia **Spring Web** necesitamos también **Thymeleaf** (el resto de opciones las podemos dejar como se ve en la imagen). Por último hacemos clic en el botón GENERATE para descargar nuestro nuevo proyecto.
 
 Opcionalmente podemos añadir **Spring Boot DevTools** que nos ahorrará tiempo de desarrollo ya que:
 
@@ -422,7 +422,7 @@ fun main(args: Array<String>) {
 
 <span class="mi_sombreado">**PASO 3: Añadir el controlador**</span>
 
-El controlador es quién manejará las solicitudes, es decir, gestionar la visualización y edición de plantas en la web, ya que recibe las peticiones HTTP, decide qué datos se usan y devuelve la vista adecuada. Para añadir el controlador, creamos el archivo `PlantaController.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/controller/` con el código siguiente:
+El controlador maneja las solicitudes al recibir las peticiones HTTP, decide qué datos se usan y devuelve la vista adecuada. Para añadir el controlador, creamos el archivo `PlantaController.kt` dentro de la carpeta `src/main/kotlin/com/example/plantas/controller/` con el código siguiente:
 
 ```kotlin
 package com.example.plantas.controller
@@ -539,7 +539,7 @@ data class Planta(
 
 Para nuestra aplicación necesitamos cuatro vistas, una para la lista de plantas, otra para el detalle de una planta, una tercera para avisar en caso de producirse un error y la última para modificar la información de la planta. Por tanto tendremos cuatro archivos `html` todos ellos dentro de la carpeta `src/main/resources/templates/`.
 
-El archivo que mostrará la lista de plantas será `plantas.html` y su código es el siguiente:
+- El archivo que mostrará la lista de plantas será `plantas.html` y su código es el siguiente:
 
 ```html
 <!DOCTYPE html>
@@ -568,7 +568,7 @@ El archivo que mostrará la lista de plantas será `plantas.html` y su código e
 </html>
 ```
 
-El archivo que mostrará el detalle de una plantas será `detallePlanta.html` y su código es el siguiente:
+- El archivo que mostrará el detalle de una plantas será `detallePlanta.html` y su código es el siguiente:
 
 ```html
 <!DOCTYPE html>
@@ -594,7 +594,7 @@ El archivo que mostrará el detalle de una plantas será `detallePlanta.html` y 
 </html>
 ```
 
-El archivo que mostrará el aviso en caso de error será `errorPlanta.html` y su código es el siguiente:
+- El archivo que mostrará el aviso en caso de error será `errorPlanta.html` y su código es el siguiente:
 
 ```html
 <!DOCTYPE html>
@@ -615,7 +615,7 @@ El archivo que mostrará el aviso en caso de error será `errorPlanta.html` y su
 </html>
 ```
 
-El archivo que mostrará el formulario para modificar la información de una planta será `editarPlanta.html` y su código es el siguiente:
+- El archivo que mostrará el formulario para modificar la información de una planta será `editarPlanta.html` y su código es el siguiente:
 
 ```html
 <!DOCTYPE html>
@@ -700,19 +700,19 @@ La estructura del proyecto será la siguiente:
 
 Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos la url [http://localhost:8080/plantas](http://localhost:8080/plantas) en el navegador. Las siguientes imágenes muestran el funcionamiento de nuestra aplicación:
 
-Lista de plantas:
+- Lista de plantas:
 
 ![Spring 10a](img/spring/spring10a.jpg)
 
-Detalle de la planta con id_planta = 1 (que aparece al hacer clic en el enlace `Ver detalles` junto al nombre de la planta):
+- Detalle de la planta con id_planta = 1 (que aparece al hacer clic en el enlace `Ver detalles` junto al nombre de la planta):
 
 ![Spring 10b](img/spring/spring10b.jpg)
 
-Error (en este caso por indicar en la url el id_planta de una planta que no existe):
+- Error (en este caso por indicar en la url el id_planta de una planta que no existe):
 
 ![Spring 10c](img/spring/spring10c.jpg)
 
-Formulario de edición:
+- Formulario de edición:
 
 ![Spring 10d](img/spring/spring10d.jpg)
 
@@ -738,19 +738,19 @@ En nuestro caso vamos a descargarlo para incluirlo de forma local en nuestro pro
 
 Solamente con estos pequeños cambios nuestra aplicación cambiará su aspecto a:
 
-Lista de plantas:
+- Lista de plantas:
 
 ![Spring 10a](img/spring/spring10a2.jpg)
 
-Detalle de la planta con id_planta = 1 (que aparece al hacer clic en el enlace `Ver detalles` junto al nombre de la planta):
+- Detalle de la planta con id_planta = 1 (que aparece al hacer clic en el enlace `Ver detalles` junto al nombre de la planta):
 
 ![Spring 10b](img/spring/spring10b2.jpg)
 
-Error (en este caso por indicar en la url el id_planta de una planta que no existe):
+- Error (en este caso por indicar en la url el id_planta de una planta que no existe):
 
 ![Spring 10c](img/spring/spring10c2.jpg)
 
-Formulario de edición:
+- Formulario de edición:
 
 ![Spring 10d](img/spring/spring10d2.jpg)
 
@@ -776,13 +776,13 @@ En el ejemplo anterior, la información de las plantas se almacenaba en memoria 
 Este ejemplo modifica el anterior ampliando las funciones CRUD y definiendo las capas de la arquitectura MVC. A continuación se describen los pasos necesarios para realizar dichos cambios:
 
 
-<span class="mi_sombreado">**PASO 1: Crear el proyecto `plantasCSV`**</span>
+<span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
 
-Para crear el nuevo proyecto a partir del anterior tenemos dos opciones:
+Para crear el nuevo proyecto llamado `plantasCSV` a partir del anterior tenemos dos opciones:
 
 Opción 1: Spring Initializr
 
-- Crear un proyecto nuevo llamado `plantasCSV` con Spring Initializr.
+- Crear un proyecto nuevo con Spring Initializr llamado `plantasCSV`.
 
 - Copiar carpetas y archivos del proyecto del anterior.
 
