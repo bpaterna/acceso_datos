@@ -1027,7 +1027,7 @@ Al ejecutar el programa se produce esta secuendia de acciones:
 
 
 !!! success "Prueba y analiza el ejemplo 3"
-    1. Crea un proyecto Spring Boot llamado `plantasCSV` utilizando Spring Initializr o duplica el proyecto utilizado en el ejemplo anterior.
+    1. Crea un proyecto Spring Boot llamado `plantasCSV` utilizando Spring Initializr o duplica el proyecto utilizado en el ejemplo anterior cambiando su nombre.
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
 
 
