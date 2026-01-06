@@ -178,7 +178,7 @@ Descomprimimos el archivo obtenido en el paso anterior y lo abrimos con IntelliJ
 
 ![Spring 2](img/spring/spring02.jpg)
 
-Al ejecutar la aplicación veremos por Consola la salida de los mensajes de registro de Spring.
+Por tanto deberemos ejecutar la aplicación usando la clase `SaludoApplication.kt` como clase principal. Al ejecutar la aplicación veremos por Consola la salida de los mensajes de registro de Spring.
 
 ![Spring 3](img/spring/spring03.jpg)
 
@@ -406,7 +406,7 @@ De esta forma, cuando realicemos un cambio en un archivo de código de nuestra a
 
 <span class="mi_sombreado">**PASO 2: Abrir el proyecto**</span>
 
-Descomprimimos fichero obtenido en el paso anterior y abrimos el proyecto con IntelliJ. La Clase principal de la aplicación en Kotlin es `PlantasApplication.kt`, se encuentra en la carpeta `src/main/kotlin/com/example/plantas/` y contiene el siguiente código:
+Descomprimimos fichero obtenido en el paso anterior y abrimos el proyecto con IntelliJ. Comprobamos que la clase principal de la aplicación es `PlantasApplication.kt`, se encuentra en la carpeta `src/main/kotlin/com/example/plantas/` y contiene el siguiente código:
 
 ```kotlin
 package com.example.plantas
