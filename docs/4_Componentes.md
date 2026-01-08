@@ -1090,23 +1090,79 @@ Spring Data JPA (Java Persistence API) es un módulo de Spring Data que sirve pa
 
 Algunas de las anotaciones JPA son las siguientes:
 
-**Mapeo JPA**
+* Mapeo JPA
 
-| Anotación | Descripción | Ejemplo |
-|----------|-------------|-------|
-|  `@Entity` | Marca una clase como una entidad JPA, mapeada a una tabla en la base de datos. |  `@Entity
-        data class User(
-            @Id
-            val id: Long,
-            val name: String
-        ) `   |
-|  `@Table` | Especifica el nombre de la tabla | e     |
-|  `@Id` | Indica la clave primaria | e     |
-|  `@GeneratedValue` | Define cómo se genera la clave primaria | e     |
-|  `@Column` | Configura una columna | e     |
-|  `@JoinColumn` | Define la clave foránea | e     |
-|  `@Lob` | Campo de gran tamaño | e     |
-|  `@Transient` | Excluye un campo del mapeo | e     |
+`@Entity`:  Marca una clase como una entidad JPA, mapeada a una tabla en la base de datos.
+
+```
+@Entity
+data class User(
+    @Id
+    val id: Long,
+    val name: String
+)
+```
+
+`@Table`: Especifica el nombre de la tabla que corresponde a la entidad.
+
+```
+@Entity
+@Table(name = "users")
+data class User(
+    @Id
+    val id: Long,
+    val name: String
+)
+```
+
+`@Id`: Indica que un campo es la clave primaria de la tabla.
+
+```
+@Id
+val id: Long
+```
+
+
+`@GeneratedValue`: Define cómo se genera el valor de la clave primaria (`GenerationType.IDENTITY`, `GenerationType.SEQUENCE`, etc.)
+
+```
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+val id: Long
+```
+
+`@Column`: Configura una columna de la tabla, como nombre, si es nula o única.
+
+```
+@Column(name = "user_name", nullable = false, unique = true)
+val name: String
+```
+
+
+
+`@JoinColumn`: Especifica la columna que actúa como clave foránea.
+
+```
+@ManyToOne
+@JoinColumn(name = "department_id")
+val department: Department
+```
+
+
+`@Lob`: Indica que un campo es un objeto de gran tamaño (texto o binario).
+
+```
+@Lob
+val description: String
+```
+
+`@Transient`: Excluye un campo del mapeo de base de datos (no se almacena).
+
+```
+@Transient
+val calculatedField: String
+```
+
 
 
 
@@ -1120,17 +1176,77 @@ Algunas de las anotaciones JPA son las siguientes:
 |   `@ManyToMany` | Relación muchos a muchos |e       |
 
 
+`@ManyToOne`, `@OneToMany`, `@OneToOne`, `@ManyToMany`: Definen relaciones entre entidades.
 
-**Spring Data JPA**
+```
+@ManyToOne
+val department: Department
+```
 
-|  Anotación | Descripción | Ejemplo |
-|----------|-------------|---------|
-|  `@Repository` | Marca una interfaz como repositorio Spring |e       |
-|  `@Query` | Define una consulta personalizada (JPQL o SQL) |e       |
-|  `@Param` | Parámetros nombrados en consultas |e       |
-|  `@Modifying` | Consultas de actualización o borrado |e       |
-|  `@EnableJpaRepositories` | Habilita repositorios JPA |e       |
-|  `@EntityGraph` | Controla la carga de relaciones |e       |
+
+
+
+* Spring Data JPA
+
+`@Repository`: Marca una interfaz o clase como repositorio Spring. El _data class_ representa la entidad (tabla), mientras que el @Repository se encarga de las operaciones de acceso a datos sobre esa entidad.
+
+```
+@Repository
+interface UserRepository : JpaRepository<User, Long>
+```
+
+`@Query`: Define una consulta personalizada usando JPQL o SQL nativo.
+
+>>- Ejemplo (JPQL):
+
+```
+@Query("SELECT u FROM User u WHERE u.name = :name")
+fun findByName(@Param("name") name: String): List<User>
+```
+
+>>- Ejemplo (SQL nativo):
+```
+@Query(value = "SELECT * FROM users WHERE user_name = :name", nativeQuery = true)
+fun findByNameNative(@Param("name") name: String): List<User>
+```
+
+`@Param`: Define parámetros nombrados para consultas con `@Query`.
+
+```
+@Query("SELECT u FROM User u WHERE u.name = :name")
+fun findByName(@Param("name") name: String): List<User>
+```
+
+`@Modifying** - Se utiliza con consultas `@Query` para operaciones de actualización o eliminación.
+
+```
+@Modifying
+@Query("UPDATE User u SET u.name = :name WHERE u.id = :id")
+fun updateName(@Param("id") id: Long, @Param("name") name: String)
+```
+
+
+`@EnableJpaRepositories`: Habilita la funcionalidad de Spring Data JPA y escanea paquetes para detectar repositorios.
+
+```
+@EnableJpaRepositories(basePackages = ["com.example.repository"])
+```
+
+
+`@EntityGraph`: Especifica cómo cargar las relaciones en una consulta, evitando lazy loading.
+
+```
+@EntityGraph(attributePaths = ["roles"])
+fun findByName(name: String): User
+```
+
+
+
+
+
+
+
+
 
 
 **Transacciones**
