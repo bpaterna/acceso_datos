@@ -1076,8 +1076,8 @@ En lugar de proporcionar una única solución, Spring Data está compuesto por v
 - **Spring Data Elasticsearch:**: Simplifica las interacciones con Elasticsearch, un motor de búsqueda y análisis.
 
 
+### 4.4.1. Spring Data JPA
 
-<span class="mi_h3">Spring Data JPA</span>
 
 Spring Data JPA (Java Persistence API) es un módulo de Spring Data que sirve para simplificar el acceso a bases de datos relacionales utlizando objetos (clases) sin tener que escribir SQL ni código repetitivo. Con Spring Data JPA:
 
@@ -1088,9 +1088,11 @@ Spring Data JPA (Java Persistence API) es un módulo de Spring Data que sirve pa
 - Spring genera automáticamente el código
 
 
+<span class="mi_h3">Anotaciones JPA</span>
+
 Algunas de las anotaciones JPA son las siguientes:
 
-* Mapeo JPA
+**Anotaciones de Mapeo JPA**
 
 `@Entity`:  Marca una clase como una entidad JPA, mapeada a una tabla en la base de datos.
 
@@ -1102,6 +1104,7 @@ data class User(
     val name: String
 )
 ```
+
 
 `@Table`: Especifica el nombre de la tabla que corresponde a la entidad.
 
@@ -1115,13 +1118,13 @@ data class User(
 )
 ```
 
+
 `@Id`: Indica que un campo es la clave primaria de la tabla.
 
 ```
 @Id
 val id: Long
 ```
-
 
 `@GeneratedValue`: Define cómo se genera el valor de la clave primaria (`GenerationType.IDENTITY`, `GenerationType.SEQUENCE`, etc.)
 
@@ -1131,13 +1134,13 @@ val id: Long
 val id: Long
 ```
 
+
 `@Column`: Configura una columna de la tabla, como nombre, si es nula o única.
 
 ```
 @Column(name = "user_name", nullable = false, unique = true)
 val name: String
 ```
-
 
 
 `@JoinColumn`: Especifica la columna que actúa como clave foránea.
@@ -1156,6 +1159,7 @@ val department: Department
 val description: String
 ```
 
+
 `@Transient`: Excluye un campo del mapeo de base de datos (no se almacena).
 
 ```
@@ -1165,16 +1169,7 @@ val calculatedField: String
 
 
 
-
-**Relaciones JPA**
-
-|  Anotación | Descripción | Ejemplo |
-|----------|-------------|---------|
-|  `@ManyToOne` | Relación muchos a uno |e       |
-|   `@OneToMany` | Relación uno a muchos |e       |
-|   `@OneToOne` | Relación uno a uno |e       |
-|   `@ManyToMany` | Relación muchos a muchos |e       |
-
+**Anotaciones de relaciones JPA**
 
 `@ManyToOne`, `@OneToMany`, `@OneToOne`, `@ManyToMany`: Definen relaciones entre entidades.
 
@@ -1183,12 +1178,17 @@ val calculatedField: String
 val department: Department
 ```
 
+|  Anotación | Descripción | 
+|----------|-------------|
+|  `@ManyToOne` | Relación muchos a uno |
+|   `@OneToMany` | Relación uno a muchos |
+|   `@OneToOne` | Relación uno a uno |
+|   `@ManyToMany` | Relación muchos a muchos |
 
 
+**Anotaciones de Spring Data JPA**
 
-* Spring Data JPA
-
-`@Repository`: Marca una interfaz o clase como repositorio Spring. El _data class_ representa la entidad (tabla), mientras que el @Repository se encarga de las operaciones de acceso a datos sobre esa entidad.
+`@Repository`: Marca una interfaz o clase como repositorio Spring. El `_data class_` representa la entidad (tabla), mientras que el `@Repository` se encarga de las operaciones de acceso a datos sobre esa entidad.
 
 ```
 @Repository
@@ -1197,14 +1197,15 @@ interface UserRepository : JpaRepository<User, Long>
 
 `@Query`: Define una consulta personalizada usando JPQL o SQL nativo.
 
->>- Ejemplo (JPQL):
+- Ejemplo (JPQL):
 
 ```
 @Query("SELECT u FROM User u WHERE u.name = :name")
 fun findByName(@Param("name") name: String): List<User>
 ```
 
->>- Ejemplo (SQL nativo):
+- Ejemplo (SQL nativo):
+
 ```
 @Query(value = "SELECT * FROM users WHERE user_name = :name", nativeQuery = true)
 fun findByNameNative(@Param("name") name: String): List<User>
@@ -1225,7 +1226,6 @@ fun findByName(@Param("name") name: String): List<User>
 fun updateName(@Param("id") id: Long, @Param("name") name: String)
 ```
 
-
 `@EnableJpaRepositories`: Habilita la funcionalidad de Spring Data JPA y escanea paquetes para detectar repositorios.
 
 ```
@@ -1243,22 +1243,30 @@ fun findByName(name: String): User
 
 
 
+**Anotaciones de Transacciones**
+
+`@Transactional`: Marca un método o clase para ejecutar dentro de una transacción.
+
+```
+@Transactional
+fun updateUserDetails(user: User) { ... }
+```
 
 
+`@Rollback`: Utilizada para forzar la reversión de una transacción.
+
+```
+@Transactional
+@Rollback
+fun testSaveUser() { ... }
+```
 
 
+<span class="mi_h3">Consultas</span>
 
+Las consultas
 
-**Transacciones**
-
-|  Anotación | Descripción | Ejemplo |
-|----------|-------------|---------|
-|  `@Transactional` | Ejecuta métodos dentro de una transacción | e       |
-|  `@Rollback` | Fuerza la reversión de la transacción (tests) | e       |
-
-
-
-
+### 4.4.1. Spring Data MongoDB
 <!--
 
 <span class="mi_h3">Spring Data MongoDB</span>

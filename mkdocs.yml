@@ -21,6 +21,7 @@ nav:
   - Contenido:
     - Acceso a BD relacionales: 2_BD_relacionales.md
     - Acceso a BD documentales: 3_BD_documentales.md
+    - Componentes: 4_Componentes.md
   - Material adicional:
     - AWS Learner Lab: AWSlab.md
     - Instalación MySQL en EC2: mysql.md
