@@ -298,6 +298,7 @@ Ahora la aplicación ya se ejecutará en [http://localhost:8080/](http://localho
 !!! success "Prueba y analiza el ejemplo 1"
     1. Crea un proyecto Spring Boot llamado `saludo` utilizando Spring Initializr. 
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
+    3. Modifica el archivo `index.html` utilizando css para que tenga una apariencia distinta a la del ejemplo.
 
 
 
