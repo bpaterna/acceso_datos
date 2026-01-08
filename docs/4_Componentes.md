@@ -1039,17 +1039,115 @@ Al ejecutar el programa se produce esta secuendia de acciones:
 
 
 
-<!--
+
 
 ## 4.4. Spring Data
 
-Spring Data
+Spring Data proporciona herramientas y abstracciones para facilitar el acceso a bases de datos y otras fuentes de datos de manera **eficiente y consistente**. Su objetivo principal es **simplificar la interacción con diferentes tipos de bases de datos**, tanto **relacionales** (como PostgreSQL o MySQL) como **NoSQL** (por ejemplo MongoDB o Cassandra), reduciendo la cantidad  de código necesario y **unificando la forma de trabajar con los datos**. Se utiliza para:
 
+**1. Acceso Simplificado a Datos:**
+
+* Reduce la necesidad de escribir consultas SQL complejas o código JDBC al exponer métodos predefinidos para operaciones comunes.
+* Permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) con facilidad.
+
+**2. Abstracción de Repositorios:** Ofrece la interfaz **Repository** y subinterfaces como **CrudRepository** y **JpaRepository** que proporcionan métodos estándar para la gestión de entidades en bases de datos relacionales.
+
+**3. Consultas Personalizadas:** Permite escribir consultas personalizadas mediante anotaciones como **@Query**.
+También admite la creación de métodos de consulta basados en el nombre del método, como **findByNombre(String nombre)**.
+
+**4. Compatibilidad con Múltiples Tecnologías de Bases de Datos:**
+
+* Relacionales: Mediante JPA (Java Persistence API).
+* NoSQL: MongoDB, Redis, Neo4j, Cassandra, etc.
+* Buscadores: Elasticsearch, Solr.
+
+**5. Configuración Declarativa:** Al integrar Spring Data con Spring Boot, se pueden configurar muchas opciones mediante propiedades en **application.properties**, evitando configuraciones manuales detalladas.
+
+**6. Integración con Spring Boot:** Con dependencias específicas como **spring-boot-starter-data-jpa** o **spring-boot-starter-data-mongodb**, Spring Data se integra perfectamente con el resto del ecosistema de Spring.
+
+
+
+En lugar de proporcionar una única solución, Spring Data está compuesto por varios módulos, cada uno diseñado para un tipo concreto de tecnología de persistencia, como bases de datos relacionales, NoSQL o sistemas de búsqueda. Gracias a esta estructura modular, el desarrollador puede cambiar la tecnología de persistencia sin modificar la arquitectura general de la aplicación. Sus principales módulos son:
+
+- **Spring Data JPA:**: Proporciona una integración con JPA para bases de datos relacionales. Es ideal para trabajar con entidades Java mapeadas a tablas de bases de datos. JPA es la especificación para persistir, leer y gestionar data desde los objetos Java a la base de datos.
+- **Spring Data MongoDB:**: Facilita el acceso a bases de datos MongoDB, una base de datos NoSQL orientada a documentos.
+- **Spring Data Redis:**: Para aplicaciones que necesitan interactuar con Redis, una base de datos en memoria.
+- **Spring Data Cassandra:**: Proporciona soporte para bases de datos distribuidas como Cassandra.
+- **Spring Data Elasticsearch:**: Simplifica las interacciones con Elasticsearch, un motor de búsqueda y análisis.
+
+
+
+<span class="mi_h3">Spring Data JPA</span>
+
+Spring Data JPA (Java Persistence API) es un módulo de Spring Data que sirve para simplificar el acceso a bases de datos relacionales utlizando objetos (clases) sin tener que escribir SQL ni código repetitivo. Con Spring Data JPA:
+
+- Solo defines entidades (@Entity)
+
+- Creas interfaces Repository
+
+- Spring genera automáticamente el código
+
+
+Algunas de las anotaciones JPA son las siguientes:
+
+**Mapeo JPA**
+
+| Anotación | Descripción | Ejemplo |
+|----------|-------------|-------|
+|  `@Entity` | Marca una clase como una entidad JPA, mapeada a una tabla en la base de datos. |  `@Entity
+        data class User(
+            @Id
+            val id: Long,
+            val name: String
+        ) `   |
+|  `@Table` | Especifica el nombre de la tabla | e     |
+|  `@Id` | Indica la clave primaria | e     |
+|  `@GeneratedValue` | Define cómo se genera la clave primaria | e     |
+|  `@Column` | Configura una columna | e     |
+|  `@JoinColumn` | Define la clave foránea | e     |
+|  `@Lob` | Campo de gran tamaño | e     |
+|  `@Transient` | Excluye un campo del mapeo | e     |
+
+
+
+**Relaciones JPA**
+
+|  Anotación | Descripción | Ejemplo |
+|----------|-------------|---------|
+|  `@ManyToOne` | Relación muchos a uno |e       |
+|   `@OneToMany` | Relación uno a muchos |e       |
+|   `@OneToOne` | Relación uno a uno |e       |
+|   `@ManyToMany` | Relación muchos a muchos |e       |
+
+
+
+**Spring Data JPA**
+
+|  Anotación | Descripción | Ejemplo |
+|----------|-------------|---------|
+|  `@Repository` | Marca una interfaz como repositorio Spring |e       |
+|  `@Query` | Define una consulta personalizada (JPQL o SQL) |e       |
+|  `@Param` | Parámetros nombrados en consultas |e       |
+|  `@Modifying` | Consultas de actualización o borrado |e       |
+|  `@EnableJpaRepositories` | Habilita repositorios JPA |e       |
+|  `@EntityGraph` | Controla la carga de relaciones |e       |
+
+
+**Transacciones**
+
+|  Anotación | Descripción | Ejemplo |
+|----------|-------------|---------|
+|  `@Transactional` | Ejecuta métodos dentro de una transacción | e       |
+|  `@Rollback` | Fuerza la reversión de la transacción (tests) | e       |
+
+
+
+
+<!--
+
+<span class="mi_h3">Spring Data MongoDB</span>
 
 -->
-
-
-
 
 
 ---
