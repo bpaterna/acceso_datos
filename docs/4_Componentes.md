@@ -1093,7 +1093,7 @@ Algunas de las anotaciones JPA son las siguientes:
 
 **Anotaciones de Mapeo JPA**
 
-`@Entity` -  Marca una clase como una entidad JPA, mapeada a una tabla en la base de datos.
+* `@Entity` -  Marca una clase como una entidad JPA, mapeada a una tabla en la base de datos.
 
 ```
 @Entity
@@ -1105,7 +1105,7 @@ data class User(
 ```
 
 
-`@Table` - Especifica el nombre de la tabla que corresponde a la entidad.
+* `@Table` - Especifica el nombre de la tabla que corresponde a la entidad.
 
 ```
 @Entity
@@ -1118,14 +1118,14 @@ data class User(
 ```
 
 
-`@Id` - Indica que un campo es la clave primaria de la tabla.
+* `@Id` - Indica que un campo es la clave primaria de la tabla.
 
 ```
 @Id
 val id: Long
 ```
 
-`@GeneratedValue` - Define cómo se genera el valor de la clave primaria (`GenerationType.IDENTITY`, `GenerationType.SEQUENCE`, etc.)
+* `@GeneratedValue` - Define cómo se genera el valor de la clave primaria (`GenerationType.IDENTITY`, `GenerationType.SEQUENCE`, etc.)
 
 ```
 @Id
@@ -1134,7 +1134,7 @@ val id: Long
 ```
 
 
-`@Column` - Configura una columna de la tabla, como nombre, si es nula o única.
+* `@Column` - Configura una columna de la tabla, como nombre, si es nula o única.
 
 ```
 @Column(name = "user_name", nullable = false, unique = true)
@@ -1142,7 +1142,7 @@ val name: String
 ```
 
 
-`@JoinColumn` - Especifica la columna que actúa como clave foránea.
+* `@JoinColumn` - Especifica la columna que actúa como clave foránea.
 
 ```
 @ManyToOne
@@ -1151,7 +1151,7 @@ val department: Department
 ```
 
 
-`@Lob` - Indica que un campo es un objeto de gran tamaño (texto o binario).
+* `@Lob` - Indica que un campo es un objeto de gran tamaño (texto o binario).
 
 ```
 @Lob
@@ -1159,7 +1159,7 @@ val description: String
 ```
 
 
-`@Transient` - Excluye un campo del mapeo de base de datos (no se almacena).
+* `@Transient` - Excluye un campo del mapeo de base de datos (no se almacena).
 
 ```
 @Transient
@@ -1170,7 +1170,7 @@ val calculatedField: String
 
 **Anotaciones de relaciones JPA**
 
-`@ManyToOne`, `@OneToMany`, `@OneToOne`, `@ManyToMany`: Definen relaciones entre entidades.
+* `@ManyToOne`, `@OneToMany`, `@OneToOne`, `@ManyToMany`: Definen relaciones entre entidades.
 
 ```
 @ManyToOne
@@ -1187,14 +1187,14 @@ val department: Department
 
 **Anotaciones de Spring Data JPA**
 
-`@Repository` - Marca una interfaz o clase como repositorio Spring. El `_data class_` representa la entidad (tabla), mientras que el `@Repository` se encarga de las operaciones de acceso a datos sobre esa entidad.
+* `@Repository` - Marca una interfaz o clase como repositorio Spring. El `_data class_` representa la entidad (tabla), mientras que el `@Repository` se encarga de las operaciones de acceso a datos sobre esa entidad.
 
 ```
 @Repository
 interface UserRepository : JpaRepository<User, Long>
 ```
 
-`@Query` - Define una consulta personalizada usando JPQL o SQL nativo.
+* `@Query` - Define una consulta personalizada usando JPQL o SQL nativo.
 
 - Ejemplo (JPQL):
 
@@ -1210,14 +1210,14 @@ fun findByName(@Param("name") name: String): List<User>
 fun findByNameNative(@Param("name") name: String): List<User>
 ```
 
-`@Param` - Define parámetros nombrados para consultas con `@Query`.
+* `@Param` - Define parámetros nombrados para consultas con `@Query`.
 
 ```
 @Query("SELECT u FROM User u WHERE u.name = :name")
 fun findByName(@Param("name") name: String): List<User>
 ```
 
-`@Modifying` - Se utiliza con consultas `@Query` para operaciones de actualización o eliminación.
+* `@Modifying` - Se utiliza con consultas `@Query` para operaciones de actualización o eliminación.
 
 ```
 @Modifying
@@ -1225,14 +1225,14 @@ fun findByName(@Param("name") name: String): List<User>
 fun updateName(@Param("id") id: Long, @Param("name") name: String)
 ```
 
-`@EnableJpaRepositories` - Habilita la funcionalidad de Spring Data JPA y escanea paquetes para detectar repositorios.
+* `@EnableJpaRepositories` - Habilita la funcionalidad de Spring Data JPA y escanea paquetes para detectar repositorios.
 
 ```
 @EnableJpaRepositories(basePackages = ["com.example.repository"])
 ```
 
 
-`@EntityGraph` - Especifica cómo cargar las relaciones en una consulta, evitando lazy loading.
+* `@EntityGraph` - Especifica cómo cargar las relaciones en una consulta, evitando lazy loading.
 
 ```
 @EntityGraph(attributePaths = ["roles"])
@@ -1241,10 +1241,9 @@ fun findByName(name: String): User
 
 
 
-
 **Anotaciones de Transacciones**
 
-`@Transactional` - Marca un método o clase para ejecutar dentro de una transacción.
+* `@Transactional` - Marca un método o clase para ejecutar dentro de una transacción.
 
 ```
 @Transactional
@@ -1252,7 +1251,7 @@ fun updateUserDetails(user: User) { ... }
 ```
 
 
-`@Rollback` - Utilizada para forzar la reversión de una transacción.
+* `@Rollback` - Utilizada para forzar la reversión de una transacción.
 
 ```
 @Transactional
@@ -1261,12 +1260,13 @@ fun testSaveUser() { ... }
 ```
 
 
+<!--
 <span class="mi_h3">Consultas</span>
 
 Las consultas
 
 ### 4.4.1. Spring Data MongoDB
-<!--
+
 
 <span class="mi_h3">Spring Data MongoDB</span>
 
