@@ -1196,16 +1196,12 @@ interface UserRepository : JpaRepository<User, Long>
 
 * `@Query` - Define una consulta personalizada usando JPQL o SQL nativo.
 
-Ejemplo (JPQL):
-
 ```
+//Ejemplo (JPQL):
 @Query("SELECT u FROM User u WHERE u.name = :name")
 fun findByName(@Param("name") name: String): List<User>
-```
 
-Ejemplo (SQL nativo):
-
-```
+//Ejemplo (SQL nativo):
 @Query(value = "SELECT * FROM users WHERE user_name = :name", nativeQuery = true)
 fun findByNameNative(@Param("name") name: String): List<User>
 ```
