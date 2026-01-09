@@ -380,7 +380,10 @@ Thymeleaf es un motor de plantillas que permite mezclar HTML con datos dinámico
 
 <span class="mis_ejemplos">Ejemplo 2: Aplicación utilizando Spring MVC y Thymeleaf</span>
 
-A continuación se describen los pasos para crear una aplicación que muestra una lista con nombres de planas y junto a cada nombre un enlace que mostrará los detalles de la planta. Desde la pantalla de detalles, se podrá acceder a un formulario para modificar la infromación de la planta.
+A continuación se describen los pasos para crear una aplicación que muestra una lista con nombres de planas y junto a cada nombre un enlace que mostrará los detalles de la planta. Desde la pantalla de detalles, se podrá acceder a un formulario para modificar la infromación de la planta. La estructura del proyecto será la siguiente:
+
+![Spring 9](img/spring/spring09.jpg)
+
 
 <span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
 
@@ -392,7 +395,7 @@ Opcionalmente podemos añadir **Spring Boot DevTools** que nos ahorrará tiempo 
 
 - Recarga las plantillas Thymeleaf sin reiniciar manualmente.
 
-Para tener estas funciones activas, además de añadir la dependencia, hay que configurar IntelliJ para que compile al guardar.Esto se consigue activando las opciones siguientes: 
+Para tener estas funciones activas, además de añadir la dependencia, hay que configurar IntelliJ para que compile al guardar. Esto se consigue activando las opciones siguientes: 
 
 - Build project automatically (Settings → Build, Execution, Deployment → Compiler)
 
@@ -589,7 +592,7 @@ Para nuestra aplicación necesitamos cuatro vistas, una para la lista de plantas
 
 <a th:href="@{/planta/editar/{id_planta}(id_planta=${planta.id_planta})}">Modificar planta</a>
 
-<p></p><a th:href="@{/plantas}">Volver a la lista de plantas</a></p>
+<p><a th:href="@{/plantas}">Volver a la lista de plantas</a></p>
 
 </body>
 </html>
@@ -660,7 +663,7 @@ Condicionales:
 
 Iteración sobre la colección:
 
-* th:each="planta : ${plantas}" recorre la lista de plantas (plantas) y crea un <li> para cada planta.
+* th:each="planta : ${plantas}" recorre la lista de plantas (plantas) y crea un bloque de código html (en este caso el que hay dentro de la etiqueta `<p>`) para cada planta.
 
 Mostrar datos dinámicos:
 
@@ -683,21 +686,16 @@ Formulario:
 
 * th:action="@{/planta/guardar}" indica la URL a la que se enviarán los datos del formulario cuando se haga submit.
 
-* th:object="${planta}" asocia un objeto del modelo de Spring (Model) con el formulario. en este caso `${planta}` hace referencia a la planta que se pasó al modelo desde el controlador: `model.addAttribute("planta", planta)`. Esto permite usar atributos de planta en los campos del formulario, por ejemplo:
+* th:object="${planta}" asocia un objeto del modelo de Spring (Model) con el formulario. En este caso `${planta}` hace referencia a la planta que se pasó al modelo desde el controlador: `model.addAttribute("planta", planta)`. Esto permite usar atributos de planta en los campos del formulario.
 
 
 
 <span class="mi_sombreado">**PASO 6: Añadir las fotos de las plantas**</span>
 
-Como queremos mostrar las fotos de nuestras plantas en la vista de detalle, hemos guardado las fotos en una carpeta llamada `fotos` dentro de `src/main/resources/static/`.
+Para poder mostrar las fotos de nuestras plantas en la vista de detalle, hemos guardado las fotos en una carpeta llamada `fotos` dentro de `src/main/resources/static/`.
 
 
 <span class="mi_sombreado">**PASO 7: Comprobar y ejecutar**</span>
-
-La estructura del proyecto será la siguiente:
-
-![Spring 9](img/spring/spring09.jpg)
-
 
 Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos la url [http://localhost:8080/plantas](http://localhost:8080/plantas) en el navegador. Las siguientes imágenes muestran el funcionamiento de nuestra aplicación:
 
@@ -1065,7 +1063,7 @@ También admite la creación de métodos de consulta basados en el nombre del m�
 
 **6. Integración con Spring Boot:** Con dependencias específicas como **spring-boot-starter-data-jpa** o **spring-boot-starter-data-mongodb**, Spring Data se integra perfectamente con el resto del ecosistema de Spring.
 
-
+---
 
 En lugar de proporcionar una única solución, Spring Data está compuesto por varios módulos, cada uno diseñado para un tipo concreto de tecnología de persistencia, como bases de datos relacionales, NoSQL o sistemas de búsqueda. Gracias a esta estructura modular, el desarrollador puede cambiar la tecnología de persistencia sin modificar la arquitectura general de la aplicación. Sus principales módulos son:
 
