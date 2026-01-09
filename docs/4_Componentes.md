@@ -380,7 +380,7 @@ Thymeleaf es un motor de plantillas que permite mezclar HTML con datos dinámico
 
 <span class="mis_ejemplos">Ejemplo 2: Aplicación utilizando Spring MVC y Thymeleaf</span>
 
-A continuación se describen los pasos para crear una aplicación que muestra una lista con nombres de planas y junto a cada nombre un enlace que mostrará los detalles de la planta. Desde la pantalla de detalles, se podrá acceder a un formulario para modificar la infromación de la planta. La estructura del proyecto será la siguiente:
+A continuación se describen los pasos para crear una aplicación que muestra una lista con nombres de planas y junto a cada nombre un enlace que mostrará los detalles de la planta. Desde la pantalla de detalles, se podrá acceder a un formulario para modificar la información de la planta. La estructura del proyecto será la siguiente:
 
 ![Spring 9](img/spring/spring09.jpg)
 
@@ -511,7 +511,7 @@ class PlantaController {
 | `@GetMapping("/planta/{id_planta}")`  | Muestra información de detalle de una planta específica en `detallePlanta.html`. Si no existe, muestra `errorPlanta.html`. |
 | `@GetMapping("/planta/editar/{id_planta}")`   |  Carga la planta en un formulario de edición `editarPlanta.html`.             |
 
-`@PostMapping` Procesa el formulario para editar la infromación de una planta
+`@PostMapping` Procesa el formulario para editar la información de una planta
 
 | Función         | Descripción                                                  |
 |--------------------|-------------------------------|
@@ -772,7 +772,12 @@ En el ejemplo anterior, la información de las plantas se almacenaba en memoria 
 
 <span class="mis_ejemplos">Ejemplo 3: CRUD (CSV) con Spring MVC y Thymeleaf</span>
 
-Este ejemplo modifica el anterior ampliando las funciones CRUD y definiendo las capas de la arquitectura MVC. A continuación se describen los pasos necesarios para realizar dichos cambios:
+Este ejemplo modifica el anterior ampliando las funciones CRUD y definiendo las capas de la arquitectura MVC. La estructura del proyecto será la siguiente:
+
+![Spring 11](img/spring/spring11.jpg)
+
+
+A continuación se describen los pasos necesarios para realizar dichos cambios:
 
 
 <span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
@@ -981,11 +986,6 @@ class PlantaService(
 
 
 <span class="mi_sombreado">**PASO 6: Comprobar y ejecutar**</span>
-
-Llegados a este punto, la estructura del proyecto será la siguiente:
-
-![Spring 11](img/spring/spring11.jpg)
-
 
 Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos la url [http://localhost:8080/plantas](http://localhost:8080/plantas) en el navegador. Las siguientes imágenes muestran el funcionamiento de nuestra aplicación:
 
