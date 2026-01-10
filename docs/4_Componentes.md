@@ -1303,15 +1303,16 @@ La estructura básica es: `findBy + NombreDeCampo + Condición` donde:
 
 **Palabras clave en la convención**
 
-![springConvenciones](img/MVC2springConvenciones.png)
+![springConvenciones](img/springConvenciones.png)
 
 !!!Note ""
 * **Coincidencia exacta del nombre del campo**: Los nombres deben coincidir con los atributos definidos en la entidad.
+
 * **Relaciones**: Usa la notación _EntidadRelacionada.Atributo_ para navegar entre tablas relacionadas.
+
 * **Orden**: Los métodos pueden incluir palabras clave de ordenación, como _OrderBy_.
+
 * **Parámetros**: Los métodos generados reciben parámetros en el mismo orden en que se declaran en el nombre del método.
-
-
 
 
 <span class="mi_h3">Consultas utilizando la anotación @Query</span>
