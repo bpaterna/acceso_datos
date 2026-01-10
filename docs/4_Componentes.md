@@ -1097,10 +1097,12 @@ Algunas de las anotaciones JPA son las siguientes:
 
 ```
 @Entity
-data class User(
+data class Planta(
     @Id
     val id: Long,
-    val name: String
+    val nombre: String,
+    val tipo: String,
+    val altura: Double
 )
 ```
 
@@ -1109,11 +1111,13 @@ data class User(
 
 ```
 @Entity
-@Table(name = "users")
-data class User(
+@Table(name = "plantas")
+data class Planta(
     @Id
-    val id: Long,
-    val name: String
+    var id_planta: Int,  
+    val nombre: String,
+    val tipo: String,
+    val altura: Double
 )
 ```
 
@@ -1122,7 +1126,7 @@ data class User(
 
 ```
 @Id
-val id: Long
+val id_planta: Int
 ```
 
 * `@GeneratedValue` - Define cómo se genera el valor de la clave primaria (`GenerationType.IDENTITY`, `GenerationType.SEQUENCE`, etc.)
@@ -1130,14 +1134,14 @@ val id: Long
 ```
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-val id: Long
+val id_planta: Int
 ```
 
 
 * `@Column` - Configura una columna de la tabla, como nombre, si es nula o única.
 
 ```
-@Column(name = "user_name", nullable = false, unique = true)
+@Column(nombre = "planta_nombre", nullable = false, unique = true)
 val name: String
 ```
 
@@ -1146,8 +1150,8 @@ val name: String
 
 ```
 @ManyToOne
-@JoinColumn(name = "department_id")
-val department: Department
+@JoinColumn(name = "id_jardin")
+var jardin: Jardin
 ```
 
 
@@ -1191,34 +1195,30 @@ val department: Department
 
 ```
 @Repository
-interface UserRepository : JpaRepository<User, Long>
+interface PlantaRepository : JpaRepository<Planta, Int>
 ```
 
-* `@Query` - Define una consulta personalizada usando JPQL o SQL nativo.
+* `@Query` y `@Param` - El primero define una consulta personalizada usando JPQL o SQL nativo y el segundo define parámetros nombrados para consultas con `@Query`.
 
 ```
 //Ejemplo (JPQL):
-@Query("SELECT u FROM User u WHERE u.name = :name")
-fun findByName(@Param("name") name: String): List<User>
+@Query("SELECT p FROM Planta p WHERE p.nombre = :nombre")
+fun findByNombre(@Param("nombre") nombre: String): List<Planta>
 
 //Ejemplo (SQL nativo):
-@Query(value = "SELECT * FROM users WHERE user_name = :name", nativeQuery = true)
-fun findByNameNative(@Param("name") name: String): List<User>
-```
-
-* `@Param` - Define parámetros nombrados para consultas con `@Query`.
-
-```
-@Query("SELECT u FROM User u WHERE u.name = :name")
-fun findByName(@Param("name") name: String): List<User>
+@Query(value = "SELECT * FROM plantas WHERE nombre = :nombre", nativeQuery = true)
+fun findByNombreNative(@Param("nombre") nombre: String): List<Planta>
 ```
 
 * `@Modifying` - Se utiliza con consultas `@Query` para operaciones de actualización o eliminación.
 
 ```
 @Modifying
-@Query("UPDATE User u SET u.name = :name WHERE u.id = :id")
-fun updateName(@Param("id") id: Long, @Param("name") name: String)
+@Query("UPDATE Planta p SET p.nombre = :nombre WHERE p.id_planta = :id_planta")
+fun actualizarNombre(
+    @Param("id_planta") id_planta: Int,
+    @Param("nombre") nombre: String
+)
 ```
 
 * `@EnableJpaRepositories` - Habilita la funcionalidad de Spring Data JPA y escanea paquetes para detectar repositorios.
@@ -1231,8 +1231,9 @@ fun updateName(@Param("id") id: Long, @Param("name") name: String)
 * `@EntityGraph` - Especifica cómo cargar las relaciones en una consulta, evitando lazy loading.
 
 ```
-@EntityGraph(attributePaths = ["roles"])
-fun findByName(name: String): User
+//Busca una planta por su nombre y carga la planta + el jardín asociado
+@EntityGraph(attributePaths = ["jardin"])
+fun findByNombre(nombre: String): Planta?
 ```
 
 
@@ -1243,7 +1244,7 @@ fun findByName(name: String): User
 
 ```
 @Transactional
-fun updateUserDetails(user: User) { ... }
+fun updatePlantaDetails(planta: Planta) { ... }
 ```
 
 
@@ -1252,7 +1253,7 @@ fun updateUserDetails(user: User) { ... }
 ```
 @Transactional
 @Rollback
-fun testSaveUser() { ... }
+fun testSavePlanta() { ... }
 ```
 
 
@@ -1283,22 +1284,22 @@ La estructura básica es: `findBy + NombreDeCampo + Condición` donde:
 
 * Consultas simples: Método **findByNombre(String nombre)**. Ejemplo de consulta generada:
 
-            SELECT * FROM entidad WHERE nombre = ?
+            SELECT * FROM plantas WHERE nombre = ?
 
 
 * Consultas con condiciones: Método **findByNombreAndEdad(String nombre, Integer edad)**. Ejemplo de consulta generada:
 
-            SELECT * FROM entidad WHERE nombre = ? AND edad = ?
+            SELECT * FROM plantas WHERE nombre = ? AND altura = ?
 
 
 * Consultas con orden: Método **findByNombreOrderByEdadDesc(String nombre)**. Ejemplo de consulta generada:
 
-            SELECT * FROM entidad WHERE nombre = ? ORDER BY edad DESC
+            SELECT * FROM plantas WHERE nombre = ? ORDER BY altura DESC
 
 
 * Consultas con relaciones. Si hay una relación entre entidades, se puede navegar por los campos relacionados: Método **findByComarcaNomC(String nomC)**. Ejemplo de consulta generada:
 
-             SELECT * FROM entidad e JOIN comarca c ON e.comarca_id = c.id WHERE c.nomC = ?
+             SELECT * FROM plantas JOIN jardines ON plantas.id_jardin = jardines.id_jardin WHERE plantas.nombre = ?
 
 
 **Palabras clave en la convención**
@@ -1342,50 +1343,42 @@ La estructura básica es:
 
 **Ejemplo sencillo:**
 
-    @Query("SELECT c FROM Comarca c WHERE c.provincia = :provincia")
-    fun findByProvincia(@Param("provincia") provincia: String): List<Comarca>
+    @Query("SELECT p FROM Planta p WHERE p.tipo = :tipo")
+    fun findByTipo(@Param("tipo") tipo: String): List<Planta>
 
 
 **Ejemplo con relaciones:**
 
-Siguiendo con nuestro ejemplo de geo_ad, la consulta para buscar Institutos en una Provincia por Población Mínima quedaría así:
-
+La consulta para buscar las plantas que están asociadas con un jardín específico (según el ID del jardín proporcionado):
 
     @Query("""
-        SELECT i FROM Institut i
-        JOIN i.poblacio p
-        JOIN p.comarca c
-        WHERE c.provincia = :provincia AND p.poblacion >= :minPoblacion
+    SELECT p FROM Planta p
+    JOIN p.jardin j
+    WHERE j.id_jardin = :idJardin
     """)
-    fun findByProvinciaAndPoblacion(
-        @Param("provincia") provincia: String,
-        @Param("minPoblacion") minPoblacion: Int
-    ): List<Institut>
+    fun findByJardin(
+        @Param("idJardin") idJardin: Int
+    ): List<Planta>
 
 
-**Este mismo ejemplo utilizando convención de nombres quedaría así:**{.verde}
+
+**Este mismo ejemplo utilizando convención de nombres quedaría así:
 
     @Repository
-    interface InstitutRepository : JpaRepository<Institut, String> {
-        fun findByPoblacioComarcaProvinciaAndPoblacioPoblacionGreaterThanEqual(
-            provincia: String,
-            minPoblacion: Int
-        ): List<Institut>
+    interface PlantaRepository : JpaRepository<Planta, Int> {
+        fun findByJardinIdJardin(
+            idJardin: Int
+        ): List<Planta>
     }
 
 
-* **findBy**: Indica que es un método de consulta.
+* **findBy:** Indica que es un método de consulta.
 
-* **PoblacioComarcaProvincia**: Navega por las relaciones de las entidades Institut  Poblacio -> Comarca para filtrar por la provincia.
-
-* **AndPoblacioPoblacionGreaterThanEqual**: Navega por Institut -> Poblacio y aplica el filtro de población mínima.
-
-
+* **findByJardinIdJardin:** Utiliza la convención de nombres para especificar que se desean encontrar plantas basándose en el idJardin del jardín asociado. Los nombres de los parámetros reflejan claramente los campos utilizados en la consulta.
 
 
 
 <span class="mis_ejemplos">Ejemplo 4: CRUD con SQLite</span>
-
 
 
 
