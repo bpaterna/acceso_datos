@@ -1257,7 +1257,7 @@ fun testSaveUser() { ... }
 
 
 
-<span class="mi_h3">Consultas utilizando convención de nombres*</span>
+<span class="mi_h3">Consultas utilizando convención de nombres</span>
 
 Spring Data JPA permite definir métodos en repositorios siguiendo una convención de nombres específica. Esto simplifica la escritura de consultas comunes sin necesidad de usar JPQL o SQL. Para ello analiza el nombre de los métodos en el repositorio e interpreta su significado para generar consultas automáticamente.
 
@@ -1303,7 +1303,7 @@ La estructura básica es: `findBy + NombreDeCampo + Condición` donde:
 
 **Palabras clave en la convención**
 
-![](springConvenciones.png)
+![springConvenciones](img/MVC2springConvenciones.png)
 
 !!!Note ""
 * **Coincidencia exacta del nombre del campo**: Los nombres deben coincidir con los atributos definidos en la entidad.
