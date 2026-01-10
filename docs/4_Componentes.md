@@ -1305,7 +1305,8 @@ La estructura básica es: `findBy + NombreDeCampo + Condición` donde:
 
 ![springConvenciones](img/springConvenciones.png)
 
-!!!Note ""
+A tener en cuenta:
+
 * **Coincidencia exacta del nombre del campo**: Los nombres deben coincidir con los atributos definidos en la entidad.
 
 * **Relaciones**: Usa la notación _EntidadRelacionada.Atributo_ para navegar entre tablas relacionadas.
