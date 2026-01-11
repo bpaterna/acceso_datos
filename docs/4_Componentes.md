@@ -143,7 +143,7 @@ Para crear un proyecto **Spring Boot** Maven/Gradle con las dependencias necesar
 
 Una vez creado el proyecto tendremos las configuraciones y dependencias en los archivos siguientes:
 
-- **applicantion.properties:** configuración de aspectos como las conexiones a base de datos o el puerto por donde acceder a nuestra aplicación.
+- **application.properties:** configuración de aspectos como las conexiones a base de datos o el puerto por donde acceder a nuestra aplicación.
 
 - **pom.xml:** dependencias necesarias para que la aplicación funcione.
 
@@ -174,7 +174,7 @@ Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://st
 
 <span class="mi_sombreado">**PASO 2: Abrir el proyecto y ejecutarlo**</span>
 
-Descomprimimos el archivo obtenido en el paso anterior y lo abrimos con IntelliJ. Vemos que, además de los archivos **applicantion.properties** y **pom.xml** se ha creado automaticamente la clase **SaludoApplication** (con la anotación **@SpringBootApplication**) y la función de extensión **runApplication** que sirve para lanzar la aplicación.
+Descomprimimos el archivo obtenido en el paso anterior y lo abrimos con IntelliJ. Vemos que, además de los archivos **application.properties** y **pom.xml** se ha creado automaticamente la clase **SaludoApplication** (con la anotación **@SpringBootApplication**) y la función de extensión **runApplication** que sirve para lanzar la aplicación.
 
 ![Spring 2](img/spring/spring02.jpg)
 
@@ -183,7 +183,7 @@ Por tanto deberemos ejecutar la aplicación usando la clase `SaludoApplication.k
 ![Spring 3](img/spring/spring03.jpg)
 
 !!!Note ""
-    Si el puerto 8080 está ocupado aparecerá un mensaje diciento que no se puede iniciar el servidor Tomcat. Puedes cambiar el puerto, por ejemplo al 8888, añadiendo la sigueinte línea en el archivo `application.properties` (que se encuentra en la carpeta resources del proyecto):
+    Si el puerto 8080 está ocupado aparecerá un mensaje diciendo que no se puede iniciar el servidor Tomcat. Puedes cambiar el puerto, por ejemplo al 8888, añadiendo la siguiente línea en el archivo `application.properties` (que se encuentra en la carpeta resources del proyecto):
     ```
     server.port=8888
     ```
@@ -346,7 +346,7 @@ Estos tres componentes trabajan de la siguiente forma:
 
 Spring MVC forma parte del ecosistema Spring y se organiza siguiendo una arquitectura en capas en la que cada capa tiene una función concreta y se comunica únicamente con las capas adyacentes. Esta arquitectura encaja perfectamente con el patrón MVC (Model–View–Controller) y proporciona toda la infraestructura necesaria para manejar peticiones HTTP, invocar controladores y devolver vistas (HTML, JSON, etc.) lo que permite aplicaciones más mantenibles, escalables y fáciles de entender.  
 
-En la siguiente tabla se muestran las capas más habituales en una aplicación Spring con su equivamencia en Spring MVC, sus anotaciones más habituales y la función que realiza cada una de ellas:
+En la siguiente tabla se muestran las capas más habituales en una aplicación Spring con su equivalencia en Spring MVC, sus anotaciones más habituales y la función que realiza cada una de ellas:
 
 **Anotaciones por capa y correspondencia Spring ↔ MVC**
 
@@ -984,8 +984,199 @@ class PlantaService(
 }
 ```
 
+<span class="mi_sombreado">**PASO 6: Revisar los archivos html**</span>
 
-<span class="mi_sombreado">**PASO 6: Comprobar y ejecutar**</span>
+A los archivos html del ejemplo anterior les hemos hecho algunas modificaciones y ahora quedan así:
+
+- El archivo que mostrará la lista de plantas será `plantas.html` y su código es el siguiente:
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Plantas</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+</head>
+
+<body>
+
+<div class="container mt-5">
+    <h1>Plantas</h1>
+    
+    <h5 th:if="${plantas.size() > 0}">Aquí tienes una tabla con todas las plantas y las acciones que puedes hacer con ellas</h5>
+    <p th:unless="${plantas.size() > 0}">No hay plantas registradas en el sistema</p>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="planta : ${plantas}">
+            <td th:text="${planta.id_planta}">1</td>
+            <td th:text="${planta.nombre}">Rosa</td>
+            <td th:text="${planta.tipo}">Flor</td>
+            <td>
+    
+                <!-- Mostrar enlace a la página de detalles de la planta -->
+                <a th:href="@{/planta/{id_planta}(id_planta=${planta.id_planta})}" class="btn btn-info  btn-sm">Detalles</a>
+    
+                <a th:href="@{/plantas/editar/{id}(id=${planta.id_planta})}" class="btn btn-info  btn-sm">Editar</a>
+    
+                <!-- En un entorno real, borrar debería ser un form con method POST/DELETE,
+                     pero para aprender, un GET está bien -->
+                <a th:href="@{/plantas/borrar/{id}(id=${planta.id_planta})}"
+                   class="btn btn-info btn-sm"
+                   onclick="return confirm('¿Estás seguro de borrar esta planta?')">Borrar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/plantas/nueva}" class="mt-5">Agregar Nueva Planta</a>
+
+</div>
+</body>
+</html>
+```
+
+
+- El archivo que mostrará el detalle de una plantas será `detallePlanta.html` y su código es el siguiente:
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles de la Planta</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+</head>
+
+
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center" style="width: 18rem;">
+        <div class="card text-center">
+                <!-- Foto -->
+            <img th:src="@{/fotos/{nombreImagen}(nombreImagen=${planta.foto})}"
+             alt="Foto"
+             class="img-fluid rounded mb-4"
+             style="max-height: 250px;">
+
+            <div class="card-body">
+                <h1 class="card-title text-info mb-4" th:text="${planta.nombre}">Nombre</h1>
+
+                <!-- Datos (usamos fw-bold para negrita) -->
+                <p class="fs-5">
+                <span class="fw-bold">Tipo:</span>
+                <!-- Badge para resaltar el tipo -->
+                <span th:text="${planta.tipo}">Tipo</span>
+                </p>
+
+                <p class="fs-5">
+                <span class="fw-bold">Altura:</span>
+                <span th:text="${planta.altura} + ' m'">0.0 m</span>
+                </p>
+
+                <hr class="my-4">
+
+                <a th:href="@{/plantas/editar/{id_planta}(id_planta=${planta.id_planta})}"
+               class="btn btn-info bt-sm">Editar</a>
+
+                <a th:href="@{/plantas/borrar/{id_planta}(id_planta=${planta.id_planta})}"
+               class="btn btn-info bt-sm"
+               onclick="return confirm('¿Estás seguro de borrar esta planta?')">Borrar</a>
+            </div>
+        </div>
+            <p class="mt-3"><a th:href="@{/plantas}">Volver al listado</a></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+```
+
+
+- El archivo que mostrará el aviso en caso de error será `errorPlanta.html` y su código es el siguiente:
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Planta no encontrada</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+</head>
+
+<body>
+<div class="container mt-5">
+    <h1>Error</h1>
+
+    <p>La planta que estás buscando no existe.</p>
+
+    <a th:href="@{/plantas}">Volver a la lista de plantas</a>
+</div>
+</body>
+</html>
+```
+
+- El archivo que mostrará el formulario para añadir una planta o modificar la información de una existenet será `formularioPlanta.html` y su código es el siguiente:
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${titulo}">Formulario Planta</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+</head>
+
+
+<body>
+<div class="container mt-5">
+<h1 th:text="${titulo}">Formulario</h1>
+
+<form th:action="@{/plantas/guardar}" th:object="${planta}" method="post">
+
+    <!-- Campo oculto para el ID. Si es 0 se creará nuevo, si es > 0 se editará -->
+    <input type="hidden" th:field="*{id_planta}" />
+
+    <div class="mb-3">
+        <label class="form-label">Nombre:</label>
+        <input type="text" class="form-control" th:field="*{nombre}" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Tipo:</label>
+        <input type="text" class="form-control" th:field="*{tipo}" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Altura (m):</label>
+        <input type="number" step="0.1" class="form-control" th:field="*{altura}" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Nombre Foto (ej: rosa.jpg):</label>
+        <input type="text" class="form-control" th:field="*{foto}" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a th:href="@{/plantas}" class="btn btn-secondary">Cancelar</a>
+</form>
+</div>
+</body>
+</html>
+```
+
+
+
+<span class="mi_sombreado">**PASO 7: Comprobar y ejecutar**</span>
 
 Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase principal y abrimos la url [http://localhost:8080/plantas](http://localhost:8080/plantas) en el navegador. Las siguientes imágenes muestran el funcionamiento de nuestra aplicación:
 
@@ -1007,9 +1198,9 @@ Ejecutamos la aplicación usando la clase `PlantasApplication.kt` como clase pri
 ![Spring 12d](img/spring/spring12d.jpg)
 
 
-<span class="mi_sombreado">**PASO 7: Entender el funcionamiento**</span>
+<span class="mi_sombreado">**PASO 8: Entender el funcionamiento**</span>
 
-Al ejecutar el programa se produce esta secuendia de acciones:
+Al ejecutar el programa se produce esta secuencia de acciones:
 
 1. El **usuario** entra a /plantas.
 
@@ -1021,7 +1212,7 @@ Al ejecutar el programa se produce esta secuendia de acciones:
 
 5. El **controlador** mete esos objetos en el **modelo** y carga la plantilla HTML plantas.html.
 
-6. El **usuario** le la información de las plantas en su navegador.
+6. El **usuario** lee la información de las plantas en su navegador.
 
 
 
@@ -1032,7 +1223,7 @@ Al ejecutar el programa se produce esta secuendia de acciones:
 
 !!! warning "Práctica 1: Trabaja en tu aplicación"
     1. Crea un nuevo proyecto Spring Boot (con el nombre de tu aplicación) utilizando Spring Initializr.
-    2. Partiendo del un fichero CSV con información crea tu aplicación CRUD.
+    2. Partiendo de un fichero CSV con información crea tu aplicación CRUD.
     3. Modifica el aspecto de tu aplicación aplicando alguna característica de `bootstrap` para que el resultado quede personalizado a tu gusto.
 
 
@@ -1078,7 +1269,7 @@ En lugar de proporcionar una única solución, Spring Data está compuesto por v
 
 ### 4.4.1. Spring Data JPA
 
-Spring Data JPA (Java Persistence API) es un módulo de Spring Data que sirve para simplificar el acceso a bases de datos relacionales utlizando objetos (clases) sin tener que escribir SQL ni código repetitivo. Con Spring Data JPA:
+Spring Data JPA (Java Persistence API) es un módulo de Spring Data que sirve para simplificar el acceso a bases de datos relacionales utilizando objetos (clases) sin tener que escribir SQL ni código repetitivo. Con Spring Data JPA:
 
 - Solo defines entidades (@Entity)
 
@@ -1277,7 +1468,7 @@ La estructura básica es: `findBy + NombreDeCampo + Condición` donde:
 - **NombreDeCampo**: Debe coincidir exactamente con el nombre del atributo en la entidad. Se puede incluir navegación de atributos para relaciones (EntidadRelacionada.Atributo).
 
 
-- **Condición** (opcional): Permite añadir operadores lógicos como And, Or, etc. Ejemplo: findByNombreAndEdad.
+- **Condición** (opcional): Permite añadir operadores lógicos como And, Or, etc. Ejemplo: findByNombreAndAltura.
 
 
 **Ejemplos de métodos según la convención**
@@ -1287,12 +1478,12 @@ La estructura básica es: `findBy + NombreDeCampo + Condición` donde:
             SELECT * FROM plantas WHERE nombre = ?
 
 
-* Consultas con condiciones: Método **findByNombreAndEdad(String nombre, Integer edad)**. Ejemplo de consulta generada:
+* Consultas con condiciones: Método **findByNombreAndAltura(String nombre, Double altura)**. Ejemplo de consulta generada:
 
             SELECT * FROM plantas WHERE nombre = ? AND altura = ?
 
 
-* Consultas con orden: Método **findByNombreOrderByEdadDesc(String nombre)**. Ejemplo de consulta generada:
+* Consultas con orden: Método **findByNombreOrderByAlturaDesc(String nombre)**. Ejemplo de consulta generada:
 
             SELECT * FROM plantas WHERE nombre = ? ORDER BY altura DESC
 
@@ -1305,6 +1496,29 @@ La estructura básica es: `findBy + NombreDeCampo + Condición` donde:
 **Palabras clave en la convención**
 
 ![springConvenciones](img/springConvenciones.png)
+
+
+
+
+| Palabra Clave | Función | Ejemplo                         |
+| --- | --- |---------------------------------|
+| `And` | Combina múltiples condiciones con `AND`. | `findByNombreAndAltura`         |
+| `Or` | Combina múltiples condiciones con `OR`. | `findByNombreOrAltura`          |
+| `Between` | Busca valores en un rango. | `findByAlturaBetween`           |
+| `LessThan` | Busca valores menores a un límite. | `findByAlturaLessThan`          |
+| `GreaterThan` | Busca valores mayores a un límite. | `findByAlturaGreaterThan`       |
+| `IsNull` | Busca valores `NULL`. | `findByTipoIsNull`              |
+| `IsNotNull` | Busca valores que no sean `NULL`. | `findByTipoIsNotNull`           |
+| `Like` | Busca valores que coincidan con un patrón. | `findByNombreLike`              |
+| `NotLike` | Busca valores que no coincidan con un patrón. | `findByNombreNotLike`           |
+| `StartingWith` | Busca valores que comiencen con un prefijo. | `findByNombreStartingWith`      |
+| `EndingWith` | Busca valores que terminen con un sufijo. | `findByNombreEndingWith`        |
+| `Containing` | Busca valores que contengan un patrón. | `findByNombreContaining`        |
+| `OrderBy` | Ordena los resultados por un campo específico. | `findByNombreOrderByAlturaDesc` |
+| `Top` | Devuelve los primeros resultados (límite). | `findTop3ByAlturaGreaterThan`   |
+| `First` | Devuelve el primer resultado. | `findFirstByNombre`             |
+
+
 
 A tener en cuenta:
 
@@ -1362,7 +1576,7 @@ La consulta para buscar las plantas que están asociadas con un jardín específ
 
 
 
-**Este mismo ejemplo utilizando convención de nombres quedaría así:
+Este mismo ejemplo utilizando convención de nombres quedaría así:
 
     @Repository
     interface PlantaRepository : JpaRepository<Planta, Int> {
@@ -1379,8 +1593,6 @@ La consulta para buscar las plantas que están asociadas con un jardín específ
 
 
 <span class="mis_ejemplos">Ejemplo 4: CRUD con SQLite</span>
-
-
 
 
 
