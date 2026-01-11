@@ -984,7 +984,7 @@ class PlantaService(
 }
 ```
 
-<span class="mi_sombreado">**PASO 6: Revisar los archivos html**</span>
+<span class="mi_sombreado">**PASO 6: Modificar las vistas**</span>
 
 A los archivos html del ejemplo anterior les hemos hecho algunas modificaciones y ahora quedan así:
 
@@ -1495,28 +1495,24 @@ La estructura básica es: `findBy + NombreDeCampo + Condición` donde:
 
 **Palabras clave en la convención**
 
-![springConvenciones](img/springConvenciones.png)
-
-
-
 
 | Palabra Clave | Función | Ejemplo                         |
 | --- | --- |---------------------------------|
-| `And` | Combina múltiples condiciones con `AND`. | `findByNombreAndAltura`         |
-| `Or` | Combina múltiples condiciones con `OR`. | `findByNombreOrAltura`          |
-| `Between` | Busca valores en un rango. | `findByAlturaBetween`           |
-| `LessThan` | Busca valores menores a un límite. | `findByAlturaLessThan`          |
-| `GreaterThan` | Busca valores mayores a un límite. | `findByAlturaGreaterThan`       |
-| `IsNull` | Busca valores `NULL`. | `findByTipoIsNull`              |
-| `IsNotNull` | Busca valores que no sean `NULL`. | `findByTipoIsNotNull`           |
-| `Like` | Busca valores que coincidan con un patrón. | `findByNombreLike`              |
-| `NotLike` | Busca valores que no coincidan con un patrón. | `findByNombreNotLike`           |
-| `StartingWith` | Busca valores que comiencen con un prefijo. | `findByNombreStartingWith`      |
-| `EndingWith` | Busca valores que terminen con un sufijo. | `findByNombreEndingWith`        |
-| `Containing` | Busca valores que contengan un patrón. | `findByNombreContaining`        |
-| `OrderBy` | Ordena los resultados por un campo específico. | `findByNombreOrderByAlturaDesc` |
-| `Top` | Devuelve los primeros resultados (límite). | `findTop3ByAlturaGreaterThan`   |
-| `First` | Devuelve el primer resultado. | `findFirstByNombre`             |
+| `And` | Combina múltiples condiciones con `AND` | `findByNombreAndAltura`         |
+| `Or` | Combina múltiples condiciones con `OR` | `findByNombreOrAltura`          |
+| `Between` | Busca valores en un rango | `findByAlturaBetween`           |
+| `LessThan` | Busca valores menores a un límite | `findByAlturaLessThan`          |
+| `GreaterThan` | Busca valores mayores a un límite | `findByAlturaGreaterThan`       |
+| `IsNull` | Busca valores `NULL` | `findByTipoIsNull`              |
+| `IsNotNull` | Busca valores que no sean `NULL` | `findByTipoIsNotNull`           |
+| `Like` | Busca valores que coincidan con un patrón | `findByNombreLike`              |
+| `NotLike` | Busca valores que no coincidan con un patrón | `findByNombreNotLike`           |
+| `StartingWith` | Busca valores que comiencen con un prefijo | `findByNombreStartingWith`      |
+| `EndingWith` | Busca valores que terminen con un sufijo | `findByNombreEndingWith`        |
+| `Containing` | Busca valores que contengan un patrón | `findByNombreContaining`        |
+| `OrderBy` | Ordena los resultados por un campo específico | `findByNombreOrderByAlturaDesc` |
+| `Top` | Devuelve los primeros resultados (límite) | `findTop3ByAlturaGreaterThan`   |
+| `First` | Devuelve el primer resultado | `findFirstByNombre`             |
 
 
 
