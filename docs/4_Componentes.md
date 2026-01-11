@@ -1569,7 +1569,7 @@ Creamos un nuevo proyecto llamado `plantasSQLite` utilizando Spring Initializr. 
 
 ![Spring 13](img/spring/spring13.jpg)
 
-Hay que tener cuidado si copiamos fragmentos de código del anterior ejemplo ya que habrá que cambiar en los imports `com.example.plantas` por `com.example.plantasCSV`
+Hay que tener cuidado si copiamos fragmentos de código del anterior ejemplo ya que habrá que cambiar en los imports `com.example.plantasCSV` por `com.example.plantasSQLite`
 
 
 <span class="mi_sombreado">**PASO 2: Añadir dependencias y configuración**</span>
@@ -1769,7 +1769,6 @@ Podemos añadir tantas plantas como queramos con el botón `Agregar Nueva Planta
         - Importar información: Leerá información de un fichero CSV y la guardará en una tabla de una BD SQLite.
         - CRUD: funcionará como el ejemplo 4 con las operaciones CRUD sobre la BD SQLite.
     3. Modifica el aspecto de tu aplicación aplicando alguna característica de `bootstrap` para que el resultado quede personalizado a tu gusto.
-
 
 
 
