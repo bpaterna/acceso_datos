@@ -387,7 +387,7 @@ A continuación se describen los pasos para crear una aplicación que muestra un
 
 <span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
 
-Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación (`plantas`) y, en este caso, además de la dependencia **Spring Web** necesitamos también **Thymeleaf** (el resto de opciones las podemos dejar como se ve en la imagen). Por último hacemos clic en el botón GENERATE para descargar nuestro nuevo proyecto.
+Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación `plantas` y, en este caso, además de la dependencia **Spring Web** necesitamos también **Thymeleaf** (el resto de opciones las podemos dejar como se ve en la imagen). Por último hacemos clic en el botón GENERATE para descargar nuestro nuevo proyecto.
 
 Opcionalmente podemos añadir **Spring Boot DevTools** que nos ahorrará tiempo de desarrollo ya que:
 
@@ -772,39 +772,17 @@ En el ejemplo anterior, la información de las plantas se almacenaba en memoria 
 
 <span class="mis_ejemplos">Ejemplo 3: CRUD (CSV) con Spring MVC y Thymeleaf</span>
 
-Este ejemplo modifica el anterior ampliando las funciones CRUD y definiendo las capas de la arquitectura MVC. La estructura del proyecto será la siguiente:
+Este ejemplo es un CRUD de información almacenada en un fichero CSV con todas las capas de la arquitectura MVC bien separadas. La estructura del proyecto será la siguiente:
 
 ![Spring 11](img/spring/spring11.jpg)
 
 
-A continuación se describen los pasos necesarios para realizar dichos cambios:
+A continuación se describen los pasos necesarios para desarrollar el proyecto:
 
 
 <span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
 
-Para crear el nuevo proyecto llamado `plantasCSV` a partir del anterior tenemos dos opciones:
-
-Opción 1: Spring Initializr
-
-- Crear un proyecto nuevo con Spring Initializr llamado `plantasCSV`.
-
-- Copiar carpetas y archivos del proyecto del anterior.
-
-- Actualizar todos los imports de `com.example.plantas` a `com.example.plantasCSV`
-
-
-Opción 2: Duplicar el proyecto anterior
-
-- Crear una copia de la carpeta del proyecto anterior y llamarla `plantasCSV`.
-
-- Cambiar el nombre del proyecto en el archivo `pom.xml` (cambiando estas líneas):
-```xml
-  <name>plantasCSV</name>
-  <artifactId>plantasCSV</artifactId>
-```
-
-- Renombrar el paquete base de com.example.plantas a com.example.plantasCSV haciendo clic derecho en la carpeta `plantas` dentro de `src/main/kotlin/com/example/` → Refactor → Rename.
-
+Creamos un nuevo proyecto llamado `plantasCSV` utilizando Spring Initializr. Si copiamos fragmentos de código del anterior ejemplo habrá que tener cuidado con los imports y cambiar `com.example.plantas` por `com.example.plantasCSV`
 
 
 <span class="mi_sombreado">**PASO 2: Crear el fichero CSV**</span>
@@ -1217,7 +1195,7 @@ Al ejecutar el programa se produce esta secuencia de acciones:
 
 
 !!! success "Prueba y analiza el ejemplo 3"
-    1. Crea un proyecto Spring Boot llamado `plantasCSV` utilizando Spring Initializr o duplica el proyecto utilizado en el ejemplo anterior cambiando su nombre.
+    1. Crea un proyecto Spring Boot llamado `plantasCSV` utilizando Spring Initializr.
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
 
 
@@ -1588,7 +1566,212 @@ Este mismo ejemplo utilizando convención de nombres quedaría así:
 
 
 
-<span class="mis_ejemplos">Ejemplo 4: CRUD con SQLite</span>
+<span class="mis_ejemplos">Ejemplo 4: CRUD con JPA y SQLite</span>
+
+En este proyecto vamos a almacenar la información de nuestras plantas en una BD SQLite y utilizar JPA para las operaciones CRUD. Los pasos para desarrollar la aplicación son los siguientes:
+
+
+<span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
+
+Creamos un nuevo proyecto llamado `plantasSQLite` utilizando Spring Initializr. En este caso añadimos la dependencia JPA como se ve en la imagen siguiente:
+
+![Spring 13](img/spring/spring13.jpg)
+
+Hay que tener cuidado si copiamos fragmentos de código del anterior ejemplo ya que habrá que cambiar en los imports `com.example.plantas` por `com.example.plantasCSV`
+
+
+<span class="mi_sombreado">**PASO 2: Añadir dependencias y configuración**</span>
+
+Añadimos las siguientes líneas al archivo `pom.xml` dentro del bloque `<dependencies>`:
+
+```xml
+<!-- SQLite Dependencies -->
+<dependency>
+    <groupId>org.xerial</groupId>
+    <artifactId>sqlite-jdbc</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>hibernate-community-dialects</artifactId>
+</dependency>
+```
+
+Añadimos las siguientes líneas al archivo `application.properties`:
+
+
+```properties
+spring.datasource.url=jdbc:sqlite:plantas.db
+spring.datasource.driver-class-name=org.sqlite.JDBC 
+spring.jpa.database-platform=org.hibernate.community.dialect.SQLiteDialect
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+```
+
+
+<span class="mi_sombreado">**PASO 3: Añadir el modelo**</span>
+
+Ahora nuestra clase Planta debe ser una entidad JPA. En Kotlin, JPA necesita un constructor vacío, por tanto, debemos asignar valores por defecto a todos los campos de la data class para que Kotlin genere ese constructor automáticamente.
+
+El contenido del archivo `src/main/kotlin/com/example/plantas/model/Planta.kt` es el siguiente:
+
+```kotlin
+package com.example.plantasSQLite.model
+import jakarta.persistence.*
+
+@Entity
+@Table(name = "plantas")
+data class Planta(
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+var id_planta: Long? = null,
+
+    @Column(nullable = false)
+    var nombre: String = "",
+
+    @Column
+    var tipo: String = "",
+
+    @Column
+    var altura: Double = 0.0,
+
+    @Column
+    var foto: String = ""
+)
+```
+
+
+<span class="mi_sombreado">**PASO 4: Añadir el repositorio**</span>
+
+El contenido del archivo `src/main/kotlin/com/example/plantas/repository/PlantaRepository.kt` es el siguiente:
+
+```kotlin
+package com.example.plantasSQLite.repository
+
+import com.example.plantasSQLite.model.Planta
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
+
+@Repository
+interface PlantaRepository : JpaRepository<Planta, Long>
+```
+
+
+<span class="mi_sombreado">**PASO 5: Añadir el servicio**</span>
+
+El código del servicio se simplifica enormemente (ahora llamará a los métodos de PlantaRepository). El contenido del archivo `src/main/kotlin/com/example/plantas/service/PlantaService.kt` es el siguiente:
+
+```kotlin
+package com.example.plantasSQLite.service
+
+import com.example.plantasSQLite.model.Planta
+import com.example.plantasSQLite.repository.PlantaRepository
+import org.springframework.stereotype.Service
+
+@Service
+class PlantaService(private val repository: PlantaRepository) {
+
+    fun listarPlantas(): List<Planta> = repository.findAll()
+
+    fun buscarPorId(id: Long): Planta? = repository.findById(id).orElse(null)
+
+    fun guardar(planta: Planta): Planta = repository.save(planta)
+
+    fun borrar(id: Long) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id)
+        }
+    }
+}
+```
+
+
+<span class="mi_sombreado">**PASO 6: Añadir el controlador**</span>
+
+El contenido del archivo `src/main/kotlin/com/example/plantas/controller/PlantaController.kt` es el siguiente:
+
+```kotlin
+package com.example.plantasSQLite.controller
+import com.example.plantasSQLite.model.Planta
+import com.example.plantasSQLite.service.PlantaService
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
+import org.springframework.web.bind.annotation.*
+
+@Controller
+class PlantaController(private val plantaService: PlantaService) {
+
+    @GetMapping("/plantas")
+    fun listar(model: Model): String {
+        model.addAttribute("plantas", plantaService.listarPlantas())
+        return "plantas"
+    }
+
+    @GetMapping("/planta/{id_planta}")
+    fun detalle(@PathVariable id_planta: Long, model: Model): String {
+        val planta = plantaService.buscarPorId(id_planta) ?: return "errorPlanta"
+        model.addAttribute("planta", planta)
+        return "detallePlanta"
+    }
+
+    @GetMapping("/plantas/nueva")
+    fun nuevaPlanta(model: Model): String {
+        val plantaVacia = Planta(nombre = "", tipo = "", altura = 0.0, foto = "")
+        model.addAttribute("planta", plantaVacia)
+        model.addAttribute("titulo", "Nueva Planta")
+        return "formularioPlanta"
+    }
+
+    @GetMapping("/plantas/editar/{id_planta}")
+    fun editarPlanta(@PathVariable id_planta: Long, model: Model): String {
+        val planta = plantaService.buscarPorId(id_planta) ?: return "redirect:/plantas"
+        model.addAttribute("planta", planta)
+        model.addAttribute("titulo", "Editar Planta")
+        return "formularioPlanta"
+    }
+
+    @PostMapping("/plantas/guardar")
+    fun guardarPlanta(@ModelAttribute planta: Planta): String {
+        plantaService.guardar(planta)
+        return "redirect:/plantas"
+    }
+
+    @GetMapping("/plantas/borrar/{id_planta}")
+    fun borrarPlanta(@PathVariable id_planta: Long): String {
+        plantaService.borrar(id_planta)
+        return "redirect:/plantas"
+    }
+}
+```
+
+<span class="mi_sombreado">**PASO 7: Añadir las vistas, bootstrap y las imágenes**</span>
+
+Todos estos archivos los podemos copiar del proyecto del ejemplo anterior, son los siguientes:
+
+![Spring 15](img/spring/spring15.jpg)
+
+
+
+<span class="mi_sombreado">**PASO 8: Comprobar y ejecutar**</span>
+
+Al ejecutar la aplicación `PlantaApplication.kt`, por primera vez veremos en la consola mensajes de Hibernate: `Hibernate: create table plantas (...)` que indican que se ha creado la BD llamada `florabotanica.db` en en la raíz del proyecto con la tabla `plantas`.
+
+Al abrir en el navegador en http://localhost:8080/plantas inicialmente la tabla plantas estará vacía y veremos lo siguiente:
+
+![Spring 15](img/spring/spring15.jpg)
+
+
+Podemos añadir tantas plantas como queramos con el botón `Agregar Nueva Planta` y comprobar que los datos se guardan en la BD y son persistentes si detenemos la aplicación y la volvemos a arrancar.
+
+
+!!! success "Prueba y analiza el ejemplo 4"
+    1. Crea un proyecto Spring Boot llamado `plantasSQLite` utilizando Spring Initializr.
+    2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
+
+
+!!! warning "Práctica 2: Trabaja en tu aplicación"
+    Modifica tu aplicación para que tenga una pantalla principal (index.heml) con dos opciones:
+        1. Importar información del CSV.
+        2. CRUD sobre la BD SQLite.
 
 
 
