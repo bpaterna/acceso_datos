@@ -1199,14 +1199,6 @@ Al ejecutar el programa se produce esta secuencia de acciones:
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
 
 
-!!! warning "Práctica 1: Trabaja en tu aplicación"
-    1. Crea un nuevo proyecto Spring Boot (con el nombre de tu aplicación) utilizando Spring Initializr.
-    2. Partiendo de un fichero CSV con información crea tu aplicación CRUD.
-    3. Modifica el aspecto de tu aplicación aplicando alguna característica de `bootstrap` para que el resultado quede personalizado a tu gusto.
-
-
-
-
 
 ## 4.4. Spring Data
 
@@ -1768,14 +1760,19 @@ Podemos añadir tantas plantas como queramos con el botón `Agregar Nueva Planta
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
 
 
-!!! warning "Práctica 2: Trabaja en tu aplicación"
-    Modifica tu aplicación para que tenga una pantalla principal (index.heml) con dos opciones:
-        1. Importar información del CSV.
-        2. CRUD sobre la BD SQLite.
-
-
 
 <!--
+
+!!! warning "Práctica 1: Trabaja en tu aplicación"
+    1. Crea un nuevo proyecto Spring Boot (con el nombre de tu aplicación) utilizando Spring Initializr.
+    2. Tu aplicación tendrá una vista principal con las opciones siguientes:
+        - Importar información: Leerá información de un fichero CSV y la guardará en una tabla de una BD SQLite.
+        - CRUD: funcionará como el ejemplo 4 con las operaciones CRUD sobre la BD SQLite.
+    3. Modifica el aspecto de tu aplicación aplicando alguna característica de `bootstrap` para que el resultado quede personalizado a tu gusto.
+
+
+
+
 
 ### 4.4.1. Spring Data MongoDB
 
