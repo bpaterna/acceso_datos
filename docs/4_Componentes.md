@@ -1198,6 +1198,10 @@ Al ejecutar el programa se produce esta secuencia de acciones:
     1. Crea un proyecto Spring Boot llamado `plantasCSV` utilizando Spring Initializr.
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
 
+!!! warning "Práctica 1: Trabaja en tu aplicación"
+    1. Crea un nuevo proyecto Spring Boot (con el nombre de tu aplicación) utilizando Spring Initializr.
+    2. Tu aplicación tendrá las operaciones CRUD sobre un fichero CSV con la información de tu aplicación.
+    3. Modifica el aspecto de las vistas con `bootstrap` o `css` propio para que el resultado quede totalmente diferente al del ejemplo.
 
 
 ## 4.4. Spring Data
@@ -1739,7 +1743,7 @@ class PlantaController(private val plantaService: PlantaService) {
 
 Todos estos archivos los podemos copiar del proyecto del ejemplo anterior, son los siguientes:
 
-![Spring 15](img/spring/spring15.jpg)
+![Spring 14](img/spring/spring14.jpg)
 
 
 
@@ -1763,7 +1767,7 @@ Podemos añadir tantas plantas como queramos con el botón `Agregar Nueva Planta
 
 <!--
 
-!!! warning "Práctica 1: Trabaja en tu aplicación"
+!!! warning "Práctica 2: Trabaja en tu aplicación"
     1. Crea un nuevo proyecto Spring Boot (con el nombre de tu aplicación) utilizando Spring Initializr.
     2. Tu aplicación tendrá una vista principal con las opciones siguientes:
         - Importar información: Leerá información de un fichero CSV y la guardará en una tabla de una BD SQLite.
