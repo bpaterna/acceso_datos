@@ -1561,7 +1561,7 @@ Este mismo ejemplo utilizando convención de nombres quedaría así:
 * **findByJardinIdJardin:** Utiliza la convención de nombres para especificar que se desean encontrar plantas basándose en el idJardin del jardín asociado. Los nombres de los parámetros reflejan claramente los campos utilizados en la consulta.
 
 
-
+<!--
 <span class="mis_ejemplos">Ejemplo 4: CRUD con JPA y SQLite</span>
 
 En este proyecto vamos a almacenar la información de nuestras plantas en una BD SQLite y utilizar JPA para las operaciones CRUD. Los pasos para desarrollar la aplicación son los siguientes:
@@ -1763,7 +1763,7 @@ Podemos añadir tantas plantas como queramos con el botón `Agregar Nueva Planta
     1. Crea un proyecto Spring Boot llamado `plantasSQLite` utilizando Spring Initializr.
     2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
 
-
+-->
 
 <!--
 
