@@ -1827,15 +1827,36 @@ Podemos añadir tantas plantas como queramos con el botón `Agregar Nueva Planta
     3. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
 
 
-
-
-
 !!! warning "Práctica 2: Trabaja en tu aplicación"
     1. Crea un nuevo proyecto Spring Boot (con el nombre de tu aplicación) utilizando Spring Initializr.
     2. Tu aplicación tendrá una vista principal (index.html) con las opciones siguientes:
         - Importar información: Leerá información de un fichero CSV y la guardará en una tabla de una BD MySQL.
         - CRUD: funcionará como el ejemplo 4 con las operaciones CRUD sobre la BD MySQL.
     3. Modifica el aspecto de tu aplicación aplicando alguna característica de `bootstrap` para que el resultado quede personalizado a tu gusto.
+
+
+
+
+
+
+
+
+<!--
+
+## 4.4.2. Ampliación del Ejemplo 4: Consultas avanzadas con `@Query` (MySQL)
+
+En el Ejemplo 4 hemos utilizado **Spring Data JPA** junto con **MySQL** para implementar un CRUD completo apoyándonos en los métodos que ofrece la interfaz `JpaRepository` y en **consultas generadas automáticamente mediante convención de nombres**.
+
+Este mecanismo es suficiente para consultas sencillas, pero cuando las consultas incluyen **múltiples condiciones**, **ordenaciones**, **actualizaciones directas** o requieren el uso de **SQL nativo**, resulta más adecuado utilizar la anotación `@Query`.
+
+En esta ampliación se utiliza `@Query` para realizar consultas avanzadas con SQL nativo sobre nuestra base de datos. Las operaciones `UPDATE` y `DELETE` requieren el uso de **`@Modifying`** y **`@Transactional`**.
+
+---
+
+
+-->
+
+
 
 
 <!--
