@@ -20,7 +20,7 @@ MySQL funciona bajo una arquitectura cliente-servidor, en la cual el servidor My
 En estos apuntes vamos a utilizar como servidor una instancia ECS de AWS, puedes ver como instalarlo desde  [AWS Learner Lab](AWSlab.html). Una vez tengas tu servidor funcionando, ya puedes instalar el servidor MySQL en él.
 
 
-## 2. Instalación de MySQL en EC2
+## 2. Instalación en EC2
 
 **1. Conectar al servidor por ssh**
 
@@ -172,7 +172,7 @@ scp -i [nombre_certificado] ubuntu@[IP_nombre_servidor]:[ruta_archivo_dump].sql 
 ```
 
 
-## 2. Instalación de MySQL en Docker
+## 3. Instalación en Docker
 
 Partimos de un sistema operativo con Docker ya funcionando y listo para poder crear contenedores.
 
