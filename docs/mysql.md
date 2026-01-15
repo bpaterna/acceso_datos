@@ -10,7 +10,8 @@
 | 1.0      | 15-01-2026 | Instalación en Docker                   |
 
 
-<span class="mi_h3">Introducción</span>
+
+## 1. Introducción
 
 MySQL es un sistema de gestión de bases de datos relacional (RDBMS), basado en el lenguaje SQL (Structured Query Language). Fue desarrollado originalmente por MySQL AB, luego adquirido por Sun Microsystems y actualmente es propiedad de Oracle Corporation. Se utiliza ampliamente en aplicaciones web y empresariales para almacenar, organizar y acceder a datos de manera eficiente.
 
@@ -18,7 +19,8 @@ MySQL funciona bajo una arquitectura cliente-servidor, en la cual el servidor My
 
 En estos apuntes vamos a utilizar como servidor una instancia ECS de AWS, puedes ver como instalarlo desde  [AWS Learner Lab](AWSlab.html). Una vez tengas tu servidor funcionando, ya puedes instalar el servidor MySQL en él.
 
-<span class="mi_h3">Instalación de MySQL en EC2</span>
+
+## 2. Instalación de MySQL en EC2
 
 **1. Conectar al servidor por ssh**
 
@@ -170,8 +172,7 @@ scp -i [nombre_certificado] ubuntu@[IP_nombre_servidor]:[ruta_archivo_dump].sql 
 ```
 
 
-
-<span class="mi_h3">Instalación de MySQL en Docker</span>
+## 2. Instalación de MySQL en Docker
 
 Partimos de un sistema operativo con Docker ya funcionando y listo para poder crear contenedores.
 
