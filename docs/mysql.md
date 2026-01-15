@@ -210,7 +210,7 @@ docker ps -a
 
 **Crear el contenedor MySQL**
 
-A continuación se describen los pasos para crear un contenedor que hará de servidor MySQL. en la configuración se establece la contraseña del usuario `root` y se crea base de datos llamada `florabotanica` con un usuario y contraseña para acceder a ella.
+A continuación se describen los pasos para crear un contenedor que hará de servidor MySQL. En la configuración se establece la contraseña del usuario `root` para el servidor y se crea una base de datos llamada `florabotanica` con un usuario y contraseña para acceder a ella.
 
 Crear archivo llamado `docker-compose.yml` con el contenido siguiente:
 
@@ -230,28 +230,28 @@ MYSQL_USER: flora
 MYSQL_PASSWORD: <password>
 ```
 
-Ejecutar el comando:
+Desde una ventana de terminal o utilizando la línea de comandos ejecutar:
 
 ```
 docker compose up -d
 ```
 
 
-**Crear tabla, verificar y salir**
+**Crear tabla una tabla en la base de datos**
 
-Entrar al contenedor
+Para entrar al contenedor ejecutar:
 
 ```
 docker exec -it mysql-server bash
 ```
 
-Conectarse a la base de datos `florabotanica` con el usuario `flora` (pedirá contraseña)
+Conectarse a la base de datos `florabotanica` con el usuario `flora` (pedirá contraseña) con el comando:
 
 ```
 mysql -u flora -p florabotanica
 ```
 
-Crear una tabla llamada `plantas`
+Crear una tabla llamada `plantas` ejecutando las líneas:
 
 ```
 CREATE TABLE plantas (
@@ -261,24 +261,25 @@ tipo TEXT NOT NULL,
 altura DOUBLE);
 ```
 
-Comprobar que se ha creado correctamente
+Comprobar que se ha creado correctamente con el comando:
 
 ```
 SHOW TABLES;
 ```
 
-Realizar alguna inserción
+Realizar alguna inserción, por ejemplo:
 
 ```
 INSERT INTO plantas (nombre, tipo, altura) VALUES ('Rosa', 'Flor', 1.2);
 ```
-Comprobar
+
+Comprobar que la tabla contiene los datos con el comando:
 
 ```
 SELECT * FROM plantas;
 ```
 
-**Exportar**
+**Exportación de nuestra base de datos**
 
 Para crear (en la carpeta desde donde se ejecuta el comando) un archivo llamado `florabotanica.sql` con la estructura y datos de la base de datos llamada `florabotanica` ejecutar desde terminal o línea de comandos (pedirá la contraseña de root):
 
@@ -286,7 +287,7 @@ Para crear (en la carpeta desde donde se ejecuta el comando) un archivo llamado 
 docker exec -i mysql-server mysqldump --no-tablespaces -u root -p florabotanica > florabotanica.sql
 ```
 
-**Importar**
+**Importación de nuestra base de datos**
    
 Para importar en otro servidor MySQL la estructura y datos de la base de datos llamada `florabotanica`, ejecutar desde terminal o línea de comandos en la carpeta donde está ubicado el archivo `florabotanica.sql` el siguiente comando (pedirá la contraseña de root):
 
