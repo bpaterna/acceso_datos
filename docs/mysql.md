@@ -181,13 +181,13 @@ Partimos de un sistema operativo con Docker ya funcionando y listo para poder cr
 * Comprobar si Docker está instalado en nuestro sistema operativo
 
 ```
-docker --version
+   docker --version
 ```
 
 * Ver los contenedores creados (incluidos los detenidos)
 
 ```
-docker ps -a
+   docker ps -a
 ```
 
 * Iniciar un contenedor
