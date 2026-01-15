@@ -1264,7 +1264,7 @@ Algunas de las anotaciones JPA son las siguientes:
 @Entity
 data class Planta(
     @Id
-    val id: Long,
+    val id: Int,
     val nombre: String,
     val tipo: String,
     val altura: Double
