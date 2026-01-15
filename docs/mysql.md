@@ -1,4 +1,4 @@
-# Instalación de MySQL en EC2
+# MySQL
 
 ![Imagen 1](img/mysql/mysql.jpg)
 
