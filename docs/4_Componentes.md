@@ -1561,19 +1561,19 @@ Este mismo ejemplo utilizando convención de nombres quedaría así:
 * **findByJardinIdJardin:** Utiliza la convención de nombres para especificar que se desean encontrar plantas basándose en el idJardin del jardín asociado. Los nombres de los parámetros reflejan claramente los campos utilizados en la consulta.
 
 
-<!--
-<span class="mis_ejemplos">Ejemplo 4: CRUD con JPA y SQLite</span>
 
-En este proyecto vamos a almacenar la información de nuestras plantas en una BD SQLite y utilizar JPA para las operaciones CRUD. Los pasos para desarrollar la aplicación son los siguientes:
+<span class="mis_ejemplos">Ejemplo 4: CRUD con JPA y MySQL</span>
+
+En este proyecto vamos a almacenar la información de nuestras plantas en una BD MySQL y utilizar JPA para las operaciones CRUD. Los pasos para desarrollar la aplicación son los siguientes:
 
 
 <span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
 
-Creamos un nuevo proyecto llamado `plantasSQLite` utilizando Spring Initializr. En este caso añadimos la dependencia JPA como se ve en la imagen siguiente:
+Creamos un nuevo proyecto llamado `plantasMySQL` utilizando Spring Initializr. En este caso añadimos la dependencia JPA como se ve en la imagen siguiente:
 
 ![Spring 13](img/spring/spring13.jpg)
 
-Hay que tener cuidado si copiamos fragmentos de código del anterior ejemplo ya que habrá que cambiar en los imports `com.example.plantasCSV` por `com.example.plantasSQLite`
+Hay que tener cuidado si copiamos fragmentos de código del anterior ejemplo ya que habrá que cambiar en los imports `com.example.plantasCSV` por `com.example.plantasMySQL`
 
 
 <span class="mi_sombreado">**PASO 2: Añadir dependencias y configuración**</span>
@@ -1581,24 +1581,31 @@ Hay que tener cuidado si copiamos fragmentos de código del anterior ejemplo ya 
 Añadimos las siguientes líneas al archivo `pom.xml` dentro del bloque `<dependencies>`:
 
 ```xml
-<!-- SQLite Dependencies -->
+<!-- MySQL Connector -->
 <dependency>
-    <groupId>org.xerial</groupId>
-    <artifactId>sqlite-jdbc</artifactId>
-</dependency>
-<dependency>
-    <groupId>org.hibernate.orm</groupId>
-    <artifactId>hibernate-community-dialects</artifactId>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+    <scope>runtime</scope>
 </dependency>
 ```
 
-Añadimos las siguientes líneas al archivo `application.properties`:
+Añadimos las siguientes líneas al archivo `application.properties` sustituyendo `BD` por el nombre de nuestra base de datos, `user` por el nombre de usuario y `pass` por la contraseña (los que creamos al montar el servidor y crear la base de datos):
 
 
 ```properties
-spring.datasource.url=jdbc:sqlite:plantas.db
-spring.datasource.driver-class-name=org.sqlite.JDBC 
-spring.jpa.database-platform=org.hibernate.community.dialect.SQLiteDialect
+# ===============================
+# DATASOURCE (MySQL)
+# ===============================
+spring.datasource.url=jdbc:mysql://localhost:3306/nom_BD?useSSL=false&allowPublicKeyRetrieval=true
+spring.datasource.username=user
+spring.datasource.password=pass
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+
+# ===============================
+# JPA / HIBERNATE
+# ===============================
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 ```
@@ -1608,18 +1615,18 @@ spring.jpa.show-sql=true
 
 Ahora nuestra clase Planta debe ser una entidad JPA. En Kotlin, JPA necesita un constructor vacío, por tanto, debemos asignar valores por defecto a todos los campos de la data class para que Kotlin genere ese constructor automáticamente.
 
-El contenido del archivo `src/main/kotlin/com/example/plantas/model/Planta.kt` es el siguiente:
+El contenido del archivo `src/main/kotlin/com/example/plantasMySQL/model/Planta.kt` es el siguiente:
 
 ```kotlin
-package com.example.plantasSQLite.model
+package com.example.plantasMySQL.model
 import jakarta.persistence.*
 
 @Entity
 @Table(name = "plantas")
 data class Planta(
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-var id_planta: Long? = null,
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id_planta: Int? = null,
 
     @Column(nullable = false)
     var nombre: String = "",
@@ -1638,43 +1645,80 @@ var id_planta: Long? = null,
 
 <span class="mi_sombreado">**PASO 4: Añadir el repositorio**</span>
 
-El contenido del archivo `src/main/kotlin/com/example/plantas/repository/PlantaRepository.kt` es el siguiente:
+El contenido del archivo `src/main/kotlin/com/example/plantasMySQL/repository/PlantaRepository.kt` es el siguiente:
 
 ```kotlin
-package com.example.plantasSQLite.repository
+package com.example.plantasMySQL.repository
 
-import com.example.plantasSQLite.model.Planta
+import com.example.plantasMySQL.model.Planta
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface PlantaRepository : JpaRepository<Planta, Long>
+interface PlantaRepository : JpaRepository<Planta, Int>
 ```
 
 
 <span class="mi_sombreado">**PASO 5: Añadir el servicio**</span>
 
-El código del servicio se simplifica enormemente (ahora llamará a los métodos de PlantaRepository). El contenido del archivo `src/main/kotlin/com/example/plantas/service/PlantaService.kt` es el siguiente:
+El código del servicio se simplifica enormemente (ahora llamará a los métodos de PlantaRepository). El contenido del archivo `src/main/kotlin/com/example/plantasMySQL/service/PlantaService.kt` es el siguiente:
 
 ```kotlin
-package com.example.plantasSQLite.service
+package com.example.plantasMySQL.service
 
-import com.example.plantasSQLite.model.Planta
-import com.example.plantasSQLite.repository.PlantaRepository
+import com.example.plantasMySQL.model.Planta
+import com.example.plantasMySQL.repository.PlantaRepository
 import org.springframework.stereotype.Service
+import kotlin.compareTo
+
+import java.io.File
+import kotlin.collections.map
+import kotlin.io.readLines
+import kotlin.text.split
+import kotlin.text.toDouble
+
 
 @Service
 class PlantaService(private val repository: PlantaRepository) {
 
     fun listarPlantas(): List<Planta> = repository.findAll()
 
-    fun buscarPorId(id: Long): Planta? = repository.findById(id).orElse(null)
+    fun buscarPorId(id: Int): Planta? = repository.findById(id).orElse(null)
 
     fun guardar(planta: Planta): Planta = repository.save(planta)
 
-    fun borrar(id: Long) {
+    fun borrar(id: Int) {
         if (repository.existsById(id)) {
             repository.deleteById(id)
+        }
+    }
+
+
+    fun importarDesdeCSV() {
+
+        // 1. Verificar si ya hay datos para no duplicar (opcional)
+        //if (repository.count() > 0) return
+
+        // 2. Leer el fichero (Lógica del Ejemplo 3)
+        val filePath = "src/main/resources/data/plantas.csv"
+        val file = File(filePath)
+
+        if (file.exists()) {
+            println("el fichero existe")
+            val plantasLeidas = file.readLines().map { linea ->
+                val partes = linea.split(";")
+                // 3. Crear el objeto Planta (Lógica del Ejemplo 4)
+                // IMPORTANTE: Ponemos id_planta = null para que se genere uno nuevo
+                Planta(
+                    id_planta = null,
+                    nombre = partes[1],
+                    tipo = partes[2],
+                    altura = partes[3].toDouble(),
+                    foto = partes[4]
+                )
+            }
+            // 4. Guardar todo en la BD de golpe
+            repository.saveAll(plantasLeidas)
         }
     }
 }
@@ -1683,12 +1727,12 @@ class PlantaService(private val repository: PlantaRepository) {
 
 <span class="mi_sombreado">**PASO 6: Añadir el controlador**</span>
 
-El contenido del archivo `src/main/kotlin/com/example/plantas/controller/PlantaController.kt` es el siguiente:
+El contenido del archivo `src/main/kotlin/com/example/plantasMySQL/controller/PlantaController.kt` es el siguiente:
 
 ```kotlin
-package com.example.plantasSQLite.controller
-import com.example.plantasSQLite.model.Planta
-import com.example.plantasSQLite.service.PlantaService
+package com.example.plantasMySQL.controller
+import com.example.plantasMySQL.model.Planta
+import com.example.plantasMySQL.service.PlantaService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
@@ -1703,7 +1747,7 @@ class PlantaController(private val plantaService: PlantaService) {
     }
 
     @GetMapping("/planta/{id_planta}")
-    fun detalle(@PathVariable id_planta: Long, model: Model): String {
+    fun detalle(@PathVariable id_planta: Int, model: Model): String {
         val planta = plantaService.buscarPorId(id_planta) ?: return "errorPlanta"
         model.addAttribute("planta", planta)
         return "detallePlanta"
@@ -1718,7 +1762,7 @@ class PlantaController(private val plantaService: PlantaService) {
     }
 
     @GetMapping("/plantas/editar/{id_planta}")
-    fun editarPlanta(@PathVariable id_planta: Long, model: Model): String {
+    fun editarPlanta(@PathVariable id_planta: Int, model: Model): String {
         val planta = plantaService.buscarPorId(id_planta) ?: return "redirect:/plantas"
         model.addAttribute("planta", planta)
         model.addAttribute("titulo", "Editar Planta")
@@ -1732,10 +1776,28 @@ class PlantaController(private val plantaService: PlantaService) {
     }
 
     @GetMapping("/plantas/borrar/{id_planta}")
-    fun borrarPlanta(@PathVariable id_planta: Long): String {
+    fun borrarPlanta(@PathVariable id_planta: Int): String {
         plantaService.borrar(id_planta)
         return "redirect:/plantas"
     }
+
+    /*
+        // 1. Ruta para mostrar la página de inicio (index.html)
+        @GetMapping("/")
+        fun inicio(): String {
+            return "index"
+        }
+    */
+
+
+    // 2. Ruta para ejecutar la importación
+    @GetMapping("/importar")
+    fun importarDatos(): String {
+        plantaService.importarDesdeCSV() // <--- Tienes que crear este método en el Service como hablamos antes
+        return "redirect:/plantas" // Al terminar, nos lleva a la lista para ver el resultado
+    }
+
+
 }
 ```
 
@@ -1749,7 +1811,7 @@ Todos estos archivos los podemos copiar del proyecto del ejemplo anterior, son l
 
 <span class="mi_sombreado">**PASO 8: Comprobar y ejecutar**</span>
 
-Al ejecutar la aplicación `PlantaApplication.kt`, por primera vez veremos en la consola mensajes de Hibernate: `Hibernate: create table plantas (...)` que indican que se ha creado la BD llamada `florabotanica.db` en en la raíz del proyecto con la tabla `plantas`.
+Al ejecutar la aplicación `PlantaApplication.kt`, por primera vez veremos en la consola mensajes de Hibernate: `Hibernate: create table plantas (...)` que indican que se ha creado la tabla `plantas` dentro de la base de datos llamada `florabotanica.db`.
 
 Al abrir en el navegador en http://localhost:8080/plantas inicialmente la tabla plantas estará vacía y veremos lo siguiente:
 
@@ -1760,21 +1822,23 @@ Podemos añadir tantas plantas como queramos con el botón `Agregar Nueva Planta
 
 
 !!! success "Prueba y analiza el ejemplo 4"
-    1. Crea un proyecto Spring Boot llamado `plantasSQLite` utilizando Spring Initializr.
-    2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
+    1. Monta un servidor MySQL en Docker.
+    2. Crea un proyecto Spring Boot llamado `plantasMySQL` utilizando Spring Initializr.
+    3. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
 
--->
 
-<!--
+
+
 
 !!! warning "Práctica 2: Trabaja en tu aplicación"
     1. Crea un nuevo proyecto Spring Boot (con el nombre de tu aplicación) utilizando Spring Initializr.
-    2. Tu aplicación tendrá una vista principal con las opciones siguientes:
-        - Importar información: Leerá información de un fichero CSV y la guardará en una tabla de una BD SQLite.
-        - CRUD: funcionará como el ejemplo 4 con las operaciones CRUD sobre la BD SQLite.
+    2. Tu aplicación tendrá una vista principal (index.html) con las opciones siguientes:
+        - Importar información: Leerá información de un fichero CSV y la guardará en una tabla de una BD MySQL.
+        - CRUD: funcionará como el ejemplo 4 con las operaciones CRUD sobre la BD MySQL.
     3. Modifica el aspecto de tu aplicación aplicando alguna característica de `bootstrap` para que el resultado quede personalizado a tu gusto.
 
 
+<!--
 
 
 ### 4.4.1. Spring Data MongoDB
