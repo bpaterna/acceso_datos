@@ -256,10 +256,11 @@ Crear una tabla llamada `plantas` ejecutando las líneas:
 
 ```
 CREATE TABLE plantas (
-id INT AUTO_INCREMENT PRIMARY KEY,
+id_planta INT AUTO_INCREMENT PRIMARY KEY,
 nombre TEXT NOT NULL,
 tipo TEXT NOT NULL,
-altura DOUBLE);
+foto TEXT,
+altura DOUBLE) ENGINE=InnoDB;
 ```
 
 Comprobar que se ha creado correctamente con el comando:
