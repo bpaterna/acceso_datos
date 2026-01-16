@@ -1,0 +1,942 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Begoña Paterna">
+      
+      
+        <link rel="canonical" href="https://bpaterna.github.io/acceso_datos/mongo.html">
+      
+      
+        <link rel="prev" href="mysql.html">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>MongoDB - Acceso a datos</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#instalacion-y-administracion-de-mongodb" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="index.html" title="Acceso a datos" class="md-header__button md-logo" aria-label="Acceso a datos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Acceso a datos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MongoDB
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Acceso a datos" class="md-nav__button md-logo" aria-label="Acceso a datos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Acceso a datos
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contenido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contenido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2_BD_relacionales.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acceso a BD relacionales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="3_BD_documentales.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acceso a BD documentales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="4_Componentes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Componentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Material adicional
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Material adicional
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="AWSlab.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AWS Learner Lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="db_browser_sqlite.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DB Browser SQLite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dbeaver.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DBeaver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mysql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="mongo.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MongoDB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="instalacion-y-administracion-de-mongodb">Instalación y administración de MongoDB<a class="headerlink" href="#instalacion-y-administracion-de-mongodb" title="Permanent link">&para;</a></h1>
+<p><span class="mi_h3">Revisiones</span></p>
+<table>
+<thead>
+<tr>
+<th>Revisión</th>
+<th>Fecha</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>10-11-2025</td>
+<td>Adaptación de los materiales a markdown</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>15-11-2025</td>
+<td>Sección MongoDB en EC2 (AWS)</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>15-12-2025</td>
+<td>Servidor en Docker</td>
+</tr>
+</tbody>
+</table>
+<p><span class="mi_h3">Opciones de instalación y despliegue</span></p>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Descripción</th>
+<th>Ideal para</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MongoDB Community Server</strong></td>
+<td>Versión gratuita que se instala localmente en Windows, Linux o macOS.</td>
+<td>Prácticas locales, entornos educativos.</td>
+</tr>
+<tr>
+<td><strong>MongoDB en Docker</strong></td>
+<td>Se ejecuta como contenedor con <code>docker-compose</code> o comandos <code>docker run</code>.</td>
+<td>Entornos de desarrollo rápidos y reproducibles.</td>
+</tr>
+<tr>
+<td><strong>MongoDB Atlas</strong></td>
+<td>Servicio en la nube oficial de MongoDB. Permite crear clústeres gratuitos o de pago, gestionados por Mongo.</td>
+<td>Proyectos web, microservicios, despliegues reales.</td>
+</tr>
+<tr>
+<td><strong>MongoDB Local + Atlas Sync</strong></td>
+<td>Permite sincronizar datos locales con una base remota en Atlas.</td>
+<td>Aplicaciones con modo offline/online.</td>
+</tr>
+</tbody>
+</table>
+<p><span class="mi_h3">Herramientas de administración y visualización</span></p>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Tipo</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MongoDB Compass</strong></td>
+<td>GUI oficial</td>
+<td>Interfaz gráfica para consultar, insertar y analizar datos.</td>
+</tr>
+<tr>
+<td><strong>DBeaver</strong></td>
+<td>GUI universal</td>
+<td>Permite conectarse a Mongo y a otras bases de datos (SQL y NoSQL).</td>
+</tr>
+<tr>
+<td><strong>Robo 3T</strong> <em>(antiguo Robomongo)</em></td>
+<td>GUI ligera</td>
+<td>Muy utilizada para tareas básicas de exploración.</td>
+</tr>
+<tr>
+<td><strong>mongosh</strong></td>
+<td>Consola oficial</td>
+<td>Shell de comandos moderno (sustituye a <code>mongo</code>).</td>
+</tr>
+</tbody>
+</table>
+<p>De entre todas las opciones posibles para instalar y administrar MongoDB, utilizaremos la versión <strong>Community</strong> junto con <strong>Mongo Shell (mongosh)</strong> por su simplicidad, ligereza y adecuación a los objetivos de esta unidad.</p>
+<p><span class="mi_h3">Instalación del servidor (Linux)</span></p>
+<p>Descargamos la versión apropiada para el sistema operativo con el que se está trabajando desde la página oficial de MongoDB: <a href="https://www.mongodb.com/try/download/community">https://www.mongodb.com/try/download/community</a> Para ello entramos al menú <strong>Products → Community Edition → Community Server</strong>. (Para la realización de estos apuntes se ha descargado la versión 8.2.1 para Ubuntu 22.04 x64 en formato .tgz)</p>
+<p>Descomprimimos el archivo descargado (para facilitar el trabajo se puede renombrar la carpeta descomprimida a <code>mongodb</code>). Después, dentro de la carpeta <code>mongodb</code>, creamos un directorio llamado <code>data</code> y dentro de él otro llamado <code>db</code>. Por último arrancamos el servidor ejecutando en una ventana de terminal el comando:</p>
+<div class="highlight"><pre><span></span><code>mongodb/bin/mongod --dbpath mongodb/data/db
+</code></pre></div>
+<p>Si el servidor ha arrancado correctamente, aparecerán una serie de mensajes informativos y el servidor quedará en espera de recibir peticiones del cliente:</p>
+<p><img alt="Imagen Linux 1" src="img/mongo/mongo1.png" />
+<img alt="Imagen Linux 2" src="img/mongo/mongo2.png" /></p>
+<div class="admonition note">
+<p>No se debe cerrar esa ventana de terminal, porque el servidor se detendría.</p>
+</div>
+<p><strong>Alternativa: Contenedor docker</strong></p>
+<p>Como alternativa al servidor en los ordenadores de clase podemos crear un contenedor con el servidor de MongoDB siguiendo estos pasos (los ordenadores de clase ya tienen instalado Docker):</p>
+<p>Podemos crearlo de dos formas:</p>
+<ol>
+<li>
+<p>Para quen se inicie cuando arranque el sistema: <code>docker run --name [nombre_contenedor] -d -p 27017:27017 --restart unless-stopped mongo:4.4</code></p>
+</li>
+<li>
+<p>Para que no se inicie cuando arranque el sistema (habrá que iniciarlo manualmente): <code>docker run --name [nombre_contenedor] -d -p 27017:27017 mongo:4.4</code></p>
+</li>
+</ol>
+<p>Para ver los contenedores (incluyendo los detenidos): <code>docker ps -a</code></p>
+<p>Para iniciar un contenedor: <code>docker start [nombre_contenedor]</code>   </p>
+<p><span class="mi_h3">Instalación del cliente Mongo Shell (Linux)</span></p>
+<p>Descargamos la versión apropiada para el sistema operativo con el que se está trabajando desde la página oficial de MongoDB: <a href="https://www.mongodb.com/try/download/shell">https://www.mongodb.com/try/download/shell</a> Para ello entramos al menú <strong>Products → Tools → MongoDB Shell</strong>. (Para la realización de estos apuntes se ha descargado la versión 2.5.9 para Linux 64 en formato .tgz)</p>
+<p>Descomprimimos el archivo descargado (para facilitar el trabajo se ha renombrado la carpeta descomprimida a  <code>mongosh</code>) y arrancamos el cliente ejecutando en una nueva ventana de terminal el comando siguiente:</p>
+<div class="highlight"><pre><span></span><code>mongosh/bin/mongosh
+</code></pre></div>
+<p>Aparecerá la siguiente información:</p>
+<p><img alt="Imagen Linux 3" src="img/mongo/mongo3.png" /></p>
+<p>Para comprobar el funcionamiento ejecutamos el sigueinte comando:</p>
+<div class="highlight"><pre><span></span><code>show dbs
+</code></pre></div>
+<p>Si aparecen las bases de datos (admin, config, local), todo está funcionando correctamente, son las bases de datos del sistema. Podemos ver que al final de la pantalla aparece la palabra <code>test&gt;</code> es porque en realidad, estamos conectados a una base de datos llamada test.</p>
+<p><img alt="Imagen Linux 4" src="img/mongo/mongo4.png" /></p>
+<p><span class="mi_h3">Instalación del servidor (Windows)</span></p>
+<p>Descargamos la versión apropiada para el sistema operativo con el que se está trabajando desde la página oficial de MongoDB: <a href="https://www.mongodb.com/try/download/community">https://www.mongodb.com/try/download/community</a> Para ello entramos al menú <strong>Products → Community Edition → Community Server</strong>. (Para la realización de estos apuntes se ha descargado la versión 8.2.1 para Windows de 64 bits en formato .msi)</p>
+<p>Durante la instalación marcamos la opción de instalar MongoDB como servicio para que el programa se iniciará automáticamente con el sistema.</p>
+<p><img alt="Imagen Windows 1" src="img/mongo/mongoWIN1.jpg" /></p>
+<p>Durante la instalación también podemos marcar la opción de instalar <strong>MongoDB Compass</strong>, que es la herramienta gráfica oficial de MongoDB, la cual permite visualizar, explorar y administrar bases de datos MongoDB sin necesidad de utilizar la línea de comandos.</p>
+<p><img alt="Imagen Windows 2" src="img/mongo/mongoWIN2.jpg" /></p>
+<p>Una vez finalizada la instalación podemos arrancar el cliente y ver que nos pide que creemos uns nueva conexión:</p>
+<p><img alt="Imagen Windows 3" src="img/mongo/mongoWIN3_1.jpg" />
+<img alt="Imagen Windows 4" src="img/mongo/mongoWIN3_2.jpg" /></p>
+<p>Una vez conectados (no hace falta indicar ningún dato de conexión), veremos las bases de datos del sistema:</p>
+<p><img alt="Imagen Windows 5" src="img/mongo/mongoWIN3_3.jpg" /></p>
+<p>Si preferimos comunicarnos con el servidor por comandos, podemos instalar el cliente Mongo Shell.</p>
+<p><span class="mi_h3">Instalación del cliente Mongo Shell (Windows)</span></p>
+<p>Podermos descargarlo desde la página oficial: <a href="https://www.mongodb.com/try/download/shell">https://www.mongodb.com/try/download/shell</a> Para ello entramos al menú <strong>Products → Tools → MongoDB Shell</strong>. (Para la realización de estos apuntes se ha descargado la versión 2.5.9 para Windows de 64 bits en formato .msi)</p>
+<p>Escribe el siguiente comando en una ventana de terminal:</p>
+<div class="highlight"><pre><span></span><code>mongosh
+</code></pre></div>
+<p>Si el servidor está arrancado aparecerá la siguiente información:</p>
+<p><img alt="Imagen Windows 6" src="img/mongo/mongoWIN5.jpg" /></p>
+<p>Para comprobar el funcionamiento ejecuta el siguiente comando:</p>
+<div class="highlight"><pre><span></span><code>show dbs
+</code></pre></div>
+<p>Si aparecen las bases de datos (admin, config, local), todo está funcionando correctamente, son las bases de datos del sistema. Podemos ver que al final de la pantalla aparece la palabra <code>test&gt;</code> es porque en realidad, estamos conectados a una base de datos llamada test.</p>
+<p><img alt="Imagen Windows 7" src="img/mongo/mongoWIN6.jpg" /></p>
+<p><span class="mi_h3">Instalación de MongoDB en EC2 (AWS)</span></p>
+<p>A continuación se describen los pasos para instalar y configurar MongoDB en nuestra instancia EC2 de AWS.</p>
+<p><span class="mi_h4">Conectar al servidor por ssh</span></p>
+<p>Para conectar, abre una ventana de comandos y asegurate que el archivo .pem está en la carpeta desde la que lanzas el siguiente comando (puedes utilizar el nombre del servidor o su IP pública). Sustituye <code>[nombre_clave]</code> por el nombre del archivo de tu clave y <code>[nombre_IP_servidor]</code> por el nombre o IP de tu servidor:
+<div class="highlight"><pre><span></span><code>ssh -i [nombre_clave] ubuntu@[nombre_IP_servidor]
+</code></pre></div></p>
+<div class="admonition note">
+<p>Si aparece el siguiente aviso:</p>
+<p><img alt="Imagen warning conexión" src="img/warning.png" /></p>
+<p>Ejecuta el comando siguiente:
+<div class="highlight"><pre><span></span><code>chmod 400 [nombre_clave]
+</code></pre></div></p>
+</div>
+<p><span class="mi_h4">Instalar MongoDB Community Edition</span></p>
+<p><strong>1. Importar la clave pública</strong>
+<div class="highlight"><pre><span></span><code>sudo apt install -y curl gnupg
+
+curl -fsSL https://pgp.mongodb.com/server-7.0.asc | \
+ sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+</code></pre></div>
+<strong>2. Crear una lista de verificación</strong>
+<div class="highlight"><pre><span></span><code>echo &quot;deb [signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse&quot; | \
+ sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+</code></pre></div>
+<strong>3. Actualizar lista de paquetes</strong>
+<div class="highlight"><pre><span></span><code>sudo apt update
+</code></pre></div>
+<strong>4. Instalar MongoDB Community Server</strong>
+<div class="highlight"><pre><span></span><code>sudo apt install -y mongodb-org
+</code></pre></div></p>
+<p><span class="mi_h4">Iniciar y verificar el funcionamiento</span></p>
+<p><strong>1. Iniciar el servidor</strong>
+<div class="highlight"><pre><span></span><code>sudo systemctl start mongod   
+</code></pre></div></p>
+<div class="admonition note">
+<p>Si aparece un error parecido a <code>Failed to start mongod.service: Unit mongod.service not found</code>, ejecutar estos dos comandos:
+<div class="highlight"><pre><span></span><code>sudo systemctl daemon-reload
+sudo systemctl start mongod   
+</code></pre></div></p>
+</div>
+<p><strong>2. Comprobar el estado del servidor</strong>
+<div class="highlight"><pre><span></span><code>sudo systemctl status mongod
+</code></pre></div>
+<strong>3. Configurar para que se inicie al arrancar el sistema</strong>
+<div class="highlight"><pre><span></span><code>sudo systemctl enable mongod    
+</code></pre></div>
+<strong>4. Parar y reiniciar</strong>
+<div class="highlight"><pre><span></span><code>sudo systemctl stop mongod    
+sudo systemctl restart mongod
+</code></pre></div></p>
+<p><span class="mi_h4">Configurar acceso remoto</span></p>
+<p><strong>1. Editar el fichero de configuración</strong>
+<div class="highlight"><pre><span></span><code>sudo nano /etc/mongod.conf
+</code></pre></div></p>
+<p>Busca el bloque de instrucciones siguiente:
+<div class="highlight"><pre><span></span><code># network interfaces
+net:
+port: 27017
+bindIp: 127.0.0.1
+</code></pre></div></p>
+<p>Modifícalo para que quede así:
+<div class="highlight"><pre><span></span><code># network interfaces
+net:
+port: 27017
+#bindIp: 127.0.0.1
+bindIp: 0.0.0.0
+</code></pre></div></p>
+<p><strong>2. Reiniciar servicio</strong></p>
+<p>Rainicia y comprueba que ha arrancado correctamente
+<div class="highlight"><pre><span></span><code>sudo systemctl restart mongod
+sudo systemctl status mongod
+</code></pre></div></p>
+<p><span class="mi_h4">Configura el servidor para permitir tráfico entrante</span></p>
+<p>Añade una regla en el servidor para permitir el tráfico entrante del puerto 27017. Para ello haz clic en la pestaña Seguridad y luego en el enlace de Grupos de seguridad</p>
+<p><img alt="Imagen mongo AWS" src="img/mongo/mongoAWS2.png" /></p>
+<p>Entra en Reglas de entrada y haz clic en el botón Editar reglas de entrada</p>
+<p><img alt="Imagen mongo AWS" src="img/mongo/mongoAWS3.png" /></p>
+<p>Haz clic en Agregar regla, configura el tipo, el puerto y la IP de origen 0.0.0.0/0 para permitir acceso desde cualquier lugar y por último haz clic en el botón Guardar reglas</p>
+<p><img alt="Imagen mongo AWS" src="img/mongo/mongoAWS4.png" /></p>
+<p>En unos segundos aparecerá tu nueva regla en la lista</p>
+<p><img alt="Imagen mongo AWS" src="img/mongo/mongoAWS5.png" /></p>
+<p><span class="mi_h4">Securizar MongoDB</span></p>
+<p><strong>1. Inicia el cliente (shell)</strong></p>
+<p>Ejecuta el comando siguiente:
+<div class="highlight"><pre><span></span><code>mongosh
+</code></pre></div>
+<strong>2. Crear usuario administrador</strong></p>
+<p>Conecta a la base de datos admin con el comando:
+<div class="highlight"><pre><span></span><code>use admin
+</code></pre></div></p>
+<p>Crea el usuario con permisos sobre todas las bases de datos con el comando siguiente. Sustituye <code>[usuario]</code> y <code>[contraseña]</code> por los datos que quieras utilizar:
+<div class="highlight"><pre><span></span><code>db.createUser({ user: &quot;[usuario]&quot;, pwd: &quot;[contraseña]&quot;, roles: [{ role: &quot;root&quot;, db: &quot;admin&quot; }] })
+</code></pre></div></p>
+<p>Comprueba que se ha creado correctamente:
+<div class="highlight"><pre><span></span><code>db.getUsers()
+</code></pre></div>
+<img alt="Imagen mongo AWS" src="img/mongo/mongoAWS10.jpg" /></p>
+<p><strong>3. Activa la autenticación</strong></p>
+<p>Sal del cliente (shell) y edita el fichero /etc/mongod.conf
+<div class="highlight"><pre><span></span><code>sudo nano /etc/mongod.conf
+</code></pre></div></p>
+<p>Busca la sección <code>security</code> y descoméntala, luego añade la línea <code>authorization: enabled</code>.
+<div class="highlight"><pre><span></span><code>security:
+  authorization: enabled
+</code></pre></div></p>
+<p>Guarda los cambios de configuración, reinicia el servicio y comprueba que se ha iniciado correctamente:
+<div class="highlight"><pre><span></span><code>sudo systemctl restart mongod
+sudo systemctl status mongod
+</code></pre></div></p>
+<p>Comprueba que no puedes realizar operaciones entrando con <code>mongosh</code>:</p>
+<p><img alt="Imagen mongo AWS" src="img/mongo/mongoAWS11.jpg" /></p>
+<p>Sal del cliente (shell) y vuelve a entrar con el comando siguiente. Sustituye <code>[usuario]</code> por el usuario que has creado anteriormente y espera a que te pida la contraseña: 
+<div class="highlight"><pre><span></span><code>mongosh -u [usuario] -p --authenticationDatabase admin
+</code></pre></div></p>
+<p>Comprueba que ya puedes ver las bd con show dbs:</p>
+<p><img alt="Imagen mongo AWS" src="img/mongo/mongoAWS12.jpg" /></p>
+<p><span class="mi_h4">Crear base de datos y conecta desde Kotlin</span></p>
+<p><strong>1. Crear la BD</strong>
+Ejecuta el comando siguiente:
+<div class="highlight"><pre><span></span><code>use florabotanica
+</code></pre></div></p>
+<p><strong>2. Añadir información</strong>
+<div class="highlight"><pre><span></span><code>// Insertar documentos (si la colección no existe, se crea automáticamente)
+db.plantas.insertMany([
+  { id_planta: 1, nombre_comun: &quot;Aloe&quot;, nombre_cientifico: &quot;Aloe vera&quot;, altura: 30 },
+  { id_planta: 2, nombre_comun: &quot;Pino&quot;, nombre_cientifico: &quot;Pinus sylvestris&quot;, altura: 330 },
+  { id_planta: 3, nombre_comun: &quot;Cactus&quot;, nombre_cientifico: &quot;Cactaceae&quot;, altura: 120 }
+])
+</code></pre></div></p>
+<p><strong>3. Conectar desde Kotlin</strong></p>
+<p>Para conectar desde <code>Kotlin</code> necesitarás añadir la siguiente dependencia en al fichero <code>build.gradle.kts</code>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.mongodb:mongodb-driver-sync:4.11.0&quot;</span><span class="p">)</span>
+</code></pre></div>
+Prueba el siguiente fragmento de código para comprobar que puedes acceder a la base de datos y mostrar la información que has insertado anteriormente. Sustituye <code>USUARIO</code> por tu nombre de uauario, <code>PASSWORD</code> por tu contraseña, <code>HOST</code> por el nombre o IP de tu servidor y <code>PUERTO</code> por 27017:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">NOM_SRV</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mongodb://USUARIO:PASSWORD@HOST:PUERTO&quot;</span>
+<span class="kd">const</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">NOM_BD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;florabotanica&quot;</span>
+<span class="kd">const</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">NOM_COLECCION</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;plantas&quot;</span>
+
+<span class="k">import</span><span class="w"> </span><span class="nn">com.mongodb.client.MongoClients</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">mostrarPlantas</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">cliente</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MongoClients</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="n">NOM_SRV</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cliente</span><span class="p">.</span><span class="na">getDatabase</span><span class="p">(</span><span class="n">NOM_BD</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">coleccion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="na">getCollection</span><span class="p">(</span><span class="n">NOM_COLECCION</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// Mostrar documentos de la colección plantas</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">cursor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coleccion</span><span class="p">.</span><span class="na">find</span><span class="p">().</span><span class="na">iterator</span><span class="p">()</span>
+<span class="w">    </span><span class="n">cursor</span><span class="p">.</span><span class="na">use</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">hasNext</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">doc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">next</span><span class="p">()</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="n">doc</span><span class="p">.</span><span class="na">toJson</span><span class="p">())</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">cliente</span><span class="p">.</span><span class="na">close</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<p><span class="mi_h3">Autoría</span></p>
+<p>Obra realizada por Begoña Paterna Lluch. Publicada bajo licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Atribución/Reconocimiento-CompartirIgual 4.0 Internacional</a></p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tabs.link", "navigation.instant", "navigation.top", "navigation.sections", "search.highlight", "search.suggest", "toc.integrate"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
