@@ -1778,8 +1778,6 @@ Podemos añadir tantas plantas como queramos con el botón `Agregar Nueva Planta
     3. Modifica el aspecto de tu aplicación aplicando alguna característica de `bootstrap` para que el resultado quede personalizado a tu gusto.
 
 
----
-
 
 
 <span class="mi_h3">Consultas utilizando la anotación @Query</span>
@@ -1889,7 +1887,7 @@ Este mismo ejemplo utilizando convención de nombres quedaría así:
 ---
 
 
-<span class="mis_ejemplos">Ejemplo 5: Consultas avanzadas con `@Query` (MySQL)</span>
+<span class="mis_ejemplos">Ejemplo 5: Consultas avanzadas con @Query (MySQL)</span>
 
 En el ejemplo anterior hemos utilizado **Spring Data JPA** junto con **MySQL** para implementar un CRUD completo apoyándonos en los métodos que ofrece la interfaz `JpaRepository` y en **consultas generadas automáticamente mediante convención de nombres**.
 
@@ -1897,7 +1895,7 @@ Este mecanismo es suficiente para consultas sencillas, pero cuando las consultas
 
 En esta ampliación se utiliza `@Query` para realizar consultas avanzadas con SQL nativo sobre nuestra base de datos. Las operaciones `UPDATE` y `DELETE` requieren el uso de **`@Modifying`** y **`@Transactional`**.
 
-Para poder ilustrar la utilización de este tipo de consultas, ampliaremos nuestra aplicación para gestionar las plantas que hay en los jardines. Imagina que a nuestra empresa de jardinería la contratan varios ayuntamienteos que nos piden trabajos del tipo "hay que plantar 2 rosas y 3 pinos al jardin llamado Tropical" y "hay que plantar 5 rosas y 4 pinos al jardin llamado Botánico". Para ello ampliaremos con dos tablas más nuestra base de datos y con varios archivos nuestra aplicación. A continuación de describen todos los pasos necesarios:
+Para poder ilustrar la utilización de este tipo de consultas, ampliaremos nuestra aplicación para gestionar las plantas que hay en los jardines. Imagina que a nuestra empresa de jardinería la contratan varios ayuntamienteos que nos piden trabajos del tipo "hay que plantar 2 rosas y 3 pinos en el jardin llamado Tropical" y "hay que plantar 5 rosas y 4 pinos en el jardin llamado Botánico". Para ello ampliaremos con dos tablas más nuestra base de datos y con varios archivos nuestra aplicación. A continuación de describen todos los pasos necesarios:
 
 
 <span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
@@ -2262,7 +2260,7 @@ El código del archivo `jpForm.html` dentro de la carpeta `src/main/resources/te
 En este último paso, añadiremos una nueva pantalla que devolverá las plantas (y sus cantidades) que hay en un jardín concreto. Para ello, añadimeros un botón a la pantalla de `Ubicación de plantas en jardines` que nos llevará a una pantalla con un desplegable para elegir el jardín. La consulta se realizará utilizando `@Query`. A continuación se muestra el código nuevo:
 
 
-* En el archivo (jp.html), añimos el código para el nuevo botón:
+* En el archivo `jp.html` añimos el código para el nuevo botón:
 
 ```html
 <a th:href="@{/informe/plantas-por-jardin}"
@@ -2271,7 +2269,7 @@ En este último paso, añadiremos una nueva pantalla que devolverá las plantas 
 </a>
 ```
 
-* En `JardinPlantaController.kt` añadimos el código del formulario y resultado de la búsqueda:
+* En `JardinPlantaController.kt` añadimos el código del formulario y del resultado de la búsqueda:
 
 ```kotlin
     // Mostrar el formulario con el desplegable
@@ -2363,13 +2361,32 @@ En este último paso, añadiremos una nueva pantalla que devolverá las plantas 
 </html>
 ```
 
----
+
+!!! success "Prueba y analiza el ejemplo 5"
+    1. Crea un proyecto Spring Boot llamado `plantasMySQL2` utilizando Spring Initializr.
+    2. Prueba el código del ejemplo, verifica que funciona correctamente y pregunta tus dudas.
+
+
+!!! warning "Práctica 3: Amplía tu aplicación"
+    Amplía tu aplicación para que cumpla:
+    1. Tener dos tablas independientes y una tercera tabla que las relaciones de muchos a muchos.
+    2. CRUD de las 3 trablas.
+    3. Pantalla que funcione de forma parecida a la del ejemplo y necesite una consulta @Query
 
 
 
+!!! danger "Entrega 1"
+Realiza lo siguiente:
+
+    1. Exporta tu BD a un archivo .sql
+        
+    2. Comprime la caarpeta `main` de tu proyecto en formato .zip
+
+    3. Entrega en Aules el archivo .sql y el archivo .zip
+
+    **IMPORTANTE**: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.
 
 <!--
-
 
 ### 4.4.2. Spring Data MongoDB
 
