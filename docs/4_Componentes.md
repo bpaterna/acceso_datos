@@ -782,7 +782,7 @@ A continuación se describen los pasos necesarios para desarrollar el proyecto:
 
 <span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
 
-Creamos un nuevo proyecto llamado `plantasCSV` utilizando Spring Initializr. Si copiamos fragmentos de código del anterior ejemplo habrá que tener cuidado con los imports y cambiar `com.example.plantas` por `com.example.plantasCSV`
+Creamos un nuevo proyecto llamado `plantasCSV` utilizando Spring Initializr con las mismas dependencias del ejemplo anterior. Si copiamos fragmentos de código del anterior ejemplo habrá que tener cuidado con los imports y cambiar `com.example.plantas` por `com.example.plantasCSV`
 
 
 <span class="mi_sombreado">**PASO 2: Crear el fichero CSV**</span>
@@ -1241,7 +1241,7 @@ En lugar de proporcionar una única solución, Spring Data está compuesto por v
 - **Spring Data Elasticsearch:** Simplifica las interacciones con Elasticsearch, un motor de búsqueda y análisis.
 
 
-### 4.4.1. Spring Data JPA
+### 4.4.1. Spring Data JPA (BD relacionales)
 
 Spring Data JPA (Java Persistence API) es un módulo de Spring Data que sirve para simplificar el acceso a bases de datos relacionales utilizando objetos (clases) sin tener que escribir SQL ni código repetitivo. Con Spring Data JPA:
 
@@ -1501,64 +1501,7 @@ A tener en cuenta:
 * **Parámetros**: Los métodos generados reciben parámetros en el mismo orden en que se declaran en el nombre del método.
 
 
-<span class="mi_h3">Consultas utilizando la anotación @Query</span>
 
-La anotación **@Query** se utiliza:
-
-* En consultas complejas que involucren múltiples tablas, condiciones avanzadas o subconsultas.
-
-* Si prefieres optimizar manualmente las consultas.
-
-* Cuando la convención de nombres generaría un nombre de método excesivamente largo.
-
-
-La estructura básica es:
-
-    @Query("SELECT e FROM EntityName e WHERE e.property = :value")
-    fun findByProperty(@Param("value") value: String): List<EntityName>
-
-
-* Se utilizan nombres de entidades y propiedades de las clases en lugar de nombres de tablas y columnas.
-
-* Se puede navegar por relaciones entre entidades.
-
-* _:nombreParametro_ para parámetros dinámicos.
-
-
-**Ejemplo sencillo:**
-
-    @Query("SELECT p FROM Planta p WHERE p.tipo = :tipo")
-    fun findByTipo(@Param("tipo") tipo: String): List<Planta>
-
-
-**Ejemplo con relaciones:**
-
-La consulta para buscar las plantas que están asociadas con un jardín específico (según el ID del jardín proporcionado):
-
-    @Query("""
-    SELECT p FROM Planta p
-    JOIN p.jardin j
-    WHERE j.id_jardin = :idJardin
-    """)
-    fun findByJardin(
-        @Param("idJardin") idJardin: Int
-    ): List<Planta>
-
-
-
-Este mismo ejemplo utilizando convención de nombres quedaría así:
-
-    @Repository
-    interface PlantaRepository : JpaRepository<Planta, Int> {
-        fun findByJardinIdJardin(
-            idJardin: Int
-        ): List<Planta>
-    }
-
-
-* **findBy:** Indica que es un método de consulta.
-
-* **findByJardinIdJardin:** Utiliza la convención de nombres para especificar que se desean encontrar plantas basándose en el idJardin del jardín asociado. Los nombres de los parámetros reflejan claramente los campos utilizados en la consulta.
 
 
 
@@ -1813,7 +1756,7 @@ Todos estos archivos los podemos copiar del proyecto del ejemplo anterior, son l
 
 Al ejecutar la aplicación `PlantaApplication.kt`, por primera vez veremos en la consola mensajes de Hibernate: `Hibernate: create table plantas (...)` que indican que se ha creado la tabla `plantas` dentro de la base de datos llamada `florabotanica.db`.
 
-Al abrir en el navegador en http://localhost:8080/plantas inicialmente la tabla plantas estará vacía y veremos lo siguiente:
+Al abrir [http://localhost:8080/plantas](http://localhost:8080/plantas) en el navegador veremos lo siguiente (inicialmente la tabla plantas estará vacía):
 
 ![Spring 15](img/spring/spring15.jpg)
 
@@ -1835,26 +1778,592 @@ Podemos añadir tantas plantas como queramos con el botón `Agregar Nueva Planta
     3. Modifica el aspecto de tu aplicación aplicando alguna característica de `bootstrap` para que el resultado quede personalizado a tu gusto.
 
 
+---
 
 
 
+<span class="mi_h3">Consultas utilizando la anotación @Query</span>
+
+La anotación **@Query** se utiliza:
+
+* En consultas complejas que involucren múltiples tablas, condiciones avanzadas o subconsultas.
+
+* Si prefieres optimizar manualmente las consultas.
+
+* Cuando la convención de nombres generaría un nombre de método excesivamente largo.
+
+La estructura básica es:
+
+    @Query("SELECT e FROM EntityName e WHERE e.property = :value")
+    fun findByProperty(@Param("value") value: String): List<EntityName>
+
+
+Hay que tener en cuenta que se utiliza JPQL y no SQL
+
+
+|  |  JPQL | SQL                         |
+| --|-- |---------------------------------|
+| Pregunta | al modelo de objetos |  a la base de datos         |
+| trabaja | con clases y atributos |  con tablas y columnas         |
+| utiliza | nombres de entidades y propiedades de las clases | nombres de tablas y columnas |
+
+
+JPQL
+
+* Puede navegar por relaciones entre entidades.
+
+* Utiliza _:nombreParametro_ para parámetros dinámicos.
+
+
+**Ejemplo sencillo:** Devuelve todas las plantas cuyo tipo coincide con el valor indicado.
+
+    @Query("SELECT p FROM Planta p WHERE p.tipo = :tipo")
+    fun findByTipo(@Param("tipo") tipo: String): List<Planta>
 
 
 
-<!--
+**Ejemplo con relaciones:**
 
-## 4.4.2. Ampliación del Ejemplo 4: Consultas avanzadas con `@Query` (MySQL)
+La consulta para buscar las plantas que están asociadas con un jardín específico (según el ID del jardín proporcionado):
 
-En el Ejemplo 4 hemos utilizado **Spring Data JPA** junto con **MySQL** para implementar un CRUD completo apoyándonos en los métodos que ofrece la interfaz `JpaRepository` y en **consultas generadas automáticamente mediante convención de nombres**.
+    @Query("""
+        SELECT jp
+        FROM JardinPlanta jp
+        JOIN jp.planta p
+        WHERE jp.jardin.id_jardin = :idJardin
+        ORDER BY p.nombre
+    """)
+    fun obtenerPlantasDeJardin(
+        @Param("idJardin") idJardin: Int
+    ): List<JardinPlanta>
+
+
+**SELECT: ¿qué se devuelve?**
+
+`SELECT jp` (objetos completos y no campos)
+
+
+**FROM: ¿de dónde salen los datos?**
+
+`FROM JardinPlanta jp` (de la clase JardinPlanta)
+
+En SQL sería: `FROM jardines_plantas jp` (de la tabla `jardines_plantas`)
+
+
+**JOIN: ¿cómo se relacionan los datos?**
+
+`JOIN jp.planta p` (se usa la relación que ya existe entre los objetos)
+
+En SQL sería: `JOIN plantas p ON jp.id_planta = p.id_planta` (se relacionan dos tablas usando claves foráneas)
+
+
+**WHERE: ¿qué se filtra?**
+
+`WHERE jp.jardin.id_jardin = :idJardin` (se navega por objetos de la relación → al objeto → a su atributo)
+
+En SQL sería: `WHERE jp.id_jardin = :idJardin` (se filtra por una columna)
+
+
+**ORDER BY: ¿cómo se ordena?**
+
+`ORDER BY p.nombre` (se ordena por un atributo de la entidad)
+
+En SQL sería: `ORDER BY p.nombre` (por una columna)
+
+
+
+Este mismo ejemplo utilizando convención de nombres quedaría así:
+
+    @Repository
+    interface PlantaRepository : JpaRepository<Planta, Int> {
+        fun findByJardinIdJardin(
+            idJardin: Int
+        ): List<Planta>
+    }
+
+* **findBy:** Indica que es un método de consulta.
+
+* **findByJardinIdJardin:** Utiliza la convención de nombres para especificar que se desean encontrar plantas basándose en el idJardin del jardín asociado. Los nombres de los parámetros reflejan claramente los campos utilizados en la consulta.
+
+
+---
+
+
+<span class="mis_ejemplos">Ejemplo 5: Consultas avanzadas con `@Query` (MySQL)</span>
+
+En el ejemplo anterior hemos utilizado **Spring Data JPA** junto con **MySQL** para implementar un CRUD completo apoyándonos en los métodos que ofrece la interfaz `JpaRepository` y en **consultas generadas automáticamente mediante convención de nombres**.
 
 Este mecanismo es suficiente para consultas sencillas, pero cuando las consultas incluyen **múltiples condiciones**, **ordenaciones**, **actualizaciones directas** o requieren el uso de **SQL nativo**, resulta más adecuado utilizar la anotación `@Query`.
 
 En esta ampliación se utiliza `@Query` para realizar consultas avanzadas con SQL nativo sobre nuestra base de datos. Las operaciones `UPDATE` y `DELETE` requieren el uso de **`@Modifying`** y **`@Transactional`**.
 
+Para poder ilustrar la utilización de este tipo de consultas, ampliaremos nuestra aplicación para gestionar las plantas que hay en los jardines. Imagina que a nuestra empresa de jardinería la contratan varios ayuntamienteos que nos piden trabajos del tipo "hay que plantar 2 rosas y 3 pinos al jardin llamado Tropical" y "hay que plantar 5 rosas y 4 pinos al jardin llamado Botánico". Para ello ampliaremos con dos tablas más nuestra base de datos y con varios archivos nuestra aplicación. A continuación de describen todos los pasos necesarios:
+
+
+<span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
+
+Podemos crear un proyecto nuevo con las mismas dependencias que el del ejemplo anterior y copiar los archivos que tenemos o ampliar el ejemplo anterior directamente.
+
+
+<span class="mi_sombreado">**PASO 2: Añadir los jardines**</span>
+
+Para añadir la gestión de los jardines debemos añadir a la BD una nueva tabla llamada `jardines` (insertamos dos registros):
+
+```sql
+CREATE TABLE jardines (
+id_jardin INT AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(255) NOT NULL,
+ubicacion VARCHAR(255)
+) ENGINE=InnoDB;
+
+
+INSERT INTO jardines (nombre, ubicacion)
+VALUES ('Botánico', 'Madrid');
+
+INSERT INTO jardines (nombre, ubicacion)
+VALUES ('Tropical', 'Valencia');
+```
+
+Luego añadimos a la aplicación los archivos necesarios para las operaciones CRUD sobre los jardines (equivalentes a los que tenemos para las plantas):
+
+![Spring 16](img/spring/spring16.jpg)
+
+Por último añadimos los archivos `html` (también equivalentes a los que tenemos para las plantas). Si modificamos el archivo de error nos puede servir tanto para plantas como para jardines, su nuevo código es el siguiente:
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container mt-5 text-center">
+    <h1 class="text-danger">Error</h1>
+    <p>La información que estás buscando no existe.</p>
+    <p><a href="/" class="mt-5">Volver a la pantalla de inicio</a></p>
+</div>
+</body>
+</html>
+```
+
+De forma que los archivos `html` de nuestra aplicación son los siguientes:
+
+![Spring 17](img/spring/spring17.jpg)
+
+
+<span class="mi_sombreado">**PASO 3: Comprobar jardines**</span>
+
+Al abrir [http://localhost:8080/jardines](http://localhost:8080/jardines) en el navegador veremos lo siguiente:
+
+![Spring 18](img/spring/spring18.jpg)
+
+El funcionamiento es exactamente el mismo que el de las plantas.
+
+Una vez tenemos las plantas y los jardines funcionando de forma independiente vamos a añadir una pantalla a nuestra aplicación para poder llevar plantas a los jardines. Para ello añadimos una nueva tabla a la base de datos con la relación (muchos a muchos) entre jardines y plantas y añadimos los archivos necesarios a nuestra aplicación.
+
+
+<span class="mi_sombreado">**PASO 4: Ampliar la base de datos**</span>
+
+Añadir la tabla `jardines_plantas` a la base de datos y hacemos dos inserts (en este caso suponemos que existen los jardines con id 1 y 2 y las plantas con id 1 y 2:
+
+```sql
+CREATE TABLE jardines_plantas (
+id_jardin INT NOT NULL,
+id_planta INT NOT NULL,
+cantidad INT NOT NULL,
+PRIMARY KEY (id_jardin, id_planta)
+) ENGINE=InnoDB;
+
+INSERT INTO jardines_plantas (id_jardin, id_planta, cantidad)
+VALUES (1, 1, 10);
+
+INSERT INTO jardines_plantas (id_jardin, id_planta, cantidad)
+VALUES (2, 2, 5);
+```
+
+
+<span class="mi_sombreado">**PASO 5: Añadir el modelo**</span>
+
+En este caso el modelo es un poco más complejo ya que necesita tener configurada la relación muchos a muchos entre las plantas y los jardines. Creamos el archivo `JardinPlanta.kt` dentro de la carpeta `src/main/kotlin/com/example/plantasMySQL2/model/` con el siguiente código:
+
+
+```kotlin
+package com.example.plantasMySQL2.model
+import jakarta.persistence.*
+
+@Embeddable
+class JardinPlantaId(
+    var idJardin: Int = 0,
+    var idPlanta: Int = 0
+)
+
+@Entity
+@Table(name = "jardines_plantas")
+class JardinPlanta(
+
+    @EmbeddedId
+    var id: JardinPlantaId = JardinPlantaId(),
+
+    @ManyToOne
+    @MapsId("idJardin")
+    @JoinColumn(name = "id_jardin")
+    var jardin: Jardin? = null,
+
+    @ManyToOne
+    @MapsId("idPlanta")
+    @JoinColumn(name = "id_planta")
+    var planta: Planta? = null,
+
+    @Column(nullable = false)
+    var cantidad: Int = 0
+)
+```
+
+<span class="mi_sombreado">**PASO 6: Añadir el repositorio**</span>
+
+De momento el repositorio no contendrá código, lo ampliaremos más adelante, ahora creamos el archivo `JardinPlantaRepository.kt` dentro de la carpeta `src/main/kotlin/com/example/plantasMySQL2/repository/` con el código siguiente:
+
+```kotlin
+package com.example.plantasMySQL2.repository
+
+import com.example.plantasMySQL2.model.JardinPlanta
+import com.example.plantasMySQL2.model.JardinPlantaId
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
+
+import org.springframework.data.jpa.repository.Query
+import org.springframework.data.repository.query.Param
+
+
+@Repository
+interface JardinPlantaRepository :
+    JpaRepository<JardinPlanta, JardinPlantaId> {}
+```
+
+
+<span class="mi_sombreado">**PASO 7: Añadir la clase del servicio intermedio**</span>
+
+Crear el archivo `JardinPlantaService.kt` dentro de la carpeta `src/main/kotlin/com/example/plantasMySQL2/service/` con el siguiente código:
+
+```kotlin
+package com.example.plantasMySQL2.service
+
+import com.example.plantasMySQL2.model.JardinPlanta
+import com.example.plantasMySQL2.model.JardinPlantaId
+import com.example.plantasMySQL2.model.Jardin
+import com.example.plantasMySQL2.model.Planta
+import com.example.plantasMySQL2.repository.JardinPlantaRepository
+import com.example.plantasMySQL2.repository.PlantaRepository
+import com.example.plantasMySQL2.repository.JardinRepository
+import org.springframework.stereotype.Service
+
+@Service
+class JardinPlantaService(
+    private val jardinPlantaRepository: JardinPlantaRepository,
+    private val jardinRepository: JardinRepository,
+    private val plantaRepository: PlantaRepository
+) {
+
+    fun listarTodas(): List<JardinPlanta> =
+        jardinPlantaRepository.findAll()
+
+    // Métodos para llenar los desplegables
+    fun listarJardines(): List<Jardin> = jardinRepository.findAll()
+    fun listarPlantas(): List<Planta> = plantaRepository.findAll()
+
+    // Método para guardar
+    fun guardar(idJardin: Int, idPlanta: Int, cantidad: Int) {
+        // 1. Buscamos las entidades (lanzará error si no existen, lo cual es bueno para integridad)
+        val jardinRef = jardinRepository.findById(idJardin).orElseThrow()
+        val plantaRef = plantaRepository.findById(idPlanta).orElseThrow()
+
+        // 2. Creamos la clave compuesta
+        val id = JardinPlantaId(idJardin, idPlanta)
+
+        // 3. Creamos la entidad relación
+        val nuevaRelacion = JardinPlanta(
+            id = id,
+            jardin = jardinRef,
+            planta = plantaRef,
+            cantidad = cantidad
+        )
+
+        jardinPlantaRepository.save(nuevaRelacion)
+    }
+}
+```
+
+<span class="mi_sombreado">**PASO 8: Añadir el controlador**</span>
+
+Crear el archivo `JardinPlantaController.kt` dentro de la carpeta `src/main/kotlin/com/example/plantasMySQL2/controller/` con el siguiente código:
+
+
+```kotlin
+package com.example.plantasMySQL2.controller
+
+import com.example.plantasMySQL2.model.JardinPlanta
+import com.example.plantasMySQL2.model.Planta
+import com.example.plantasMySQL2.service.JardinPlantaService
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
+import org.springframework.web.bind.annotation.*
+
+// Clase auxiliar para capturar los datos del formulario
+class JardinPlantaForm(
+    var idJardin: Int = 0,
+    var idPlanta: Int = 0,
+    var cantidad: Int = 0
+)
+
+@Controller
+class JardinPlantaController(
+    private val jardinPlantaService: JardinPlantaService
+) {
+
+    @GetMapping("/jp")
+    fun listaPlantasJardines(model: Model): String {
+        val relaciones = jardinPlantaService.listarTodas()
+        model.addAttribute("relaciones", relaciones)
+        return "jp"
+    }
+
+    // Mostrar el formulario (GET)
+    @GetMapping("/jp/add")
+    fun mostrarFormulario(model: Model): String {
+        // Pasamos un objeto vacío para el binding del formulario
+       model.addAttribute("form", JardinPlantaForm())
+
+        // Pasamos las listas para los desplegables
+        model.addAttribute("jardines", jardinPlantaService.listarJardines())
+        model.addAttribute("plantas", jardinPlantaService.listarPlantas())
+
+        return "jpForm" // Nombre del archivo HTML nuevo
+    }
+    
+    // Procesar el formulario (POST)
+    @PostMapping("/jp/guardar")
+    fun guardarRelacion(@ModelAttribute("form") form: JardinPlantaForm): String {
+        jardinPlantaService.guardar(form.idJardin, form.idPlanta, form.cantidad)
+        return "redirect:/jp" // Redirige a la lista principal
+    }
+}
+```
+
+
+<span class="mi_sombreado">**PASO 9: Añadir las vistas**</span>
+
+En este caso añadiremos dos vistas, la primera mostrará una lista con los nombres de los jardines, los nombres de las plantas que tienen y la cantidad de éstas en el jardín. La segunda vista será un formulario para añadir una planta a un jardín de forma que si no existe la relación en la base de datos se añadirá un registro y si existe se actualizará la cantidad. 
+
+
+El código del archivo `jp.html` dentro de la carpeta `src/main/resources/templates/` es el siguiente:
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Informe Plantas por Jardín</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+</head>
+
+<body>
+<div class="container mt-5">
+
+    <h1>Ubicación de plantas en jardines</h1>
+
+    <h5 th:if="${relaciones.size() > 0}">
+        Plantas, jardines y cantidades
+    </h5>
+    <p th:unless="${relaciones.size() > 0}">
+        No hay datos para mostrar
+    </p>
+
+    <table class="table table-striped mt-4" th:if="${relaciones.size() > 0}">
+        <thead>
+        <tr>
+            <th>Planta</th>
+            <th>Jardín</th>
+            <th>Cantidad</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="jp : ${relaciones}">
+            <td th:text="${jp.planta.nombre}">Rosa</td>
+            <td th:text="${jp.jardin.nombre}">Jardín Botánico</td>
+            <td th:text="${jp.cantidad}">5</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/jp/add}" class="btn btn-secondary btn-lg">Agregar planta a jardín</a>
+
+    <p><a href="/" class="mt-5">Volver a la pantalla de inicio</a></p>
+
+</div>
+</body>
+</html>
+```
+
+El código del archivo `jpForm.html` dentro de la carpeta `src/main/resources/templates/` es el siguiente:
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Asignar Planta a Jardín</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container mt-5">
+    <form th:action="@{/jp/guardar}" th:object="${form}" method="post">
+
+        <div class="mb-3">
+            <label for="jardin" class="form-label">Selecciona el Jardín:</label>
+            <select class="form-select"  id="jardin" name="idJardin">
+                <option value="" disabled selected>-- Elegir Jardín --</option>
+                <option th:each="jardin : ${jardines}"
+                        th:value="${jardin.id_jardin}"
+                        th:text="${jardin.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="planta" class="form-label">Selecciona la Planta:</label>
+            <select class="form-select" id="planta" name="idPlanta">
+                <option value="" disabled selected>-- Elegir Planta --</option>
+                <option th:each="planta : ${plantas}"
+                        th:value="${planta.id_planta}"
+                        th:text="${planta.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="cantidad" class="form-label">Cantidad:</label>
+            <input type="number" class="form-control" id="cantidad"
+                   th:field="*{cantidad}" min="1" required>
+        </div>
+
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a th:href="@{/jp}" class="btn btn-secondary">Cancelar</a>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>
+```
+
+<span class="mi_sombreado">**PASO 10: Consulta @Query**</span>
+
+En este último paso, añadiremos una nueva pantalla que devolverá las plantas (y sus cantidades) que hay en un jardín concreto. Para ello, añadimeros un botón a la pantalla de `Ubicación de plantas en jardines` que nos llevará a una pantalla con un desplegable para elegir el jardín. La consulta se realizará utilizando `@Query`. A continuación se muestra el código nuevo:
+
+
+* En el archivo (jp.html), añimos el código para el nuevo botón:
+
+```html
+<a th:href="@{/informe/plantas-por-jardin}"
+   class="btn btn-primary mt-3">
+    Filtrar por jardín
+</a>
+```
+
+* En `JardinPlantaController.kt` añadimos el código del formulario y resultado de la búsqueda:
+
+```kotlin
+    // Mostrar el formulario con el desplegable
+    @GetMapping("/jp/plantas-por-jardin")
+    fun formularioPlantasPorJardin(model: Model): String {
+        model.addAttribute("jardines", jardinService.listar())
+        return "plantasPorJardinForm"
+    }
+
+    // Procesar el jardín seleccionado
+    @PostMapping("/jp/plantas-por-jardin")
+    fun mostrarPlantasDeJardin(
+        @RequestParam idJardin: Int,
+        model: Model
+    ): String {
+
+        val relaciones = jardinPlantaService.obtenerPlantasDeJardin(idJardin)
+        model.addAttribute("relaciones", relaciones)
+        model.addAttribute("jardines", jardinService.listar())
+        model.addAttribute("idJardinSeleccionado", idJardin)
+
+        return "plantasPorJardinForm"
+    }
+```
+
+* En `JardinPlantaService.kt` añadimos el código para realizar la consulta:
+
+```kotlin
+    fun obtenerPlantasDeJardin(idJardin: Int): List<JardinPlanta> =
+        jardinPlantaRepository.obtenerPlantasDeJardin(idJardin)
+```
+
+* Creamos la vista `plantasPorJardinForm.html` con el formuario y el resultado de la consulta:
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Plantas por jardín</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+</head>
+
+<body>
+<div class="container mt-5">
+
+    <h1>Plantas por jardín</h1>
+
+    <form th:action="@{/jp/plantas-por-jardin}" method="post" class="row g-3 mb-4">
+
+        <div class="col-md-6">
+            <label class="form-label">Selecciona un jardín:</label>
+            <select name="idJardin" class="form-select" required>
+                <option value="">-- Selecciona --</option>
+                <option th:each="j : ${jardines}"
+                        th:value="${j.id_jardin}"
+                        th:text="${j.nombre}"
+                        th:selected="${j.id_jardin == idJardinSeleccionado}">
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-6 align-self-end">
+            <button type="submit" class="btn btn-success">
+                Mostrar plantas
+            </button>
+        </div>
+    </form>
+
+    <table class="table table-striped" th:if="${relaciones != null}">
+        <thead>
+        <tr>
+            <th>Planta</th>
+            <th>Cantidad</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="jp : ${relaciones}">
+            <td th:text="${jp.planta.nombre}">Rosa</td>
+            <td th:text="${jp.cantidad}">5</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/jp}" class="btn btn-secondary">Volver</a>
+
+</div>
+</body>
+</html>
+```
+
 ---
-
-
--->
 
 
 
@@ -1862,7 +2371,7 @@ En esta ampliación se utiliza `@Query` para realizar consultas avanzadas con SQ
 <!--
 
 
-### 4.4.1. Spring Data MongoDB
+### 4.4.2. Spring Data MongoDB
 
 
 <span class="mi_h3">Spring Data MongoDB</span>
