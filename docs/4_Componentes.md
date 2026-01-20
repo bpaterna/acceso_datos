@@ -2263,11 +2263,10 @@ En este último paso, añadiremos una nueva pantalla que devolverá las plantas 
 * En el archivo `jp.html` añimos el código para el nuevo botón:
 
 ```html
-<a th:href="@{/informe/plantas-por-jardin}"
-   class="btn btn-primary mt-3">
-    Filtrar por jardín
-</a>
+<a th:href="@{/informe/plantas-por-jardin}" class="btn btn-primary mt-3">
+    Filtrar por jardín </a>
 ```
+
 
 * En `JardinPlantaController.kt` añadimos el código del formulario y del resultado de la búsqueda:
 
@@ -2295,12 +2294,30 @@ En este último paso, añadiremos una nueva pantalla que devolverá las plantas 
     }
 ```
 
-* En `JardinPlantaService.kt` añadimos el código para realizar la consulta:
+
+* En `JardinPlantaRepository.kt` añadimos la consulta:
+
+```kotlin
+    @Query("""
+        SELECT jp
+        FROM JardinPlanta jp
+        JOIN jp.planta p
+        WHERE jp.jardin.id_jardin = :idJardin
+        ORDER BY p.nombre
+    """)
+    fun obtenerPlantasDeJardin(
+        @Param("idJardin") idJardin: Int
+    ): List<JardinPlanta>
+```
+
+
+* En `JardinPlantaService.kt` añadimos el código que llama a la consulta:
 
 ```kotlin
     fun obtenerPlantasDeJardin(idJardin: Int): List<JardinPlanta> =
         jardinPlantaRepository.obtenerPlantasDeJardin(idJardin)
 ```
+
 
 * Creamos la vista `plantasPorJardinForm.html` con el formuario y el resultado de la consulta:
 
@@ -2372,13 +2389,13 @@ En este último paso, añadiremos una nueva pantalla que devolverá las plantas 
 
     1. Tener dos tablas independientes y una tercera tabla que las relaciones de muchos a muchos.
 
-    2. CRUD de las 3 trablas.
+    2. CRUD de las 3 tablas.
 
-    3. Pantalla que funcione de forma parecida a la del ejemplo y necesite una consulta @Query
+    3. Pantalla que funcione de forma similar a la del ejemplo utilizando una consulta @Query
 
 
 
-!!! danger "Entrega 1"
+!!! danger "Entrega"
     Realiza lo siguiente:
 
     1. Exporta tu BD a un archivo .sql
