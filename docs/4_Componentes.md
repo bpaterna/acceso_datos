@@ -2369,14 +2369,17 @@ En este último paso, añadiremos una nueva pantalla que devolverá las plantas 
 
 !!! warning "Práctica 3: Amplía tu aplicación"
     Amplía tu aplicación para que cumpla:
+
     1. Tener dos tablas independientes y una tercera tabla que las relaciones de muchos a muchos.
+
     2. CRUD de las 3 trablas.
+
     3. Pantalla que funcione de forma parecida a la del ejemplo y necesite una consulta @Query
 
 
 
 !!! danger "Entrega 1"
-Realiza lo siguiente:
+    Realiza lo siguiente:
 
     1. Exporta tu BD a un archivo .sql
         
