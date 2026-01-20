@@ -220,15 +220,15 @@ version: '3.8'
 
 services:
     mysql:
-    image: mysql:8.0
-    container_name: mysql-server
-    ports:
-    - "3306:3306"
-    environment:
-    MYSQL_ROOT_PASSWORD: <password>
-    MYSQL_DATABASE: florabotanica
-    MYSQL_USER: flora
-    MYSQL_PASSWORD: <password>
+        image: mysql:8.0
+        container_name: mysql-server
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: <password>
+            MYSQL_DATABASE: florabotanica
+            MYSQL_USER: flora
+            MYSQL_PASSWORD: <password>
 ```
 
 Desde una ventana de terminal o utilizando la línea de comandos ejecutar:
