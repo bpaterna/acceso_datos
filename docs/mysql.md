@@ -283,7 +283,7 @@ SELECT * FROM plantas;
 
 **Exportación de nuestra base de datos**
 
-El siguiente comando crea un archivo llamado `florabotanica.sql` con la estructura y datos de la base de datos llamada `florabotanica` que está alojada en un servidor MySQL en un contenedor Docker llamado `mysql-server`. Al ejecutar comando (desde terminal o línea de comandos) el sistema pedirá la contraseña de root y el archivo se creará en la carpeta desde donde se ejecuta el comando):
+El siguiente comando crea un archivo llamado `florabotanica.sql` con la estructura y datos de la base de datos llamada `florabotanica` que está alojada en un servidor MySQL en un contenedor Docker llamado `mysql-server`. Al ejecutar el comando (desde terminal o línea de comandos) el sistema pedirá la contraseña de root y el archivo se creará en la carpeta desde donde nos encontramos):
 
 ```
 docker exec -i mysql-server mysqldump --no-tablespaces -u root -p florabotanica > florabotanica.sql
@@ -291,7 +291,7 @@ docker exec -i mysql-server mysqldump --no-tablespaces -u root -p florabotanica 
 
 **Importación de nuestra base de datos (opción 1)**
    
-Para importar en otro servidor MySQL la estructura y datos de la base de datos llamada `florabotanica`, ejecutar desde terminal o línea de comandos en la carpeta donde está ubicado el archivo `florabotanica.sql` el siguiente comando (pedirá la contraseña de root). Se asume que el contendor se llama `mysql-server2`:
+Para importar en otro contenedor con un servidor MySQL la estructura y datos de la base de datos llamada `florabotanica`, ejecutar desde terminal o línea de comandos en la carpeta donde está ubicado el archivo `florabotanica.sql` el siguiente comando (pedirá la contraseña de root). Se asume que el contendor se llama `mysql-server2`:
 
 ```
 docker exec -i mysql-server2 mysql -u root -p florabotanica < florabotanica.sql
