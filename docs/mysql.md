@@ -283,27 +283,28 @@ SELECT * FROM plantas;
 
 **Exportación de nuestra base de datos**
 
-Para crear (en la carpeta desde donde se ejecuta el comando) un archivo llamado `florabotanica.sql` con la estructura y datos de la base de datos llamada `florabotanica` ejecutar desde terminal o línea de comandos (pedirá la contraseña de root):
+El siguiente comando crea un archivo llamado `florabotanica.sql` con la estructura y datos de la base de datos llamada `florabotanica` que está alojada en un servidor MySQL en un contenedor Docker llamado `mysql-server`. Al ejecutar comando (desde terminal o línea de comandos) el sistema pedirá la contraseña de root y el archivo se creará en la carpeta desde donde se ejecuta el comando):
 
 ```
 docker exec -i mysql-server mysqldump --no-tablespaces -u root -p florabotanica > florabotanica.sql
 ```
 
-**Importación de nuestra base de datos**
+**Importación de nuestra base de datos (opción 1)**
    
-Para importar en otro servidor MySQL la estructura y datos de la base de datos llamada `florabotanica`, ejecutar desde terminal o línea de comandos en la carpeta donde está ubicado el archivo `florabotanica.sql` el siguiente comando (pedirá la contraseña de root):
+Para importar en otro servidor MySQL la estructura y datos de la base de datos llamada `florabotanica`, ejecutar desde terminal o línea de comandos en la carpeta donde está ubicado el archivo `florabotanica.sql` el siguiente comando (pedirá la contraseña de root). Se asume que el contendor se llama `mysql-server2`:
 
 ```
-docker exec -i mysql-server mysql -u root -p florabotanica < florabotanica.sql
+docker exec -i mysql-server2 mysql -u root -p florabotanica < florabotanica.sql
 ```
 
+**Importación de nuestra base de datos (opción 2)**
 
-Si la opción anterior da problemas de permisos seguir estos pasos:
+Si la opción anterior da problemas de permisos seguir estos pasos (se asumen los mismos nombres de contenedor, base de datos y fichero que en la opción anterior):
 
 Abrir terminal o cmd y copiar el archivo .sql al contenedor
 
 ```
-docker cp <archivoSQL> <nom_contenedor>:/tmp/<archivoSQL>
+docker cp florabotanica.sql mysql-server2:/tmp/florabotanica.sql
 ```
 
 Entrar a mysql como root
@@ -315,9 +316,9 @@ mysql -p
 Crear BD y restaurar
 
 ```
-mysql> CREATE DATABASE <nomBD>;
-mysql> USE <nomBD>;
-mysql> SOURCE /tmp/<archivoSQL>;
+mysql> CREATE DATABASE florabotanica;
+mysql> USE florabotanica;
+mysql> SOURCE /tmp/florabotanica.sql;
 ```
 
 
