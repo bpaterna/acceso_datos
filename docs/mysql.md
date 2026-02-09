@@ -314,7 +314,6 @@ mysql -p
 
 Crear BD y restaurar
 
-
 ```
 mysql> CREATE DATABASE <nomBD>;
 mysql> USE <nomBD>;
