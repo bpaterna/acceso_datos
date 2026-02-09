@@ -298,7 +298,29 @@ docker exec -i mysql-server mysql -u root -p florabotanica < florabotanica.sql
 ```
 
 
-Si la iopción anterior
+Si la opción anterior da problemas de permisos seguir estos pasos:
+
+Abrir terminal o cmd y copiar el archivo .sql al contenedor
+
+```
+docker cp <archivoSQL> <nom_contenedor>:/tmp/<archivoSQL>
+```
+
+Entrar a mysql como root
+
+```
+mysql -p
+```
+
+Crear BD y restaurar
+
+
+```
+mysql> CREATE DATABASE <nomBD>;
+mysql> USE <nomBD>;
+mysql> SOURCE /tmp/<archivoSQL>;
+```
+
 
 ---
 
