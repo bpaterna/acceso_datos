@@ -298,6 +298,8 @@ docker exec -i mysql-server mysql -u root -p florabotanica < florabotanica.sql
 ```
 
 
+Si la iopción anterior
+
 ---
 
 <span class="mi_h3">Autoría</span>
