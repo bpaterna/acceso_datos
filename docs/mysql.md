@@ -307,6 +307,12 @@ Abrir terminal o cmd y copiar el archivo .sql al contenedor
 docker cp florabotanica.sql mysql-server2:/tmp/florabotanica.sql
 ```
 
+Abrir shell Bash dentro del contenedor:
+
+```
+docker exec -it mysql-server bash
+```
+
 Entrar a mysql como root
 
 ```
