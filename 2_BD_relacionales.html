@@ -1,0 +1,1953 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Begoña Paterna">
+      
+      
+        <link rel="canonical" href="https://bpaterna.github.io/acceso_datos/2_BD_relacionales.html">
+      
+      
+        <link rel="prev" href="index.html">
+      
+      
+        <link rel="next" href="3_BD_documentales.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Acceso a BD relacionales - Acceso a datos</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#unidad-2-acceso-a-bases-de-datos-relacionales" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="index.html" title="Acceso a datos" class="md-header__button md-logo" aria-label="Acceso a datos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Acceso a datos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Acceso a BD relacionales
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Acceso a datos" class="md-nav__button md-logo" aria-label="Acceso a datos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Acceso a datos
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contenido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contenido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acceso a BD relacionales
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="2_BD_relacionales.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acceso a BD relacionales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21-introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-conexion-a-un-sgbd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Conexión a un SGBD
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-operaciones-sobre-la-bd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. Operaciones sobre la BD
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-objetos-de-acceso-a-datos-dao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4. Objetos de acceso a datos (DAO)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-transacciones-y-excepciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5. Transacciones y excepciones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-funciones-y-procedimientos-almacenados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6. Funciones y procedimientos almacenados
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="3_BD_documentales.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acceso a BD documentales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="4_Componentes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Componentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Material adicional
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Material adicional
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="AWSlab.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AWS Learner Lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="db_browser_sqlite.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DB Browser SQLite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dbeaver.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DBeaver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mysql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mongo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MongoDB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="unidad-2-acceso-a-bases-de-datos-relacionales">Unidad 2. Acceso a Bases de Datos relacionales<a class="headerlink" href="#unidad-2-acceso-a-bases-de-datos-relacionales" title="Permanent link">&para;</a></h1>
+<p><span class="mi_h3">Revisiones</span></p>
+<table>
+<thead>
+<tr>
+<th>Revisión</th>
+<th>Fecha</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>05-10-2025</td>
+<td>Adaptación de los materiales a markdown</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>16-10-2025</td>
+<td>Ampliación de ejemplos y prácticas</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>21-10-2025</td>
+<td>Inclusión del punto 6 (funciones y procedimientos almacenados)</td>
+</tr>
+<tr>
+<td>1.3</td>
+<td>26-10-2025</td>
+<td>Modificación del Ejemplo 5: commit y rollback</td>
+</tr>
+</tbody>
+</table>
+<h2 id="21-introduccion">2.1. Introducción<a class="headerlink" href="#21-introduccion" title="Permanent link">&para;</a></h2>
+<p>Las bases de datos relacionales son esenciales en el desarrollo de aplicaciones modernas. Su integración con una aplicación requiere realizar una  <strong>conexión</strong> al sistema gestor de base de datos (SGBD) desde el lenguaje de programación. Este tema se centra en cómo realizar esa conexión, cómo trabajar con datos mediante sentencias SQL y cómo aplicar buenas prácticas, como el cierre de recursos, el uso de transacciones y procedimientos almacenados.</p>
+<p>Una <strong>base de datos relacional</strong> es un sistema de almacenamiento de información que <strong>organiza los datos en tablas</strong>. Cada tabla representa una entidad (por ejemplo, clientes, productos, facturas) y está compuestas por filas y columnas, donde cada fila representa un registro único y cada columna contiene un atributo específico de ese registro. Estas bases de datos (BD) siguen el <strong>Modelo Relacional</strong>, desarrollado por Edgar F. Codd en la década de 1970, y permite establecer vínculos o <strong>relaciones entre diferentes tablas</strong> mediante <strong>claves primarias y foráneas</strong>, facilitando así la integridad, la coherencia y la eficiencia en el manejo de grandes volúmenes de datos.</p>
+<p>Ejemplo de tabla <code>clientes</code>:</p>
+<table>
+<thead>
+<tr>
+<th>id_cliente</th>
+<th>nombre</th>
+<th>ciudad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Pol</td>
+<td>Castellón</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Eli</td>
+<td>Valencia</td>
+</tr>
+</tbody>
+</table>
+<p>La <strong>Clave primaria (Primary Key)</strong> es una columna (o conjunto de columnas) que <strong>identifica de forma única</strong> cada fila de una tabla. En el ejemplo: <code>id_cliente</code> es clave primaria en la tabla <code>clientes</code>.</p>
+<p>La <strong>Clave foránea (Foreign Key)</strong> es una columna que <strong>hace referencia a una clave primaria de otra tabla</strong> para establecer una relación. Por ejemplo, en otra tabla llamada <code>facturas</code>, el campo <code>id_cliente</code> puede ser clave foránea que apunta al campo id_clientes de la tabla <code>clientes</code>.</p>
+<p>Ejemplo de tabla <code>facturas</code>:</p>
+<table>
+<thead>
+<tr>
+<th>id_factura</th>
+<th>id_cliente</th>
+<th>fecha</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>2025-09-18</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>2025-09-18</td>
+</tr>
+</tbody>
+</table>
+<p>El lenguaje <strong>SQL (Structured Query Language)</strong> se utiliza para gestionar bases de datos relacionales ya que gracias a él se pueden crear, modificar, consultar y eliminar datos de forma sencilla y estandarizada. Es lo que se denomina <strong>CRUD</strong>, es decir, <strong>C</strong>reate (crear), <strong>R</strong>ead (Leer), <strong>U</strong>pdate (Actualizar) y <strong>D</strong>elete (Borrar). Esto lo convierte en la opción preferida para una amplia variedad de aplicaciones empresariales y tecnológicas. </p>
+<p>Algunos de sus comandos básicos son:</p>
+<ul>
+<li><code>SELECT</code>: consultar datos</li>
+<li><code>INSERT</code>: añadir registros</li>
+<li><code>UPDATE</code>: modificar datos existentes</li>
+<li><code>DELETE</code>: eliminar registros</li>
+<li><code>CREATE</code>: definir tablas, claves, relaciones, etc.</li>
+</ul>
+<p>Un ejemplo sencillo de consulta podría ser:</p>
+<div class="highlight"><pre><span></span><code>SELECT nombre FROM clientes WHERE ciudad = &#39;Valencia&#39;;
+</code></pre></div>
+<p><span class="mi_h3">Tipos de SGBD relacionales</span></p>
+<p>Conocer qué <strong>tipo de gestor de base de datos</strong> se está utilizando es esencial para poder <strong>conectar</strong> correctamente desde una aplicación, ya que cada uno necesita su propio conector o driver. Podemos encontrar:</p>
+<p><strong>1. Gestores independientes (cliente-servidor): PostgreSQL, MySQL, Oracle, SQL Server...</strong></p>
+<ul>
+<li>Sistemas robustos y escalables, ideales para entornos multi-usuario y aplicaciones web.</li>
+<li>Requieren un servidor dedicado y una configuración más compleja.</li>
+<li>Casos de uso: aplicaciones web, servicios empresariales, sistemas con alta demanda de acceso concurrente.</li>
+</ul>
+<p><strong>2. Gestores embebidos: SQLite, H2, Derby...</strong></p>
+<ul>
+<li>Base de datos ligera, sin servidor, ideal para aplicaciones móviles o de escritorio donde no se requiere gestión centralizada.</li>
+<li>Fácil de configurar y desplegar, ya que la base de datos reside en un archivo local.</li>
+<li>Casos de uso: aplicaciones de escritorio, móviles, prototipos, pruebas unitarias.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Práctica 1: Crea tu base de datos</p>
+<p>A partir del fichero de información utilizado en el proyecto de la unidad anterior, crea una base de datos SQLite <strong>nombre_de_tu_BD.sqlite</strong> con una tabla que contenga la información del fichero. Puedes utilizar <a href="db_browser_sqlite.html">DB Browser for SQLite</a></p>
+</div>
+<h2 id="22-conexion-a-un-sgbd">2.2. Conexión a un SGBD<a class="headerlink" href="#22-conexion-a-un-sgbd" title="Permanent link">&para;</a></h2>
+<p>Cuando desarrollamos aplicaciones que trabajan con información persistente, necesitamos acceder a BD para consultar, insertar, modificar o eliminar datos. Existen dos formas principales de hacerlo desde el código: </p>
+<ul>
+<li>Acceso mediante ORM (Object-Relational Mapping).</li>
+<li>Acceso mediante conectores.</li>
+</ul>
+<p><span class="mi_h3">Acceso mediante ORM</span></p>
+<p>Un <strong>ORM</strong> es una herramienta que permite trabajar con la base de datos como si fuera un conjunto de objetos, evitando tener que escribir directamente SQL. El <strong>ORM</strong> se encarga de mapear las tablas a clases y los registros a objetos, y traduce automáticamente las operaciones del código a consultas SQL. Es ideal para trabajar de forma más productiva en aplicaciones complejas. Sus principales características son:</p>
+<ul>
+<li>Se trabaja con clases en lugar de tablas SQL.</li>
+<li>Ahorra mucho código repetitivo.</li>
+<li>Ideal para proyectos medianos o grandes que requieren mantener muchas entidades.</li>
+</ul>
+<p><strong>Algunos ejemplos de ORMs</strong></p>
+<table>
+<thead>
+<tr>
+<th>ORM / Framework</th>
+<th>Lenguaje</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hibernate</td>
+<td>Java/Kotlin</td>
+<td>El ORM más utilizado con JPA</td>
+</tr>
+<tr>
+<td>Exposed</td>
+<td>Kotlin</td>
+<td>ORM ligero y expresivo creado por JetBrains</td>
+</tr>
+<tr>
+<td>Spring Data JPA</td>
+<td>Java/Kotlin</td>
+<td>Abstracción que automatiza el acceso a datos</td>
+</tr>
+<tr>
+<td>Room</td>
+<td>Java/Kotlin</td>
+<td>ORM oficial para bases de datos SQLite en Android</td>
+</tr>
+</tbody>
+</table>
+<p><strong>JPA</strong> (Java Persistence API) es una especificación estándar de Java que define cómo se deben mapear objetos Java (o Kotlin) a tablas de bases de datos relacionales. Es decir, permite gestionar la persistencia de datos de forma orientada a objetos, sin necesidad de escribir SQL directamente. Es el estándar utilizado por las herramientas ORM como Hibernate, EclipseLink, o Spring Data JPA.</p>
+<p><span class="mi_h3">Acceso mediante conectores</span></p>
+<p>Un <strong>conector</strong> (también llamado driver) es una librería software que permite que una aplicación se comunique con un gestor de base de datos (SGBD). Actúa como un puente entre nuestro código y la base de datos, traduciendo las instrucciones SQL a un lenguaje que el gestor puede entender y viceversa. Sin un conector, tu aplicación no podría comunicarse con la base de datos.</p>
+<p>Una base de datos puede ser accedida desde diferentes orígenes o herramientas, siempre que tengamos:</p>
+<ul>
+<li>Las credenciales de acceso (usuario y contraseña)</li>
+<li>El host/servidor donde se encuentra la base de datos</li>
+<li>El motor de base de datos (PostgreSQL, MySQL, SQLite, etc.)</li>
+<li>Los puertos habilitados y los permisos correctos</li>
+</ul>
+<p>Las principales formas de conectarse a una base de datos son las siguientes:</p>
+<table>
+<thead>
+<tr>
+<th>Medio de conexión</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aplicaciones de escritorio</td>
+<td>Herramientas gráficas como <strong>DBeaver</strong>, <strong>pgAdmin</strong>, <strong>MySQL Workbench</strong>, <strong>DB Browser for SQLite</strong>. Permiten explorar, consultar y administrar BD de forma visual.</td>
+</tr>
+<tr>
+<td>Aplicaciones desarrolladas en código</td>
+<td>Programas en <strong>Kotlin</strong>, <strong>Java</strong>, <strong>Python</strong>, <strong>C#</strong>, etc., mediante <strong>conectores</strong> como <strong>JDBC</strong>, <strong>psycopg2</strong>, <strong>ODBC</strong>, etc. para acceder a BD desde código.</td>
+</tr>
+<tr>
+<td>Línea de comandos</td>
+<td>Clientes como <code>psql</code> (PostgreSQL), <code>mysql</code>, <code>sqlite3</code>. Permiten ejecutar comandos SQL directamente desde terminal.</td>
+</tr>
+<tr>
+<td>Aplicaciones web</td>
+<td>Sitios web que acceden a BD desde el backend (por ejemplo, en Spring Boot, Node.js, Django, etc.).</td>
+</tr>
+<tr>
+<td>APIs REST o servidores intermedios</td>
+<td>Servicios web que conectan la BD con otras aplicaciones, actuando como puente o capa de seguridad.</td>
+</tr>
+<tr>
+<td>Aplicaciones móviles</td>
+<td>Apps Android/iOS que acceden a BD locales (como <strong>SQLite</strong>) o remotas (vía <strong>Firebase</strong>, API REST, etc.).</td>
+</tr>
+<tr>
+<td>Herramientas de integración de datos</td>
+<td>Software como <strong>Talend</strong>, <strong>Pentaho</strong>, <strong>Apache Nifi</strong> para migrar, transformar o sincronizar datos entre sistemas.</td>
+</tr>
+</tbody>
+</table>
+<p>De todas las formas posibles de interactuar con una base de datos, nos vamos a centrar en el uso de <strong>conectores JDBC (Java Database Connectivity)</strong>. Una aplicación (escrita en Kotlin, Java u otro lenguaje) puede leer, insertar o modificar información almacenada en una base de datos relacional si previamente se ha conectado al sitema gestor de base de datos (SGBD). <strong>JDBC</strong> es una API estándar de Java (y compatible con Kotlin) que permite conectarse a una BD, enviar instrucciones SQL y procesar los resultados manualmente. Es el método de más bajo nivel, pero ofrece un control total sobre lo que ocurre en la BD. Es ideal para aprender los fundamentos del acceso a datos y aprenderlo ayuda a entender mejor lo que hace un ORM por debajo. </p>
+<p>Sus principales características son:</p>
+<ul>
+<li>El programador escribe directamente las consultas SQL.</li>
+<li>Requiere gestionar manualmente conexiones, sentencias y resultados.</li>
+<li>Se necesita un driver específico (conector) para cada SGBD:</li>
+</ul>
+<p>A continuación se muestra su sintaxis general. Aunque puede variar según el SGBD con el que se trabaje. Por ejemplo en SQLite no se necesita usuario ni contraseña ya que es una base de datos local y embebida:</p>
+<div class="highlight"><pre><span></span><code>jdbc:&lt;gestor&gt;://&lt;host&gt;:&lt;puerto&gt;/&lt;nombre_base_datos&gt;
+</code></pre></div>
+<p><strong>Algunos ejemplos de conectores según el SGBD</strong></p>
+<table>
+<thead>
+<tr>
+<th>SGBD</th>
+<th>Conector (Driver JDBC)</th>
+<th>URL de conexión típica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PostgreSQL</td>
+<td>org.postgresql.Driver</td>
+<td>jdbc:postgresql://host:puerto/nombreBD</td>
+</tr>
+<tr>
+<td>MySQL / MariaDB</td>
+<td>com.mysql.cj.jdbc.Driver</td>
+<td>jdbc:mysql://host:puerto/nombreBD</td>
+</tr>
+<tr>
+<td>SQLite (embebido)</td>
+<td>org.sqlite.JDBC</td>
+<td>jdbc:sqlite:nombreBD</td>
+</tr>
+</tbody>
+</table>
+<p>También dependiendo del SGBD será necesario utilizar la dependencia adecuada en <strong>Gradle</strong> añadiendo las líneas correspondientes en el fichero <strong>build.gradle.kts</strong>. A continuación se muestran las líneas para los SGBD PostgreSQL, MySQL y SQLite.</p>
+<div class="highlight"><pre><span></span><code>dependencies {
+    implementation(&quot;org.postgresql:postgresql:42.7.1&quot;) //Postgres 
+    implementation(&quot;com.mysql:mysql-connector-j:8.3.0&quot;) //MySQL
+    implementation(&quot;org.xerial:sqlite-jdbc:3.43.0.0&quot;) //SQLite
+}
+</code></pre></div>
+<p>Hemos visto SQLite es una BD local y por tanto debe de estar dentro del proyecto, la ubicaremos en la carpeta <code>resources</code> ya que esta carpeta forma parte del classpath del proyecto y al compilarlo su contenido se copiará dentro del jar o build final. Así, si se comparte el proyecto, la BD viaja con él. </p>
+<p><span class="mis_ejemplos">Ejemplo 1: Conexión a SQLite</span> </p>
+<p>El siguiente ejemplo muestra como conectar a una BD <strong>SQLite</strong> llamada <code>florabotanica.sqlite</code> que se encuentra en la carpeta <code>resources</code> dentro de un proyecto en <strong>Kotlin</strong>.</p>
+<p><img alt="Imagen 1" src="img/BD/resources1.jpg" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">java.io.File</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.sql.DriverManager</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">dbPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;src/main/resources/florabotanica.sqlite&quot;</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Ruta de la BD: </span><span class="si">$</span><span class="n">dbPath</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;jdbc:sqlite:</span><span class="si">${</span><span class="n">dbPath</span><span class="si">}</span><span class="s">&quot;</span>
+<span class="w">    </span><span class="n">DriverManager</span><span class="p">.</span><span class="na">getConnection</span><span class="p">(</span><span class="n">url</span><span class="p">).</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Conexión establecida correctamente&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo 1</p>
+<ol>
+<li>Crea un proyecto kotlin con gradle o utiliza uno que ya tengas.</li>
+<li>Añade las dependencias para trabajar con SQLite.</li>
+<li>Descarga el fichero con la BD de ejemplo desde el siguiente enlace:
+<a florabotanica.sqlite="florabotanica.sqlite" href="material/florabotanica.sqlite">florabotanica.sqlite</a></li>
+<li>Copia el fichero en la carpeta correcta del proyecto.</li>
+<li>
+<p>Ejecuta el programa y comprueba que la salida por consola es la siguiente:</p>
+<p><span class="mi_consola">Ruta de la BD: F:...\src\main\resources\florabotanica.sqlite</span></p>
+<p><span class="mi_consola">Conexión establecida correctamente con SQLite</span></p>
+</li>
+</ol>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Práctica 2: Crea tu proyecto Gradle y conecta a tu base de datos</p>
+<ol>
+<li>Crea un nuevo proyecto en Kotlin con Gradle.</li>
+<li>Añade las dependencias para trabajar con SQLite.</li>
+<li>Copia la BD creada en la práctica anterior en la carpeta <code>resources</code>. Tu proyecto debe tener los mismos archivos que en la imagen del ejemplo anterior.</li>
+<li>Añade las líneas de código necesarias para conectar con tu BD y muestra un mensaje indicando si se ha establecido la conexión correctamente o no.</li>
+</ol>
+</div>
+<h2 id="23-operaciones-sobre-la-bd">2.3. Operaciones sobre la BD<a class="headerlink" href="#23-operaciones-sobre-la-bd" title="Permanent link">&para;</a></h2>
+<p>En <strong>JDBC</strong> (Java Database Connectivity), las operaciones sobre la base de datos se realizan  utilizando los siguientes objetos y métodos:</p>
+<ul>
+<li>
+<p><strong>Connection</strong>, establece el canal de comunicación con el SGBD (PostgreSQL, MySQL, etc.)</p>
+</li>
+<li>
+<p>Los objetos <strong>PreparedStatement</strong> y <strong>CreateStatement</strong> se utlizan para enviar consultas SQL desde el programa a la base de datos. A continuación se muestra una tabla con el uso de cada uno:</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Si necesitas...</th>
+<th>Usa...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consultas sin parámetros</td>
+<td><code>CreateStatement</code></td>
+</tr>
+<tr>
+<td>Consultas con datos del usuario</td>
+<td><code>PreparedStatement</code></td>
+</tr>
+<tr>
+<td>Seguridad frente a inyecciones SQL</td>
+<td><code>PreparedStatement</code></td>
+</tr>
+<tr>
+<td>Ejecutar muchas veces con distintos valores</td>
+<td><code>PreparedStatement</code></td>
+</tr>
+<tr>
+<td>Crear tablas o sentencias SQL complejas que no cambian</td>
+<td><code>CreateStatement</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Los métodos <strong>executeQuery()</strong>, <strong>executeUpdate()</strong> y <strong>execute()</strong> se utilizan para ejecutar sentencias SQL, pero se usan en contextos diferentes. A continuación se muestra una tabla con el uso de cada uno:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Uso principal</th>
+<th>Tipo de sentencia SQL</th>
+<th>Resultado que devuelve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>executeQuery()</strong></td>
+<td>Realizar consultas</td>
+<td>SELECT</td>
+<td>Objeto  <strong>ResultSet</strong> con el resultado de la consulta SQL. Permite recorrer fila a fila el conjunto de resultados, accediendo a cada campo por nombre o por posición</td>
+</tr>
+<tr>
+<td><strong>executeUpdate()</strong></td>
+<td>Realizar modificaciones</td>
+<td>INSERT, UPDATE, DELETE, DDL (CREATE, DROP, etc.)</td>
+<td>Entero con el número de filas afectadas</td>
+</tr>
+<tr>
+<td><strong>execute()</strong></td>
+<td>No se sabe de antemano qué tipo de sentencia SQL se va a ejecutar (consulta o modificación)</td>
+<td>Sentencias SQL que pueden devolver varios resultados</td>
+<td>Booleano <strong>true</strong> si el resultado es un ResultSet (SELECT) y <strong>false</strong> si el resultado es un entero (INSERT, UPDATE, DELETE,CREATE, ALTER)</td>
+</tr>
+</tbody>
+</table>
+<p><span class="mi_h3">Liberación de recursos</span></p>
+<p>Cuando una aplicación accede a una base de datos, abre varios recursos internos que consumen memoria y conexiones activas en el sistema:</p>
+<ul>
+<li>La conexión con el servidor de base de datos (Connection).</li>
+<li>Las sentencias SQL preparadas (Statement o PreparedStatement).</li>
+<li>El resultado de la consulta (ResultSet).</li>
+</ul>
+<p>Estos recursos no se liberan automáticamente cuando se termina su uso (especialmente en Java o Kotlin con JDBC). Si no se cierran correctamente, se pueden producir problemas como:</p>
+<ul>
+<li>Fugas de memoria.</li>
+<li>Bloqueo de conexiones (demasiadas conexiones abiertas).</li>
+<li>Degradación del rendimiento.</li>
+<li>Errores inesperados en la aplicación.</li>
+</ul>
+<p>Para liberar estos recursos hay dos opciones:</p>
+<p><strong>1. Usar try–catch–finally manual</strong></p>
+<p>Cuándo:</p>
+<ul>
+<li>
+<p>No estás en Kotlin o no puedes usar .use.</p>
+</li>
+<li>
+<p>Necesitas capturar y manejar excepciones dentro del mismo método.</p>
+</li>
+<li>
+<p>Necesitas lógica extra antes o después de cerrar el recurso (por ejemplo, reintentos, logging detallado, liberar múltiples recursos en un orden específico).</p>
+</li>
+<li>
+<p>Estás trabajando en un proyecto que sigue un estilo más clásico de Java.</p>
+</li>
+</ul>
+<p><strong>2. Utilización de .use { ... }</strong></p>
+<p>Es la que utilizaremos en nuestros proyectos.</p>
+<p>Se recomienda utilizarlo si:</p>
+<ul>
+<li>
+<p>Estás trabajando con un recurso que implementa AutoCloseable (Connection, Statement, ResultSet, File, etc.).</p>
+</li>
+<li>
+<p>Solo necesitas abrir, usar y cerrar el recurso de forma automática.</p>
+</li>
+<li>
+<p>No necesitas lógica compleja de manejo de excepciones dentro del mismo bloque.</p>
+</li>
+</ul>
+<p>Ventajas:</p>
+<ul>
+<li>
+<p>Código más limpio y legible.</p>
+</li>
+<li>
+<p>Cierra automáticamente el recurso aunque ocurra una excepción.</p>
+</li>
+<li>
+<p>Evita errores de olvidar close().</p>
+</li>
+</ul>
+<p><span class="mis_ejemplos">Ejemplo 2: Utilización de close()</span></p>
+<p>A continuación tienes un ejemplo en el que se declara una constante con la ruta a la BD, se establece la conexión, se consultan datos y se cierran los recursos abiertos (ResultSet, Statement y Connection) utilizando <strong>close()</strong> dentro de un bloque <strong>finally</strong> para garantizar su cierre incluso si ocurre un error. El orden correcto de cierre es del más interno al más externo:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">java.sql.Connection</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.sql.Statement</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.sql.ResultSet</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.sql.DriverManager</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.sql.SQLException</span>
+
+<span class="c1">// Ruta al archivo de base de datos SQLite</span>
+<span class="kd">const</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">URL_BD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;jdbc:sqlite:src/main/resources/florabotanica.sqlite&quot;</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">conn</span><span class="p">:</span><span class="w"> </span><span class="n">Connection? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">stmt</span><span class="p">:</span><span class="w"> </span><span class="n">Statement? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">rs</span><span class="p">:</span><span class="w"> </span><span class="n">ResultSet? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
+
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">conn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DriverManager</span><span class="p">.</span><span class="na">getConnection</span><span class="p">(</span><span class="n">URL_BD</span><span class="p">)</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Conectado a la BD&quot;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">stmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">conn</span><span class="p">.</span><span class="na">createStatement</span><span class="p">()</span>
+<span class="w">        </span><span class="n">rs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stmt</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">(</span><span class="s">&quot;SELECT * FROM plantas&quot;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">next</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&quot;nombre_comun&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">SQLException</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Error al conectar o consultar la base de datos: </span><span class="si">${</span><span class="n">e</span><span class="p">.</span><span class="na">message</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">rs</span><span class="o">?.</span><span class="na">close</span><span class="p">()</span>
+<span class="w">            </span><span class="n">stmt</span><span class="o">?.</span><span class="na">close</span><span class="p">()</span>
+<span class="w">            </span><span class="n">conn</span><span class="o">?.</span><span class="na">close</span><span class="p">()</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Conexión cerrada correctamente&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Error al cerrar los recursos: </span><span class="si">${</span><span class="n">e</span><span class="p">.</span><span class="na">message</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo 2</p>
+<p>Prueba el código de ejemplo y verifica que funciona correctamente.</p>
+</div>
+<p><span class="mis_ejemplos">Ejemplo 3: Utilización de .use</span> </p>
+<p>A continuación se muestra un <strong>ejemplo con .use (sin necesidad de cerrar recursos manualmente)</strong> que realiza la misma consulta que el ejemplo anterior. Ahora los recursos abiertos de cerrarán automáticamente. Además, por organización del código, se ha declarado una función para conectar a la BD:</p>
+<ul>
+<li>
+<p><strong>conn.use { ... }</strong> cierra la conexión automáticamente al final del bloque.</p>
+</li>
+<li>
+<p><strong>stmt.use { ... }</strong> cierra el Statement automáticamente.</p>
+</li>
+<li>
+<p><strong>ResultSet</strong> se cierra cuando cierras el Statement.</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">java.sql.Connection</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.sql.DriverManager</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.sql.SQLException</span>
+
+<span class="c1">// Ruta al archivo de base de datos SQLite</span>
+<span class="kd">const</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">URL_BD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;jdbc:sqlite:src/main/resources/florabotanica.sqlite&quot;</span>
+
+<span class="c1">// Obtener conexión</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">conectarBD</span><span class="p">():</span><span class="w"> </span><span class="n">Connection? </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">DriverManager</span><span class="p">.</span><span class="na">getConnection</span><span class="p">(</span><span class="n">URL_BD</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">SQLException</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">()</span>
+<span class="w">        </span><span class="kc">null</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">conectarBD</span><span class="p">()</span><span class="o">?.</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Conectado a la BD&quot;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">conn</span><span class="p">.</span><span class="na">createStatement</span><span class="p">().</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">stmt</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="n">stmt</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">(</span><span class="s">&quot;SELECT * FROM plantas&quot;</span><span class="p">).</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">next</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">println</span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&quot;nombre_comun&quot;</span><span class="p">))</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;No se pudo conectar&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo 3</p>
+<p>Prueba el código de ejemplo y verifica que funciona correctamente.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Práctica 3: Mejora tu proyecto</p>
+<ol>
+<li>Declara una constante con la ruta a la BD.</li>
+<li>Declara una función para conectar a la BD.</li>
+<li>En el main conecta con la BD y realiza una consulta sobre tus datos utilizando .use (para no tener que cerrar recursos manualmente).</li>
+</ol>
+</div>
+<h2 id="24-objetos-de-acceso-a-datos-dao">2.4. Objetos de acceso a datos (DAO)<a class="headerlink" href="#24-objetos-de-acceso-a-datos-dao" title="Permanent link">&para;</a></h2>
+<p>Los objetos de acceso a datos son una buena forma de organizar nuestro código para manejar las diferentes operaciones CRUD de acceso a los datos. Es el Data Access Object (DAO) y algunas de las ventajas de utilizar estos objetos son las siguientes:</p>
+<ul>
+<li>Organización: todo el código SQL está en un único lugar.</li>
+<li>Reutilización: puedes llamar a PlantasDAO.listarPlantas() desde distintos sitios sin repetir la consulta.</li>
+<li>Mantenibilidad: si cambia la base de datos, solo tocas el DAO.</li>
+<li>Claridad: el resto de tu app se lee mucho más limpio, sin SQL mezclado.</li>
+</ul>
+<p><span class="mis_ejemplos">Ejemplo 4: DAO</span> </p>
+<p>El siguiente ejemplo es el DAO para la tabla <code>plantas</code> de la BD <code>florabotanica.sqlite</code>. La estructura de la tabla <code>plantas</code> es la siguiente:</p>
+<p><img alt="Imagen 2" src="img/BD/3_plantas.png" /></p>
+<p>Creamos un archivo <strong>PlantasDAO.kt</strong> en el que declararemos una data class con la misma estructura que la tabla <code>plantas</code> y las funciones para leer la información de la tabla, añadir registros nuevos, modificar la información existente y borrarla. El código fuente es:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Planta</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">id_planta</span><span class="p">:</span><span class="w"> </span><span class="kt">Int?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="c1">// lo genera SQLite automáticamente</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">nombreComun</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">nombreCientifico</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">stock</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">precio</span><span class="p">:</span><span class="w"> </span><span class="kt">Double</span>
+<span class="p">)</span>
+
+<span class="kd">object</span><span class="w"> </span><span class="nc">PlantasDAO</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">listarPlantas</span><span class="p">():</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Planta</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">lista</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mutableListOf</span><span class="o">&lt;</span><span class="n">Planta</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="w">        </span><span class="n">conectarBD</span><span class="p">()</span><span class="o">?.</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="n">conn</span><span class="p">.</span><span class="na">createStatement</span><span class="p">().</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">stmt</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">stmt</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">(</span><span class="s">&quot;SELECT * FROM plantas&quot;</span><span class="p">).</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">next</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">lista</span><span class="p">.</span><span class="na">add</span><span class="p">(</span>
+<span class="w">                            </span><span class="n">Planta</span><span class="p">(</span>
+<span class="w">                                </span><span class="n">id_planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getInt</span><span class="p">(</span><span class="s">&quot;id_planta&quot;</span><span class="p">),</span>
+<span class="w">                                </span><span class="n">nombreComun</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&quot;nombre_comun&quot;</span><span class="p">),</span>
+<span class="w">                                </span><span class="n">nombreCientifico</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&quot;nombre_cientifico&quot;</span><span class="p">),</span>
+<span class="w">                                </span><span class="n">stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getInt</span><span class="p">(</span><span class="s">&quot;stock&quot;</span><span class="p">),</span>
+<span class="w">                                </span><span class="n">precio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getDouble</span><span class="p">(</span><span class="s">&quot;precio&quot;</span><span class="p">)</span>
+<span class="w">                            </span><span class="p">)</span>
+<span class="w">                        </span><span class="p">)</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;No se pudo establecer la conexión.&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">lista</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Consultar planta por ID</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">consultarPlantaPorId</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="n">Planta? </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nv">planta</span><span class="p">:</span><span class="w"> </span><span class="n">Planta? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">        </span><span class="n">conectarBD</span><span class="p">()</span><span class="o">?.</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="n">conn</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="s">&quot;SELECT * FROM plantas WHERE id_planta = ?&quot;</span><span class="p">).</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pstmt</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">pstmt</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">)</span>
+<span class="w">                </span><span class="n">pstmt</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">().</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">next</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Planta</span><span class="p">(</span>
+<span class="w">                            </span><span class="n">id_planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getInt</span><span class="p">(</span><span class="s">&quot;id_planta&quot;</span><span class="p">),</span>
+<span class="w">                            </span><span class="n">nombreComun</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&quot;nombre_comun&quot;</span><span class="p">),</span>
+<span class="w">                            </span><span class="n">nombreCientifico</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&quot;nombre_cientifico&quot;</span><span class="p">),</span>
+<span class="w">                            </span><span class="n">stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getInt</span><span class="p">(</span><span class="s">&quot;stock&quot;</span><span class="p">),</span>
+<span class="w">                            </span><span class="n">precio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getDouble</span><span class="p">(</span><span class="s">&quot;precio&quot;</span><span class="p">)</span>
+<span class="w">                        </span><span class="p">)</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;No se pudo establecer la conexión.&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">planta</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">insertarPlanta</span><span class="p">(</span><span class="n">planta</span><span class="p">:</span><span class="w"> </span><span class="n">Planta</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">conectarBD</span><span class="p">()</span><span class="o">?.</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="n">conn</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span>
+<span class="w">                </span><span class="s">&quot;INSERT INTO plantas(nombre_comun, nombre_cientifico, stock, precio) VALUES (?, ?, ?, ?)&quot;</span>
+<span class="w">            </span><span class="p">).</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pstmt</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">pstmt</span><span class="p">.</span><span class="na">setString</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">planta</span><span class="p">.</span><span class="na">nombreComun</span><span class="p">)</span>
+<span class="w">                </span><span class="n">pstmt</span><span class="p">.</span><span class="na">setString</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">planta</span><span class="p">.</span><span class="na">nombreCientifico</span><span class="p">)</span>
+<span class="w">                </span><span class="n">pstmt</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">planta</span><span class="p">.</span><span class="na">stock</span><span class="p">)</span>
+<span class="w">                </span><span class="n">pstmt</span><span class="p">.</span><span class="na">setDouble</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="n">planta</span><span class="p">.</span><span class="na">precio</span><span class="p">)</span>
+<span class="w">                </span><span class="n">pstmt</span><span class="p">.</span><span class="na">executeUpdate</span><span class="p">()</span>
+<span class="w">                </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Planta &#39;</span><span class="si">${</span><span class="n">planta</span><span class="p">.</span><span class="na">nombreComun</span><span class="si">}</span><span class="s">&#39; insertada con éxito.&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;No se pudo establecer la conexión.&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">actualizarPlanta</span><span class="p">(</span><span class="n">planta</span><span class="p">:</span><span class="w"> </span><span class="n">Planta</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">planta</span><span class="p">.</span><span class="na">id_planta</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;No se puede actualizar una planta sin id.&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">conectarBD</span><span class="p">()</span><span class="o">?.</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="n">conn</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span>
+<span class="w">                </span><span class="s">&quot;UPDATE plantas SET nombre_comun = ?, nombre_cientifico = ?, stock = ?, precio = ? WHERE id_planta = ?&quot;</span>
+<span class="w">            </span><span class="p">).</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pstmt</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">pstmt</span><span class="p">.</span><span class="na">setString</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">planta</span><span class="p">.</span><span class="na">nombreComun</span><span class="p">)</span>
+<span class="w">                </span><span class="n">pstmt</span><span class="p">.</span><span class="na">setString</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">planta</span><span class="p">.</span><span class="na">nombreCientifico</span><span class="p">)</span>
+<span class="w">                </span><span class="n">pstmt</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">planta</span><span class="p">.</span><span class="na">stock</span><span class="p">)</span>
+<span class="w">                </span><span class="n">pstmt</span><span class="p">.</span><span class="na">setDouble</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="n">planta</span><span class="p">.</span><span class="na">precio</span><span class="p">)</span>
+<span class="w">                </span><span class="n">pstmt</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">planta</span><span class="p">.</span><span class="na">id_planta</span><span class="p">)</span>
+<span class="w">                </span><span class="kd">val</span><span class="w"> </span><span class="nv">filas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pstmt</span><span class="p">.</span><span class="na">executeUpdate</span><span class="p">()</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">filas</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Planta con id=</span><span class="si">${</span><span class="n">planta</span><span class="p">.</span><span class="na">id_planta</span><span class="si">}</span><span class="s"> actualizada con éxito.&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;No se encontró ninguna planta con id=</span><span class="si">${</span><span class="n">planta</span><span class="p">.</span><span class="na">id_planta</span><span class="si">}</span><span class="s">.&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;No se pudo establecer la conexión.&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">eliminarPlanta</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">conectarBD</span><span class="p">()</span><span class="o">?.</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="n">conn</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="s">&quot;DELETE FROM plantas WHERE id_planta = ?&quot;</span><span class="p">).</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pstmt</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">pstmt</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">)</span>
+<span class="w">                </span><span class="kd">val</span><span class="w"> </span><span class="nv">filas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pstmt</span><span class="p">.</span><span class="na">executeUpdate</span><span class="p">()</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">filas</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Planta con id=</span><span class="si">$</span><span class="n">id</span><span class="s"> eliminada correctamente.&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;No se encontró ninguna planta con id=</span><span class="si">$</span><span class="n">id</span><span class="s">.&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;No se pudo establecer la conexión.&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>La llamada a estas funciones desde <strong>main.kt</strong> podría ser:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">// Listar todas las plantas</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Lista de plantas:&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">PlantasDAO</span><span class="p">.</span><span class="na">listarPlantas</span><span class="p">().</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot; - [</span><span class="si">${</span><span class="nb">it</span><span class="p">.</span><span class="na">id_planta</span><span class="si">}</span><span class="s">] </span><span class="si">${</span><span class="nb">it</span><span class="p">.</span><span class="na">nombreComun</span><span class="si">}</span><span class="s"> (</span><span class="si">${</span><span class="nb">it</span><span class="p">.</span><span class="na">nombreCientifico</span><span class="si">}</span><span class="s">), stock </span><span class="si">${</span><span class="nb">it</span><span class="p">.</span><span class="na">stock</span><span class="si">}</span><span class="s"> unidades, precio: </span><span class="si">${</span><span class="nb">it</span><span class="p">.</span><span class="na">precio</span><span class="si">}</span><span class="s"> €&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Consultar planta por ID</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PlantasDAO</span><span class="p">.</span><span class="na">consultarPlantaPorId</span><span class="p">(</span><span class="m">3</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">planta</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Planta encontrada: [</span><span class="si">${</span><span class="n">planta</span><span class="p">.</span><span class="na">id_planta</span><span class="si">}</span><span class="s">] </span><span class="si">${</span><span class="n">planta</span><span class="p">.</span><span class="na">nombreComun</span><span class="si">}</span><span class="s"> (</span><span class="si">${</span><span class="n">planta</span><span class="p">.</span><span class="na">nombreCientifico</span><span class="si">}</span><span class="s">), stock </span><span class="si">${</span><span class="n">planta</span><span class="p">.</span><span class="na">stock</span><span class="si">}</span><span class="s"> unidades, precio: </span><span class="si">${</span><span class="n">planta</span><span class="p">.</span><span class="na">precio</span><span class="si">}</span><span class="s"> €&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;No se encontró ninguna planta con ese ID.&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Insertar plantas</span>
+<span class="w">    </span><span class="n">PlantasDAO</span><span class="p">.</span><span class="na">insertarPlanta</span><span class="p">(</span>
+<span class="w">        </span><span class="n">Planta</span><span class="p">(</span>
+<span class="w">            </span><span class="n">nombreComun</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Palmera&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">nombreCientifico</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Arecaceae&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span>
+<span class="w">            </span><span class="n">precio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">50.5</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// Actualizar planta con id=1</span>
+<span class="w">    </span><span class="n">PlantasDAO</span><span class="p">.</span><span class="na">actualizarPlanta</span><span class="p">(</span>
+<span class="w">        </span><span class="n">Planta</span><span class="p">(</span>
+<span class="w">            </span><span class="n">id_planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span>
+<span class="w">            </span><span class="n">nombreComun</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Aloe Arborescens&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">nombreCientifico</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Aloe barbadensis miller&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">20</span><span class="p">,</span>
+<span class="w">            </span><span class="n">precio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5.8</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// Eliminar planta con id=2</span>
+<span class="w">    </span><span class="n">PlantasDAO</span><span class="p">.</span><span class="na">eliminarPlanta</span><span class="p">(</span><span class="m">2</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo 4</p>
+<p>Prueba el código de ejemplo y verifica que funciona correctamente.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Práctica 4: Trabaja con tu base de datos</p>
+<ol>
+<li>Añade a tu proyecto un objetos de acceso a datos (DAO) para manejar las diferentes operaciones CRUD de la primera tabla de tu BD.</li>
+<li>Utiliza .use en todas tus operaciones para asegurarte de que se cierran correctamente todos los recursos.</li>
+<li>Añade a tu proyecto un menú en tu función <strong>main</strong> para llamar a todas las operaciones CRUD que acabas de crear (pide la información por consola para las funciones que requieran el paso de información como parámetro) y comprueba que todas funcionan correctamente.</li>
+<li>Añade otras dos tablas a tu BD y sus correspondientes DAO a tu proyecto.</li>
+<li>Amplía el menú para poder gestionar los datos de todas las tablas.</li>
+</ol>
+</div>
+<h2 id="25-transacciones-y-excepciones">2.5. Transacciones y excepciones<a class="headerlink" href="#25-transacciones-y-excepciones" title="Permanent link">&para;</a></h2>
+<p><span class="mi_h3">Transacciones</span></p>
+<p>Una transacción es una secuencia de una o más operaciones sobre una base de datos que deben ejecutarse como una unidad indivisible. El objetivo es asegurar que todas las operaciones se completen con éxito o, en caso de fallo, ninguna de ellas se aplique, manteniendo así la base de datos en un estado consistente. Por ejemplo, en una transferencia bancaria, si falla el abono en una cuenta, se cancela el débito en la otra.</p>
+<p>Las transacciones se gestionan mediante comandos como BEGIN TRANSACTION (para iniciar), COMMIT (para confirmar los cambios) y ROLLBACK (para deshacer los cambios en caso de error). Este mecanismo protege la base de datos frente a fallos parciales y situaciones de concurrencia, asegurando que los datos siempre reflejen una realidad válida y coherente.</p>
+<p><strong>Propiedades de una transacción (ACID)</strong></p>
+<p>Las transacciones garantizan propiedades fundamentales, conocidas por el acrónimo ACID:</p>
+<table>
+<thead>
+<tr>
+<th>Propiedad</th>
+<th>Significado breve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Atomicidad</td>
+<td>Todas las operaciones se ejecutan o ninguna lo hace</td>
+</tr>
+<tr>
+<td>Consistencia</td>
+<td>El sistema pasa de un estado válido a otro</td>
+</tr>
+<tr>
+<td>Isolación</td>
+<td>No interfiere con otras transacciones simultáneas</td>
+</tr>
+<tr>
+<td>Durabilidad</td>
+<td>Una vez confirmada, el cambio permanece</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Comandos clave</strong></p>
+<p>Para controlar correctamente una transacción desde el código, necesitamos usar tres comandos clave:</p>
+<ul>
+<li><strong>commit()</strong>: Confirma los cambios realizados por la transacción, haciéndolos permanentes.</li>
+<li><strong>rollback()</strong>: Revierte todos los cambios realizados durante la transacción actual, volviendo al estado anterior.</li>
+</ul>
+<p>Por defecto, muchas conexiones JDBC están en modo <strong>auto-commit</strong>, es decir, cada operación se ejecuta y confirma automáticamente. Para usar transacciones de forma manual, debes desactivar este modo:</p>
+<div class="highlight"><pre><span></span><code>    conexion.autoCommit = false
+</code></pre></div>
+<p><span class="mi_h3">Excepciones</span></p>
+<p>El manejo de excepciones en las transacciones es absolutamente necesario para garantizar que los datos de la base de datos no queden en un estado inconsistente o corrupto cuando ocurre un error durante una operación.</p>
+<p>Una transacción sin control de errores no es una transacción segura. Siempre hay que estar preparado para deshacer todo si algo sale mal.</p>
+<p>Cuando realizamos varias operaciones dentro de una misma transacción (por ejemplo, una transferencia bancaria), pueden ocurrir errores como:</p>
+<ul>
+<li>un fallo de conexión,</li>
+<li>un ID incorrecto,</li>
+<li>un valor nulo inesperado,</li>
+<li>un error lógico como saldo insuficiente.</li>
+</ul>
+<p>Si no controlamos esos errores, la base de datos podría:</p>
+<ul>
+<li>Aplicar solo algunas de las operaciones</li>
+<li>Dejar datos parcialmente modificados</li>
+<li>Generar resultados incorrectos para otros usuarios</li>
+</ul>
+<p>Para evitarlo se utiliza un bloque <strong>try-catch</strong> que:</p>
+<ul>
+<li>Llama a commit() si todo sale bien</li>
+<li>Llama a rollback() si ocurre cualquier excepción</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">conexion</span><span class="p">.</span><span class="na">autoCommit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+
+<span class="w">            </span><span class="c1">// Varias operaciones SQL...</span>
+<span class="w">            </span><span class="n">conexion</span><span class="p">.</span><span class="na">commit</span><span class="p">()</span><span class="w">  </span><span class="c1">// Todo bien</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">conexion</span><span class="p">.</span><span class="na">rollback</span><span class="p">()</span><span class="w">  </span><span class="c1">// Algo falló → revertir</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Error en la transacción. Cambios anulados.&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+</code></pre></div>
+<p><span class="mis_ejemplos">Ejemplo 5: commit y rollback</span> </p>
+<p>Para el siguiente ejemplo se han añadido a la BD las tablas <code>jardines</code>y <code>jardines_plantas</code> cuya estructura es la siguiente:</p>
+<p><img alt="Imagen 3" src="img/BD/4_jardines.png" /></p>
+<p><img alt="Imagen 4" src="img/BD/4_jardines_plantas.png" /></p>
+<p>Supongamos que queremos llevar varias unidades de una planta a un jardín. El programa debe actualizar el stock en la tabla <code>plantas</code> (restando las unidades correspondientes) y añadir un registro en la tabla <code>jardines_plantas</code> indicando el jadín, la planta y la cantidad. Ambas operaciones deben realizarse juntas, o no realizarse ninguna. El código sería el siguiente:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">llevarPlantasAJardin</span><span class="p">(</span><span class="n">id_jardin</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">id_planta</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">cantidad</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">conectarBD</span><span class="p">()</span><span class="o">?.</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">conn</span><span class="p">.</span><span class="na">autoCommit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w">  </span><span class="c1">// Iniciar transacción manual</span>
+
+<span class="w">            </span><span class="c1">// Restar stock a la planta</span>
+<span class="w">            </span><span class="n">conn</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="s">&quot;UPDATE plantas SET stock = stock - </span><span class="si">$</span><span class="n">cantidad</span><span class="s"> WHERE id_planta = ?&quot;</span><span class="p">).</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">stock</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">stock</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">id_planta</span><span class="p">)</span>
+<span class="w">                </span><span class="n">stock</span><span class="p">.</span><span class="na">executeUpdate</span><span class="p">()</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="c1">// Añadir línea en tabla jardines_plantas</span>
+<span class="w">            </span><span class="n">conn</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="s">&quot;INSERT INTO jardines_plantas(id_jardin, id_planta, cantidad) VALUES (?, ?, ?)&quot;</span><span class="p">).</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">plantar</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">plantar</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">id_jardin</span><span class="p">)</span>
+<span class="w">                </span><span class="n">plantar</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">id_planta</span><span class="p">)</span>
+<span class="w">                </span><span class="n">plantar</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">cantidad</span><span class="p">)</span>
+<span class="w">                </span><span class="n">plantar</span><span class="p">.</span><span class="na">executeUpdate</span><span class="p">()</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="c1">// Confirmar cambios</span>
+<span class="w">            </span><span class="n">conn</span><span class="p">.</span><span class="na">commit</span><span class="p">()</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Transacción realizada con éxito.&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">SQLException</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="na">message</span><span class="o">?.</span><span class="na">contains</span><span class="p">(</span><span class="s">&quot;UNIQUE constraint failed&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Intento de insertar clave duplicada&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="n">conn</span><span class="p">.</span><span class="na">rollback</span><span class="p">()</span>
+<span class="w">                </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Transacción revertida.&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">throw</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="c1">// otros errores, relanzamos</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Código que se ejecuta siempre</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Fin del programa.&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Si no se produce ningún error se hará el <code>commit</code> y en caso contrario el <code>rollback</code></p>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo 5</p>
+<p>Prueba el código de ejemplo y verifica que funciona correctamente.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Práctica 5: Amplía tu proyecto</p>
+<p>Incluye transacciones y control de errores mediante la captura de excepciones.</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Entrega 1</p>
+<p>Entrega en Aules la carpeta <code>main</code> de tu proyecto comprimida en formato .zip</p>
+<p><strong>IMPORTANTE</strong>: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.</p>
+</div>
+<h2 id="26-funciones-y-procedimientos-almacenados">2.6. Funciones y procedimientos almacenados<a class="headerlink" href="#26-funciones-y-procedimientos-almacenados" title="Permanent link">&para;</a></h2>
+<p>Las funciones (FUNCTION) y los procedimientos (PROCEDURE) <strong>no se crean desde el lenguaje Kotlin</strong>, ya que son elementos propios del SGBD. Para definirlos, se utiliza SQL y se ejecutan <strong>directamente sobre la base de datos</strong> a través de un cliente SQL.</p>
+<p>Tanto las funciones como los procedimientos almacenados son bloques de código que se guardan en el servidor de la base de datos y que encapsulan una serie de instrucciones SQL.</p>
+<p>Se usan para:</p>
+<ul>
+<li>Reutilizar operaciones complejas</li>
+<li>Organizar mejor la lógica de negocio</li>
+<li>Mejorar el rendimiento (menos tráfico entre app y BD)</li>
+<li>Mantener la integridad de datos</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Función</th>
+<th>Procedimiento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Devuelve</td>
+<td>Un valor simple</td>
+<td>Un conjunto de datos o varios valores</td>
+</tr>
+<tr>
+<td>Llamada SQL</td>
+<td><code>SELECT fn_total_valor_planta(3)</code></td>
+<td><code>CALL sp_listar_plantas_por_jardin(1)</code></td>
+</tr>
+<tr>
+<td>Llamada en Kotlin</td>
+<td><code>SELECT fn...</code> con <code>PreparedStatement</code></td>
+<td><code>CALL sp...</code> con <code>CallableStatement</code></td>
+</tr>
+<tr>
+<td>Uso típico</td>
+<td>Cálculos</td>
+<td>Listados, inserciones, actualizaciones</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p><strong>SQLite</strong> no soporta funciones ni procedimientos almacenados como lo hacen otros SGBD, por eso a partir de aquí seguiremos trabajando en MySQL.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Práctica 6: Servidor MySQL</p>
+<ol>
+<li>Monta tu servidor virtual siguiendo los pasos del documento <a href="AWSlab.html">AWS Learner Lab</a> e instala en él tu servidor MySQL siguiendo los pasos del documento <a href="mysql.html">Instalación MySQL en EC2</a></li>
+<li>Replica tu base de datos <code>SQLite</code> en <code>MySQL</code> dentro del servidor que acabas de crear. Puedes utilizar la herramienta <a href="dbeaver.html">DBeaver</a> para crear las tablas e insertar los registros en ellas.</li>
+<li>Haz una copia de tu proyecto y elimina todo lo relacionado con SQLite (incluido el archivo .sqlite).</li>
+<li>Añade las líneas necesarias para conectar a tu BD MySQL.</li>
+<li>Comprueba que la aplicación se está conectando a MySQL correctamente y que todas las opciones del menú siguen funcionando.</li>
+</ol>
+</div>
+<p><span class="mi_h3">Funciones</span></p>
+<p>Una <strong>función</strong> está diseñada para <strong>calcular y devolver un resultado</strong>. Se puede usar directamente dentro de una consulta SQL como parte de un SELECT, WHERE, ORDER BY, etc. Las funciones siempre devuelven un valor. La sintaxis general para crear una función en MySQL es la siguiente:</p>
+<div class="highlight"><pre><span></span><code><span class="k">DELIMITER</span><span class="w"> </span><span class="o">//</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">nombre_funcion</span><span class="p">(</span><span class="n">parámetro1</span><span class="w"> </span><span class="n">tipo</span><span class="p">,</span><span class="w"> </span><span class="n">parámetro2</span><span class="w"> </span><span class="n">tipo</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span>
+<span class="k">RETURNS</span><span class="w"> </span><span class="n">tipo_dato</span>
+<span class="p">[</span><span class="k">DETERMINISTIC</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">DETERMINISTIC</span><span class="p">]</span>
+<span class="p">[</span><span class="k">READS</span><span class="w"> </span><span class="k">SQL</span><span class="w"> </span><span class="k">DATA</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">MODIFIES</span><span class="w"> </span><span class="k">SQL</span><span class="w"> </span><span class="k">DATA</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">NO</span><span class="w"> </span><span class="k">SQL</span><span class="p">]</span>
+<span class="k">BEGIN</span>
+<span class="w">    </span><span class="c1">-- Declaraciones opcionales</span>
+<span class="w">    </span><span class="k">DECLARE</span><span class="w"> </span><span class="n">variable_local</span><span class="w"> </span><span class="n">tipo</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">-- Lógica de la función</span>
+<span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...;</span>
+
+<span class="w">    </span><span class="c1">-- Retornar un valor</span>
+<span class="w">    </span><span class="k">RETURN</span><span class="w"> </span><span class="n">variable_local</span><span class="p">;</span>
+<span class="k">END</span>
+<span class="o">//</span>
+
+<span class="k">DELIMITER</span><span class="w"> </span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parte</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DELIMITER //</code></td>
+<td>Cambia el delimitador temporalmente (porque dentro de la función usas <code>;</code>).</td>
+</tr>
+<tr>
+<td><code>CREATE FUNCTION nombre_funcion</code></td>
+<td>Define la función y su nombre.</td>
+</tr>
+<tr>
+<td><code>RETURNS tipo_dato</code></td>
+<td>Especifica el tipo de valor que devolverá (<code>INT</code>, <code>DOUBLE</code>, <code>VARCHAR(n)</code>, etc.).</td>
+</tr>
+<tr>
+<td><code>DETERMINISTIC</code></td>
+<td>Indica que siempre devuelve el mismo resultado para los mismos parámetros. Esto permite que el optimizador de MySQL y los motores de replicación <strong>cacheen</strong> resultados o eviten reevaluaciones innecesarias.</td>
+</tr>
+<tr>
+<td><code>NO DETERMINISTIC</code></td>
+<td>Indica que el resultado puede variar aunque los argumentos sean iguales, por ejemplo si se usan funciones como RAND(), NOW(), etc.</td>
+</tr>
+<tr>
+<td><code>BEGIN ... END</code></td>
+<td>Marca el bloque de instrucciones.</td>
+</tr>
+<tr>
+<td><code>DECLARE</code></td>
+<td>Declara variables locales (opcional).</td>
+</tr>
+<tr>
+<td><code>RETURN</code></td>
+<td>Devuelve un único valor.</td>
+</tr>
+<tr>
+<td><code>DELIMITER ;</code></td>
+<td>Restablece el delimitador habitual.</td>
+</tr>
+</tbody>
+</table>
+<p><span class="mis_ejemplos">Ejemplo 6: Trabajar con funciones</span></p>
+<p>El siguiente ejemplo crea una función que devuelve el valor total del stock de una planta (stock × precio).</p>
+<div class="highlight"><pre><span></span><code><span class="k">DELIMITER</span><span class="w"> </span><span class="o">//</span>
+
+<span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">fn_total_valor_planta</span><span class="p">;</span>
+<span class="o">//</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">fn_total_valor_planta</span><span class="p">(</span><span class="n">p_id_planta</span><span class="w"> </span><span class="nb">INT</span><span class="p">)</span>
+<span class="w">  </span><span class="k">RETURNS</span><span class="w"> </span><span class="n">DOUBLE</span>
+<span class="w">  </span><span class="k">DETERMINISTIC</span>
+<span class="k">BEGIN</span>
+<span class="w">  </span><span class="k">DECLARE</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="n">DOUBLE</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">SET</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">stock</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">precio</span><span class="w"> </span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">plantas</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id_planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p_id_planta</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">RETURN</span><span class="w"> </span><span class="n">total</span><span class="p">;</span>
+
+<span class="k">END</span><span class="p">;</span>
+<span class="o">//</span>
+
+<span class="k">DELIMITER</span><span class="w"> </span><span class="p">;</span>
+</code></pre></div>
+<p>Para que la función se guarde en la BD hay que ejecutar el código anterior como un script SQL. El resultado será el siguiente:</p>
+<p><img alt="Imagen 5" src="img/BD/9_fun2.jpg" /></p>
+<p>Una vez guardada, la podemos llamar desde dentro de la propia BD ejecutando el script SQL:
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">fn_total_valor_planta</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</code></pre></div></p>
+<p>En este caso el resultado de la ejecución es el que se muestra en la siguiente imagen:</p>
+<p><img alt="Imagen 6" src="img/BD/6_fun.jpg" /></p>
+<p>Una vez que las funciones están creados en la base de datos, se pueden utilizar perfectamente desde Kotlin a través de JDBC, igual que se hace con cualquier consulta SQL y se gestionan mediante objetos <code>PreparedStatement</code>. Las funciones se invocan con <code>SELECT nombre_funcion(...)</code>. A continuación se muestra el código necesario para realizar la llamada desde Kotlin:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">llamar_fn_total_valor_planta</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">){</span>
+<span class="w">    </span><span class="n">conectarBD</span><span class="p">()</span><span class="o">?.</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;SELECT fn_total_valor_planta(?)&quot;</span>
+<span class="w">        </span><span class="n">conn</span><span class="p">.</span><span class="na">prepareStatement</span><span class="p">(</span><span class="n">sql</span><span class="p">).</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">stmt</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="n">stmt</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">)</span>
+<span class="w">            </span><span class="n">stmt</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">().</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">next</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="kd">val</span><span class="w"> </span><span class="nv">resultado</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getInt</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+<span class="w">                    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;El valor es: </span><span class="si">$</span><span class="n">resultado</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo 6</p>
+<p>Prueba el código de ejemplo y verifica que funciona correctamente.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Práctica 7: Añade funciones a tu proyecto</p>
+<ol>
+<li>Crea al menos dos funciones en tu base de datos y comprueba que se ejecutan correctamente desde dentro de ella.</li>
+<li>Amplia el menú de tu proyecto y añade el código necesario para llamar a las funciones de tu BD.</li>
+</ol>
+</div>
+<p><span class="mi_h3">Procedimientos</span></p>
+<p>Un <strong>procedimiento</strong> sirve para <strong>ejecutar acciones</strong> dentro de la base de datos, como insertar registros, modificar datos o gestionar operaciones en bloque. La sintaxis general para crear un procedimiento en MySQL es la siguiente:</p>
+<div class="highlight"><pre><span></span><code><span class="k">DELIMITER</span><span class="w"> </span><span class="o">//</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">nombre_procedimiento</span><span class="p">(</span>
+<span class="p">[</span><span class="k">IN</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">OUT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">INOUT</span><span class="p">]</span><span class="w"> </span><span class="n">parametro1</span><span class="w"> </span><span class="n">tipo</span><span class="p">,</span>
+<span class="p">[</span><span class="k">IN</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">OUT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">INOUT</span><span class="p">]</span><span class="w"> </span><span class="n">parametro2</span><span class="w"> </span><span class="n">tipo</span><span class="p">,</span>
+<span class="p">...</span>
+<span class="p">)</span>
+<span class="k">BEGIN</span>
+<span class="c1">-- Declaraciones opcionales</span>
+<span class="k">DECLARE</span><span class="w"> </span><span class="n">variable_local</span><span class="w"> </span><span class="n">tipo</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">-- Lógica del procedimiento</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="p">...;</span>
+<span class="w">    </span><span class="k">UPDATE</span><span class="w"> </span><span class="p">...;</span>
+<span class="w">    </span><span class="c1">-- etc.</span>
+<span class="k">END</span>
+<span class="o">//</span>
+
+<span class="k">DELIMITER</span><span class="w"> </span><span class="p">;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parte</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DELIMITER //</code></td>
+<td>Cambia el delimitador temporal para poder usar <code>;</code> dentro del cuerpo.</td>
+</tr>
+<tr>
+<td><code>CREATE PROCEDURE nombre</code></td>
+<td>Declara el procedimiento.</td>
+</tr>
+<tr>
+<td><code>IN</code>, <code>OUT</code>, <code>INOUT</code></td>
+<td>Especifica la dirección del parámetro:</td>
+</tr>
+<tr>
+<td> <code>IN</code> → se pasa al procedimiento (solo lectura).</td>
+<td></td>
+</tr>
+<tr>
+<td> <code>OUT</code> → se devuelve como salida.</td>
+<td></td>
+</tr>
+<tr>
+<td> <code>INOUT</code> → se pasa y puede ser modificado.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>BEGIN ... END</code></td>
+<td>Define el bloque de instrucciones.</td>
+</tr>
+<tr>
+<td><code>DECLARE</code></td>
+<td>Declara variables locales si las necesitas.</td>
+</tr>
+<tr>
+<td><code>DELIMITER ;</code></td>
+<td>Restablece el delimitador normal.</td>
+</tr>
+</tbody>
+</table>
+<p><span class="mis_ejemplos">Ejemplo 7: Trabajar con procedimientos</span></p>
+<p>El siguiente ejemplo crea un procedimiento que devuelve un listado con las plantas y cantidades que hay en un jardín determinado.</p>
+<div class="highlight"><pre><span></span><code><span class="k">DELIMITER</span><span class="w"> </span><span class="o">//</span>
+
+<span class="k">DROP</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">sp_listar_plantas_por_jardin</span><span class="p">;</span>
+<span class="o">//</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">sp_listar_plantas_por_jardin</span><span class="p">(</span><span class="k">IN</span><span class="w"> </span><span class="n">p_id_jardin</span><span class="w"> </span><span class="nb">INT</span><span class="p">)</span>
+<span class="k">BEGIN</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">nombre</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">jardin</span><span class="p">,</span>
+<span class="w">         </span><span class="n">p</span><span class="p">.</span><span class="n">nombre_comun</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">planta</span><span class="p">,</span>
+<span class="w">         </span><span class="n">jp</span><span class="p">.</span><span class="n">cantidad</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">jardines_plantas</span><span class="w"> </span><span class="n">jp</span>
+<span class="w">  </span><span class="k">JOIN</span><span class="w"> </span><span class="n">jardines</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">jp</span><span class="p">.</span><span class="n">id_jardin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_jardin</span>
+<span class="w">  </span><span class="k">JOIN</span><span class="w"> </span><span class="n">plantas</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">jp</span><span class="p">.</span><span class="n">id_planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_planta</span>
+<span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_jardin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p_id_jardin</span><span class="p">;</span>
+<span class="k">END</span><span class="p">;</span>
+<span class="o">//</span>
+
+<span class="k">DELIMITER</span><span class="w"> </span><span class="p">;</span>
+</code></pre></div>
+<p>Al igual que en las funciones, para que un procedimiento se guarde en la BD hay que ejecutar el código anterior como un script SQL. El resultado será el siguiente: </p>
+<p><img alt="Imagen 7" src="img/BD/8_fun_proc.jpg" /></p>
+<p>Una vez guardado, lo podemos llamar desde dentro de la propia BD ejecutando el script SQL siguiente:
+<div class="highlight"><pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">sp_listar_plantas_por_jardin</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div></p>
+<p>En este caso el resultado de la ejecución es el que se muestra en la siguiente imagen:</p>
+<p><img alt="Imagen 8" src="img/BD/7_proc.jpg" /></p>
+<p>Una vez que los procedimientos están creados en la base de datos, se pueden utilizar perfectamente desde Kotlin a través de JDBC, igual que se hace con cualquier consulta SQL y se gestionan mediante objetos <code>CallableStatement</code>. Los procedimientos se llaman con <code>CALL nombre_procedimiento(...)</code>. A continuación se muestra el código necesario para realizar la llamada desde Kotlin:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">llamar_sp_listar_plantas_por_jardin</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">){</span>
+<span class="w">    </span><span class="n">conectarBD</span><span class="p">()</span><span class="o">?.</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">sqlProcedimiento</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;{CALL sp_listar_plantas_por_jardin(?)}&quot;</span>
+<span class="w">        </span><span class="n">conn</span><span class="p">.</span><span class="na">prepareCall</span><span class="p">(</span><span class="n">sqlProcedimiento</span><span class="p">).</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">call</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="n">call</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="c1">// id_jardin = 1</span>
+<span class="w">            </span><span class="n">call</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">().</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;\n Plantas del jardín :</span><span class="si">$</span><span class="n">id</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">next</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="kd">val</span><span class="w"> </span><span class="nv">planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&quot;planta&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="kd">val</span><span class="w"> </span><span class="nv">cantidad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="na">getInt</span><span class="p">(</span><span class="s">&quot;cantidad&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot; - </span><span class="si">$</span><span class="n">planta</span><span class="s"> (Cantidad: </span><span class="si">$</span><span class="n">cantidad</span><span class="s">)&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo 7</p>
+<p>Prueba el código de ejemplo y verifica que funciona correctamente.</p>
+</div>
+<p><span class="mis_ejemplos">Ejemplo 8: Otro ejemplo de procedimientos</span></p>
+<p>El siguiente ejemplo crea un procedimiento que inserta una planta en un jardín (en la tabla jardines_plantas). El procedimiento recibe el <code>id_jardin</code>, el <code>id_planta</code> y una <code>cantidad</code>. Si la relación ya existe, actualizará la cantidad (sumando) y si no existe, insertará una nueva fila.</p>
+<div class="highlight"><pre><span></span><code><span class="k">DELIMITER</span><span class="w"> </span><span class="o">//</span>
+
+<span class="k">DROP</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">sp_agregar_planta_a_jardin</span><span class="p">;</span>
+<span class="o">//</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">sp_agregar_planta_a_jardin</span><span class="p">(</span>
+<span class="w">    </span><span class="k">IN</span><span class="w"> </span><span class="n">p_id_jardin</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">    </span><span class="k">IN</span><span class="w"> </span><span class="n">p_id_planta</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">    </span><span class="k">IN</span><span class="w"> </span><span class="n">p_cantidad</span><span class="w"> </span><span class="nb">INT</span>
+<span class="p">)</span>
+<span class="k">BEGIN</span>
+<span class="w">    </span><span class="c1">-- Verificar si la relación jardín-planta ya existe</span>
+<span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">jardines_plantas</span>
+<span class="w">        </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id_jardin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p_id_jardin</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">id_planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p_id_planta</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="c1">-- Si existe, actualiza la cantidad</span>
+<span class="w">        </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">jardines_plantas</span>
+<span class="w">        </span><span class="k">SET</span><span class="w"> </span><span class="n">cantidad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cantidad</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p_cantidad</span>
+<span class="w">        </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id_jardin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p_id_jardin</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">id_planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p_id_planta</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;Cantidad actualizada. Nueva cantidad: &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">cantidad</span><span class="p">)</span>
+<span class="w">        </span><span class="k">AS</span><span class="w"> </span><span class="n">mensaje</span>
+<span class="w">        </span><span class="k">FROM</span><span class="w"> </span><span class="n">jardines_plantas</span>
+<span class="w">        </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id_jardin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p_id_jardin</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">id_planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p_id_planta</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">ELSE</span>
+<span class="w">        </span><span class="c1">-- Si no existe, inserta una nueva relación</span>
+<span class="w">        </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">jardines_plantas</span><span class="w"> </span><span class="p">(</span><span class="n">id_jardin</span><span class="p">,</span><span class="w"> </span><span class="n">id_planta</span><span class="p">,</span><span class="w"> </span><span class="n">cantidad</span><span class="p">)</span>
+<span class="w">        </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="n">p_id_jardin</span><span class="p">,</span><span class="w"> </span><span class="n">p_id_planta</span><span class="p">,</span><span class="w"> </span><span class="n">p_cantidad</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="s1">&#39;Nueva planta agregada al jardín.&#39;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">mensaje</span><span class="p">;</span>
+<span class="w">    </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="k">END</span><span class="p">;</span>
+<span class="o">//</span>
+
+<span class="k">DELIMITER</span><span class="w"> </span><span class="p">;</span>
+</code></pre></div>
+<p>Después de ejecutar el script anterior ya tenemos el procedimiento almacenado en nustra BD:</p>
+<p><img alt="Imagen 9" src="img/BD/11_proc2.jpg" /></p>
+<p>Ejecutamos el script SQL dentro de la misma BD
+<div class="highlight"><pre><span></span><code><span class="c1">-- Insertar una nueva planta en el jardín 2</span>
+<span class="k">CALL</span><span class="w"> </span><span class="n">sp_agregar_planta_a_jardin</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
+
+<span class="c1">-- Insertar más cantidad de una planta que ya existe</span>
+<span class="k">CALL</span><span class="w"> </span><span class="n">sp_agregar_planta_a_jardin</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+
+<span class="c1">-- Verificar resultado</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">jardines_plantas</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id_jardin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">id_planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div></p>
+<p>El resultado de la ejecución es el que se muestra en la siguiente imagen:</p>
+<p><img alt="Imagen 10" src="img/BD/10_proc2.jpg" /></p>
+<p>A continuación se muestra el código necesario para realizar la llamada desde Kotlin:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">llamar_sp_agregar_planta_a_jardin</span><span class="p">(</span><span class="n">id_p</span><span class="p">:</span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">id_j</span><span class="p">:</span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">cant</span><span class="p">:</span><span class="kt">Int</span><span class="p">){</span>
+<span class="w">    </span><span class="n">conectarBD</span><span class="p">()</span><span class="o">?.</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;{CALL sp_agregar_planta_a_jardin(?, ?, ?)}&quot;</span>
+<span class="w">        </span><span class="n">conn</span><span class="p">.</span><span class="na">prepareCall</span><span class="p">(</span><span class="n">sql</span><span class="p">).</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">call</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="n">call</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">id_p</span><span class="p">)</span><span class="w">  </span><span class="c1">// id_jardin</span>
+<span class="w">            </span><span class="n">call</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">id_j</span><span class="p">)</span><span class="w">  </span><span class="c1">// id_planta</span>
+<span class="w">            </span><span class="n">call</span><span class="p">.</span><span class="na">setInt</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">cant</span><span class="p">)</span><span class="w">  </span><span class="c1">// cantidad</span>
+
+<span class="w">            </span><span class="n">call</span><span class="p">.</span><span class="na">executeQuery</span><span class="p">().</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">rs</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">next</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">println</span><span class="p">(</span><span class="n">rs</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&quot;mensaje&quot;</span><span class="p">))</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo 8</p>
+<p>Prueba el código de ejemplo y verifica que funciona correctamente.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Práctica 8: Añade procedimientos a tu proyecto</p>
+<ol>
+<li>Crea al menos dos procedimientos, uno que devuelva información resultante de realizar una consulta entre todas las tablas que hay en tu BD y otro que inserte información de una de las tablas.</li>
+<li>Amplia el menú de tu proyecto y añade el código necesario para llamar a los procedimientos de tu BD.</li>
+</ol>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Entrega 2</p>
+<p>Realiza lo siguiente:</p>
+<ol>
+<li>Exporta tu BD con el comando <code>mysqldump</code> en formato .sql (Puedes consultar el documento <a href="mysql.html">Instalación de MySQL en EC2</a> apartado <code>Exportación de la BD</code>).</li>
+<li>Copia el archivo <code>.sql</code> a la carpeta <code>resources</code> de tu proyecto.</li>
+</ol>
+<p>Entrega en Aules la carpeta <code>main</code> de tu proyecto comprimida en formato .zip</p>
+<p><strong>IMPORTANTE</strong>: El proyecto no debe contener código que no se utilice, ni restos de pruebas de los ejemplos y no debe estar separado por prácticas. Debe ser un proyecto totalmente funcional.</p>
+</div>
+<hr />
+<p><span class="mi_h3">Autoría</span></p>
+<p>Obra realizada por Begoña Paterna Lluch basada en materiales desarrollados por Alicia Salvador Contreras. Publicada bajo licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Atribución/Reconocimiento-CompartirIgual 4.0 Internacional</a></p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tabs.link", "navigation.instant", "navigation.top", "navigation.sections", "search.highlight", "search.suggest", "toc.integrate"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

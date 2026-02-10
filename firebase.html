@@ -1,0 +1,777 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Begoña Paterna">
+      
+      
+        <link rel="canonical" href="https://bpaterna.github.io/acceso_datos/firebase.html">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Firebase - Acceso a datos</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#firebase" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="index.html" title="Acceso a datos" class="md-header__button md-logo" aria-label="Acceso a datos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Acceso a datos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Firebase
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Acceso a datos" class="md-nav__button md-logo" aria-label="Acceso a datos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Acceso a datos
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contenido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contenido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2_BD_relacionales.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acceso a BD relacionales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="3_BD_documentales.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acceso a BD documentales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="4_Componentes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Componentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Material adicional
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Material adicional
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="AWSlab.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AWS Learner Lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="db_browser_sqlite.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DB Browser SQLite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dbeaver.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DBeaver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mysql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mongo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MongoDB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="firebase">Firebase<a class="headerlink" href="#firebase" title="Permanent link">&para;</a></h1>
+<h2 id="41-introduccion">4.1 - Introducción:<a class="headerlink" href="#41-introduccion" title="Permanent link">&para;</a></h2>
+<p><strong>Firebase</strong> es un servicio de backend, es decir, del lado del servidor, que ofrece la posibilidad de guardar los datos de aplicaciones web y de dispositivos móviles, con la particularidad de que en tiempo real se pueden actualizar los datos modificados desde uno de los clientes conectados a todos los demás que estén conectados.</p>
+<p>Ofrece una serie de servicios, entre los cuales podemos destacar:</p>
+<ul>
+<li><strong>Firebase Auth - Autenticación de usuarios</strong>: permite gestionar la validación de usuarios cómodamente. Incluye la autenticación a través de Facebook, GitHub, Twitter y Google, y también la validación utilizando cuenta de correo, guardando la contraseña en Firebase, lo que nos libera de tener que guardarlas en nuestro dispositivo.</li>
+<li><strong>Realtime Database - Base de Datos en Tiempo Real</strong>: permite guardar unos datos en la nube, que estarán sincronizados en todas las aplicaciones (clientes) conectados. No es realmente una Base de Datos, sino solo un documento JSON.</li>
+<li><strong>Cloud Firestore</strong>: es una evolución de la anterior que sí permite guardar colecciones de documentos JSON, por lo tanto, ya se puede considerar una Base de Datos.</li>
+<li><strong>Firebase Storage</strong>: permite guardar archivos para nuestras aplicaciones, como pueden ser audios, vídeos, imágenes, ...</li>
+</ul>
+<p>En este tema nos fijaremos sobre todo en el segundo y tercer servicio, los de Bases de Datos. Debemos recordar que la <strong>Realtime Database</strong> no es una Base de Datos completa. Solo es un documento JSON que podremos guardar, eso sí, tan largo como queramos. Se trata, por tanto, de una Base de Datos NoSQL, o mejor dicho, una mini Base de Datos NoSQL. Sin embargo, permite sincronizar los datos en tiempo real en todos los dispositivos conectados.</p>
+<p>En cambio, el <strong>Cloud Firestore</strong> sí es una Base de Datos completa.</p>
+<h2 id="42-creacion-de-una-aplicacion">4.2 - Creación de una aplicación<a class="headerlink" href="#42-creacion-de-una-aplicacion" title="Permanent link">&para;</a></h2>
+<p>La Base de Datos, que hemos acordado que pueden ser un documento único JSON en el caso de Realtime Database, y todo un conjunto en el caso de Cloud Firestore, está asociada a una aplicación. Crearemos desde el entorno de Firebase una nueva aplicación, cuya referencia utilizaremos en la aplicación web o aplicación móvil. Así, podemos crear varias aplicaciones Firebase, y en cada una guardaremos una Base de Datos. Necesitaremos autenticar nuestro acceso con una cuenta de Google.</p>
+<p>El proceso de creación lo haremos desde el entorno de Firebase: <a href="http://www.firebase.com">www.firebase.com</a>.</p>
+<p>El siguiente video muestra el proceso de creación de una aplicación:</p>
+<iframe src="https://slides.com/aliciasalvador/deck/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<hr />
+<p><strong>Reglas de seguridad</strong></p>
+<p>Inicialmente elegiremos la opción <em><strong>modo de prueba</strong></em>, en la cual todo el mundo puede acceder a los datos. Evidentemente, no se pueden dejar estas reglas de forma definitiva, pero para empezar a probar, está bien. De hecho, en la última versión, lo dejará en modo de prueba durante un mes. De todas formas, si quisiéramos extenderlo, iríamos a la configuración de las <strong>rules</strong>.</p>
+<p><img alt="Imagen 1" src="img/firebase/T7_2_1_1.png" /></p>
+<p><span class="mi_h3">Utilización desde IntelliJ</span></p>
+<p>Veremos el acceso desde IntelliJ, que es el entorno que utilizamos en este módulo.</p>
+<p>Para desarrollar una aplicación en IntelliJ con Kotlin que acceda a Firebase, una forma bastante fácil es utilizar <strong>Maven</strong> para gestionar las dependencias necesarias. Los pasos y las dependencias que se deben añadir al <strong>pom.xml</strong>:</p>
+<p>a) <strong>Repositorio Maven de Google</strong>:</p>
+<p>Algunas dependencias de Firebase pueden no estar disponibles en el repositorio Maven Central. Asegúrate de añadir el repositorio de Google.</p>
+<div class="highlight"><pre><span></span><code>&lt;repositories&gt;
+    &lt;repository&gt;
+        &lt;id&gt;google&lt;/id&gt;
+        &lt;url&gt;https://maven.google.com/&lt;/url&gt;
+    &lt;/repository&gt;
+&lt;/repositories&gt;
+</code></pre></div>
+<p>b) <strong>Añadir Firebase Admin SDK</strong>. El Admin SDK es la biblioteca principal que permite interactuar con los servicios de Firebase, como Realtime Database, Cloud Firestore, Authentication, entre otros.</p>
+<div class="highlight"><pre><span></span><code>&lt;dependency&gt;
+        &lt;groupId&gt;com.google.firebase&lt;/groupId&gt;
+        &lt;artifactId&gt;firebase-admin&lt;/artifactId&gt;
+        &lt;version&gt;9.1.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre></div>
+<p>c) <strong>Servicios Adicionales</strong></p>
+<p>Si necesitas interactuar con servicios específicos, como Firestore o Realtime Database, aquí tienes las dependencias correspondientes:</p>
+<p><strong>Cloud Firestore</strong></p>
+<div class="highlight"><pre><span></span><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.google.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;google-cloud-firestore&lt;/artifactId&gt;
+    &lt;version&gt;3.15.0&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+    &lt;groupId&gt;com.google.auth&lt;/groupId&gt;
+    &lt;artifactId&gt;google-auth-library-oauth2-http&lt;/artifactId&gt;
+    &lt;version&gt;1.27.0&lt;/version&gt; 
+&lt;/dependency&gt;
+</code></pre></div>
+<p><strong>Realtime Database</strong></p>
+<p>La funcionalidad de Realtime Database está incluida en el Admin SDK, por lo que no necesitas añadir dependencias adicionales. Simplemente utiliza las clases proporcionadas por firebase-admin.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+</div>
+<p>Haz clic en <strong>Reload Maven</strong> Project para asegurarte de que todas las dependencias se descargan correctamente.</p>
+<h2 id="43-realtime-database-rd">4.3 - Realtime Database (RD)<a class="headerlink" href="#43-realtime-database-rd" title="Permanent link">&para;</a></h2>
+<p>Aunque la finalidad es utilizarla desde nuestro entorno de programación, siempre nos será útil "tocar" los datos directamente desde un entorno propio.</p>
+<p>El siguiente vídeo corresponde a una versión anterior de Firebase, pero es igualmente válido.</p>
+<iframe src="https://slides.com/aliciasalvador/t7_firebase_inserirdades/embed" width="576" height="420" title="Copia de T7_Firebase_InserirDades" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p>El entorno que nos ofrece <strong>Firebase</strong> será suficiente. Podremos visualizar los datos que hemos introducido en todas nuestras aplicaciones, y también editarlos: introducir, modificar y eliminar.</p>
+<p>Recordemos que podremos utilizar 2 versiones:</p>
+<ul>
+<li><strong>Base de Datos en Tiempo Real</strong></li>
+<li><strong>Cloud Firestore</strong></li>
+</ul>
+<p>Comencemos por <strong>Base de Datos en Tiempo Real</strong>.</p>
+<h2 id="431-rd-utilizacion-desde-el-entorno-de-firebase">4.3.1 RD: Utilización desde el entorno de Firebase<a class="headerlink" href="#431-rd-utilizacion-desde-el-entorno-de-firebase" title="Permanent link">&para;</a></h2>
+<p>Haremos especial mención al hecho de que lo que guardamos es un documento <strong>JSON</strong>. Incluso podremos descargarlo (exportar) o subirlo como un documento (importar). Eso sí, la operación de importación destruye los datos anteriores, lo que demuestra que solo podemos guardar un documento <strong>JSON</strong>.</p>
+<p>Este es el contenido del archivo <strong>Empleats.json</strong> que se introduce en el vídeo. Está formateado para una fácil lectura, pero en realidad no importaría que estuviera todo seguido.</p>
+<p>Lo tenéis disponible en el aula virtual para que lo importéis.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;empresa&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;empleat&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;num&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;nom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Andreu&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;departament&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;edat&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;sou&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;num&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;nom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bernat&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;departament&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;edat&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">28</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;sou&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1200</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;num&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;nom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Clàudia&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;departament&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;edat&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">26</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;sou&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1100</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;num&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;nom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Damià&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;departament&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;edat&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;sou&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1500</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Ya habéis visto que al importar <strong>Empleats.json</strong> se han perdido los otros datos. Volved a poner la pareja clave-valor <strong>a1</strong> (por ejemplo, con el valor <strong>Hola</strong>) ya que, por ser muy sencilla la estructura, la utilizaremos en algunos ejemplos. Así nos queda la estructura para los posteriores ejemplos:</p>
+<p><img alt="" src="T7_2_2_1.png" /></p>
+<h2 id="432-rd-utilizacion-desde-intellij">4.3.2 RD: Utilización desde IntelliJ<a class="headerlink" href="#432-rd-utilizacion-desde-intellij" title="Permanent link">&para;</a></h2>
+<p>Para los ejemplos y ejercicios de esta parte, crearemos un proyecto llamado <strong>Tema8</strong>, con los paquetes <strong>ejemplos_realtimedatabase</strong>, <strong>ejemplos_cloudfirestore</strong>, <strong>ejemplos_cloudstorage</strong> y <strong>ejercicios</strong>.</p>
+<h3 id="4321-rd-intellij-conexion-desde-kotlin">4.3.2.1 RD-IntelliJ: Conexión desde Kotlin<a class="headerlink" href="#4321-rd-intellij-conexion-desde-kotlin" title="Permanent link">&para;</a></h3>
+<p><strong>Configuración</strong></p>
+<p>Lo primero que debemos hacer es preparar nuestro proyecto para que pueda acceder a la aplicación que hemos creado en Firebase. En el entorno de IntelliJ, debemos descargar un archivo JSON donde estará la clave para acceder a nuestra aplicación. Debemos ir a la configuración del proyecto y dentro de la configuración, ir a la pestaña <strong>Cuentas de servicio</strong> (<strong>Service Accounts</strong>). Allí veremos unos ejemplos de utilización (a nosotros nos interesa <strong>Java</strong>), y al final un botón para <strong>Generar una nueva clave privada</strong>:</p>
+<p><img alt="" src="T7_RD_con.png" /></p>
+<p>Se descargará un archivo <strong>json</strong> que <strong>tendremos que guardar</strong> en la raíz del proyecto. Luego, como decía el ejemplo, colocamos lo siguiente para un acceso correcto:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">serviceAccount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FileInputStream</span><span class="p">(</span><span class="s">&quot;access-a-dades-d119e-firebase-adminsdk-ehn3k-14a46f56f4.json&quot;</span><span class="p">)</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FirebaseOptions</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">setCredentials</span><span class="p">(</span><span class="n">GoogleCredentials</span><span class="p">.</span><span class="na">fromStream</span><span class="p">(</span><span class="n">serviceAccount</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="na">setDatabaseUrl</span><span class="p">(</span><span class="s">&quot;https://access-a-dades-d119e-default-rtdb.firebaseio.com/&quot;</span><span class="p">).</span><span class="na">build</span><span class="p">()</span>
+
+<span class="n">FirebaseApp</span><span class="p">.</span><span class="na">initializeApp</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Aviso</p>
+</div>
+<p><strong>No os olvidéis de sustituir el nombre del archivo json</strong>. También debéis tener en cuenta que <strong>la URL de la base de datos será diferente para cada uno de nosotros</strong>.</p>
+<p>Lo tenemos escrito en <strong>Java</strong>, y por tanto tendremos que hacer la transformación a <strong>Kotlin</strong>. Y quedará así (lo he particularizado a mi proyecto, pero recordad que tenéis que cambiar el nombre del archivo json y la URL por los vuestros):</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">serviceAccount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FileInputStream</span><span class="p">(</span><span class="s">&quot;access-a-dades-d119e-firebase-adminsdk-ehn3k-14a46f56f4.json&quot;</span><span class="p">)</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FirebaseOptions</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">setCredentials</span><span class="p">(</span><span class="n">GoogleCredentials</span><span class="p">.</span><span class="na">fromStream</span><span class="p">(</span><span class="n">serviceAccount</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="na">setDatabaseUrl</span><span class="p">(</span><span class="s">&quot;https://access-a-dades-d119e-default-rtdb.firebaseio.com/&quot;</span><span class="p">).</span><span class="na">build</span><span class="p">()</span>
+
+<span class="n">FirebaseApp</span><span class="p">.</span><span class="na">initializeApp</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Referencia a la Base de Datos y a los datos concretos a los que queremos acceder</strong></p>
+<p>Deberemos crear un objeto <strong>FirebaseDatabase</strong>, que será una referencia a toda la Base de Datos:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">database</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FirebaseDatabase</span><span class="p">.</span><span class="na">getInstance</span><span class="p">()</span>
+</code></pre></div>
+<p>A partir de ella podríamos hacer referencia a una pareja clave-valor que esté en la raíz, como cuando habíamos creado <strong>a1</strong> (pero recordad que ahora no existe):</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">refA1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">database</span><span class="p">.</span><span class="na">getReference</span><span class="p">(</span><span class="s">&quot;a1&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>También podríamos hacer referencia a una pareja clave-valor que no esté en la raíz de la Base de Datos. Simplemente pondríamos la ruta desde la raíz. Por ejemplo, para acceder al nombre del primer empleado de la empresa que tenemos guardado, lo haríamos así:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">empleat1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">database</span><span class="p">.</span><span class="na">getReference</span><span class="p">(</span><span class="s">&quot;empresa/empleat/0/nom&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>En los casos anteriores hemos optado por obtener parejas clave-valor, ya sea en la raíz o más dentro de la estructura JSON. Pero en definitiva, es una pareja clave-valor.</p>
+<p>También podemos optar por obtener la estructura JSON y trabajar con ella, como hicimos en el Tema 3, cuando trabajamos con la estructura JSON:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">empresa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">database</span><span class="p">.</span><span class="na">getReference</span><span class="p">(</span><span class="s">&quot;empresa&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>De esta manera, al obtener toda la estructura, tendremos dos maneras de trabajar posteriormente para acceder más abajo en la estructura:</p>
+<ul>
+<li>Pasarlo a objetos y arrays de JSON, y trabajar como hicimos en el Tema 3. Muy cómodo, sobre todo cuando se trata de operaciones de lectura.</li>
+<li>Trabajar directamente con métodos de Firebase que nos permiten acceder bien a todos los hijos de una estructura, bien a un hijo en concreto.</li>
+</ul>
+<p>Lo mostraremos en los ejemplos posteriores.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tabs.link", "navigation.instant", "navigation.top", "navigation.sections", "search.highlight", "search.suggest", "toc.integrate"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,910 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Begoña Paterna">
+      
+      
+        <link rel="canonical" href="https://bpaterna.github.io/acceso_datos/mysql.html">
+      
+      
+        <link rel="prev" href="dbeaver.html">
+      
+      
+        <link rel="next" href="mongo.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>MySQL - Acceso a datos</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mysql" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="index.html" title="Acceso a datos" class="md-header__button md-logo" aria-label="Acceso a datos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Acceso a datos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MySQL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Acceso a datos" class="md-nav__button md-logo" aria-label="Acceso a datos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Acceso a datos
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contenido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contenido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2_BD_relacionales.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acceso a BD relacionales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="3_BD_documentales.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acceso a BD documentales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="4_Componentes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Componentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Material adicional
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Material adicional
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="AWSlab.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AWS Learner Lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="db_browser_sqlite.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DB Browser SQLite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dbeaver.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DBeaver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MySQL
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="mysql.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-instalacion-en-ec2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Instalación en EC2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-instalacion-en-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Instalación en Docker
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mongo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MongoDB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mysql">MySQL<a class="headerlink" href="#mysql" title="Permanent link">&para;</a></h1>
+<p><img alt="Imagen 1" src="img/mysql/mysql.jpg" /></p>
+<p><span class="mi_h3">Revisiones</span></p>
+<table>
+<thead>
+<tr>
+<th>Revisión</th>
+<th>Fecha</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>10-11-2025</td>
+<td>Adaptación de los materiales a markdown</td>
+</tr>
+<tr>
+<td>1.0</td>
+<td>15-01-2026</td>
+<td>Instalación en Docker</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-introduccion">1. Introducción<a class="headerlink" href="#1-introduccion" title="Permanent link">&para;</a></h2>
+<p>MySQL es un sistema de gestión de bases de datos relacional (RDBMS), basado en el lenguaje SQL (Structured Query Language). Fue desarrollado originalmente por MySQL AB, luego adquirido por Sun Microsystems y actualmente es propiedad de Oracle Corporation. Se utiliza ampliamente en aplicaciones web y empresariales para almacenar, organizar y acceder a datos de manera eficiente.</p>
+<p>MySQL funciona bajo una arquitectura cliente-servidor, en la cual el servidor MySQL es el componente encargado de almacenar, gestionar y proteger las bases de datos, mientras que los clientes son las aplicaciones o usuarios que se conectan a él para consultar o manipular los datos mediante el lenguaje SQL. </p>
+<p>En estos apuntes vamos a utilizar como servidor una instancia ECS de AWS, puedes ver como instalarlo desde  <a href="AWSlab.html">AWS Learner Lab</a>. Una vez tengas tu servidor funcionando, ya puedes instalar el servidor MySQL en él.</p>
+<h2 id="2-instalacion-en-ec2">2. Instalación en EC2<a class="headerlink" href="#2-instalacion-en-ec2" title="Permanent link">&para;</a></h2>
+<p><strong>1. Conectar al servidor por ssh</strong></p>
+<p>Para conectar, abre una ventana de comandos y asegurate que el archivo .pem está en la carpeta desde la que lanzas el siguiente comando (puedes utilizar el nombre del servidor o su IP pública):
+<div class="highlight"><pre><span></span><code>ssh -i [nombre_clave] ubuntu@[nombre_IP_servidor]
+</code></pre></div></p>
+<div class="admonition note">
+<p>Si aparece el siguiente aviso:</p>
+<p><img alt="Imagen warning conexión" src="img/warning.png" /></p>
+<p>Ejecuta el comando siguiente:
+<div class="highlight"><pre><span></span><code>chmod 400 [nombre_clave]
+</code></pre></div></p>
+</div>
+<p><strong>2. Actualiza la lista de paquetes del servidor</strong>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+</code></pre></div></p>
+<p><strong>3. Instala el servidor MySQL y las dependencias necesarias</strong>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>mysql-server
+</code></pre></div></p>
+<p><strong>4. Comprueba el estado del servicio</strong></p>
+<p>Comprueba que el servicio de MySQL se esté ejecutando correctamente (Si no está activo, puedes iniciarlo con <code>sudo systemctl start mysql</code>)</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysql
+</code></pre></div>
+<p><img alt="Imagen 17" src="img/mysql/imagen_017.jpg" /></p>
+<p><span class="mi_h3">Crea un usuario y una base de datos</span></p>
+<p><strong>1. Entra al servidor</strong></p>
+<p>Entra al servidor MySQL (cuando te pida contraseña déjala en blanco y pulsa <code>INTRO</code>)</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>
+</code></pre></div>
+<p><strong>2. Crea el usuario con su contraseña</strong> </p>
+<p>Ejecuta los comandos siguientes (el <code>%</code> indica que el usuario podrá conectarse desde cualquier sitio). Cambia <code>[tu_usuario]</code> y <code>[tu_contraseña]</code> por el usuario y contraseña que quieras:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;[tu_usuario]&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;[tu_contraseña]&#39;</span><span class="p">;</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;[tu_usuario]&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span><span class="w">    </span>
+<span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="n">GRANTS</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="s1">&#39;[tu_usuario]&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>3. Crea la base de datos</strong></p>
+<p>Por ejemplo (cambia el nombre del ejemplo por el de tu BD)</p>
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="p">[</span><span class="n">nombre_BD</span><span class="p">];</span>
+</code></pre></div>
+<p><strong>4. Sal del servidor</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">exit</span>
+</code></pre></div>
+<p><span class="mi_h3">Configura MySQL y el servidor para permtir conexiones externas</span></p>
+<p><strong>1. Edita el fichero de configuración</strong></p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/mysql/mysql.conf.d/mysqld.cnf
+</code></pre></div>
+<p>Busca la instrucción siguiente:
+<div class="highlight"><pre><span></span><code>bind-address = 127.0.0.1
+</code></pre></div>
+Modifícalo para que quede así:
+<div class="highlight"><pre><span></span><code># bind-address = 127.0.0.1
+bind-address = 0.0.0.0
+</code></pre></div>
+Guarda los cambios, reinicia el servicio y comprueba que ha arrancado correctamente</p>
+<div class="highlight"><pre><span></span><code>sudo systemctl restart mysql
+sudo systemctl status mysql
+</code></pre></div>
+<p><strong>2. Configura el servidor para permitir tráfico entrante</strong> </p>
+<p>Añade una regla en el servidor para permitir el tráfico entrante del puerto 3306. Para ello haz clic en la pestaña <code>Seguridad</code> y luego en el enlace de <code>Grupos de seguridad</code></p>
+<p><img alt="Imagen 28" src="img/mysql/imagen_028.jpg" /></p>
+<p>Entra en <code>Reglas de entrada</code>y haz clic en el botón <code>Editar reglas de entrada</code></p>
+<p><img alt="Imagen 29" src="img/mysql/imagen_029.jpg" /></p>
+<p>Haz clic en <code>Agregar regla</code>, configura el tipo, el puerto y la IP de origen <code>0.0.0.0/0</code> para permitir acceso desde cualquier lugar y por último haz clic en el botón <code>Guardar reglas</code></p>
+<p><img alt="Imagen 30" src="img/mysql/imagen_030.jpg" /></p>
+<p>En unos segundos aparecerá tu nueva regla en la lista</p>
+<p><img alt="Imagen 31" src="img/mysql/imagen_031.jpg" /></p>
+<p><strong>3. Prueba de conexión</strong></p>
+<p>Prueba a conectar a tu base de datos desde <a href="dbeaver.html">DBeaver</a></p>
+<p><span class="mi_h3">Exportación de la BD</span></p>
+<p><strong>1. Conecta al servidor por ssh</strong></p>
+<p>Para conectar, abre una ventana de comandos y asegurate que el archivo .pem está en la carpeta desde la que lanzas el siguiente comando (puedes utilizar el nombre del servidor o su IP pública):
+<div class="highlight"><pre><span></span><code>ssh -i [nombre_clave] ubuntu@[nombre_IP_servidor]
+</code></pre></div></p>
+<p><strong>2. Crea un archivo con la exportación</strong></p>
+<p>Para hacer un <code>dump</code> de la BD ejecuta ():</p>
+<div class="highlight"><pre><span></span><code>mysqldump<span class="w"> </span>-u<span class="w"> </span><span class="o">[</span>tu_usuario<span class="o">]</span><span class="w"> </span>-p<span class="w"> </span>--routines<span class="w"> </span><span class="o">[</span>tu_BD<span class="o">]</span><span class="w"> </span>&gt;<span class="w"> </span><span class="o">[</span>nombre_archivo_dump<span class="o">]</span>.sql
+</code></pre></div>
+<p>Después comprueba que el archivo se ha creado y cierra sesión con el comando <code>exit</code></p>
+<p><strong>3. Descarga el archivo</strong> </p>
+<p>Para descargar al equipo local utiliza el comando (luego comprueba que el archivo se ha descargado correctamente y que su contenido es correcto):</p>
+<div class="highlight"><pre><span></span><code>scp<span class="w"> </span>-i<span class="w"> </span><span class="o">[</span>nombre_certificado<span class="o">]</span><span class="w"> </span>ubuntu@<span class="o">[</span>IP_nombre_servidor<span class="o">]</span>:<span class="o">[</span>ruta_archivo_dump<span class="o">]</span>.sql<span class="w"> </span><span class="o">[</span>ruta_destino<span class="o">]</span>
+</code></pre></div>
+<h2 id="3-instalacion-en-docker">3. Instalación en Docker<a class="headerlink" href="#3-instalacion-en-docker" title="Permanent link">&para;</a></h2>
+<p>Partimos de un sistema operativo con Docker ya funcionando y listo para poder crear contenedores.</p>
+<p><strong>Algunos comandos útiles para manejarnos en docker</strong></p>
+<ul>
+<li>Comprobar si Docker está instalado en nuestro sistema operativo</li>
+</ul>
+<div class="highlight"><pre><span></span><code>   docker --version
+</code></pre></div>
+<ul>
+<li>Ver los contenedores creados (incluidos los detenidos)</li>
+</ul>
+<div class="highlight"><pre><span></span><code>   docker ps -a
+</code></pre></div>
+<ul>
+<li>Iniciar un contenedor</li>
+</ul>
+<div class="highlight"><pre><span></span><code>   docker start &lt;nombre_o_id_del_contenedor&gt;
+</code></pre></div>
+<ul>
+<li>Detener un contenedor</li>
+</ul>
+<div class="highlight"><pre><span></span><code>   docker stop &lt;nombre_o_id_del_contenedor&gt;
+</code></pre></div>
+<ul>
+<li>Eliminar un contenedor (detenerlo antes)</li>
+</ul>
+<div class="highlight"><pre><span></span><code>   docker rm &lt;nombre_o_id_del_contenedor&gt;
+</code></pre></div>
+<p><strong>Crear el contenedor MySQL</strong></p>
+<p>A continuación se describen los pasos para crear un contenedor que hará de servidor MySQL. En la configuración se establece la contraseña del usuario <code>root</code> para el servidor y se crea una base de datos llamada <code>florabotanica</code> con un usuario y contraseña para acceder a ella.</p>
+<p>Crear archivo llamado <code>docker-compose.yml</code> con el contenido siguiente:</p>
+<div class="highlight"><pre><span></span><code>version: &#39;3.8&#39;
+
+services:
+    mysql:
+        image: mysql:8.0
+        container_name: mysql-server
+        ports:
+            - &quot;3306:3306&quot;
+        environment:
+            MYSQL_ROOT_PASSWORD: &lt;password&gt;
+            MYSQL_DATABASE: florabotanica
+            MYSQL_USER: flora
+            MYSQL_PASSWORD: &lt;password&gt;
+</code></pre></div>
+<p>Desde una ventana de terminal o utilizando la línea de comandos ejecutar:</p>
+<div class="highlight"><pre><span></span><code>docker compose up -d
+</code></pre></div>
+<p><strong>Crear tabla una tabla en la base de datos</strong></p>
+<p>Para entrar al contenedor ejecutar:</p>
+<div class="highlight"><pre><span></span><code>docker exec -it mysql-server bash
+</code></pre></div>
+<p>Conectarse a la base de datos <code>florabotanica</code> con el usuario <code>flora</code> (pedirá contraseña) con el comando:</p>
+<div class="highlight"><pre><span></span><code>mysql -u flora -p florabotanica
+</code></pre></div>
+<p>Crear una tabla llamada <code>plantas</code> ejecutando las líneas:</p>
+<div class="highlight"><pre><span></span><code>CREATE TABLE plantas (
+id_planta INT AUTO_INCREMENT PRIMARY KEY,
+nombre TEXT NOT NULL,
+tipo TEXT NOT NULL,
+foto TEXT,
+altura DOUBLE) ENGINE=InnoDB;
+</code></pre></div>
+<p>Comprobar que se ha creado correctamente con el comando:</p>
+<div class="highlight"><pre><span></span><code>SHOW TABLES;
+</code></pre></div>
+<p>Realizar alguna inserción, por ejemplo:</p>
+<div class="highlight"><pre><span></span><code>INSERT INTO plantas (nombre, tipo, altura) VALUES (&#39;Rosa&#39;, &#39;Flor&#39;, 1.2);
+</code></pre></div>
+<p>Comprobar que la tabla contiene los datos con el comando:</p>
+<div class="highlight"><pre><span></span><code>SELECT * FROM plantas;
+</code></pre></div>
+<p><strong>Exportación de nuestra base de datos</strong></p>
+<p>El siguiente comando crea un archivo llamado <code>florabotanica.sql</code> con la estructura y datos de la base de datos llamada <code>florabotanica</code> que está alojada en un servidor MySQL en un contenedor Docker llamado <code>mysql-server</code>. Al ejecutar el comando (desde terminal o línea de comandos) el sistema pedirá la contraseña de root y el archivo se creará en la carpeta desde donde nos encontramos):</p>
+<div class="highlight"><pre><span></span><code>docker exec -i mysql-server mysqldump --no-tablespaces -u root -p florabotanica &gt; florabotanica.sql
+</code></pre></div>
+<p><strong>Importación de nuestra base de datos (opción 1)</strong></p>
+<p>Para importar en otro contenedor con un servidor MySQL la estructura y datos de la base de datos llamada <code>florabotanica</code>, ejecutar desde terminal o línea de comandos en la carpeta donde está ubicado el archivo <code>florabotanica.sql</code> el siguiente comando (pedirá la contraseña de root). Se asume que el contendor se llama <code>mysql-server2</code>:</p>
+<div class="highlight"><pre><span></span><code>docker exec -i mysql-server2 mysql -u root -p florabotanica &lt; florabotanica.sql
+</code></pre></div>
+<p><strong>Importación de nuestra base de datos (opción 2)</strong></p>
+<p>Si la opción anterior da problemas de permisos seguir estos pasos (se asumen los mismos nombres de contenedor, base de datos y fichero que en la opción anterior):</p>
+<p>Abrir terminal o cmd y copiar el archivo .sql al contenedor</p>
+<div class="highlight"><pre><span></span><code>docker cp florabotanica.sql mysql-server2:/tmp/florabotanica.sql
+</code></pre></div>
+<p>Abrir shell Bash dentro del contenedor:</p>
+<div class="highlight"><pre><span></span><code>docker exec -it mysql-server bash
+</code></pre></div>
+<p>Entrar a mysql como root</p>
+<div class="highlight"><pre><span></span><code>mysql -p
+</code></pre></div>
+<p>Crear BD y restaurar</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; CREATE DATABASE florabotanica;
+mysql&gt; USE florabotanica;
+mysql&gt; SOURCE /tmp/florabotanica.sql;
+</code></pre></div>
+<hr />
+<p><span class="mi_h3">Autoría</span></p>
+<p>Obra realizada por Begoña Paterna Lluch. Publicada bajo licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Atribución/Reconocimiento-CompartirIgual 4.0 Internacional</a></p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tabs.link", "navigation.instant", "navigation.top", "navigation.sections", "search.highlight", "search.suggest", "toc.integrate"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,731 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Begoña Paterna">
+      
+      
+        <link rel="canonical" href="https://bpaterna.github.io/acceso_datos/AWSlab.html">
+      
+      
+        <link rel="prev" href="4_Componentes.html">
+      
+      
+        <link rel="next" href="db_browser_sqlite.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>AWS Learner Lab - Acceso a datos</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ubuntu-server-en-aws-learner-lab" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="index.html" title="Acceso a datos" class="md-header__button md-logo" aria-label="Acceso a datos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Acceso a datos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              AWS Learner Lab
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Acceso a datos" class="md-nav__button md-logo" aria-label="Acceso a datos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Acceso a datos
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contenido
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contenido
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2_BD_relacionales.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acceso a BD relacionales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="3_BD_documentales.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acceso a BD documentales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="4_Componentes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Componentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Material adicional
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Material adicional
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="AWSlab.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AWS Learner Lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="db_browser_sqlite.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DB Browser SQLite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dbeaver.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DBeaver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mysql.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MySQL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mongo.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MongoDB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ubuntu-server-en-aws-learner-lab">Ubuntu Server en AWS Learner Lab<a class="headerlink" href="#ubuntu-server-en-aws-learner-lab" title="Permanent link">&para;</a></h1>
+<p><span class="mi_h3">Revisiones</span></p>
+<table>
+<thead>
+<tr>
+<th>Revisión</th>
+<th>Fecha</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>11-10-2025</td>
+<td>Adaptación de los materiales a markdown</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>21-10-2025</td>
+<td>Reorganización de algunas secciones</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>06-11-2025</td>
+<td>Ampliación sección de exportación de la BD</td>
+</tr>
+<tr>
+<td>1.3</td>
+<td>10-11-2025</td>
+<td>Eliminación del apartado referente a MySQL</td>
+</tr>
+</tbody>
+</table>
+<p><span class="mi_h3">Acceso al laboratorio</span></p>
+<p>A continuación se describen los pasos para acceder al laboratorio de aprendizaje de AWS Academy.</p>
+<p><strong>1. Crea tu cuenta</strong></p>
+<p>Habrás recibido un correo electrónico de invitación, haz clic en el enlace y crea tu cuenta. Una vez completado el registro se abrirá el entorno de AWS Academy automáticamente. Haz clic en <code>Contenidos</code> y luego en el enlace <code>Lanzamiento del laboratorio</code> como se muestra en la siguiente imagen (la primera vez que entres deberás aceptar los términos de uso)</p>
+<p><img alt="Imagen 1" src="img/AWS/imagen_001.jpg" /></p>
+<div class="admonition note">
+<p>Si te aparece el siguiente mensaje: <em>"This assignment is locked till you access it through your respective LMS once, please use your LMS to access/unlock this assignment"</em> vuelve a hacer clic en <em>Contenidos</em> y en el enlace <em>Lanzamiento del laboratorio</em></p>
+</div>
+<p>Para entrar al curso en el futuro hazlo desde: <a href="https://www.awsacademy.com/vforcesite/LMS_Login">https://www.awsacademy.com/vforcesite/LMS_Login</a></p>
+<p><img alt="Imagen 00" src="img/AWS/imagen_00r.jpg" /></p>
+<p>Luego haz clic en el nombre del curso y, una vez dentro, haz clic en <code>Contenidos</code> y en el enlace <code>Lanzamiento del laboratorio</code> como hiciste la primera vez </p>
+<p><img alt="Imagen 000" src="img/AWS/imagen_000.jpg" />
+<img alt="Imagen 1" src="img/AWS/imagen_001.jpg" /></p>
+<p><strong>2. Inicia el laboratorio</strong></p>
+<p>Cuando aparezca la pantalla con el laboratorio, haz clic en el botón <code>Start Lab</code> (verás que el círculo junto al enlace <code>AWS</code> cambia de color rojo a amarillo y permanece de ese color mientras arranca el laboratorio)</p>
+<p><img alt="Imagen 2" src="img/AWS/imagen_002.jpg" /></p>
+<p><strong>3. Accede a la consola</strong></p>
+<p>Cuando el laboratorio haya arrancado, el círculo cambiará a color verde. Entonces haz clic en el enlace <code>AWS</code> para acceder a la <code>Página de inicio de la Consola</code> (puedes ver que la región es <em>North Virginia (us-east-1)</em> que es la región por defecto de los laboratorios de aprendizaje, <strong>NO LO CAMBIES</strong>). Después haz clic en <code>EC2</code> para acceder a la consola de instancias EC2</p>
+<p><img alt="Imagen 4" src="img/AWS/imagen_004b.jpg" /></p>
+<p><span class="mi_h3">Instalación del servidor</span></p>
+<p>A continuación se describen los pasos para crear un servidor Ubuntu en un laboratorio de aprendizaje de AWS Academy.</p>
+<p><strong>1. Crea la instancia</strong></p>
+<p>Dentro del panel <code>EC2</code> haz clic en el botón <code>Lanzar la instancia</code>. Luego Escribe el nombre de la instancia y elige una <code>Amazon Machine Image (AMI)</code> en este caso Ubuntu (al seleccionar ubuntu nos aparece la Ubuntu Server 24.04 LTS que es apta para utilizar de forma gratuita). Más abajo también aparece el tipo de instancia que es</p>
+<p><img alt="Imagen 6" src="img/AWS/imagen_006.jpg" />
+<img alt="Imagen 7" src="img/AWS/imagen_007.jpg" />
+<img alt="Imagen 8" src="img/AWS/imagen_008.jpg" /></p>
+<p><strong>2. Crea un par de claves</strong></p>
+<p>Haz clic en el enlace <code>Crear un nuevo par de claves</code>, introduce el nombre para el fichero de claves y haz clic en el botón <code>Crear par de claves</code></p>
+<p><img alt="Imagen 9" src="img/AWS/imagen_009.jpg" />
+<img alt="Imagen 10" src="img/AWS/imagen_010r.jpg" /></p>
+<p><span class="mis_avisos"><strong>Muy importante:</strong> Verás que el navegador descarga el fichero .pem de tu clave automáticamente. Guárdalo en lugar seguro porque te hará falta para conectar a tu servidor por SSH.</span></p>
+<p><strong>3. Lanzar instancia</strong></p>
+<p>Deja el resto de opciones como están y, en la parte derecha dentro del apartado <code>Resumen</code>, haz clic en el botón <code>Lanzar instancia</code>. Cuando la instancia termine de lanzarse aparecerá la siguiente imagen</p>
+<p><img alt="Imagen 12" src="img/AWS/imagen_012.jpg" /></p>
+<p><strong>4. Asignar una IP pública fija</strong></p>
+<p>Para que el servidor tenga siempre la misma IP pública y facilitar así trabajar con él, vamos a asignarle una IP fija. Para ello haz clic en el enlace <code>Direcciones IP elásticas</code> y luego haz clic en el botón <code>Asignar dirección IP elástica</code> </p>
+<p><img alt="Imagen 12" src="img/AWS/AWS_IP_1.jpg" />
+<img alt="Imagen 12" src="img/AWS/AWS_IP_2.jpg" /></p>
+<p>En la siguiente pantalla deja las opciones por defecto y haz clic en el botón <code>Asignar</code>. Verás la nueva IP</p>
+<p><img alt="Imagen 12" src="img/AWS/AWS_IP_3.jpg" />
+<img alt="Imagen 12" src="img/AWS/AWS_IP_4.jpg" /></p>
+<p>Selecciona la nueva IP, haz clic en el desplegable <code>Acciones</code> y entra en <code>Dirección IP elástica asociada</code>, luego indica la instancia a la que asignar la IP y haz clic en <code>Asociado</code>. La IP quedará asociada a tu instancia</p>
+<p><img alt="Imagen 12" src="img/AWS/AWS_IP_5.jpg" />
+<img alt="Imagen 12" src="img/AWS/AWS_IP_6.jpg" />
+<img alt="Imagen 12" src="img/AWS/AWS_IP_7.jpg" /></p>
+<p>Vuelve a la lista de instancias para comprobar que tu instancia ya tiene la IP
+    <img alt="Imagen 12" src="img/AWS/AWS_IP_8.jpg" /></p>
+<p><span class="mi_h3">Prueba de conexión</span></p>
+<p><strong>1. Ver opciones de conexión</strong></p>
+<p>Haz clic en el botón <code>Conectarse a la instancia</code> para ver las diferentes opciones de conexión y sus instrucciones, por ejemplo en la pestaña <code>Cliente SSH</code> (que es la que vamos a utilizar) aparece lo siguiente:</p>
+<p><img alt="Imagen 13" src="img/AWS/imagen_013.jpg" /></p>
+<p><strong>2. Conectar al servidor por ssh</strong></p>
+<p>Para conectar, abre una ventana de comandos y asegurate que el archivo .pem está en la carpeta desde la que lanzas el siguiente comando (puedes utilizar el nombre del servidor o su IP pública):
+<div class="highlight"><pre><span></span><code>ssh -i [nombre_clave] ubuntu@[nombre_IP_servidor]
+</code></pre></div></p>
+<div class="admonition note">
+<p>Si aparece el siguiente aviso:</p>
+<p><img alt="Imagen warning conexión" src="img/warning.png" /></p>
+<p>Ejecuta el comando siguiente:
+<div class="highlight"><pre><span></span><code>chmod 400 [nombre_clave]
+</code></pre></div></p>
+</div>
+<p>Si la conexión se ha establecido correctamente verás la siguiente información:</p>
+<p><img alt="Imagen 14" src="img/AWS/imagen_014.jpg" /></p>
+<hr />
+<p><span class="mi_h3">Autoría</span></p>
+<p>Obra realizada por Begoña Paterna Lluch. Publicada bajo licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Atribución/Reconocimiento-CompartirIgual 4.0 Internacional</a></p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tabs.link", "navigation.instant", "navigation.top", "navigation.sections", "search.highlight", "search.suggest", "toc.integrate"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
