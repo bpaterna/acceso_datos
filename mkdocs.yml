@@ -1,0 +1,43 @@
+site_name: Acceso a datos
+site_url: https://bpaterna.github.io/acceso_datos2/
+site_author: Begoña Paterna
+theme:
+  name: material
+  language: es
+  palette:
+    scheme: default
+    primary: cyan
+  features:
+    - content.code.copy
+    - content.tabs.link
+    - navigation.instant
+    - navigation.top
+    - navigation.sections
+    - search.highlight
+    - search.suggest
+    - toc.integrate
+nav:
+  - Presentación: index.md
+  - Contenidos:
+    - RA1. Acceso a ficheros: RA1ficheros.md
+    - RA2. Acceso a BD relacionales: RA2bd_rel.md
+    - RA5: RA5bd_doc.md
+    - RA6. Componentes: RA6componentes.md
+  - Material adicional:
+    - Propuestas: propuestas.md
+    - Kotlin: kotlin.md
+    - Docker: docker.md
+    - DBeaver: dbeaver.md
+markdown_extensions:
+  - attr_list
+  - admonition
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.tabbed
+extra_css:
+  - stylesheets/extra.css
+use_directory_urls: false

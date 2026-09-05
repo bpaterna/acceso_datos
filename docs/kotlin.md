@@ -1,0 +1,27 @@
+# Kotlin
+
+![kotlin](img/kotlin-logo.png){ width="400" }
+
+
+<span class="mi_h3">Revisiones</span>
+
+| Revisión | Fecha      | Descripción                             |
+|----------|------------|-----------------------------------------|
+| 1.0      | 29-06-2026 | Adaptación de los materiales a markdown |
+
+
+
+Tras asimilar algunos conceptos básicos de programación (estructuras de control, objetos y herencia) utilizando **Java** en 1º de DAM, en este módulo de **Acceso a Datos** daremos el salto a **Kotlin**. Utilizaremos este lenguaje para desarrollar aplicaciones capaces de conectar con almacenamientos externos (como bases de datos o archivos), logrando así consultar, guardar y administrar la información de manera segura y eficiente.
+
+Puedes encontrar muchos tutoriales en internet para aprender Kotlin, a continuación te dejo un enlace a unos apuntes con los conceptos que vamos a trabajar durante este curso: [https://bpaterna.github.io/kotlin](https://bpaterna.github.io/kotlin){: target="_blank" }
+
+
+
+
+---
+<span class="mi_h3">Autoría</span>
+
+<span class="mi_autoria">
+Obra realizada por Begoña Paterna Lluch. Publicada bajo licencia [Creative Commons Atribución/Reconocimiento-CompartirIgual 4.0 Internacional](https://creativecommons.org/licenses/by-sa/4.0/)
+</span>
+---
