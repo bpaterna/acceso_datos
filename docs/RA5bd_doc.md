@@ -1,7 +1,7 @@
 # RA5. Acceso a Bases de Datos relacionales
 
 !!! info "RA5"
-    Desarrolla aplicac.
+    Desarrolla aplicaciones que gestionan la información almacenada en bases de datos documentales nativas evaluando y utilizando clases específicas.
 
 
 
