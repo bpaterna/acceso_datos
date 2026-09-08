@@ -97,7 +97,8 @@ A continuación tenemos información sobre algunas **plantas** y los **jardinero
 
 De la primera manera podríamos tener una colección llamada **Plantas**. Observa cómo los objetos no tienen por qué tener la misma estructura y, en este caso, la forma de acceder al nombre de un jardinero sería la siguiente: **objeto.jardinero.nombre**:
 
-```
+```json
+[
     {
         "id_planta": 1,
         "nombre_comun": "Aloe Vera",
@@ -137,11 +138,13 @@ De la primera manera podríamos tener una colección llamada **Plantas**. Observ
         },
         "localización": "Jardín Olimpo"
     }
+]
 ```
 
 De la segunda manera tendríamos la colección **Jardineros** donde la información estaría organizasa por jardineros y cada uno de ellos tendría un array con las plantas que cuida (los corchetes: [ ]):
 
-```
+```json
+[
     {
         "id_jardinero": 401,
         "nombre": "Pol",
@@ -173,6 +176,7 @@ De la segunda manera tendríamos la colección **Jardineros** donde la informaci
             }
         ]
     }
+]
 ```
 
 
@@ -213,8 +217,7 @@ Lo que nos devolverá algo como:
 
 Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un número diferente en el campo **ObjectId**. En la siguiente imagen pueden verse las dos operaciones.
 
-![Imagen 6](img/mongo/mongo06.png)
-
+<img class="con_borde" src="img/RA5/mongo06.png" alt="mongoDB">
 
 <span class="mi_h3">Información útil del entorno</span>
 
