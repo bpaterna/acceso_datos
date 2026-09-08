@@ -510,24 +510,26 @@ db.plantas.aggregate([
 !!! warning "Práctica 1: Trabaja con tu BD" 
     Realiza lo siguiente:
 
-    1. Abre la terminal (`mongosh`) y crea tu BD.
-    2. Crea una colección e inserta tres documentos con los campos que quieras.
-    3. Muestra todas las bases de datos y las colecciones creadas.
-    4. Inserta tres nuevos documentos con `insertMany()`.
-    5. Recupera todos los documentos con `find()`.
-    6. Aplica algún filtro.
-    7. Actualiza uno de los documentos cambiando el valor de un campo.
-    8. Elimina un documento específico mediante `deleteOne()`.
-    9. Usa `aggregate()` para realizar algún cálculo.
-    10. Agrupa por tipo o categoría utilizando `$group` y ordena los resultados.
-    11. Limita la salida a los tres resultados más altos con `$limit`.
+    1. Abre el terminal dentro del contenedor.
+    2. Conecta al servidor MongoDB desde el terminal.
+    3. Crea tu BD.
+    4. Crea una colección e inserta tres documentos con los campos que quieras.
+    5. Muestra todas las bases de datos y la colección creada.
+    6. Inserta tres nuevos documentos con `insertMany()`.
+    7. Recupera todos los documentos con `find()`.
+    8. Aplica algún filtro.
+    9. Actualiza uno de los documentos cambiando el valor de un campo.
+    10. Elimina un documento específico mediante `deleteOne()`.
+    11. Usa `aggregate()` para realizar algún cálculo.
+    12. Agrupa por tipo o categoría utilizando `$group` y ordena los resultados.
+    13. Limita la salida a los tres resultados más altos con `$limit`.
 
 
 
 
 
 
-
+todo lo de kotlin
 
 
 
