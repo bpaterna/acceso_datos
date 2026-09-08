@@ -300,8 +300,9 @@ plantas
 ```
 
 !!! success "Prueba y analiza el ejemplo"
+
     1. Monta tu servidor MongoDB en docker siguiendo los pasos del documento [Docker](docker.html).
-    2. Prueba el código de ejemplo y verifica que funciona correctamente.
+    2. Prueba los comandos del ejemplo y verifica que funciona correctamente.
 
 
 
@@ -322,9 +323,11 @@ plantas
 | `findOne()`                  | Devuelve el primer documento que cumple una condición.<br>**Ejemplo:** `db.alumnos.findOne({nombre:"Ana"})`          |
 | `find(criterio, proyección)` | Permite filtrar y mostrar solo algunos campos.<br>**Ejemplo:** `db.alumnos.find({nota:{$gte:8}}, {nombre:1, _id:0})` |
 
-!!!Note ""
-**Operadores comunes**:  
-`$eq` (igual), `$ne` (distinto), `$gt` (mayor que), `$lt` (menor que), `$gte` (mayor o igual), `$lte` (menor o igual), `$in`, `$and`, `$or`.
+
+
+> **Operadores comunes:** `$eq` (igual), `$ne` (distinto), `$gt` (mayor que), `$lt` (menor que), `$gte` (mayor o igual), `$lte` (menor o igual), `$in`, `$and`, `$or`.
+
+
 
 **Actualización** (Usa `$set` para modificar solo algunos campos y **no perder el resto**)
 
@@ -342,7 +345,7 @@ plantas
 | `deleteMany()` | Elimina todos los documentos que cumplan la condición.<br>**Ejemplo:** `db.alumnos.deleteMany({nota:{$lt:5}})` |
 
 
-<span class="mis_ejemplos">Ejemplo 2: Operaciones CRUD en terminal</span>
+<span class="mis_ejemplos">Ejemplo 2: Operaciones básicas</span>
 
 El siguiente ejemplo realiza las siguientes operaciones sobre la colección `plantas`:
 
@@ -395,7 +398,10 @@ El ejemplo funciona de la siguiente manera:
 ```
 
 !!! success "Prueba y analiza el ejemplo"
-    Prueba el código de ejemplo y verifica que funciona correctamente.
+
+    1. Abre el terminal dentro del contenedor.
+    2. Conecta al servidor MongoDB desde el terminal
+    3. Prueba los comandos del ejemplo y verifica que funciona correctamente.
 
 
 
@@ -420,7 +426,7 @@ El ejemplo funciona de la siguiente manera:
 
 
 
-<span class="mi_h3">Consultas avanzadas con `aggregate()`</span>
+<span class="mi_h3">Consultas complejas</span>
 
 El método **`aggregate()`** permite realizar **consultas complejas** y **procesamientos de datos** en varias etapas, similares a las funciones de **GROUP BY, JOIN o HAVING** en SQL. Cada etapa del *pipeline* (tubería) transforma los datos paso a paso. Cada etapa (stage) se representa mediante un objeto precedido por $, que indica la operación a realizar.
 
@@ -492,13 +498,18 @@ db.plantas.aggregate([
 ```
 
 
+
 !!! success "Prueba y analiza el ejemplo"
-    Prueba el código de ejemplo y verifica que funciona correctamente.
+
+    1. Abre el terminal dentro del contenedor.
+    2. Conecta al servidor MongoDB desde el terminal
+    3. Prueba los comandos del ejemplo y verifica que funciona correctamente.
 
 
 
 !!! warning "Práctica 1: Trabaja con tu BD" 
     Realiza lo siguiente:
+
     1. Abre la terminal (`mongosh`) y crea tu BD.
     2. Crea una colección e inserta tres documentos con los campos que quieras.
     3. Muestra todas las bases de datos y las colecciones creadas.
