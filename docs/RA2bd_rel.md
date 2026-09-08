@@ -826,7 +826,7 @@ fun main() {
 }
 ```
 
-!!! success "Prueba y analiza el ejemplo 4"
+!!! success "Prueba y analiza el ejemplo"
     Prueba el código de ejemplo y verifica que funciona correctamente.
 
 

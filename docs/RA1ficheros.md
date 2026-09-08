@@ -2803,7 +2803,6 @@ Añadimos a la función `main` las líneas para llamar a la nueva función y vol
     - Opción **LEER**: Muestra por consola la información del fichero binario.
     - Opción **AÑADIR**: Pide el ID y comprueba se quea válido (para ser válido ha de ser un número y no existir en el fichero binario), si no es válido lo vuelve a pedir hasta que lo sea. Después pide el resto de campos (los campos numéricos se pedirán hasta que sean válidos, es decir, ser número y ser del tipo correcto). Por último añade un registro al final del fichero con toda la información.
     - Opción **MODIFICAR**: Pide ID hasta que sea válido (debe ser un número entero) y recorre el fichero binario para ver si existe, si no lo encuentra informa con un mensaje y no realiza ningún cambio pero si lo encuentra muestra el nombre o algún otro campo representativo, pide alguno de los otros campos (comprobando que es correcto) y actualiza la información en el fichero informando con un mensaje.
-
     - Opción **ELIMINAR**: Pide ID hasta que sea válido (debe ser un número entero) y recorre el fichero binario para ver si existe, si no lo encuentra informa con un mensaje pero si lo encuentra muestra el nombre o algún otro campo representativo y pide confirmación para eliminar, entonces, si se confirma el borrado se elimina el registro y en caso contrario no se elimina (en ambos casos se informa con un mensaje).
 
 

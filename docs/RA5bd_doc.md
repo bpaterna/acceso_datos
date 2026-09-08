@@ -527,9 +527,418 @@ db.plantas.aggregate([
 
 
 
+<span class="mi_h3">Trabajando en kotlin con MongoDB</span>
+
+Una vez comprendido el manejo desde terminal, trabajaremos con kotlin a través del *driver oficial de MongoDB para Kotlin*. Para ello crearemos un nuevo proyecto en IntelliJ con Gradle. Además, para los ejemplos realizados en `Kotlin` de esta unidad, se han declarado tres constantes para almacenar el servidor, el nombre de la BD y el nombre de la colección con los que vamos a trabajar. También se crea una variable Scanner de forma global para poder utilizarla en cualquier parte del programa.
+
+```kotlin
+const val NOM_SRV = "mongodb://localhost:27017"
+const val NOM_BD = "florabotanica"
+const val NOM_COLECCION = "plantas"
+
+// Creamos el Scanner de forma global
+val scanner = Scanner(System.`in`)
+```
 
 
-todo lo de kotlin
+<span class="mis_ejemplos">Ejemplo 4: Conexión y lectura de información</span>
+
+El siguiente ejemplo añade la dependencia del driver de MongoDB, conecta a la BD `florabotanica` y muestra por consola la información de cada documento JSON almacenado en `plantas`.
+
+**1. Añadir dependencia al fichero `build.gradle.kts`**
+```kotlin
+    implementation("org.mongodb:mongodb-driver-sync:4.11.0")
+```
+
+**2. Conectar a la BD y leer la información**
+```kotlin
+import com.mongodb.client.MongoClients
+
+fun mostrarPlantas() {
+    val cliente = MongoClients.create(NOM_SRV)
+    val db = cliente.getDatabase(NOM_BD)
+    val coleccion = db.getCollection(NOM_COLECCION)
+
+    // Mostrar documentos de la colección plantas
+    val cursor = coleccion.find().iterator()
+    cursor.use {
+        while (it.hasNext()) {
+            val doc = it.next()
+            println(doc.toJson())
+        }
+    }
+
+    cliente.close()
+}
+```
+
+!!! success "Prueba y analiza el ejemplo"
+
+    1. Crea un proyecto kotlin con `Gradle` y añade las dependencias para trabajar con MongoDB.
+    3. Prueba el código de ejemplo y verifica que funciona correctamente.
+
+
+
+
+<span class="mis_ejemplos">Ejemplo 5: Operaciones CRUD</span>
+
+El siguiente fragmento de código realiza las siguientes operaciones sobre la colección `plantas`de la BD `florabotanica`:
+
+1. Insertar un nuevo documento a partir de los datos introducidos por el usuario.
+2. Actualizar la altura de una planta dada.
+3. Eliminar una planta por nombre.
+
+```kotlin
+import com.mongodb.client.MongoClients
+import com.mongodb.client.MongoDatabase
+import com.mongodb.client.model.Filters
+import org.bson.Document
+import java.util.Scanner
+
+fun insertarPlanta() {
+    //conectar con la BD
+    val cliente = MongoClients.create(NOM_SRV)
+    val db = cliente.getDatabase(NOM_BD)
+    val coleccion = db.getCollection(NOM_COLECCION)
+
+    var id_planta: Int? = null
+    while (id_planta == null) {
+        print("ID de la planta: ")
+        val entrada = scanner.nextLine()
+        id_planta = entrada.toIntOrNull()
+        if (id_planta == null) {
+            println("El ID debe ser un número !!!")
+        }
+    }
+
+    print("Nombre común: ")
+    val nombre_comun = scanner.nextLine()
+    print("Nombre científico: ")
+    val nombre_cientifico = scanner.nextLine()
+
+    var altura: Int? = null
+    while (altura == null) {
+        print("Altura (en cm): ")
+        val entrada = scanner.nextLine()
+        altura = entrada.toIntOrNull()
+        if (altura == null) {
+            println("¡¡¡ La altura debe ser un número !!!")
+        }
+    }
+
+    val doc = Document("id_planta", id_planta)
+        .append("nombre_comun", nombre_comun)
+        .append("nombre_cientifico", nombre_cientifico)
+        .append("altura", altura)
+
+    coleccion.insertOne(doc)
+    println("Planta insertada con ID: ${doc.getObjectId("_id")}")
+
+    cliente.close()
+    println("Conexión cerrada")
+}
+
+
+fun actualizarAltura() {
+    //conectar con la BD
+    val cliente = MongoClients.create(NOM_SRV)
+    val db = cliente.getDatabase(NOM_BD)
+    val coleccion = db.getCollection(NOM_COLECCION)
+
+    var id_planta: Int? = null
+    while (id_planta == null) {
+        print("ID de la planta a actualizar: ")
+        val entrada = scanner.nextLine()
+        id_planta = entrada.toIntOrNull()
+        if (id_planta == null) {
+            println("El ID debe ser un número !!!")
+        }
+    }
+
+    //comprobar si existe una planta con el id_planta proporcionado por consola
+    val planta = coleccion.find(Filters.eq("id_planta", id_planta)).firstOrNull()
+    if (planta == null) {
+        println("No se encontró ninguna planta con id_planta = \"$id_planta\".")
+    }
+    else {
+        // Mostrar información de la planta encontrada
+        println("Planta encontrada: ${planta.getString("nombre_comun")} (altura: ${planta.get("altura")} cm)")
+
+        //pedir nueva altura
+        var altura: Int? = null
+        while (altura == null) {
+            print("Nueva altura (en cm): ")
+            val entrada = scanner.nextLine()
+            altura = entrada.toIntOrNull()
+            if (altura == null) {
+                println("¡¡¡ La altura debe ser un número !!!")
+            }
+        }
+
+        // Actualizar el documento
+        val result = coleccion.updateOne(
+            Filters.eq("id_planta", id_planta),
+            Document("\$set", Document("altura", altura))
+        )
+
+        if (result.modifiedCount > 0)
+            println("Altura actualizada correctamente (${result.modifiedCount} documento modificado).")
+        else
+            println("No se modificó ningún documento (la altura quizá ya era la misma).")
+    }
+
+    cliente.close()
+    println("Conexión cerrada.")
+}
+
+
+fun eliminarPlanta() {
+    //conectar con la BD
+    val cliente = MongoClients.create(NOM_SRV)
+    val db = cliente.getDatabase(NOM_BD)
+    val coleccion = db.getCollection(NOM_COLECCION)
+
+    var id_planta: Int? = null
+    while (id_planta == null) {
+        print("ID de la planta a eliminar: ")
+        val entrada = scanner.nextLine()
+        id_planta = entrada.toIntOrNull()
+        if (id_planta == null) {
+            println("El ID debe ser un número !!!")
+        }
+    }
+
+    val result = coleccion.deleteOne(Filters.eq("id_planta", id_planta))
+    if (result.deletedCount > 0)
+        println("Planta eliminada correctamente.")
+    else
+        println("No se encontró ninguna planta con ese nombre.")
+
+    cliente.close()
+    println("Conexión cerrada.")
+}
+```
+
+!!! success "Prueba y analiza el ejemplo"
+    Prueba el código de ejemplo y verifica que funciona correctamente.
+
+
+
+<span class="mis_ejemplos">Ejemplo 6: Consultas avanzadas</span>
+
+El siguiente ejemplo conecta a la BD `florabotanica`y realiza las siguientes operaciones:
+
+1. Implementa consultas utilizando filtros con `Filters.eq`, `Filters.gt`, etc.
+2. Muestra solo los nombres de las plantas con `Projections.include`.
+3. Realiza una agregación que calcule la media de alturas.
+
+
+```kotlin
+import com.mongodb.client.model.Projections
+
+fun variasOperaciones() {
+    val client = MongoClients.create(NOM_SRV)
+    val col = client.getDatabase(NOM_BD).getCollection(NOM_COLECCION)
+
+    println("*****Plantas que miden más de 100cm")
+    // 1) Filtro: altura > 100
+    col.find(Filters.gt("altura", 100)).forEach { println(it.toJson()) }
+
+    println("*****Nombre común de todas las plantas")
+    // 2) Proyección: solo nombre_comun
+    col.find().projection(Projections.include("nombre_comun")).forEach { println(it.toJson()) }
+
+    println("*****Altura media de todas las plantas")
+    // 3) Agregación: media de altura
+    val pipeline = listOf(
+        Document("\$group", Document("_id", null).append("alturaMedia", Document("\$avg", "\$altura")))
+    )
+    val aggCursor = col.aggregate(pipeline).iterator()
+    aggCursor.use {
+        while (it.hasNext()) println(it.next().toJson())
+    }
+
+    client.close()
+}
+```
+
+!!! success "Prueba y analiza el ejemplo"
+    Prueba el código de ejemplo y verifica que funciona correctamente.
+
+
+
+!!! warning "Práctica 2: Trabaja con tu BD"
+    En esta práctica crearás tu aplicación para gestionar la información de tu BD con las opciones **CRUD**, es decir, **C**reate (crear), **R**ead (Leer), **U**pdate (Actualizar) y **D**elete (Borrar).
+
+    **Realiza los siguientes pasos:**
+
+    1. Crea un proyecto kotlin con `Gradle` y añade las dependencias para trabajar con MongoDB.
+    2. Crea un menú con las opciones siguientes:
+
+        ```text
+        --------------------------------------        
+        ---------- MENÚ PRINCIPAL ----------
+        --------------------------------------
+        1. Leer información
+        2. Añadir un registro nuevo
+        3. Modificar un registro existente (por ID)
+        4. Eliminar un registro existente (por ID)
+        5. (Operación utilizando filtros)
+        6. (Consulta que muestra solo algunos datos)
+        7. (Consulta de agregación que realice algún cálculo sobre tus datos)
+        0. Salir
+        ```
+
+
+    **Requisitos de funcionamiento:**
+
+    - Opción **LEER**: Muestra por consola la información formateada para que tenga un aspecto amigable, por ejemplo:
+
+        ```text
+        **** Listado de plantas:
+        [1] Aloe (Aloe vera): 30 unidades
+        [2] Pino (Pinus sylvestris): 50 unidades
+        [3] Cactus (Cactaceae): 120 cm
+        ```
+
+    - Opción **AÑADIR**: Pide el ID y comprueba se quea válido (para ser válido ha de ser un número y no existir en el fichero binario), si no es válido lo vuelve a pedir hasta que lo sea. Después pide el resto de campos (los campos numéricos se pedirán hasta que sean válidos, es decir, ser número y ser del tipo correcto). Por último añade un registro al final del fichero con toda la información.
+    - Opción **MODIFICAR**: Pide ID hasta que sea válido (debe ser un número entero) y recorre el fichero binario para ver si existe, si no lo encuentra informa con un mensaje y no realiza ningún cambio pero si lo encuentra muestra el nombre o algún otro campo representativo, pide alguno de los otros campos (comprobando que es correcto) y actualiza la información en el fichero informando con un mensaje.
+    - Opción **ELIMINAR**: Pide ID hasta que sea válido (debe ser un número entero) y recorre el fichero binario para ver si existe, si no lo encuentra informa con un mensaje pero si lo encuentra muestra el nombre o algún otro campo representativo y pide confirmación para eliminar, entonces, si se confirma el borrado se elimina el registro y en caso contrario no se elimina (en ambos casos se informa con un mensaje).
+    - (Operación utilizando filtros) se realiza utilizando filtros con `Filters.eq`, `Filters.gt`, etc.
+    - (Consulta que muestra solo algunos datos) se realiza utilizando `Projections.include`.
+
+
+    **Aspectos técnicos:**
+    
+    - Se añaden las librerías necesarias en las dependencias del archivo `build.gradle.kts`.
+    - Se gestionan adecuadamente las excepciones y la aplicación no se detiene inesperadamente.
+    - Se controlan fallos de formato (ej. datos corruptos al parsear números) para asegurar que el programa no cae de forma inesperada si un fichero contiene errores.
+    - El código es legible, con nombres descriptivos y bien organizado. Los mensajes informativos son claros.
+
+
+
+
+!!! danger "Entrega final"
+Entrega en Aules un solo archivo comprimido en formato `.zip` que contenga únicamente la carpeta `src` y un archivo `.json` con tu BD exportada. (Puedes consultar el apartado `Exportar / Importar la BD con Kotlin` al final de este documento). Tu trabajo se calificará con la siguiente tabla:
+
+    | <span class="mi_sombreado_entrega">Bloque de evaluación</span>             | <span class="mi_sombreado_entrega">Criterios de calificación</span>          | <span class="mi_sombreado_entrega">Puntos</span>                            |
+    | :------------------------- | :--------------------------------------- | :-----------------------------: |
+    | **Requisitos técnicos y funcionamiento** | \- La entrega cumple el formato solicitado (un `.zip` con carpeta `src` y archivo `.sql`).<br>\- La aplicación compila, es funcional y cumple con todo lo solicitado en el enunciado.<br>\- No contiene código muerto ni restos de prácticas anteriores.                 | 2,5 |
+    | **Prueba escrita de autoría**            | \- Respuestas correctas a las preguntas conceptuales y técnicas sobre tu propio código.<br>\- Capacidad para explicar el flujo del programa. | 7,5 |
+
+    
+    ⚠️ Nota aclaratoria: la entrega correcta y funcional de la aplicación es un requisito indispensable para poder realizar la prueba escrita. Si no se realiza la entrega del proyecto o si éste no compila o no funciona como pide el enunciado, la calificación global de la tarea será un 0.
+
+
+
+
+
+
+
+<span class="mi_h3">Exportar / Importar la BD con Kotlin</span>
+
+Desde Kotlin podemos exportar nuestra BD a un archivo .json y también podemos importar un archivo .json a nuestra BD. Para ello hay que añadir la siguiente dependencia en el archivo `build.gradle.kts`.
+
+```kotlin
+implementation("org.json:json:20231013")
+```
+
+
+A continuación se muestra el código que exporta la BD a un archivo `.json` (actualizado para tomar como parámetros la ruta del `json` y el nombre de la colección).
+
+```kotlin
+import com.mongodb.client.MongoClients
+import org.bson.json.JsonWriterSettings
+import java.io.File
+
+fun exportarBD(coleccion: MongoCollection<Document>, rutaJSON: String) {
+    val settings = JsonWriterSettings.builder().indent(true).build()
+    val file = File(rutaJSON)
+    file.printWriter().use { out ->
+        out.println("[")
+        val cursor = coleccion.find().iterator()
+        var first = true
+        while (cursor.hasNext()) {
+            if (!first) out.println(",")
+            val doc = cursor.next()
+            out.print(doc.toJson(settings))
+            first = false
+        }
+        out.println("]")
+        cursor.close()
+    }
+
+    println("Exportación de ${coleccion.namespace.collectionName} completada")
+}
+```
+
+A continuación se muestra el código que importa la BD desde un archivo `.json`(actualizado para tomar como parámetros la ruta del `json` y el nombre de la colección).
+
+```kotlin
+import com.mongodb.client.MongoClients
+import org.bson.Document
+import org.json.JSONArray
+import java.io.File
+
+fun importarBD(rutaJSON: String, coleccion: MongoCollection<Document>) {
+    println("Iniciando importación de datos desde JSON...")
+
+    val jsonFile = File(rutaJSON)
+    if (!jsonFile.exists()) {
+        println("No se encontró el archivo JSON a importar")
+        return
+    }
+
+    // Leer JSON del archivo
+    val jsonText = try {
+        jsonFile.readText()
+    } catch (e: Exception) {
+        println("Error leyendo el archivo JSON: ${e.message}")
+        return
+    }
+
+    val array = try {
+        JSONArray(jsonText)
+    } catch (e: Exception) {
+        println("Error al parsear JSON: ${e.message}")
+        return
+    }
+
+    // Convertir JSON a Document y eliminar _id si existe
+    val documentos = mutableListOf<Document>()
+    for (i in 0 until array.length()) {
+        val doc = Document.parse(array.getJSONObject(i).toString())
+        doc.remove("_id")  // <-- eliminar _id para que MongoDB genere uno nuevo
+        documentos.add(doc)
+    }
+
+    if (documentos.isEmpty()) {
+        println("El archivo JSON está vacío")
+        return
+    }
+
+    val db = cliente.getDatabase(NOM_BD)
+
+    val nombreColeccion =coleccion.namespace.collectionName
+
+    // Borrar colección si existe
+    if (db.listCollectionNames().contains(nombreColeccion)) {
+        db.getCollection(nombreColeccion).drop()
+        println("Colección '$nombreColeccion' eliminada antes de importar.")
+    }
+
+    // Insertar documentos
+    try {
+        coleccion.insertMany(documentos)
+        println("Importación completada: ${documentos.size} documentos de $nombreColeccion.")
+    } catch (e: Exception) {
+        println("Error importando documentos: ${e.message}")
+    }
+}
+```
+
+
+
 
 
 
