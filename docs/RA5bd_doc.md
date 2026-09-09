@@ -773,16 +773,16 @@ fun variasOperaciones() {
     **Realiza los siguientes pasos:**
 
     1. Crea un proyecto kotlin con `Gradle` y añade las dependencias para trabajar con MongoDB.
-    2. Crea un menú con las opciones siguientes:
+    2. Crea un menú con las opciones siguientes (sustituye el texto de las 3 últimos opciones por unos que describan su funcionalidad):
 
         ```text
         --------------------------------------        
         ---------- MENÚ PRINCIPAL ----------
         --------------------------------------
         1. Leer información
-        2. Añadir un registro nuevo
-        3. Modificar un registro existente (por ID)
-        4. Eliminar un registro existente (por ID)
+        2. Añadir un documento nuevo
+        3. Modificar un documento existente (por ID)
+        4. Eliminar un documento existente (por ID)
         5. (Operación utilizando filtros)
         6. (Consulta que muestra solo algunos datos)
         7. (Consulta de agregación que realice algún cálculo sobre tus datos)
@@ -801,9 +801,9 @@ fun variasOperaciones() {
         [3] Cactus (Cactaceae): 120 cm
         ```
 
-    - Opción **AÑADIR**: Pide el ID y comprueba se quea válido (para ser válido ha de ser un número y no existir en el fichero binario), si no es válido lo vuelve a pedir hasta que lo sea. Después pide el resto de campos (los campos numéricos se pedirán hasta que sean válidos, es decir, ser número y ser del tipo correcto). Por último añade un registro al final del fichero con toda la información.
-    - Opción **MODIFICAR**: Pide ID hasta que sea válido (debe ser un número entero) y recorre el fichero binario para ver si existe, si no lo encuentra informa con un mensaje y no realiza ningún cambio pero si lo encuentra muestra el nombre o algún otro campo representativo, pide alguno de los otros campos (comprobando que es correcto) y actualiza la información en el fichero informando con un mensaje.
-    - Opción **ELIMINAR**: Pide ID hasta que sea válido (debe ser un número entero) y recorre el fichero binario para ver si existe, si no lo encuentra informa con un mensaje pero si lo encuentra muestra el nombre o algún otro campo representativo y pide confirmación para eliminar, entonces, si se confirma el borrado se elimina el registro y en caso contrario no se elimina (en ambos casos se informa con un mensaje).
+    - Opción **AÑADIR**: Pide el ID y comprueba se quea válido (para ser válido ha de ser un número y no existir en la colección de la BD), si no es válido lo vuelve a pedir hasta que lo sea. Después pide el resto de campos (los campos numéricos se pedirán hasta que sean válidos, es decir, ser número y ser del tipo correcto). Por último añade un documento a la colección de la BD con toda la información.
+    - Opción **MODIFICAR**: Pide ID hasta que sea válido (debe ser un número entero) y comprueba si existe en la colección, si no lo encuentra informa con un mensaje y no realiza ningún cambio pero si lo encuentra muestra el nombre o algún otro campo representativo, pide alguno de los otros campos (comprobando que es correcto) y actualiza la información informando con un mensaje.
+    - Opción **ELIMINAR**: Pide ID hasta que sea válido (debe ser un número entero) y comprueba si existe en la colección, si no lo encuentra informa con un mensaje pero si lo encuentra muestra el nombre o algún otro campo representativo y pide confirmación para eliminar, entonces, si se confirma el borrado se elimina el documento y en caso contrario no se elimina (en ambos casos se informa con un mensaje).
     - (Operación utilizando filtros) se realiza utilizando filtros con `Filters.eq`, `Filters.gt`, etc.
     - (Consulta que muestra solo algunos datos) se realiza utilizando `Projections.include`.
 
@@ -819,11 +819,11 @@ fun variasOperaciones() {
 
 
 !!! danger "Entrega final"
-Entrega en Aules un solo archivo comprimido en formato `.zip` que contenga únicamente la carpeta `src` y un archivo `.json` con tu BD exportada. (Puedes consultar el apartado `Exportar / Importar la BD con Kotlin` al final de este documento). Tu trabajo se calificará con la siguiente tabla:
+    Entrega en Aules un solo archivo comprimido en formato `.zip` que contenga únicamente la carpeta `src` y un archivo `.json` con tu BD exportada. (Puedes consultar el apartado `Exportar / Importar la BD con Kotlin` al final de este documento). Tu trabajo se calificará con la siguiente tabla:
 
     | <span class="mi_sombreado_entrega">Bloque de evaluación</span>             | <span class="mi_sombreado_entrega">Criterios de calificación</span>          | <span class="mi_sombreado_entrega">Puntos</span>                            |
     | :------------------------- | :--------------------------------------- | :-----------------------------: |
-    | **Requisitos técnicos y funcionamiento** | \- La entrega cumple el formato solicitado (un `.zip` con carpeta `src` y archivo `.sql`).<br>\- La aplicación compila, es funcional y cumple con todo lo solicitado en el enunciado.<br>\- No contiene código muerto ni restos de prácticas anteriores.                 | 2,5 |
+    | **Requisitos técnicos y funcionamiento** | \- La entrega cumple el formato solicitado (un `.zip` con carpeta `src` y archivo `.json`).<br>\- La aplicación compila, es funcional y cumple con todo lo solicitado en el enunciado.<br>\- No contiene código muerto ni restos de prácticas anteriores.                 | 2,5 |
     | **Prueba escrita de autoría**            | \- Respuestas correctas a las preguntas conceptuales y técnicas sobre tu propio código.<br>\- Capacidad para explicar el flujo del programa. | 7,5 |
 
     

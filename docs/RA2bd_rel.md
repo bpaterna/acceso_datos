@@ -1205,7 +1205,7 @@ Si no se produce ningún error se hará el `commit` y en caso contrario el `roll
 
     1. Añade dos tablas a tu BD para que quede parecida a la del ejemplo visto anteriormente.
 
-    2. Modifica el menú de la práctica anterior para tener un menú principal y dos submenús, de forma que quede así (sustituye los textos por los adecuados para tu aplicación):
+    2. Modifica el menú de la práctica anterior para tener el menú principal y los dos submenús siguientes (sustituye el texto de la opción 3 por uno que describa su funcionalidad):
 
         Un menú principal:
 
