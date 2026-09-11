@@ -927,8 +927,8 @@ fun importar(){
 
 
 
-!!! warning "Práctica 2: Trabaja con tu BD"
-En esta práctica crearás tu aplicación para gestionar la información de tu BD con las opciones **CRUD**, es decir, **C**reate (crear), **R**ead (Leer), **U**pdate (Actualizar) y **D**elete (Borrar).
+!!! warning "Práctica 2: crea la base de tu proyecto"
+    En esta práctica crearás tu aplicación para gestionar la información de tu BD con las opciones **CRUD**, es decir, **C**reate (crear), **R**ead (Leer), **U**pdate (Actualizar) y **D**elete (Borrar).
 
     **Realiza los siguientes pasos:**
 
