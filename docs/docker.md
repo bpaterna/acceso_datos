@@ -420,8 +420,8 @@ use florabotanica
 
 ```javascript
 db.plantas.insertMany([
-  { nombre_comun: "Aloe Vera", nombre_cientifico: "Aloe barbadensis miller", stock: 7, precio: 2.5 },
-  { nombre_comun: "Lavanda", nombre_cientifico: "Lavandula angustifolia", stock: 3, precio: 1.8 }
+  { id_planta:1, nombre_comun: "Aloe Vera", nombre_cientifico: "Aloe barbadensis miller", stock: 7, precio: 2.5 },
+  { id_planta:2, nombre_comun: "Lavanda", nombre_cientifico: "Lavandula angustifolia", stock: 3, precio: 1.8 }
 ])
 ```
 
