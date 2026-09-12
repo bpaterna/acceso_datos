@@ -1,0 +1,2156 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Begoña Paterna">
+      
+      
+        <link rel="canonical" href="https://bpaterna.github.io/acceso_datos2/RA5bd_doc.html">
+      
+      
+        <link rel="prev" href="RA2bd_rel.html">
+      
+      
+        <link rel="next" href="RA6componentes.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>RA5. Acceso a BD documentales - Acceso a datos</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ra5-acceso-a-bases-de-datos-documentales" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="index.html" title="Acceso a datos" class="md-header__button md-logo" aria-label="Acceso a datos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Acceso a datos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              RA5. Acceso a BD documentales
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Acceso a datos" class="md-nav__button md-logo" aria-label="Acceso a datos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Acceso a datos
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contenidos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contenidos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="RA1ficheros.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RA1. Acceso a ficheros
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="RA2bd_rel.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RA2. Acceso a BD relacionales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RA5. Acceso a BD documentales
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="RA5bd_doc.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RA5. Acceso a BD documentales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. JSON
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-mongodb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MongoDB
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="RA6componentes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RA6. Componentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Material adicional
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Material adicional
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="propuestas.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Propuestas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="kotlin.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kotlin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="docker.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dbeaver.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DBeaver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ra5-acceso-a-bases-de-datos-documentales">RA5. Acceso a Bases de Datos documentales<a class="headerlink" href="#ra5-acceso-a-bases-de-datos-documentales" title="Permanent link">&para;</a></h1>
+<div class="admonition info">
+<p class="admonition-title">RA5</p>
+<p>Desarrolla aplicaciones que gestionan la información almacenada en bases de datos documentales nativas evaluando y utilizando clases específicas.</p>
+</div>
+<p><span class="mi_h3">Revisiones</span></p>
+<table>
+<thead>
+<tr>
+<th>Revisión</th>
+<th>Fecha</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>18-09-2026</td>
+<td>Adaptación de los materiales a markdown</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>19-09-2026</td>
+<td>Ampliación con preguntas de autoevaluación</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-introduccion">1. Introducción<a class="headerlink" href="#1-introduccion" title="Permanent link">&para;</a></h2>
+<p>Las bases de datos documentales nativas (como MongoDB, Redis o Firebase) almacenan información en forma de documentos, usualmente codificados en JSON, BSON o XML, en lugar de filas y columnas como en las bases de datos relacionales.</p>
+<p>Cada documento puede tener una estructura diferente, lo que permite mayor flexibilidad y agilidad en el desarrollo.</p>
+<p>Sin embargo, si el dominio de la aplicación tiene muchas relaciones fuertes entre entidades y se necesita garantizar una integridad referencial estricta, una base de datos relacional puede ser más adecuada.</p>
+<p><strong>Ventajas</strong></p>
+<table>
+<thead>
+<tr>
+<th>Ventaja</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flexibilidad del esquema</td>
+<td>No es necesario definir un esquema fijo antes de insertar datos. Ideal para estructuras dinámicas.</td>
+</tr>
+<tr>
+<td>Escalabilidad horizontal</td>
+<td>Se adaptan bien al escalado distribuyendo los datos en múltiples servidores (sharding).</td>
+</tr>
+<tr>
+<td>Rendimiento en lectura y escritura</td>
+<td>Muy eficiente en operaciones de lectura y escritura sobre documentos completos.</td>
+</tr>
+<tr>
+<td>Modelo cercano a objetos</td>
+<td>Almacenan los datos de manera similar a como se manejan en el código (objetos serializados como JSON).</td>
+</tr>
+<tr>
+<td>Facilidad de integración con APIs REST</td>
+<td>Los documentos JSON pueden ser enviados y recibidos fácilmente a través de APIs.</td>
+</tr>
+<tr>
+<td>Ideal para datos semiestructurados</td>
+<td>Útiles para trabajar con datos que no se ajustan a una estructura tabular, como respuestas de formularios, logs, etc.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Inconvenientes</strong></p>
+<table>
+<thead>
+<tr>
+<th>Inconveniente</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Falta de integridad referencial</td>
+<td>No hay claves foráneas como en las bases de datos relacionales, lo que puede causar inconsistencias si no se gestiona adecuadamente desde la aplicación.</td>
+</tr>
+<tr>
+<td>Redundancia de datos</td>
+<td>Se repite información entre documentos al no haber normalización; esto puede generar más uso de espacio.</td>
+</tr>
+<tr>
+<td>Curva de aprendizaje</td>
+<td>Requiere aprender nuevos conceptos como agregaciones, operadores específicos y estructuras de documentos.</td>
+</tr>
+<tr>
+<td>Menor soporte para transacciones complejas</td>
+<td>Aunque existen transacciones en algunas bases (como MongoDB), su uso es más limitado que en sistemas relacionales.</td>
+</tr>
+<tr>
+<td>Consultas menos optimizadas en relaciones complejas</td>
+<td>No es la mejor opción cuando los datos necesitan muchas relaciones y joins complejos.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Estructuras básicas de almacenamiento de información</strong></p>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Equivalente en BD relacional</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Base de datos</strong></td>
+<td>Base de datos</td>
+<td>Conjunto de colecciones.</td>
+</tr>
+<tr>
+<td><strong>Colección</strong></td>
+<td>Tabla</td>
+<td>Agrupación de documentos relacionados.</td>
+</tr>
+<tr>
+<td><strong>Documento</strong></td>
+<td>Fila (registro)</td>
+<td>Unidad básica de almacenamiento. Es un objeto JSON.</td>
+</tr>
+<tr>
+<td><strong>Campo</strong></td>
+<td>Columna</td>
+<td>Atributo dentro del documento.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-json">2. JSON<a class="headerlink" href="#2-json" title="Permanent link">&para;</a></h2>
+<p><strong>JSON</strong> (JavaScript Object Notation) es un formato de texto ligero utilizado para almacenar e intercambiar información estructurada entre aplicaciones. Aunque su sintaxis proviene de JavaScript, hoy en día es independiente del lenguaje y se usa ampliamente en entornos como Kotlin, Java, Python, Node.js, bases de datos NoSQL, APIs REST, etc.</p>
+<p>Un fichero JSON está compuesto por <strong>pares clave–valor</strong>, donde:</p>
+<ul>
+<li>
+<p>Las <strong>claves</strong> siempre van entre comillas dobles " ".</p>
+</li>
+<li>
+<p>Los <strong>valores</strong> pueden ser:</p>
+<ul>
+<li>Cadenas de texto ("texto")</li>
+<li>Números (42)</li>
+<li>Booleanos (true o false)</li>
+<li>Objetos (otro conjunto de pares clave-valor { ... })</li>
+<li>Arrays o listas ([ ... ])</li>
+<li>Valor nulo (null)</li>
+</ul>
+</li>
+</ul>
+<p><strong>A continuación se muestran algunos ejemplos del contenido de ficheros JSON</strong></p>
+<p><strong>Un ejemplo con cadenas de texto:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"nombre_comun"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aloe Vera"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"nombre_cientifico"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aloe barbadensis miller"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"stock"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"nombre_comun"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lavanda"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"nombre_cientifico"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lavandula angustifolia"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"stock"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<p><strong>Un ejemplo con objetos:</strong></p>
+<p>A continuación tenemos información sobre algunas <strong>plantas</strong> y los <strong>jardineros</strong> que las cuidan. Dependiendo de cómo se deba acceder a la información, se pueden guardar las plantas con sus jardineros, o los jardineros con las plantas que cuidan.</p>
+<p>De la primera manera podríamos tener una colección llamada <strong>Plantas</strong>. Observa cómo los objetos no tienen por qué tener la misma estructura y, en este caso, la forma de acceder al nombre de un jardinero sería la siguiente: <strong>objeto.jardinero.nombre</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"nombre_comun"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aloe Vera"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"nombre_cientifico"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aloe barbadensis miller"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"stock"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span>
+<span class="w">        </span><span class="nt">"jardinero"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"nombre"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pol"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"apellidos"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ribas Colomer"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"pais"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Espanya"</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">"localización"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jardín Atenea"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"nombre_comun"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rosa silvestre"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"nombre_cientifico"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aloe barbadensis miller"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"stock"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span>
+<span class="w">        </span><span class="nt">"jardinero"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"nombre"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Eli"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"apellidos"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Martínez Serra"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"anyo_nacimiento"</span><span class="p">:</span><span class="w"> </span><span class="mi">1985</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">"localización"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jardín Atenea"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"nombre_comun"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lavanda"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"nombre_cientifico"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lavandula angustifolia"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"stock"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span>
+<span class="w">        </span><span class="nt">"jardinero"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"nombre"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pol"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"apellidos"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ribas Colomer"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"pais"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Espanya"</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">"localización"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jardín Olimpo"</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<p>De la segunda manera tendríamos la colección <strong>Jardineros</strong> donde la información estaría organizasa por jardineros y cada uno de ellos tendría un array con las plantas que cuida (los corchetes: [ ]):</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"id_jardinero"</span><span class="p">:</span><span class="w"> </span><span class="mi">401</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"nombre"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pol"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"apellidos"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ribas Colomer"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"pais"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Espanya"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"plantas"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"nombre"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aloe Vera"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"ubicacion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jardín Atenea"</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"nombre"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lavanda"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"ubicacion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jardín Olimpo"</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"id_jardinero"</span><span class="p">:</span><span class="w"> </span><span class="mi">402</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"nombre"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Eli"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"apellidos"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Martínez Serra"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"anyo_nacimiento"</span><span class="p">:</span><span class="w"> </span><span class="mi">1985</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"plantas"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"nombre_comun"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rosa silvestre"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"nombre_cientifico"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aloe barbadensis miller"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"stock"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"ubicacion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jardín Atenea"</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<h2 id="3-mongodb">3. MongoDB<a class="headerlink" href="#3-mongodb" title="Permanent link">&para;</a></h2>
+<p>MongoDB es un sistema de gestión de bases de datos NoSQL <strong>orientado a documentos</strong>. A diferencia de las bases de datos relacionales, que almacenan la información en tablas con filas y columnas, MongoDB guarda los datos en <strong>colecciones</strong> formadas por documentos en formato <strong>BSON</strong> (una representación binaria de JSON).</p>
+<p>En <strong>MongoDB</strong> cada documento es una <strong>estructura flexible</strong>, parecida a un objeto de programación, donde los datos se organizan en pares <strong>clave–valor</strong>. Esta flexibilidad permite que cada <strong>documento</strong> tenga una estructura diferente, lo que hace que MongoDB se adapte fácilmente a los cambios en los datos sin necesidad de modificar esquemas.</p>
+<p>MongoDB utiliza su propia <strong>shell interactiva</strong>, llamada <strong><code>mongosh</code></strong>, que permite ejecutar comandos para administrar bases de datos, colecciones y documentos. Su sintaxis es <strong>muy similar a JavaScript</strong>, ya que cada comando se ejecuta sobre un <strong>objeto base</strong>:</p>
+<div class="highlight"><pre><span></span><code>db.coleccion.operacion()
+</code></pre></div>
+<ul>
+<li>db → representa la base de datos actual.</li>
+<li>coleccion → el nombre de la colección sobre la que actuamos.</li>
+<li>operacion() → el comando que deseamos ejecutar.</li>
+</ul>
+<p>En cualquier operación, debemos escribir db seguido del nombre de la colección y después la operación a realizar. Para guardar un documento ejecutamos el siguiente comando:</p>
+<div class="highlight"><pre><span></span><code>db.ejemplo.insertOne({ msg: "Hola, ¿qué tal?" })
+</code></pre></div>
+<p>Obtendremos una respuesta indicando que se ha insertado un documento en la <strong>colección ejemplo</strong> (si no existía, la creará automáticamente):</p>
+<div class="highlight"><pre><span></span><code>    {
+    acknowledged: true,
+    insertedId: ObjectId('68ff6004ab24a06f35cebea4')
+    }
+</code></pre></div>
+<p>Y con el siguiente comando recuperamos la información:</p>
+<div class="highlight"><pre><span></span><code>db.ejemplo.find()
+</code></pre></div>
+<p>Lo que nos devolverá algo como:</p>
+<div class="highlight"><pre><span></span><code>{ "_id" : ObjectId("56cc1acd73b559230de8f71b"), "msg" : "Hola, ¿qué tal?" }
+</code></pre></div>
+<p>Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un número diferente en el campo <strong>ObjectId</strong>. En la siguiente imagen pueden verse las dos operaciones.</p>
+<p><img class="con_borde" src="img/RA5/mongo06.png" alt="mongoDB"></p>
+<p><span class="mi_h3">Información útil del entorno</span></p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>db.stats()</code></td>
+<td>Muestra estadísticas sobre la base de datos.<br><strong>Ejemplo:</strong> <code>db.stats()</code></td>
+</tr>
+<tr>
+<td><code>db.coleccion.stats()</code></td>
+<td>Muestra estadísticas sobre una colección.<br><strong>Ejemplo:</strong> <code>db.alumnos.stats()</code></td>
+</tr>
+<tr>
+<td><code>db.version()</code></td>
+<td>Devuelve la versión de MongoDB.<br><strong>Ejemplo:</strong> <code>db.version()</code></td>
+</tr>
+</tbody>
+</table>
+<p><span class="mi_h3">Comandos sobre bases de datos</span></p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>show dbs</code></td>
+<td>Muestra todas las bases de datos existentes.</td>
+<td><code>show dbs</code></td>
+</tr>
+<tr>
+<td><code>use &lt;nombre&gt;</code></td>
+<td>Cambia a una base de datos (la crea si no existe).</td>
+<td><code>use biblioteca</code></td>
+</tr>
+<tr>
+<td><code>db.getName()</code></td>
+<td>Muestra el nombre de la base de datos actual.</td>
+<td><code>db.getName()</code></td>
+</tr>
+<tr>
+<td><code>db.dropDatabase()</code></td>
+<td>Elimina la base de datos actual.</td>
+<td><code>db.dropDatabase()</code></td>
+</tr>
+</tbody>
+</table>
+<p><span class="mi_h3">Comandos sobre colecciones</span></p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>show collections</code></td>
+<td>Lista todas las colecciones de la base de datos.<br><strong>Ejemplo:</strong> <code>show collections</code></td>
+</tr>
+<tr>
+<td><code>db.createCollection("nombre")</code></td>
+<td>Crea una colección vacía.<br><strong>Ejemplo:</strong> <code>db.createCollection("alumnos")</code></td>
+</tr>
+<tr>
+<td><code>db.coleccion.drop()</code></td>
+<td>Elimina una colección completa.<br><strong>Ejemplo:</strong> <code>db.alumnos.drop()</code></td>
+</tr>
+<tr>
+<td><code>db.coleccion.renameCollection("nuevoNombre")</code></td>
+<td>Cambia el nombre de una colección.<br><strong>Ejemplo:</strong> <code>db.alumnos.renameCollection("estudiantes")</code></td>
+</tr>
+</tbody>
+</table>
+<p><span class="mis_ejemplos">Ejemplo 1: Crear una BD, insertar plantas y mostrarlas</span></p>
+<p>Para el siguiente ejemplo se parte de un servidor mongoDB ya montado sobre un contenedor llamado <code>mongo-srv</code>. El siguiente ejemplo crea una base de datos llamada <code>florabotanica</code>. Crea una colección llamada <code>plantas</code> e inserta tres documentos con campos: <code>nombre_comun</code>, <code>nombre_cientifico</code>, <code>altura</code>. Por último muestra todas las bases de datos y las colecciones creadas.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Abrir el terminal dentro del contenedor</span>
+<span class="nx">docker</span><span class="w"> </span><span class="nx">exec</span><span class="w"> </span><span class="o">-</span><span class="nx">it</span><span class="w"> </span><span class="nx">mongo</span><span class="o">-</span><span class="nx">srv</span><span class="w"> </span><span class="nx">bash</span>
+
+<span class="c1">// Conectar al servidor MongoDB</span>
+<span class="nx">mongosh</span><span class="w"> </span><span class="s2">"mongodb://admin:hola01@127.0.0.1:27017/admin"</span>
+
+<span class="c1">// Crear y seleccionar la base de datos</span>
+<span class="nx">use</span><span class="w"> </span><span class="nx">florabotanica</span>
+
+<span class="c1">// Insertar documentos (si la colección no existe, se crea automáticamente)</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">plantas</span><span class="p">.</span><span class="nx">insertMany</span><span class="p">([</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">id_planta</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="nx">nombre_comun</span><span class="o">:</span><span class="w"> </span><span class="s2">"Aloe"</span><span class="p">,</span><span class="w"> </span><span class="nx">nombre_cientifico</span><span class="o">:</span><span class="w"> </span><span class="s2">"Aloe vera"</span><span class="p">,</span><span class="w"> </span><span class="nx">stock</span><span class="o">:</span><span class="w"> </span><span class="mf">30</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">id_planta</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="nx">nombre_comun</span><span class="o">:</span><span class="w"> </span><span class="s2">"Pino"</span><span class="p">,</span><span class="w"> </span><span class="nx">nombre_cientifico</span><span class="o">:</span><span class="w"> </span><span class="s2">"Pinus sylvestris"</span><span class="p">,</span><span class="w"> </span><span class="nx">stock</span><span class="o">:</span><span class="w"> </span><span class="mf">50</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">id_planta</span><span class="o">:</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="nx">nombre_comun</span><span class="o">:</span><span class="w"> </span><span class="s2">"Cactus"</span><span class="p">,</span><span class="w"> </span><span class="nx">nombre_cientifico</span><span class="o">:</span><span class="w"> </span><span class="s2">"Cactaceae"</span><span class="p">,</span><span class="w"> </span><span class="nx">stock</span><span class="o">:</span><span class="w"> </span><span class="mf">120</span><span class="w"> </span><span class="p">}</span>
+<span class="p">])</span>
+
+<span class="c1">// Comprobar bases de datos y colecciones</span>
+<span class="nx">show</span><span class="w"> </span><span class="nx">dbs</span>
+<span class="nx">show</span><span class="w"> </span><span class="nx">collections</span>
+</code></pre></div>
+<p>El ejemplo funciona de la siguiente manera:</p>
+<ul>
+<li><code>use florabotanica</code> cambia el contexto</li>
+<li><code>insertMany</code> inserta varios documentos</li>
+<li><code>show dbs</code> no mostrará <code>florabotanica</code> hasta que la colección tenga datos persistidos;</li>
+<li>tras insertar, aparecerá en la lista</li>
+</ul>
+<p><strong>Salida esperada:</strong></p>
+<div class="highlight"><pre><span></span><code>{ acknowledged: true, insertedIds: { '0': ObjectId("..."), '1': ObjectId("..."), '2': ObjectId("...") } }
+
+&gt; show dbs
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+florabotanica 0.001GB
+
+&gt; show collections
+plantas
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo</p>
+<ol>
+<li>Monta tu servidor MongoDB en docker siguiendo los pasos del documento <a href="docker.html">Docker</a>.</li>
+<li>Prueba los comandos del ejemplo y verifica que funciona correctamente.</li>
+</ol>
+</div>
+<p><span class="mi_h3">Operaciones básicas</span></p>
+<p><strong>Inserción</strong> (Si la colección no existe, MongoDB la <strong>creará automáticamente</strong> en el momento de la inserción)</p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>insertOne()</code></td>
+<td>Inserta un solo documento.<br><strong>Ejemplo:</strong> <code>db.alumnos.insertOne({nombre:"Ana", nota:8})</code></td>
+</tr>
+<tr>
+<td><code>insertMany()</code></td>
+<td>Inserta varios documentos a la vez.<br><strong>Ejemplo:</strong> <code>db.alumnos.insertMany([{nombre:"Luis", nota:7}, {nombre:"Marta", nota:9}])</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Búsqueda</strong></p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>find()</code></td>
+<td>Devuelve todos los documentos de la colección.<br><strong>Ejemplo:</strong> <code>db.alumnos.find()</code></td>
+</tr>
+<tr>
+<td><code>findOne()</code></td>
+<td>Devuelve el primer documento que cumple una condición.<br><strong>Ejemplo:</strong> <code>db.alumnos.findOne({nombre:"Ana"})</code></td>
+</tr>
+<tr>
+<td><code>find(criterio, proyección)</code></td>
+<td>Permite filtrar y mostrar solo algunos campos.<br><strong>Ejemplo:</strong> <code>db.alumnos.find({nota:{$gte:8}}, {nombre:1, _id:0})</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Operadores comunes:</strong> <code>$eq</code> (igual), <code>$ne</code> (distinto), <code>$gt</code> (mayor que), <code>$lt</code> (menor que), <code>$gte</code> (mayor o igual), <code>$lte</code> (menor o igual), <code>$in</code>, <code>$and</code>, <code>$or</code>.</p>
+</blockquote>
+<p><strong>Actualización</strong> (Usa <code>$set</code> para modificar solo algunos campos y <strong>no perder el resto</strong>)</p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>updateOne(filtro, cambios)</code></td>
+<td>Actualiza el primer documento que cumpla la condición.<br><strong>Ejemplo:</strong> <code>db.alumnos.updateOne({nombre:"Ana"}, {$set:{nota:9}})</code></td>
+</tr>
+<tr>
+<td><code>updateMany(filtro, cambios)</code></td>
+<td>Actualiza todos los documentos que cumplan la condición.<br><strong>Ejemplo:</strong> <code>db.alumnos.updateMany({nota:{$lt:5}}, {$set:{aprobado:false}})</code></td>
+</tr>
+<tr>
+<td><code>replaceOne(filtro, nuevoDoc)</code></td>
+<td>Sustituye el documento completo.<br><strong>Ejemplo:</strong> <code>db.alumnos.replaceOne({nombre:"Ana"}, {nombre:"Ana", nota:10})</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Eliminación</strong></p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>deleteOne()</code></td>
+<td>Elimina el primer documento que cumpla la condición.<br><strong>Ejemplo:</strong> <code>db.alumnos.deleteOne({nombre:"Luis"})</code></td>
+</tr>
+<tr>
+<td><code>deleteMany()</code></td>
+<td>Elimina todos los documentos que cumplan la condición.<br><strong>Ejemplo:</strong> <code>db.alumnos.deleteMany({nota:{$lt:5}})</code></td>
+</tr>
+</tbody>
+</table>
+<p><span class="mis_ejemplos">Ejemplo 2: Operaciones básicas</span></p>
+<p>El siguiente ejemplo realiza las siguientes operaciones sobre la colección <code>plantas</code>:</p>
+<ol>
+<li>Inserta tres nuevos documentos con <code>insertMany()</code>.</li>
+<li>Recupera todos los documentos con <code>find()</code>.</li>
+<li>Filtra aquellos cuya <code>altura</code> sea mayor de 100.</li>
+<li>Actualiza uno de los documentos cambiando la altura.</li>
+<li>Elimina una planta específica mediante <code>deleteOne()</code>.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1">// 1) Insertar tres nuevos documentos</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">plantas</span><span class="p">.</span><span class="nx">insertMany</span><span class="p">([</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">id_planta</span><span class="o">:</span><span class="w"> </span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="nx">nombre_comun</span><span class="o">:</span><span class="w"> </span><span class="s2">"Lavanda"</span><span class="p">,</span><span class="w"> </span><span class="nx">nombre_cientifico</span><span class="o">:</span><span class="w"> </span><span class="s2">"Lavandula"</span><span class="p">,</span><span class="w"> </span><span class="nx">altura</span><span class="o">:</span><span class="w"> </span><span class="mf">50</span><span class="p">,</span><span class="w"> </span><span class="nx">tipo</span><span class="o">:</span><span class="w"> </span><span class="s2">"arbusto"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">id_planta</span><span class="o">:</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span><span class="w"> </span><span class="nx">nombre_comun</span><span class="o">:</span><span class="w"> </span><span class="s2">"Rosal"</span><span class="p">,</span><span class="w"> </span><span class="nx">nombre_cientifico</span><span class="o">:</span><span class="w"> </span><span class="s2">"Rosa"</span><span class="p">,</span><span class="w"> </span><span class="nx">altura</span><span class="o">:</span><span class="w"> </span><span class="mf">120</span><span class="p">,</span><span class="w"> </span><span class="nx">tipo</span><span class="o">:</span><span class="w"> </span><span class="s2">"arbusto"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">id_planta</span><span class="o">:</span><span class="w"> </span><span class="mf">6</span><span class="p">,</span><span class="w"> </span><span class="nx">nombre_comun</span><span class="o">:</span><span class="w"> </span><span class="s2">"Olivo"</span><span class="p">,</span><span class="w"> </span><span class="nx">nombre_cientifico</span><span class="o">:</span><span class="w"> </span><span class="s2">"Olea europaea"</span><span class="p">,</span><span class="w"> </span><span class="nx">altura</span><span class="o">:</span><span class="w"> </span><span class="mf">800</span><span class="p">,</span><span class="w"> </span><span class="nx">tipo</span><span class="o">:</span><span class="w"> </span><span class="s2">"árbol"</span><span class="w"> </span><span class="p">}</span>
+<span class="p">])</span>
+
+<span class="c1">// 2) Recuperar todos los documentos</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">plantas</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">pretty</span><span class="p">()</span>
+
+<span class="c1">// 3) Filtrar altura &gt; 100</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">plantas</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="w"> </span><span class="nx">altura</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">$gt</span><span class="o">:</span><span class="w"> </span><span class="mf">100</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}).</span><span class="nx">pretty</span><span class="p">()</span>
+
+<span class="c1">// 4) Actualizar: cambiar altura de "Cactus" a 130</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">plantas</span><span class="p">.</span><span class="nx">updateOne</span><span class="p">({</span><span class="w"> </span><span class="nx">nombre_comun</span><span class="o">:</span><span class="w"> </span><span class="s2">"Cactus"</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">$set</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">altura</span><span class="o">:</span><span class="w"> </span><span class="mf">130</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">})</span>
+
+<span class="c1">// 5) Eliminar una planta por nombre</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">plantas</span><span class="p">.</span><span class="nx">deleteOne</span><span class="p">({</span><span class="w"> </span><span class="nx">nombre_comun</span><span class="o">:</span><span class="w"> </span><span class="s2">"Rosal"</span><span class="w"> </span><span class="p">})</span>
+</code></pre></div>
+<p>El ejemplo funciona de la siguiente manera:</p>
+<ul>
+<li><code>insertMany</code> devuelve <code>acknowledged: true</code> con <code>insertedIds</code>.</li>
+<li><code>find().pretty()</code> muestra documentos en JSON formateado.</li>
+<li><code>find({ altura: { $gt: 100 }})</code> listará pinos, olivos, etc.</li>
+<li><code>updateOne</code> devuelve un objeto con <code>matchedCount</code> y <code>modifiedCount</code>.</li>
+<li><code>deleteOne</code> devuelve <code>deletedCount: 1</code> si eliminó un documento.</li>
+</ul>
+<p><strong>Salida de <code>updateOne</code>:</strong></p>
+<div class="highlight"><pre><span></span><code>{ acknowledged: true, matchedCount: 1, modifiedCount: 1, upsertedId: null }
+</code></pre></div>
+<p><strong>Salida de <code>deleteOne</code>:</strong></p>
+<div class="highlight"><pre><span></span><code>{ acknowledged: true, deletedCount: 1 }
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo</p>
+<ol>
+<li>Abre el terminal dentro del contenedor.</li>
+<li>Conecta al servidor MongoDB desde el terminal</li>
+<li>Prueba los comandos del ejemplo y verifica que funciona correctamente.</li>
+</ol>
+</div>
+<p><span class="mi_h3">Consultas avanzadas y ordenación</span></p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sort()</code></td>
+<td>Ordena los resultados. <code>1</code> ascendente, <code>-1</code> descendente.<br><strong>Ejemplo:</strong> <code>db.alumnos.find().sort({nota:-1})</code></td>
+</tr>
+<tr>
+<td><code>limit()</code></td>
+<td>Limita el número de resultados.<br><strong>Ejemplo:</strong> <code>db.alumnos.find().limit(3)</code></td>
+</tr>
+<tr>
+<td><code>countDocuments()</code></td>
+<td>Devuelve el número de documentos que cumplen un filtro.<br><strong>Ejemplo:</strong> <code>db.alumnos.countDocuments({nota:{$gte:5}})</code></td>
+</tr>
+</tbody>
+</table>
+<p><span class="mi_h3">Índices</span></p>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>createIndex({campo:1})</code></td>
+<td>Crea un índice ascendente.<br><strong>Ejemplo:</strong> <code>db.alumnos.createIndex({nombre:1})</code></td>
+</tr>
+<tr>
+<td><code>getIndexes()</code></td>
+<td>Muestra los índices existentes.<br><strong>Ejemplo:</strong> <code>db.alumnos.getIndexes()</code></td>
+</tr>
+<tr>
+<td><code>dropIndex("nombre_1")</code></td>
+<td>Elimina un índice.<br><strong>Ejemplo:</strong> <code>db.alumnos.dropIndex("nombre_1")</code></td>
+</tr>
+</tbody>
+</table>
+<p><span class="mi_h3">Consultas complejas</span></p>
+<p>El método <strong><code>aggregate()</code></strong> permite realizar <strong>consultas complejas</strong> y <strong>procesamientos de datos</strong> en varias etapas, similares a las funciones de <strong>GROUP BY, JOIN o HAVING</strong> en SQL. Cada etapa del <em>pipeline</em> (tubería) transforma los datos paso a paso. Cada etapa (stage) se representa mediante un objeto precedido por $, que indica la operación a realizar.</p>
+<p><strong>Estructura básica</strong></p>
+<div class="highlight"><pre><span></span><code>db.coleccion.aggregate([
+{ &lt;etapa1&gt; },
+{ &lt;etapa2&gt; },
+...
+])
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Etapa</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$match</code></td>
+<td>Filtra documentos (equivalente a <code>WHERE</code>).<br><strong>Ejemplo:</strong> <code>{ $match: { ciudad: "Valencia" } }</code></td>
+</tr>
+<tr>
+<td><code>$project</code></td>
+<td>Selecciona campos específicos o crea nuevos.<br><strong>Ejemplo:</strong> <code>{ $project: { _id:0, nombre:1, nota:1 } }</code></td>
+</tr>
+<tr>
+<td><code>$sort</code></td>
+<td>Ordena los resultados.<br><strong>Ejemplo:</strong> <code>{ $sort: { nota: -1 } }</code></td>
+</tr>
+<tr>
+<td><code>$limit</code></td>
+<td>Limita el número de resultados.<br><strong>Ejemplo:</strong> <code>{ $limit: 5 }</code></td>
+</tr>
+<tr>
+<td><code>$skip</code></td>
+<td>Omite un número de documentos.<br><strong>Ejemplo:</strong> <code>{ $skip: 10 }</code></td>
+</tr>
+<tr>
+<td><code>$group</code></td>
+<td>Agrupa los documentos por un campo y calcula valores agregados (como <code>COUNT</code>, <code>SUM</code>, <code>AVG</code>).<br><strong>Ejemplo:</strong> <code>{ $group: { _id: "$curso", media: { $avg: "$nota" } } }</code></td>
+</tr>
+<tr>
+<td><code>$count</code></td>
+<td>Devuelve el número total de documentos resultantes.<br><strong>Ejemplo:</strong> <code>{ $count: "total" }</code></td>
+</tr>
+<tr>
+<td><code>$lookup</code></td>
+<td>Realiza una unión entre colecciones (similar a <code>JOIN</code>).<br><strong>Ejemplo:</strong> <code>{ $lookup: { from: "profesores", localField: "idProfesor", foreignField: "_id", as: "infoProfesor" } }</code></td>
+</tr>
+<tr>
+<td><code>$unwind</code></td>
+<td>Descompone arrays en múltiples documentos.<br><strong>Ejemplo:</strong> <code>{ $unwind: "$aficiones" }</code></td>
+</tr>
+</tbody>
+</table>
+<p><span class="mis_ejemplos">Ejemplo 3: Consultas avanzadas y agregaciones</span></p>
+<p>El siguiente ejemplo realiza lo siguiente:</p>
+<ol>
+<li>Usa <code>aggregate()</code> para calcular la altura media de las plantas.</li>
+<li>Agrupa por tipo de planta con <code>$group</code> y ordena los resultados.</li>
+<li>Limita la salida a los tres resultados más altos con <code>$limit</code>.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1">// Calcular altura media de todas las plantas</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">plantas</span><span class="p">.</span><span class="nx">aggregate</span><span class="p">([</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">$group</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="nx">alturaMedia</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">$avg</span><span class="o">:</span><span class="w"> </span><span class="s2">"$altura"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="p">])</span>
+
+<span class="c1">// Agrupar por tipo y calcular media, ordenar descendente</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">plantas</span><span class="p">.</span><span class="nx">aggregate</span><span class="p">([</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">$match</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">tipo</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">$exists</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">$group</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s2">"$tipo"</span><span class="p">,</span><span class="w"> </span><span class="nx">mediaAltura</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">$avg</span><span class="o">:</span><span class="w"> </span><span class="s2">"$altura"</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nx">cantidad</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">$sum</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">$sort</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">mediaAltura</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="p">])</span>
+
+<span class="c1">// Obtener los 3 más altos</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">plantas</span><span class="p">.</span><span class="nx">aggregate</span><span class="p">([</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">$sort</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">altura</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">$limit</span><span class="o">:</span><span class="w"> </span><span class="mf">3</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">$project</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">nombre_comun</span><span class="o">:</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="nx">altura</span><span class="o">:</span><span class="mf">1</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="p">])</span>
+</code></pre></div>
+<p><strong>Salida esperada:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Resultado del primer aggregate</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="nt">"alturaMedia"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">250.25</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c1">// Resultado del group</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"árbol"</span><span class="p">,</span><span class="w"> </span><span class="nt">"mediaAltura"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">540</span><span class="p">,</span><span class="w"> </span><span class="nt">"cantidad"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c1">// Resultado del limit</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">"nombre_comun"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Olivo"</span><span class="p">,</span><span class="w"> </span><span class="nt">"altura"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">800</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">"nombre_comun"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Pino"</span><span class="p">,</span><span class="w"> </span><span class="nt">"altura"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">330</span><span class="w"> </span><span class="p">}</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">"nombre_comun"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Cactus"</span><span class="p">,</span><span class="w"> </span><span class="nt">"altura"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">130</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo</p>
+<ol>
+<li>Abre el terminal dentro del contenedor.</li>
+<li>Conecta al servidor MongoDB desde el terminal</li>
+<li>Prueba los comandos del ejemplo y verifica que funciona correctamente.</li>
+</ol>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Práctica 1: Trabaja con tu BD</p>
+<p>Realiza lo siguiente:</p>
+<ol>
+<li>Abre el terminal dentro del contenedor.</li>
+<li>Conecta al servidor MongoDB desde el terminal.</li>
+<li>Crea tu BD.</li>
+<li>Crea una colección e inserta tres documentos con los campos que quieras.</li>
+<li>Muestra todas las bases de datos y la colección creada.</li>
+<li>Inserta tres nuevos documentos con <code>insertMany()</code>.</li>
+<li>Recupera todos los documentos con <code>find()</code>.</li>
+<li>Aplica algún filtro.</li>
+<li>Actualiza uno de los documentos cambiando el valor de un campo.</li>
+<li>Elimina un documento específico mediante <code>deleteOne()</code>.</li>
+<li>Usa <code>aggregate()</code> para realizar algún cálculo.</li>
+<li>Agrupa por tipo o categoría utilizando <code>$group</code> y ordena los resultados.</li>
+<li>Limita la salida a los tres resultados más altos con <code>$limit</code>.</li>
+</ol>
+</div>
+<p><span class="mi_h3">Trabajando con MongoDB desde Kotlin</span></p>
+<p>Una vez comprendido el manejo desde el terminal, utilizaremos el <em>driver oficial de MongoDB para Kotlin</em> para acceder a nuestra BD desde Kotlin. Para ello crearemos un nuevo proyecto en IntelliJ con Gradle, añadiremos las dependencias necesarias y gestionaremos la conexión adecuadamente para tener abierta la conexión el tiempo estrictamente necesario. A continuación veremos varios ejemplos:</p>
+<p><span class="mis_ejemplos">Ejemplo 4: Conexión y lectura de información</span></p>
+<p>El siguiente ejemplo añade la dependencia del driver de MongoDB, crea algunas constantes y funciones para organizar el código y conectar correctamente a una BD llamada <code>florabotanica</code>. Luego muestra por consola la información de cada documento JSON almacenado en la colección <code>plantas</code>. Como acabamos de comentar, queremos mantener abierta la conexión con la BD el mínimo tiempo posible, por tanto, conectaremos justo antes de leer y cerraremos justo después. A continuación tienes los fragmentos de código necesarios:</p>
+<p><strong>Dependencia en el fichero <code>build.gradle.kts</code></strong></p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">"org.mongodb:mongodb-driver-sync:4.11.0"</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Imports, variables globales y constantes</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">com.mongodb.client.MongoClient</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.mongodb.client.MongoClients</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.mongodb.client.MongoCollection</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.mongodb.client.MongoDatabase</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.bson.Document</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.util.Scanner</span>
+
+
+<span class="c1">//variables globales definidas sin inicializar</span>
+<span class="kd">lateinit</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">cliente</span><span class="p">:</span><span class="w"> </span><span class="n">MongoClient</span>
+<span class="kd">lateinit</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">db</span><span class="p">:</span><span class="w"> </span><span class="n">MongoDatabase</span>
+<span class="kd">lateinit</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">coleccionPlantas</span><span class="p">:</span><span class="w"> </span><span class="n">MongoCollection</span><span class="o">&lt;</span><span class="n">Document</span><span class="o">&gt;</span>
+<span class="kd">lateinit</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">coleccionFacturas</span><span class="p">:</span><span class="w"> </span><span class="n">MongoCollection</span><span class="o">&lt;</span><span class="n">Document</span><span class="o">&gt;</span>
+<span class="kd">lateinit</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">coleccionClientes</span><span class="p">:</span><span class="w"> </span><span class="n">MongoCollection</span><span class="o">&lt;</span><span class="n">Document</span><span class="o">&gt;</span>
+
+<span class="c1">//servidor y BD con la que se trabajará</span>
+<span class="kd">const</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"mongodb://admin:hola01@127.0.0.1:27017/admin"</span>
+<span class="kd">const</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">NOM_BD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"florabotanica"</span>
+</code></pre></div>
+<p><strong>Funciones para abrir y cerrar la conexión con la BD</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">conectarBD</span><span class="p">():</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"Intentando establecer conexión con </span><span class="si">$</span><span class="n">uri</span><span class="s">"</span><span class="p">)</span>
+<span class="w">        </span><span class="n">cliente</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MongoClients</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+<span class="w">        </span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cliente</span><span class="p">.</span><span class="na">getDatabase</span><span class="p">(</span><span class="n">NOM_BD</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c1">// Forzamos la comprobación de la conexión enviando un "ping"</span>
+<span class="w">        </span><span class="n">db</span><span class="p">.</span><span class="na">runCommand</span><span class="p">(</span><span class="n">Document</span><span class="p">(</span><span class="s">"ping"</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">))</span>
+
+<span class="w">        </span><span class="n">coleccionPlantas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="na">getCollection</span><span class="p">(</span><span class="s">"plantas"</span><span class="p">)</span>
+<span class="w">        </span><span class="n">coleccionFacturas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="na">getCollection</span><span class="p">(</span><span class="s">"facturas"</span><span class="p">)</span>
+<span class="w">        </span><span class="n">coleccionClientes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="na">getCollection</span><span class="p">(</span><span class="s">"clientes"</span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"Servidor iniciado en </span><span class="si">$</span><span class="n">uri</span><span class="s">"</span><span class="p">)</span>
+<span class="w">        </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"Error al conectar con MongoDB: </span><span class="si">${</span><span class="n">e</span><span class="p">.</span><span class="na">message</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="w">        </span><span class="c1">// Opcional: si falló la conexión, puedes cerrar el cliente si se llegó a instanciar</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">cliente</span><span class="o">?.</span><span class="na">close</span><span class="p">()</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">        </span><span class="kc">false</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">desconectarBD</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">cliente</span><span class="p">.</span><span class="na">close</span><span class="p">()</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">"Conexión cerrada"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Función para leer la información de las plantas y mostrarla por consola</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">mostrarPlantas</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">conectarBD</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">();</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"**** Listado de plantas:"</span><span class="p">)</span>
+<span class="w">        </span><span class="n">coleccionPlantas</span><span class="p">.</span><span class="na">find</span><span class="p">().</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">doc</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">doc</span><span class="p">.</span><span class="na">getInteger</span><span class="p">(</span><span class="s">"id_planta"</span><span class="p">)</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">nombre_comun</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">doc</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"nombre_comun"</span><span class="p">)</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">nombre_cientifico</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">doc</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"nombre_cientifico"</span><span class="p">)</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">doc</span><span class="p">.</span><span class="na">getInteger</span><span class="p">(</span><span class="s">"stock"</span><span class="p">)</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">"[</span><span class="si">$</span><span class="n">id</span><span class="s">] </span><span class="si">$</span><span class="n">nombre_comun</span><span class="s"> (</span><span class="si">$</span><span class="n">nombre_cientifico</span><span class="s">): </span><span class="si">${</span><span class="n">stock</span><span class="si">}</span><span class="s"> ud."</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">desconectarBD</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo</p>
+<ol>
+<li>Crea un proyecto kotlin con <code>Gradle</code> y añade las dependencias para trabajar con MongoDB.</li>
+<li>Prueba el código de ejemplo y verifica que funciona correctamente.</li>
+</ol>
+</div>
+<p><span class="mis_ejemplos">Ejemplo 5: Resto de operaciones CRUD</span></p>
+<p>El siguiente ejemplo amplía el anterior para realizar inserción, actualización y eliminación de documentos sobre la colección <code>plantas</code>de la BD <code>florabotanica</code>.</p>
+<p>Para pedir la información por consola se declara un scanner de forma global y una función para pedir un número entero que comprueba si el dato introducido es correcto y, si no lo es, lo vuelve a pedir hasta que lo sea.</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">java.util.Scanner</span>
+
+<span class="c1">// Creamos el Scanner de forma global</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">scanner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">`in`</span><span class="p">)</span>
+
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">pedirEntero</span><span class="p">(</span><span class="n">mensaje</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">print</span><span class="p">(</span><span class="n">mensaje</span><span class="p">)</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">entrada</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scanner</span><span class="p">.</span><span class="na">nextLine</span><span class="p">()</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">numero</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">entrada</span><span class="p">.</span><span class="na">toIntOrNull</span><span class="p">()</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">numero</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">numero</span>
+
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"Debes introducir un número válido."</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Funciones para insertar, actualizar y eliminar información</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">insertarPlanta</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">conectarBD</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">id_planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pedirEntero</span><span class="p">(</span><span class="s">"ID de la planta: "</span><span class="p">)</span>
+<span class="w">        </span><span class="n">print</span><span class="p">(</span><span class="s">"Nombre común: "</span><span class="p">)</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">nombre_comun</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scanner</span><span class="p">.</span><span class="na">nextLine</span><span class="p">()</span>
+<span class="w">        </span><span class="n">print</span><span class="p">(</span><span class="s">"Nombre científico: "</span><span class="p">)</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">nombre_cientifico</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scanner</span><span class="p">.</span><span class="na">nextLine</span><span class="p">()</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pedirEntero</span><span class="p">(</span><span class="s">"Stock (unidades): "</span><span class="p">)</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">doc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Document</span><span class="p">(</span><span class="s">"id_planta"</span><span class="p">,</span><span class="w"> </span><span class="n">id_planta</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"nombre_comun"</span><span class="p">,</span><span class="w"> </span><span class="n">nombre_comun</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"nombre_cientifico"</span><span class="p">,</span><span class="w"> </span><span class="n">nombre_cientifico</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"stock"</span><span class="p">,</span><span class="w"> </span><span class="n">stock</span><span class="p">)</span>
+
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">resultado</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coleccionPlantas</span><span class="p">.</span><span class="na">insertOne</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"Planta insertada con _id: </span><span class="si">${</span><span class="n">resultado</span><span class="p">.</span><span class="na">insertedId</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="w">        </span><span class="n">desconectarBD</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">actualizarStock</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">conectarBD</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">id_planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pedirEntero</span><span class="p">(</span><span class="s">"ID de la planta: "</span><span class="p">)</span>
+<span class="w">        </span><span class="c1">//comprobar si existe una planta con el id_planta proporcionado por consola</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coleccionPlantas</span><span class="p">.</span><span class="na">find</span><span class="p">(</span><span class="n">Filters</span><span class="p">.</span><span class="na">eq</span><span class="p">(</span><span class="s">"id_planta"</span><span class="p">,</span><span class="w"> </span><span class="n">id_planta</span><span class="p">)).</span><span class="na">firstOrNull</span><span class="p">()</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">planta</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">"No se encontró ninguna planta con id_planta = \"</span><span class="si">$</span><span class="n">id_planta</span><span class="s">\"."</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Mostrar información de la planta encontrada</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">"Planta encontrada: </span><span class="si">${</span><span class="n">planta</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"</span><span class="n">nombre_comun</span><span class="s">"</span><span class="p">)</span><span class="si">}</span><span class="s"> (stock: </span><span class="si">${</span><span class="n">planta</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">"</span><span class="n">stock</span><span class="s">"</span><span class="p">)</span><span class="si">}</span><span class="s"> ud.)"</span><span class="p">)</span>
+
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pedirEntero</span><span class="p">(</span><span class="s">"Nuevo stock: "</span><span class="p">)</span>
+
+<span class="w">            </span><span class="c1">// Actualizar el documento</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coleccionPlantas</span><span class="p">.</span><span class="na">updateOne</span><span class="p">(</span>
+<span class="w">                </span><span class="n">Filters</span><span class="p">.</span><span class="na">eq</span><span class="p">(</span><span class="s">"id_planta"</span><span class="p">,</span><span class="w"> </span><span class="n">id_planta</span><span class="p">),</span>
+<span class="w">                </span><span class="n">Document</span><span class="p">(</span><span class="s">"\</span><span class="si">$</span><span class="n">set</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">Document</span><span class="p">(</span><span class="s">"stock"</span><span class="p">,</span><span class="w"> </span><span class="n">stock</span><span class="p">))</span>
+<span class="w">            </span><span class="p">)</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">modifiedCount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
+<span class="w">                </span><span class="n">println</span><span class="p">(</span><span class="s">"Stock actualizado correctamente (</span><span class="si">${</span><span class="n">result</span><span class="p">.</span><span class="na">modifiedCount</span><span class="si">}</span><span class="s"> documento modificado)."</span><span class="p">)</span>
+<span class="w">            </span><span class="k">else</span>
+<span class="w">                </span><span class="n">println</span><span class="p">(</span><span class="s">"No se modificó ningún documento (quizá se ha indicado el mismo stock)."</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">desconectarBD</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">eliminarPlanta</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">conectarBD</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">id_planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pedirEntero</span><span class="p">(</span><span class="s">"ID de la planta: "</span><span class="p">)</span>
+
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coleccionPlantas</span><span class="p">.</span><span class="na">deleteOne</span><span class="p">(</span><span class="n">Filters</span><span class="p">.</span><span class="na">eq</span><span class="p">(</span><span class="s">"id_planta"</span><span class="p">,</span><span class="w"> </span><span class="n">id_planta</span><span class="p">))</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">deletedCount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">"Planta eliminada correctamente."</span><span class="p">)</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">"No se encontró ninguna planta con ese ID."</span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">desconectarBD</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo</p>
+<ol>
+<li>Modifica el ejemplo anterior añadiendo un menú con una opción por cada operación.</li>
+<li>Prueba el código de ejemplo y verifica que funciona correctamente.</li>
+</ol>
+</div>
+<p><span class="mis_ejemplos">Ejemplo 6: Consultas avanzadas</span></p>
+<p>El siguiente ejemplo amplía los anteriores añadiendo las siguientes operaciones:</p>
+<ol>
+<li>Implementa consultas utilizando filtros como <code>Filters.eq</code> o <code>Filters.gt</code>, en este caso, muestra las plantas cuyo stock es mayor de 100 ud.</li>
+<li>Muestra solo los nombres de las plantas con <code>Projections.include</code>.</li>
+<li>Realiza una agregación que calcule la media del stock.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">com.mongodb.client.model.Projections</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">stockMayor</span><span class="p">(){</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">conectarBD</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"*****Plantas con stock mayor de 100 unidades"</span><span class="p">)</span>
+<span class="w">        </span><span class="c1">// 1) Filtro: stock &gt; 100</span>
+<span class="w">        </span><span class="n">coleccionPlantas</span><span class="p">.</span><span class="na">find</span><span class="p">(</span><span class="n">Filters</span><span class="p">.</span><span class="na">gt</span><span class="p">(</span><span class="s">"stock"</span><span class="p">,</span><span class="w"> </span><span class="m">100</span><span class="p">)).</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">toJson</span><span class="p">())</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="n">desconectarBD</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">nombreComun</span><span class="p">(){</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">conectarBD</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"*****Nombre común de todas las plantas"</span><span class="p">)</span>
+<span class="w">        </span><span class="c1">// 2) Proyección: solo nombre_comun</span>
+<span class="w">        </span><span class="n">coleccionPlantas</span><span class="p">.</span><span class="na">find</span><span class="p">().</span><span class="na">projection</span><span class="p">(</span><span class="n">Projections</span><span class="p">.</span><span class="na">include</span><span class="p">(</span><span class="s">"nombre_comun"</span><span class="p">)).</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">toJson</span><span class="p">())</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="n">desconectarBD</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">stockMedio</span><span class="p">(){</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">conectarBD</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 3) Agregación: media de stock</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">pipeline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
+<span class="w">            </span><span class="n">Document</span><span class="p">(</span><span class="s">"\</span><span class="si">$</span><span class="n">group</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">Document</span><span class="p">(</span><span class="s">"_id"</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">).</span><span class="na">append</span><span class="p">(</span><span class="s">"stockMedio"</span><span class="p">,</span><span class="w"> </span><span class="n">Document</span><span class="p">(</span><span class="s">"\</span><span class="si">$</span><span class="n">avg</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="s">"\</span><span class="si">$</span><span class="n">stock</span><span class="s">"</span><span class="p">)))</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">aggCursor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coleccionPlantas</span><span class="p">.</span><span class="na">aggregate</span><span class="p">(</span><span class="n">pipeline</span><span class="p">).</span><span class="na">iterator</span><span class="p">()</span>
+<span class="w">        </span><span class="n">aggCursor</span><span class="p">.</span><span class="na">use</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">hasNext</span><span class="p">())</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">next</span><span class="p">().</span><span class="na">toJson</span><span class="p">())</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">desconectarBD</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo</p>
+<ol>
+<li>Añade al menú del ejemplo anterior una opción por cada operación nueva.</li>
+<li>Prueba el código de ejemplo y verifica que funciona correctamente.</li>
+</ol>
+</div>
+<p><span class="mi_h3">Exportar / Importar la BD con Kotlin a JSON</span></p>
+<p>Desde Kotlin podemos exportar nuestra BD a un archivo <code>.json</code> y también podemos importar un archivo <code>.json</code> a nuestra BD. Para ello hay que añadir la siguiente dependencia en el archivo <code>build.gradle.kts</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">"org.json:json:20231013"</span><span class="p">)</span>
+</code></pre></div>
+<p>Además hemos de importar las siguientes librerías:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">com.mongodb.client.MongoClients</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.bson.json.JsonWriterSettings</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.io.File</span>
+
+<span class="k">import</span><span class="w"> </span><span class="nn">com.mongodb.client.MongoClients</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.bson.Document</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.json.JSONArray</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.io.File</span>
+</code></pre></div>
+<p>A continuación se muestra el código que exporta una colección a un archivo <code>.json</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">exportarColeccion</span><span class="p">(</span><span class="n">coleccion</span><span class="p">:</span><span class="w"> </span><span class="n">MongoCollection</span><span class="o">&lt;</span><span class="n">Document</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">rutaJSON</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">settings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonWriterSettings</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">indent</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="na">build</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="n">rutaJSON</span><span class="p">)</span>
+<span class="w">    </span><span class="n">file</span><span class="p">.</span><span class="na">printWriter</span><span class="p">().</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="k">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"["</span><span class="p">)</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">cursor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coleccion</span><span class="p">.</span><span class="na">find</span><span class="p">().</span><span class="na">iterator</span><span class="p">()</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nv">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">cursor</span><span class="p">.</span><span class="na">hasNext</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">first</span><span class="p">)</span><span class="w"> </span><span class="k">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">","</span><span class="p">)</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">doc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cursor</span><span class="p">.</span><span class="na">next</span><span class="p">()</span>
+<span class="w">            </span><span class="k">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="n">doc</span><span class="p">.</span><span class="na">toJson</span><span class="p">(</span><span class="n">settings</span><span class="p">))</span>
+<span class="w">            </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"]"</span><span class="p">)</span>
+<span class="w">        </span><span class="n">cursor</span><span class="p">.</span><span class="na">close</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">"Exportación de </span><span class="si">${</span><span class="n">coleccion</span><span class="p">.</span><span class="na">namespace</span><span class="p">.</span><span class="na">collectionName</span><span class="si">}</span><span class="s"> completada"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Como estamos pasando como parámetro la colección, hemos de conectar primero con la BD antes de llamar a la función de exportación. El código es el siguiente:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">exportar</span><span class="p">(){</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">conectarBD</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">exportarColeccion</span><span class="p">(</span><span class="n">coleccionPlantas</span><span class="p">,</span><span class="s">"datos/florabotanica_plantas.json"</span><span class="p">)</span>
+<span class="w">        </span><span class="n">desconectarBD</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>A continuación se muestra el código que importa desde un archivo <code>.json</code> una colección a la BD</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">importarColeccion</span><span class="p">(</span><span class="n">rutaJSON</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">coleccion</span><span class="p">:</span><span class="w"> </span><span class="n">MongoCollection</span><span class="o">&lt;</span><span class="n">Document</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">"Iniciando importación de datos desde JSON..."</span><span class="p">)</span>
+
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">jsonFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="n">rutaJSON</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">jsonFile</span><span class="p">.</span><span class="na">exists</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"No se encontró el archivo JSON a importar"</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Leer JSON del archivo</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">jsonText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">jsonFile</span><span class="p">.</span><span class="na">readText</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"Error leyendo el archivo JSON: </span><span class="si">${</span><span class="n">e</span><span class="p">.</span><span class="na">message</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">array</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">JSONArray</span><span class="p">(</span><span class="n">jsonText</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"Error al parsear JSON: </span><span class="si">${</span><span class="n">e</span><span class="p">.</span><span class="na">message</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Convertir JSON a Document y eliminar _id si existe</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">documentos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mutableListOf</span><span class="o">&lt;</span><span class="n">Document</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="n">array</span><span class="p">.</span><span class="na">length</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">doc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Document</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="n">array</span><span class="p">.</span><span class="na">getJSONObject</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="na">toString</span><span class="p">())</span>
+<span class="w">        </span><span class="n">doc</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="s">"_id"</span><span class="p">)</span><span class="w">  </span><span class="c1">// &lt;-- eliminar _id para que Mongo genere uno nuevo</span>
+<span class="w">        </span><span class="n">documentos</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">documentos</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"El archivo JSON está vacío"</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
+
+
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">nombreColeccion</span><span class="w"> </span><span class="o">=</span><span class="n">coleccion</span><span class="p">.</span><span class="na">namespace</span><span class="p">.</span><span class="na">collectionName</span>
+
+<span class="w">    </span><span class="c1">// Borrar colección si existe</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">db</span><span class="p">.</span><span class="na">listCollectionNames</span><span class="p">().</span><span class="na">contains</span><span class="p">(</span><span class="n">nombreColeccion</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">db</span><span class="p">.</span><span class="na">getCollection</span><span class="p">(</span><span class="n">nombreColeccion</span><span class="p">).</span><span class="na">drop</span><span class="p">()</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"Colección '</span><span class="si">$</span><span class="n">nombreColeccion</span><span class="s">' eliminada antes de importar."</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Insertar documentos</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">coleccion</span><span class="p">.</span><span class="na">insertMany</span><span class="p">(</span><span class="n">documentos</span><span class="p">)</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"Importación completada: </span><span class="si">${</span><span class="n">documentos</span><span class="p">.</span><span class="na">size</span><span class="si">}</span><span class="s"> documentos de </span><span class="si">$</span><span class="n">nombreColeccion</span><span class="s">."</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"Error importando documentos: </span><span class="si">${</span><span class="n">e</span><span class="p">.</span><span class="na">message</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Como estamos pasando como parámetro la colección, hemos de conectar primero con la BD antes de llamar a la función de importación. El código es el siguiente:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">importar</span><span class="p">(){</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">conectarBD</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">importarColeccion</span><span class="p">(</span><span class="s">"datos/florabotanica_plantas.json"</span><span class="p">,</span><span class="n">coleccionPlantas</span><span class="p">)</span>
+<span class="w">        </span><span class="n">desconectarBD</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Práctica 2: crea la base de tu proyecto</p>
+<p>En esta práctica crearás tu aplicación para gestionar la información de tu BD con las opciones <strong>CRUD</strong>, es decir, <strong>C</strong>reate (crear), <strong>R</strong>ead (Leer), <strong>U</strong>pdate (Actualizar) y <strong>D</strong>elete (Borrar).</p>
+<p><strong>Realiza los siguientes pasos:</strong></p>
+<ol>
+<li>Crea un proyecto kotlin con <code>Gradle</code> y añade las dependencias para trabajar con MongoDB.</li>
+<li>
+<p>Crea un menú con las opciones siguientes (sustituye el texto de las 3 últimos opciones por unos que describan su funcionalidad):</p>
+<div class="highlight"><pre><span></span><code>--------------------------------------        
+---------- MENÚ PRINCIPAL ----------
+--------------------------------------
+1. Leer información
+2. Añadir un documento nuevo
+3. Modificar un documento existente (por ID)
+4. Eliminar un documento existente (por ID)
+5. (Operación utilizando filtros)
+6. (Consulta que muestra solo algunos datos)
+7. (Consulta de agregación que realice algún cálculo sobre tus datos)
+8. Exportar a JSON
+9. Importar de JSON
+0. Salir
+</code></pre></div>
+</li>
+</ol>
+<p><strong>Requisitos de funcionamiento:</strong></p>
+<ul>
+<li>
+<p>Opción <strong>LEER</strong>: Muestra por consola la información formateada para que tenga un aspecto amigable, por ejemplo:</p>
+<div class="highlight"><pre><span></span><code>**** Listado de plantas:
+[1] Aloe (Aloe vera): 30 unidades
+[2] Pino (Pinus sylvestris): 50 unidades
+[3] Cactus (Cactaceae): 120 cm
+</code></pre></div>
+</li>
+<li>
+<p>Opción <strong>AÑADIR</strong>: Pide el ID y comprueba se quea válido (para ser válido ha de ser un número y no existir en la colección de la BD), si no es válido lo vuelve a pedir hasta que lo sea. Después pide el resto de campos (los campos numéricos se pedirán hasta que sean válidos, es decir, ser número y ser del tipo correcto). Por último añade un documento a la colección de la BD con toda la información.</p>
+</li>
+<li>Opción <strong>MODIFICAR</strong>: Pide ID hasta que sea válido (debe ser un número entero) y comprueba si existe en la colección, si no lo encuentra informa con un mensaje y no realiza ningún cambio pero si lo encuentra muestra el nombre o algún otro campo representativo, pide alguno de los otros campos (comprobando que es correcto) y actualiza la información informando con un mensaje.</li>
+<li>Opción <strong>ELIMINAR</strong>: Pide ID hasta que sea válido (debe ser un número entero) y comprueba si existe en la colección, si no lo encuentra informa con un mensaje pero si lo encuentra muestra el nombre o algún otro campo representativo y pide confirmación para eliminar, entonces, si se confirma el borrado se elimina el documento y en caso contrario no se elimina (en ambos casos se informa con un mensaje).</li>
+<li>(Operación utilizando filtros) se realiza utilizando filtros con <code>Filters.eq</code>, <code>Filters.gt</code>, etc.</li>
+<li>(Consulta que muestra solo algunos datos) se realiza utilizando <code>Projections.include</code>.</li>
+<li>Las opciones de exportar e importar deben escribir / leer <code>.json</code> dentro de una carpeta llamada <code>datos</code> que deberás crear en la raíz del proyecto de IntelliJ (al mismo nivel que la carpeta <code>src</code> y que el archivo <code>build.gradle.kts</code>).</li>
+</ul>
+<p><strong>Aspectos técnicos:</strong></p>
+<ul>
+<li>Se añaden las librerías necesarias en las dependencias del archivo <code>build.gradle.kts</code>.</li>
+<li>Se gestionan adecuadamente las excepciones y la aplicación no se detiene inesperadamente.</li>
+<li>Se controlan fallos de formato (ej. datos corruptos al parsear números) para asegurar que el programa no cae de forma inesperada si un fichero contiene errores.</li>
+<li>El código es legible, con nombres descriptivos y bien organizado. Los mensajes informativos son claros.</li>
+</ul>
+</div>
+<p><span class="mi_h3">Trabajando con más de una colección</span></p>
+<p>En este punto vamos a profundizar en la utilización de <strong><code>aggregate()</code></strong> para poder realizar <strong>consultas complejas</strong> y <strong>procesamientos de datos</strong>. Para ello utilizaremos una lista de etapas (<em>stages</em>) que MongoDB ejecutará <strong>en orden</strong> para transformar, combinar o procesar documentos de una colección. Esa lista la guardaremos en una <strong>tubería de pasos</strong> (<em>pipeline</em>), donde la salida de un paso es la entrada del siguiente.</p>
+<p>Ya hemos visto que listar el contenido de una colección es muy fácil utilizando <code>find</code>, pero si queremos realizar consultas que obtengan datos de varias colecciones hay que realizar operaciones similares al <code>JOIN</code> de <code>SQL</code>.</p>
+<p>Para los ejemplos siguientes añadiremos una nueva colección (<code>facturas</code>) a nuestra BD. A continuación se muestra su estructura e información inicial:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fecha</td>
+<td>String (formato YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>id_factura</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>id_planta</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>precio</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>cantidad</td>
+<td>Integer</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="p">{</span>
+<span class="nt">"fecha"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-11-28"</span><span class="p">,</span>
+<span class="nt">"id_factura"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span>
+<span class="nt">"cantidad"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="p">},</span>
+<span class="p">{</span>
+<span class="nt">"fecha"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-11-28"</span><span class="p">,</span>
+<span class="nt">"id_factura"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="nt">"cantidad"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="p">},</span>
+<span class="p">{</span>
+<span class="nt">"fecha"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-11-28"</span><span class="p">,</span>
+<span class="nt">"id_factura"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="nt">"cantidad"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="p">},</span>
+<span class="p">{</span>
+<span class="nt">"fecha"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-11-28"</span><span class="p">,</span>
+<span class="nt">"id_factura"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mi">35</span><span class="p">,</span>
+<span class="nt">"cantidad"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="p">},</span>
+<span class="p">{</span>
+<span class="nt">"fecha"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-11-28"</span><span class="p">,</span>
+<span class="nt">"id_factura"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span>
+<span class="nt">"cantidad"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="p">},</span>
+<span class="p">{</span>
+<span class="nt">"fecha"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-11-29"</span><span class="p">,</span>
+<span class="nt">"id_factura"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span>
+<span class="nt">"cantidad"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="p">},</span>
+<span class="p">{</span>
+<span class="nt">"fecha"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-11-29"</span><span class="p">,</span>
+<span class="nt">"id_factura"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="nt">"cantidad"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="p">},</span>
+<span class="p">{</span>
+<span class="nt">"fecha"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-11-29"</span><span class="p">,</span>
+<span class="nt">"id_factura"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mi">35</span><span class="p">,</span>
+<span class="nt">"cantidad"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="p">},</span>
+<span class="p">{</span>
+<span class="nt">"fecha"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-11-29"</span><span class="p">,</span>
+<span class="nt">"id_factura"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="nt">"cantidad"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span>
+<span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<p><span class="mis_ejemplos">Ejemplo 7: Mostrar listado de facturas con el nombre de la planta</span></p>
+<p>En este ejemplo consultamos la colección facturas, pero combinamos sus datos con la colección plantas para poder mostrar el nombre de la planta asociada a cada línea de factura:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">listaFacturas</span><span class="p">(){</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">conectarBD</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">pipeline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
+<span class="w">            </span><span class="n">Document</span><span class="p">(</span>
+<span class="w">                </span><span class="s">"\</span><span class="si">$</span><span class="n">lookup</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">Document</span><span class="p">()</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"from"</span><span class="p">,</span><span class="w"> </span><span class="s">"plantas"</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"localField"</span><span class="p">,</span><span class="w"> </span><span class="s">"id_planta"</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"foreignField"</span><span class="p">,</span><span class="w"> </span><span class="s">"id_planta"</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"as"</span><span class="p">,</span><span class="w"> </span><span class="s">"planta"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">),</span>
+<span class="w">            </span><span class="n">Document</span><span class="p">(</span><span class="s">"\</span><span class="si">$</span><span class="n">unwind</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="s">"\</span><span class="si">$</span><span class="n">planta</span><span class="s">"</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">coleccionFacturas</span><span class="p">.</span><span class="na">aggregate</span><span class="p">(</span><span class="n">pipeline</span><span class="p">).</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">doc</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">idFactura</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">doc</span><span class="p">.</span><span class="na">getInteger</span><span class="p">(</span><span class="s">"id_factura"</span><span class="p">)</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">fecha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">doc</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"fecha"</span><span class="p">)</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">idPlanta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">doc</span><span class="p">.</span><span class="na">getInteger</span><span class="p">(</span><span class="s">"id_planta"</span><span class="p">)</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">cantidad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">doc</span><span class="p">.</span><span class="na">getInteger</span><span class="p">(</span><span class="s">"cantidad"</span><span class="p">)</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">precio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">doc</span><span class="p">.</span><span class="na">getInteger</span><span class="p">(</span><span class="s">"precio"</span><span class="p">)</span>
+
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">planta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">doc</span><span class="o">[</span><span class="s">"planta"</span><span class="o">]</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Document</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">nombreComun</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">planta</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"nombre_comun"</span><span class="p">)</span>
+
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">"[</span><span class="si">$</span><span class="n">idFactura</span><span class="s">] (</span><span class="si">$</span><span class="n">fecha</span><span class="s">): </span><span class="si">$</span><span class="n">nombreComun</span><span class="s"> (id </span><span class="si">$</span><span class="n">idPlanta</span><span class="s">) – </span><span class="si">$</span><span class="n">cantidad</span><span class="s"> uds. </span><span class="si">$</span><span class="n">precio</span><span class="s"> €"</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">desconectarBD</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Explicación del código:</strong></p>
+<p>Para realizar la unión entre las dos colecciones (<code>facturas</code> y <code>plantas</code>), se define una <code>pipeline</code> con una secuencia de <strong>dos etapas</strong>:</p>
+<p>Etapa 1: <code>$lookup</code> (Equivalente al <code>JOIN</code> de SQL)</p>
+<p>Partimos de un documento original de la colección <code>facturas</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"fecha"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-11-28"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id_factura"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"cantidad"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Utilizamos <code>$lookup</code> para buscar en la colección <strong><code>plantas</code></strong> todos los documentos cuyo <code>id_planta</code> (<code>foreignField</code>) coincida con el <code>id_planta</code> de nuestra factura actual (<code>localField</code>). El resultado de esa búsqueda se almacena en un nuevo campo llamado <strong><code>planta</code></strong> (<code>as</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="n">Document</span><span class="p">(</span><span class="s">"\</span><span class="si">$</span><span class="n">lookup</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">Document</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"from"</span><span class="p">,</span><span class="w"> </span><span class="s">"plantas"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"localField"</span><span class="p">,</span><span class="w"> </span><span class="s">"id_planta"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"foreignField"</span><span class="p">,</span><span class="w"> </span><span class="s">"id_planta"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"as"</span><span class="p">,</span><span class="w"> </span><span class="s">"planta"</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Por defecto, <code>$lookup</code> siempre genera un <strong>array</strong>, incluso cuando la coincidencia es de un único documento. El documento tras este paso queda así:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"fecha"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-11-28"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id_factura"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"precio"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"cantidad"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"planta"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"nombre_comun"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aloe"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"nombre_cientifico"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aloe barbadensis miller"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"altura"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Etapa 2: <code>$unwind</code> (concersión del array a un objeto normal)</p>
+<p>Tener <code>planta</code> como un array con un único elemento (<code>[ { ... } ]</code>) dificulta la lectura directa de sus propiedades en Kotlin. Para convertir ese array en un objeto/documento normal utilizamos <code>$unwind</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Document</span><span class="p">(</span><span class="s">"\</span><span class="si">$</span><span class="n">unwind</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="s">"\</span><span class="si">$</span><span class="n">planta</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div>
+<p>Tras pasar por <code>$unwind</code>, el campo <code>planta</code> pasa de ser una lista a ser un subdocumento plano:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">"planta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"nombre_comun"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aloe"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"nombre_cientifico"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aloe barbadensis miller"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"altura"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id_planta"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo</p>
+<ol>
+<li>Añade a la BD florabotanica una nueva colección a partir del JSON de facturas (utiliza la función de importar explicada anteriormente).</li>
+<li>Añade al menú del ejemplo anterior una opción para mostrar el listado de facturas.</li>
+<li>Prueba el código de ejemplo y verifica que funciona correctamente.</li>
+</ol>
+</div>
+<p><span class="mis_ejemplos">Ejemplo 8: Mostrar datos de una factura</span></p>
+<p>En este ejemplo se pide un número de factura por consola y se muestran sus datos.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">mostrarFactura</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">conectarBD</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">idFactura</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pedirEntero</span><span class="p">(</span><span class="s">"ID de la factura: "</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c1">// Obtener la fecha de la factura y verificar que la factura indicada existe</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">facturaDoc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coleccionFacturas</span>
+<span class="w">            </span><span class="p">.</span><span class="na">find</span><span class="p">(</span><span class="n">Document</span><span class="p">(</span><span class="s">"id_factura"</span><span class="p">,</span><span class="w"> </span><span class="n">idFactura</span><span class="p">))</span>
+<span class="w">            </span><span class="p">.</span><span class="na">first</span><span class="p">()</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">facturaDoc</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">"No existe ninguna factura con ID </span><span class="si">$</span><span class="n">idFactura</span><span class="s">"</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">fecha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">facturaDoc</span><span class="o">[</span><span class="s">"fecha"</span><span class="o">]</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">String</span>
+
+<span class="w">        </span><span class="c1">// Crear un pipeline de agregación para obtener las líneas de la factura con datos de la planta</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">pipeline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
+<span class="w">            </span><span class="n">Document</span><span class="p">(</span><span class="s">"\</span><span class="si">$</span><span class="n">match</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">Document</span><span class="p">(</span><span class="s">"id_factura"</span><span class="p">,</span><span class="w"> </span><span class="n">idFactura</span><span class="p">)),</span>
+<span class="w">            </span><span class="n">Document</span><span class="p">(</span>
+<span class="w">                </span><span class="s">"\</span><span class="si">$</span><span class="n">lookup</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">Document</span><span class="p">()</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"from"</span><span class="p">,</span><span class="w"> </span><span class="s">"plantas"</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"localField"</span><span class="p">,</span><span class="w"> </span><span class="s">"id_planta"</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"foreignField"</span><span class="p">,</span><span class="w"> </span><span class="s">"id_planta"</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"as"</span><span class="p">,</span><span class="w"> </span><span class="s">"planta"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">),</span>
+<span class="w">            </span><span class="n">Document</span><span class="p">(</span><span class="s">"\</span><span class="si">$</span><span class="n">unwind</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="s">"\</span><span class="si">$</span><span class="n">planta</span><span class="s">"</span><span class="p">),</span>
+<span class="w">            </span><span class="n">Document</span><span class="p">(</span>
+<span class="w">                </span><span class="s">"\</span><span class="si">$</span><span class="n">project</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">Document</span><span class="p">()</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"nombre_planta"</span><span class="p">,</span><span class="w"> </span><span class="s">"\</span><span class="si">$</span><span class="n">planta</span><span class="s">.nombre_comun"</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"cantidad"</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"precio"</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">"subtotal"</span><span class="p">,</span><span class="w"> </span><span class="n">Document</span><span class="p">(</span><span class="s">"\</span><span class="si">$</span><span class="n">multiply</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">"\</span><span class="si">$</span><span class="n">precio</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="s">"\</span><span class="si">$</span><span class="n">cantidad</span><span class="s">"</span><span class="p">)))</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+
+<span class="w">        </span><span class="c1">// Ejecutar la agregación para obtener la lista de líneas</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">lineas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coleccionFacturas</span><span class="p">.</span><span class="na">aggregate</span><span class="p">(</span><span class="n">pipeline</span><span class="p">).</span><span class="na">toList</span><span class="p">()</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">lineas</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">"No se encontraron líneas para la factura </span><span class="si">$</span><span class="n">idFactura</span><span class="s">"</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// Encabezado de la factura</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"==============================================================="</span><span class="p">)</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"Factura ID: </span><span class="si">$</span><span class="n">idFactura</span><span class="s">"</span><span class="p">)</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"Fecha: </span><span class="si">$</span><span class="n">fecha</span><span class="s">"</span><span class="p">)</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"---------------------------------------------------------------"</span><span class="p">)</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="kt">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">"%-15s %-10s %-10s %-12s"</span><span class="p">,</span><span class="w"> </span><span class="s">"Planta"</span><span class="p">,</span><span class="w"> </span><span class="s">"Cantidad"</span><span class="p">,</span><span class="w"> </span><span class="s">"Precio"</span><span class="p">,</span><span class="w"> </span><span class="s">"Subtotal"</span><span class="p">))</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"---------------------------------------------------------------"</span><span class="p">)</span>
+
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nv">totalFactura</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.0</span>
+
+<span class="w">        </span><span class="c1">// Iterar sobre las líneas de la factura</span>
+<span class="w">        </span><span class="n">lineas</span><span class="p">.</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">linea</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">nombre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">linea</span><span class="o">[</span><span class="s">"nombre_planta"</span><span class="o">]</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">String</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">cantidad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">linea</span><span class="o">[</span><span class="s">"cantidad"</span><span class="o">]</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">Int</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">precio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">linea</span><span class="o">[</span><span class="s">"precio"</span><span class="o">]</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">Int</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">subtotal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">linea</span><span class="o">[</span><span class="s">"subtotal"</span><span class="o">]</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Number</span><span class="p">).</span><span class="na">toDouble</span><span class="p">()</span>
+
+<span class="w">            </span><span class="n">totalFactura</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">subtotal</span>
+
+<span class="w">            </span><span class="n">println</span><span class="p">(</span>
+<span class="w">                </span><span class="kt">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span>
+<span class="w">                    </span><span class="s">"%-15s %-10d %-10s %-12s"</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">nombre</span><span class="p">,</span><span class="w"> </span><span class="n">cantidad</span><span class="p">,</span><span class="w"> </span><span class="n">precio</span><span class="p">,</span><span class="w"> </span><span class="n">subtotal</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nv">totalIVA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">totalFactura</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">0.21</span>
+
+<span class="w">        </span><span class="c1">// Mostrar pie de factura con totales</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"---------------------------------------------------------------"</span><span class="p">)</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="kt">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">"%-15s %-10s %-10s %-12s"</span><span class="p">,</span><span class="w"> </span><span class="s">""</span><span class="p">,</span><span class="w"> </span><span class="s">"TOTAL:"</span><span class="p">,</span><span class="w"> </span><span class="n">totalFactura</span><span class="p">,</span><span class="w"> </span><span class="s">""</span><span class="p">))</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="kt">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">"%-15s %-10s %-10s %-12s"</span><span class="p">,</span><span class="w"> </span><span class="s">""</span><span class="p">,</span><span class="w"> </span><span class="s">"IVA 21%:"</span><span class="p">,</span><span class="w"> </span><span class="n">totalIVA</span><span class="p">,</span><span class="w"> </span><span class="s">""</span><span class="p">))</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="kt">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">"%-15s %-10s %-10s %-12s"</span><span class="p">,</span><span class="w"> </span><span class="s">""</span><span class="p">,</span><span class="w"> </span><span class="s">"TOTAL CON IVA:"</span><span class="p">,</span><span class="w"> </span><span class="n">totalFactura</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">totalIVA</span><span class="p">,</span><span class="w"> </span><span class="s">""</span><span class="p">))</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"==============================================================="</span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">desconectarBD</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Prueba y analiza el ejemplo</p>
+<ol>
+<li>Añade al menú del ejemplo anterior una opción para mostrar los datos de una factura.</li>
+<li>Prueba el código de ejemplo y verifica que funciona correctamente.</li>
+</ol>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Práctica 3: finaliza tu proyecto</p>
+<ol>
+<li>Añade una nueva colección a tu BD (puedes crear un archivo <code>.json</code> e importarlo directamente a tu BD desde tu aplicación).</li>
+<li>Añade al menú las operaciones CRUD de esa nueva colección. Si te es más cómodo divide el menú en varios submenús para no tener todas las opciones en un único menú.</li>
+<li>Programa dos funciones parecidas a las de los ejemplos en la que tengas que extraer información de las dos colecciones de tu BD.</li>
+<li>Recuerda ampliar las funciones de importar y exportar para tener en cuenta la nueva colección.</li>
+</ol>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Entrega</p>
+<p>Entrega en Aules un solo archivo comprimido en formato <code>.zip</code> que contenga únicamente la carpeta <code>src</code> y la carpeta <code>datos</code> (con tus colecciones exportadas a archivos <code>.json</code> dentro de ella). Tu trabajo se calificará con la siguiente tabla:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><span class="mi_sombreado_entrega">Bloque de evaluación</span></th>
+<th style="text-align: left;"><span class="mi_sombreado_entrega">Criterios de calificación</span></th>
+<th style="text-align: center;"><span class="mi_sombreado_entrega">Puntos</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Requisitos técnicos y funcionamiento</strong></td>
+<td style="text-align: left;">- La entrega cumple el formato solicitado (un <code>.zip</code> con carpeta <code>src</code> y archivo <code>.json</code>).<br>- La aplicación compila, es funcional y cumple con todo lo solicitado en el enunciado.<br>- No contiene código muerto ni restos de prácticas anteriores.</td>
+<td style="text-align: center;">2,5</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Prueba escrita de autoría</strong></td>
+<td style="text-align: left;">- Respuestas correctas a las preguntas conceptuales y técnicas sobre tu propio código.<br>- Capacidad para explicar el flujo del programa.</td>
+<td style="text-align: center;">7,5</td>
+</tr>
+</tbody>
+</table>
+<p>⚠️ Nota aclaratoria: la entrega correcta y funcional de la aplicación es un requisito indispensable para poder realizar la prueba escrita. Si no se realiza la entrega del proyecto o si éste no compila o no funciona como pide el enunciado, la calificación global de la tarea será un 0.</p>
+</div>
+<hr />
+<p><span class="mi_h3">Autoría</span></p>
+<p><span class="mi_autoria">
+Obra realizada por Begoña Paterna Lluch. Publicada bajo licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Atribución/Reconocimiento-CompartirIgual 4.0 Internacional</a>
+</span></p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.tabs.link", "navigation.instant", "navigation.top", "navigation.sections", "search.highlight", "search.suggest", "toc.integrate"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
