@@ -1065,82 +1065,13 @@ Para los ejemplos siguientes añadiremos una nueva colección (`facturas`) a nue
 }
 ]
 ```
-Para realizar el JOIN entre las dos colecciones (`plantas` y `facturas`) utilizaremos **lookup y unwind**.
 
-`lookup` añade un nuevo campo que contiene un array con los documentos completos de otra colección cuyo campo coincide con el del documento actual. Incluso si solo encuentra un documento, el resultado sigue siendo un array con un único elemento.
-
-Partimos del primer documento de la colección `facturas`:
-
-```
-{
-  "fecha": "2025-11-28",
-  "id_factura": 1,
-  "id_planta": 1,
-  "precio": 13,
-  "cantidad": 3
-}
-```
-
-Utilizamos `lookup` para buscar en la colección **plantas** todos los documentos cuyo campo `id_planta` coincida con el `id_planta` de la factura y gurdarlos en un nuevo campo llamado `planta`. El código es el siguiente:
-
-```
-Document("\$lookup", Document()
-.append("from", "plantas")
-.append("localField", "id_planta")
-.append("foreignField", "id_planta")
-.append("as", "planta")
-)
-```
-
-El resultado (equivalente a un **JOIN** en SQL) es un campo llamado `planta` añadido al documento:
-
-```
-{
-  "fecha": "2025-11-28",
-  "id_factura": 1,
-  "id_planta": 1,
-  "precio": 13,
-  "cantidad": 3
-  "planta": [
-    {
-      "nombre_comun": "Aloe",
-      "nombre_cientifico": "Aloe barbadensis miller",
-      "altura": 60,
-      "id_planta": 1
-    }
-  ]
-}
-```
-
-
-Para poder leer la información hemos de convertir el resultado del lookup (array) en un objeto normal. Eso es lo que hace `unwind`. Si partimos del array que se ha creado con `lookup`:
-
-```
-"planta": [
-  { nombre_comun: "Aloe", ... }
-]
-```
-
-Después de aplicar `unwind` el documento de planta ya no es un `array` y queda como un objeto normal para poder leer sus campos.
-
-```
-"planta": {
-  nombre_comun: "Aloe",
-  ...
-}
-```
-
-
-En este caso, el pipeline es una secuencia de dos pasos:
-
-1. `lookup` que junta facturas con plantas (como un JOIN).
-
-2. `unwind` que convierte el resultado del lookup (array) en un objeto normal.
 
 
 <span class="mis_ejemplos">Ejemplo 7: Mostrar listado de facturas con el nombre de la planta</span>
 
-Este ejemplo utiliza el `pipeline` explicado anteriormente con la secuencia `lookup` y `unwind` para mostrar el nombre de la planta al listar los documentos de la colección `facturas`.
+En este ejemplo consultamos la colección facturas, pero combinamos sus datos con la colección plantas para poder mostrar el nombre de la planta asociada a cada línea de factura:
+
 
 ```kotlin
 
@@ -1174,9 +1105,81 @@ fun listaFacturas(){
 }
 ```
 
+
+**Explicación del código:**
+
+Para realizar la unión entre las dos colecciones (`facturas` y `plantas`), se define una `pipeline` con una secuencia de **dos etapas**:
+
+
+
+Etapa 1: `$lookup` (Equivalente al `JOIN` de SQL)
+
+Partimos de un documento original de la colección `facturas`:
+
+```json
+{
+  "fecha": "2025-11-28",
+  "id_factura": 1,
+  "id_planta": 1,
+  "precio": 13,
+  "cantidad": 3
+}
+```
+
+Utilizamos `$lookup` para buscar en la colección **`plantas`** todos los documentos cuyo `id_planta` (`foreignField`) coincida con el `id_planta` de nuestra factura actual (`localField`). El resultado de esa búsqueda se almacena en un nuevo campo llamado **`planta`** (`as`):
+
+```kotlin
+Document("\$lookup", Document()
+    .append("from", "plantas")
+    .append("localField", "id_planta")
+    .append("foreignField", "id_planta")
+    .append("as", "planta")
+)
+```
+
+Por defecto, `$lookup` siempre genera un **array**, incluso cuando la coincidencia es de un único documento. El documento tras este paso queda así:
+
+```json
+{
+  "fecha": "2025-11-28",
+  "id_factura": 1,
+  "id_planta": 1,
+  "precio": 13,
+  "cantidad": 3,
+  "planta": [
+    {
+      "nombre_comun": "Aloe",
+      "nombre_cientifico": "Aloe barbadensis miller",
+      "altura": 60,
+      "id_planta": 1
+    }
+  ]
+}
+```
+
+Etapa 2: `$unwind` (concersión del array a un objeto normal)
+
+Tener `planta` como un array con un único elemento (`[ { ... } ]`) dificulta la lectura directa de sus propiedades en Kotlin. Para convertir ese array en un objeto/documento normal utilizamos `$unwind`:
+
+```kotlin
+Document("\$unwind", "\$planta")
+```
+
+Tras pasar por `$unwind`, el campo `planta` pasa de ser una lista a ser un subdocumento plano:
+
+```json
+"planta": {
+  "nombre_comun": "Aloe",
+  "nombre_cientifico": "Aloe barbadensis miller",
+  "altura": 60,
+  "id_planta": 1
+}
+```
+
+
 !!! success "Prueba y analiza el ejemplo"
 
-    1. Añade a la BD florabotanica una nueva colección a partir del JSON de facturas (utiliza la función de importar vista anteriormente).
+    1. Añade a la BD florabotanica una nueva colección a partir del JSON de facturas (utiliza la función de importar explicada anteriormente).
     2. Añade al menú del ejemplo anterior una opción para mostrar el listado de facturas.
     3. Prueba el código de ejemplo y verifica que funciona correctamente.
 
@@ -1282,10 +1285,10 @@ fun mostrarFactura() {
 
 
 
-!!! warning "Práctica 3: amplía tu proyecto"
+!!! warning "Práctica 3: finaliza tu proyecto"
 
-    1. Añade una nueva colección a tu BD (puedes crear e archivo .json e importarlo directamente a tu BD desde tu aplicación.
-    2. Añade al menú las operaciones CRUD de esa nueva colección. Si te es más cómodo divide el menú en varios submenús para que el menú principal no quede tan grande.
+    1. Añade una nueva colección a tu BD (puedes crear un archivo `.json` e importarlo directamente a tu BD desde tu aplicación.
+    2. Añade al menú las operaciones CRUD de esa nueva colección. Si te es más cómodo divide el menú en varios submenús para no tener todas las opciones en un único menú.
     3. Programa dos funciones parecidas a las de los ejemplos en la que tengas que extraer información de las dos colecciones de tu BD.
     4. Recuerda ampliar las funciones de importar y exportar para tener en cuenta la nueva colección.
 
