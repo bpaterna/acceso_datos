@@ -795,7 +795,7 @@ fun stockMedio(){
 
 <span class="mi_h3">Exportar / Importar la BD con Kotlin a JSON</span>
 
-Desde Kotlin podemos exportar nuestra BD a un archivo .json y también podemos importar un archivo .json a nuestra BD. Para ello hay que añadir la siguiente dependencia en el archivo `build.gradle.kts`.
+Desde Kotlin podemos exportar nuestra BD a un archivo `.json` y también podemos importar un archivo `.json` a nuestra BD. Para ello hay que añadir la siguiente dependencia en el archivo `build.gradle.kts`.
 
 ```kotlin
 implementation("org.json:json:20231013")
@@ -968,7 +968,7 @@ fun importar(){
     - Opción **ELIMINAR**: Pide ID hasta que sea válido (debe ser un número entero) y comprueba si existe en la colección, si no lo encuentra informa con un mensaje pero si lo encuentra muestra el nombre o algún otro campo representativo y pide confirmación para eliminar, entonces, si se confirma el borrado se elimina el documento y en caso contrario no se elimina (en ambos casos se informa con un mensaje).
     - (Operación utilizando filtros) se realiza utilizando filtros con `Filters.eq`, `Filters.gt`, etc.
     - (Consulta que muestra solo algunos datos) se realiza utilizando `Projections.include`.
-    - Las opciones de exportar e importar deben escribir / leer .json dentro de una carpeta llamada `datos` que deberás crear en la raíz del proyecto de IntelliJ (al mismo nivel que la carpeta `src` y que el archivo `build.gradle.kts`).
+    - Las opciones de exportar e importar deben escribir / leer `.json` dentro de una carpeta llamada `datos` que deberás crear en la raíz del proyecto de IntelliJ (al mismo nivel que la carpeta `src` y que el archivo `build.gradle.kts`).
 
 
     **Aspectos técnicos:**
@@ -1287,7 +1287,7 @@ fun mostrarFactura() {
 
 !!! warning "Práctica 3: finaliza tu proyecto"
 
-    1. Añade una nueva colección a tu BD (puedes crear un archivo `.json` e importarlo directamente a tu BD desde tu aplicación.
+    1. Añade una nueva colección a tu BD (puedes crear un archivo `.json` e importarlo directamente a tu BD desde tu aplicación).
     2. Añade al menú las operaciones CRUD de esa nueva colección. Si te es más cómodo divide el menú en varios submenús para no tener todas las opciones en un único menú.
     3. Programa dos funciones parecidas a las de los ejemplos en la que tengas que extraer información de las dos colecciones de tu BD.
     4. Recuerda ampliar las funciones de importar y exportar para tener en cuenta la nueva colección.
