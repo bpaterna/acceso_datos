@@ -306,6 +306,82 @@ plantas
 
 
 
+!!! example "Autoevaluación"
+    
+    **Pregunta 1: Se inicia una sesión en la herramienta interactiva `mongosh` conectada a un servidor MongoDB recién levantado en Docker y se ejecutan las siguientes instrucciones consecutivas:**
+    
+    ```javascript
+    test> use florabotanica
+    switched to db florabotanica
+    
+    florabotanica> show dbs
+    admin          0.000GB
+    config         0.000GB
+    local          0.000GB
+    ```
+    
+    **Sabiendo que el comando `use florabotanica` se ejecutó sin errores, ¿cuál es el motivo por el que la base de datos `florabotanica` no aparece en el listado devuelto por `show dbs`?**
+    
+    A) Se produjo un fallo silencioso porque en MongoDB es obligatorio crear previamente la base de datos mediante la instrucción formal `db.createDatabase("florabotanica")` antes de poder usarla.
+    
+    B) MongoDB emplea creación diferida (*lazy creation*); el comando `use` establece únicamente el contexto de trabajo en memoria, pero la base de datos no se materializa físicamente en disco ni es listada por `show dbs` hasta que contenga al menos una colección con datos persistidos.
+    
+    C) El comando `show dbs` está reservado exclusivamente para listar bases de datos del sistema (`admin`, `config`, `local`), requiriendo el comando `show user dbs` para visualizar bases de datos creadas por el usuario.
+    
+    D) El usuario conectado no dispone del rol de administrador en el catálogo del motor, por lo que el servidor oculta las bases de datos recién creadas hasta que se reinicie el contenedor Docker.
+    
+    ??? quote "Solución"
+    
+        ❌ A) MongoDB no dispone ni requiere de un comando `createDatabase`. La creación de bases de datos es completamente implícita y dinámica.
+        
+        ✅ B) Esta es una característica clave del comportamiento de MongoDB: la creación es diferida (*lazy*). Cambiar de contexto con `use <nombre_bd>` prepara el entorno para trabajar con ella, pero mientras no se ejecute una operación de inserción (como `insertOne` o `insertMany`) que guarde documentos y reserve espacio de almacenamiento real, la base de datos no se escribirá en disco y, por tanto, no figurará en la salida de `show dbs`.
+        
+        ❌ C) La instrucción `show dbs` lista todas las bases de datos existentes en el servidor que contengan datos almacenados, independientemente de si son del sistema o creadas por usuarios. El comando `show user dbs` no existe en la sintaxis de `mongosh`.
+        
+        ❌ D) No se trata de una restricción de privilegios ni requiere el reinicio del servidor o del contenedor. Tan pronto como se inserte un documento en cualquier colección dentro de `florabotanica`, el motor la incluirá automáticamente en la lista de `show dbs`.
+
+    
+    **Pregunta 2: Sobre una base de datos recién seleccionada donde aún no existe ninguna colección creada, se ejecutan las siguientes operaciones desde la consola `mongosh`:**
+    
+    ```javascript
+    florabotanica> db.plantas.insertOne({ 
+      id_planta: 1, 
+      nombre_comun: "Aloe Vera", 
+      stock: 20 
+    })
+    
+    florabotanica> db.plantas.insertOne({ 
+      id_planta: 2, 
+      nombre_comun: "Lavanda", 
+      es_exterior: true, 
+      cuidados: { riego: "semanal", sol_directo: true } 
+    })
+    ```
+    
+    **Teniendo en cuenta los principios de funcionamiento de MongoDB y la estructura documental, ¿cuál será el resultado de ejecutar estas dos operaciones consecutivas?**
+    
+    A) Ambas operaciones se completarán con éxito. MongoDB creará automáticamente la colección `plantas` durante la primera inserción y, al basarse en un esquema flexible, permitirá almacenar el segundo documento con campos y tipos diferentes (incluyendo objetos anidados), asignando a cada uno un `_id` único en formato BSON.
+    
+    B) La primera inserción fallará arrojando un error de tipo `NamespaceNotFoundException`, ya que el motor exige instanciar la colección previamente mediante `db.createCollection("plantas")`.
+    
+    C) La primera inserción se completará correctamente, pero la segunda fallará por conflicto de esquema, ya que MongoDB infiere la estructura de la colección a partir del primer documento insertado y rechaza registros con atributos nuevos como `es_exterior` o `cuidados`.
+    
+    D) Se insertarán ambos documentos, pero el motor convertirá automáticamente la colección en un formato tabular clásico, rellenando en el primer documento los campos ausentes con valores `null` para forzar la misma estructura.
+    
+    ??? quote "Solución"
+    
+        ✅ A) En MongoDB las colecciones se crean de manera automática en el momento en que reciben su primer documento. Además, al ser una base de datos orientada a documentos sin esquema rígido (*schemaless*), cada documento de una misma colección puede poseer una estructura, campos y niveles de anidamiento totalmente distintos, siendo almacenados internamente en formato binario BSON con su respectivo identificador único `_id`.
+        
+        ❌ B) Aunque el comando `db.createCollection()` existe y es válido para configuraciones avanzadas (como colecciones limitadas o validaciones), no es obligatorio para el uso cotidiano; MongoDB crea la colección de forma transparente al ejecutar un `insertOne` o `insertMany`.
+        
+        ❌ C) A diferencia de los SGBD relacionales (SQL), las colecciones de MongoDB no imponen un esquema fijo por defecto ni bloquean la inserción de documentos con estructuras heterogéneas o tipos diferentes.
+        
+        ❌ D) MongoDB almacena documentos BSON independientes y no transforma los datos a una estructura tabular ni añade pares clave-valor artificiales con valor `null` en documentos existentes para homogeneizar los registros.
+
+
+
+
+
 <span class="mi_h3">Operaciones básicas</span>
 
 **Inserción** (Si la colección no existe, MongoDB la **creará automáticamente** en el momento de la inserción)
@@ -405,7 +481,79 @@ El ejemplo funciona de la siguiente manera:
 
 
 
+!!! example "Autoevaluación"
 
+    **Pregunta 3: Sobre la colección `plantas`, se ejecuta la siguiente consulta para recuperar información específica de los ejemplares registrados:**
+    
+    ```javascript
+    db.plantas.find(
+        { altura: { $gt: 100 } },
+        { nombre_comun: 1, tipo: 1, _id: 0 }
+    )
+    ```
+    
+    **Teniendo en cuenta el funcionamiento de los filtros y proyecciones en MongoDB, ¿cuál será el resultado exacto de esta operación?**
+    
+    A) Se obtendrán todos los documentos con altura mayor o igual a 100, mostrando todos sus atributos originales salvo el identificador `_id`, que se omite automáticamente al aplicar cualquier filtro.
+    
+    B) Se producirá un error de sintaxis en `mongosh`, ya que no está permitido proyectar campos (`nombre_comun: 1`) y al mismo tiempo excluir otros (`_id: 0`) dentro del mismo objeto de proyección.
+    
+    C) Se recuperarán todos los documentos cuya altura sea estrictamente superior a 100, devolviendo únicamente los campos `nombre_comun` y `tipo`, y suprimiendo explícitamente el campo `_id` (el cual MongoDB incluye por defecto salvo que se indique `_id: 0`).
+    
+    D) Se devolverá únicamente el primer documento que coincida con el criterio de búsqueda, transformando el formato BSON en una cadena de texto plana sin procesar en memoria.
+    
+    ??? quote "Solución"
+    
+        ❌ A) El operador `$gt` (*greater than*) realiza una comparación estricta de mayor que (excluye el valor 100). Además, MongoDB incluye siempre el campo `_id` por defecto en todas las consultas a menos que se excluya de forma explícita en la proyección.
+        
+        ❌ B) En las proyecciones de MongoDB no se permite mezclar inclusiones (`1`) y exclusiones (`0`), con una única excepción: el campo `_id`. Es completamente válido proyectar los campos deseados con `1` y apagar la inclusión por defecto del identificador con `_id: 0`.
+        
+        ✅ C) El primer parámetro `{ altura: { $gt: 100 } }` actúa como filtro de selección (WHERE), seleccionando registros con altura superior a 100. El segundo parámetro `{ nombre_comun: 1, tipo: 1, _id: 0 }` corresponde a la proyección, permitiendo delimitar qué campos viajan al cliente y forzando la exclusión del `_id`.
+        
+        ❌ D) El método `find()` devuelve un cursor con todos los documentos coincidentes de la colección, no únicamente el primero (para obtener uno solo se emplearía `findOne()`), y mantiene la representación como documento BSON/JSON.
+
+    
+    **Pregunta 4: En la colección `plantas` existe un documento con la siguiente estructura:**
+    
+    ```json
+    {
+      "_id": ObjectId("650c1f2b4c8a2e1d84f9a012"),
+      "id_planta": 3,
+      "nombre_comun": "Cactus",
+      "nombre_cientifico": "Cactaceae",
+      "stock": 120,
+      "altura": 100
+    }
+    ```
+    
+    **Un desarrollador desea modificar únicamente la altura del ejemplar y ejecuta por error la siguiente sentencia:**
+    
+    ```javascript
+    db.plantas.replaceOne(
+        { nombre_comun: "Cactus" },
+        { altura: 130 }
+    )
+    ```
+    
+    **¿Cuál será el impacto real sobre el documento almacenado en la base de datos tras la ejecución de este comando?**
+    
+    A) La operación fallará y cancelará los cambios, ya que toda modificación en MongoDB requiere obligatoriamente el operador `$set` para poder aplicarse.
+    
+    B) El documento original se sustituirá por completo: conservará únicamente su `_id` original y el nuevo campo `altura: 130`, perdiéndose definitivamente el resto de campos (`id_planta`, `nombre_comun`, `nombre_cientifico`, `stock`).
+    
+    C) El comando actualizará correctamente la altura a 130 y mantendrá intactos todos los demás campos, comportándose de manera idéntica a `updateOne`.
+    
+    D) Se creará un documento duplicado en la colección con los nuevos datos, conservando el documento original en un histórico de versiones de la base de datos.
+    
+    ??? quote "Solución"
+    
+        ❌ A) La instrucción no fallará. `replaceOne()` es un comando sintácticamente válido en MongoDB cuyo propósito explícito es reemplazar la totalidad del documento por uno nuevo.
+        
+        ✅ B) Este es el comportamiento característico de `replaceOne`: reemplaza el contenido entero del documento coincidente por el nuevo objeto pasado como segundo argumento, manteniendo únicamente el identificador inmutable `_id`. Para actualizar campos concretos sin perder el resto de la información, se debe utilizar `updateOne` junto con el operador `$set`.
+        
+        ❌ C) Para modificar solo atributos concretos y preservar los demás se utiliza `updateOne(filtro, { $set: { altura: 130 } })`. Al haber invocado `replaceOne`, los campos ausentes en el nuevo objeto desaparecen del registro.
+        
+        ❌ D) MongoDB no crea copias automáticas ni versiona documentos ante un reemplazo. La sustitución es destructiva sobre los campos no incluidos en el nuevo documento.
 
 <span class="mi_h3">Consultas avanzadas y ordenación</span>
 
@@ -505,6 +653,77 @@ db.plantas.aggregate([
     2. Conecta al servidor MongoDB desde el terminal
     3. Prueba los comandos del ejemplo y verifica que funciona correctamente.
 
+
+
+!!! example "Autoevaluación"
+
+    **Pregunta 5: Para calcular indicadores globales sobre la colección `plantas`, se ejecuta la siguiente canalización de agregación (*pipeline*):**
+    
+    ```javascript
+    db.plantas.aggregate([
+        { $match: { stock: { $gt: 0 } } },
+        { $group: { 
+            _id: null, 
+            stockTotal: { $sum: "$stock" },
+            precioMedio: { $avg: "$precio" }
+        }}
+    ])
+    ```
+    
+    **Al analizar esta consulta, ¿cuál es el propósito técnico de indicar `_id: null` dentro de la etapa `$group` y qué estructura devolverá?**
+    
+    A) Permite tratar todos los documentos filtrados como un único grupo global, aplicando los acumuladores (`$sum` y `$avg`) sobre la totalidad de la colección para devolver un único documento de resumen.
+    
+    B) Se producirá un error de sintaxis en el motor de MongoDB, ya que la directiva `_id` dentro de `$group` exige obligatoriamente referenciar un campo existente precedido por el símbolo `$` (por ejemplo, `_id: "$tipo"`).
+    
+    C) Indica al optimizador de consultas que únicamente se deben acumular aquellos documentos cuyo identificador de clave primaria `_id` tenga asignado explícitamente un valor nulo.
+    
+    D) Agrupa los documentos de forma independiente por cada registro devuelto por `$match`, generando tantos documentos de salida como elementos cumplan la condición de stock.
+    
+    ??? quote "Solución"
+    
+        ✅ A) En la etapa `$group`, el campo `_id` define la clave de partición por la cual se dividen los datos. Al fijarlo en `null` (o en una constante), se le indica a MongoDB que no se desea subdividir por ningún atributo, agrupando todos los documentos procesados en una única bolsa global para calcular totales y medias de toda la colección.
+        
+        ❌ B) Asignar `_id: null` es una convención totalmente válida y estándar en las canalizaciones de agregación cuando el objetivo es obtener agregados globales (equivalente a ejecutar un `SELECT SUM(stock), AVG(precio) FROM plantas` sin cláusula `GROUP BY` en SQL).
+        
+        ❌ C) El valor `_id` especificado en `$group` determina el criterio de agrupación para la salida de la etapa, no debe confundirse con un filtro sobre el atributo `_id` original de los documentos almacenados en disco.
+        
+        ❌ D) Si se deseara una fila de salida por cada documento individual, no se emplearía `$group` con `_id: null`, sino etapas de proyección (`$project`) o selecciones convencionales.
+
+    
+    **Pregunta 6: Se ha diseñado la siguiente consulta compleja sobre la colección `plantas` combinando múltiples etapas de agregación:**
+    
+    ```javascript
+    db.plantas.aggregate([
+        { $match: { tipo: { $exists: true } } },
+        { $group: { 
+            _id: "$tipo", 
+            mediaAltura: { $avg: "$altura" }, 
+            cantidad: { $sum: 1 } 
+        }},
+        { $sort: { mediaAltura: -1 } }
+    ])
+    ```
+    
+    **¿Cuál de las siguientes afirmaciones describe de forma precisa el flujo de procesamiento de esta canalización y el resultado obtenido?**
+    
+    A) Las etapas se procesan en paralelo de forma asíncrona, combinando al final los documentos en memoria para optimizar los tiempos de respuesta.
+    
+    B) La expresión `{ $sum: 1 }` actúa acumulando de forma incremental el valor numérico del campo `id_planta` de cada registro procesado en la fase de agrupamiento.
+    
+    C) La fase `$sort` causará un fallo de ejecución porque no es posible ordenar por `mediaAltura`, ya que las ordenaciones únicamente pueden aplicarse sobre campos físicos indexados en la colección original.
+    
+    D) La canalización opera secuencialmente de modo que la salida de cada etapa sirve de entrada a la siguiente: descarta documentos sin el campo `tipo`, agrupa por categoría calculando la altura media y el conteo de elementos (sumando 1 por documento), y finalmente ordena las categorías de mayor a menor altura media.
+    
+    ??? quote "Solución"
+    
+        ❌ A) El *pipeline* de agregación de MongoDB no se ejecuta en paralelo entre etapas; funciona estrictamente como una tubería secuencial (*streaming pipeline*), donde los documentos fluyen paso a paso y la salida de una fase se convierte en la entrada de la subsiguiente.
+        
+        ❌ B) La construcción `{ $sum: 1 }` es el mecanismo estándar en MongoDB para contar documentos dentro de un grupo (equivalente funcional al `COUNT(*)` de SQL). Por cada documento que entra al acumulador, suma el valor literal 1.
+        
+        ❌ C) La etapa `$sort` puede ordenar por cualquier campo presente en los documentos que recibe en ese momento, independientemente de si es un campo original de la colección o un atributo calculado dinámicamente en una etapa anterior como `$group`.
+        
+        ✅ D) Describe fielmente la arquitectura de una tubería de agregación: primero se realiza un filtrado previo con `$match` (evitando procesar datos incompletos), después se compactan los registros en grupos por la clave `$tipo` extrayendo agregados, y por último se ordenan de manera descendente (`-1`) según el valor calculado.
 
 
 !!! warning "Práctica 1: Trabaja con tu BD" 
@@ -627,6 +846,89 @@ fun mostrarPlantas() {
     2. Prueba el código de ejemplo y verifica que funciona correctamente.
 
 
+!!! example "Autoevaluación"
+
+    **Pregunta 7: En el archivo de conexión de nuestra aplicación en Kotlin, se define la siguiente función para inicializar el acceso al servidor de MongoDB:**
+    
+    ```kotlin
+    fun conectarBD(): Boolean {
+        return try {
+            cliente = MongoClients.create(uri)
+            db = cliente.getDatabase(NOM_BD)
+            
+            // Comprobación explícita de la conexión
+            db.runCommand(Document("ping", 1))
+            
+            coleccionPlantas = db.getCollection("plantas")
+            println("Conexión establecida con éxito.")
+            true
+        } catch (e: Exception) {
+            println("Error al conectar con MongoDB: ${e.message}")
+            try { cliente?.close() } catch (_: Exception) {}
+            false
+        }
+    }
+    ```
+    
+    **¿Cuál es el motivo técnico principal por el que se envía de forma explícita la orden `db.runCommand(Document("ping", 1))` antes de considerar establecida la conexión?**
+    
+    A) Es un requisito obligatorio del protocolo de red para registrar la dirección IP del cliente en la colección interna de sesiones de MongoDB.
+    
+    B) Sirve para que el motor asigne un identificador único a la variable global `db`, impidiendo que el recolector de basura de la máquina virtual libere el objeto en memoria.
+    
+    C) El método `MongoClients.create()` instancia el cliente de forma diferida sin validar la red ni las credenciales en ese instante; enviar el comando `ping` fuerza una comunicación real con el servidor, garantizando que si el servicio está apagado o los datos de acceso son incorrectos, salte de inmediato al bloque `catch`.
+    
+    D) Su propósito es forzar la creación física del archivo de la base de datos en el disco del servidor antes de invocar `db.getCollection()`, evitando una excepción de catálogo vacío.
+    
+    ??? quote "Solución"
+    
+        ❌ A) MongoDB no requiere registrar la IP del cliente mediante comandos de ping para mantener la sesión abierta; la gestión del canal de red se maneja de forma transparente a través de sockets TCP en el pool de conexiones.
+        
+        ❌ B) La retención de objetos en memoria depende exclusivamente del ciclo de vida de las variables en Kotlin (en este caso globales con `lateinit`), no de la ejecución de comandos en el servidor.
+        
+        ✅ C) El driver oficial de MongoDB para Java/Kotlin gestiona las conexiones mediante un grupo de conexiones (*connection pool*) de inicialización diferida (*lazy*). Las llamadas a `MongoClients.create()` y `cliente.getDatabase()` no realizan una petición de red bloqueante al instante. Ejecutar `runCommand(Document("ping", 1))` obliga a realizar un viaje de ida y vuelta (*round-trip*) contra el servidor, permitiendo detectar inmediatamente errores de red, puertos inalcanzables o fallos de autenticación dentro del bloque `try-catch`.
+        
+        ❌ D) Las bases de datos en MongoDB se crean implícitamente cuando se inserta el primer documento en una colección, no mediante la ejecución del comando de diagnóstico `ping`.
+
+    
+    **Pregunta 8: Para recuperar y listar los documentos de la base de datos desde Kotlin, se implementa el siguiente método en la aplicación:**
+    
+    ```kotlin
+    fun mostrarPlantas() {
+        if (conectarBD()) {
+            println("**** Listado de plantas:")
+            coleccionPlantas.find().forEach { doc ->
+                val id = doc.getInteger("id_planta")
+                val nombre = doc.getString("nombre_comun")
+                val stock = doc.getInteger("stock")
+                println("[$id] $nombre: $stock ud.")
+            }
+            desconectarBD()
+        }
+    }
+    ```
+    
+    **Al analizar este fragmento, ¿qué representa el parámetro `doc` recibido en la lambda de `.forEach` y cómo se recuperan sus atributos?**
+    
+    A) Es un cursor de tipo `ResultSet` heredado de la especificación JDBC, por lo que requiere posicionar el puntero en la siguiente fila antes de leer cada dato mediante su índice posicional.
+    
+    B) Es una cadena de texto en formato JSON plano (`String`), sobre la cual los métodos de ayuda como `getInteger()` aplican internamente expresiones regulares en cada iteración para extraer el número.
+    
+    C) Es una instancia de una clase entidad que requiere obligatoriamente haber sido anotada previamente con `@Entity` de JPA en Kotlin para que el driver pueda deserializarla.
+    
+    D) Es una instancia de la clase `org.bson.Document` (que implementa `Map<String, Any>`), la cual almacena en memoria los pares clave-valor recibidos en BSON y ofrece métodos tipados de lectura como `getInteger()` o `getString()` para acceder cómodamente a cada campo.
+    
+    ??? quote "Solución"
+    
+        ❌ A) `ResultSet` es un objeto exclusivo de la API relacional JDBC (utilizado en MySQL, SQLite, PostgreSQL). En el driver oficial de MongoDB no se manejan cursores JDBC ni se accede a los campos mediante índices numéricos de columnas.
+        
+        ❌ B) Los documentos no se reciben como cadenas de texto sin procesar ni se parsean con expresiones regulares. El driver de MongoDB decodifica la respuesta binaria en formato BSON y la transforma directamente en una estructura de datos en memoria.
+        
+        ❌ C) `MongoCollection<Document>` trabaja con documentos genéricos nativos sin necesidad de configurar JPA, anotaciones de entidades ni mapeos objeto-relacional (ORM).
+        
+        ✅ D) En la API estándar del driver síncrono de MongoDB, la clase `Document` representa la estructura BSON en Kotlin/Java comportándose como un mapa de pares clave-valor. Incorpora métodos de conveniencia tipados (`getString()`, `getInteger()`, `getDouble()`, etc.) que realizan el *cast* correspondiente a partir de la clave indicada en el argumento.
+
+
 
 
 <span class="mis_ejemplos">Ejemplo 5: Resto de operaciones CRUD</span>
@@ -735,6 +1037,75 @@ fun eliminarPlanta() {
     1. Modifica el ejemplo anterior añadiendo un menú con una opción por cada operación.
     2. Prueba el código de ejemplo y verifica que funciona correctamente.
 
+!!! example "Autoevaluación"
+
+    **Pregunta 9: En la función `insertarPlanta()` de nuestra aplicación en Kotlin, se prepara e inserta un nuevo documento en la colección mediante el siguiente bloque de código:**
+    
+    ```kotlin
+    val doc = Document("id_planta", id_planta)
+        .append("nombre_comun", nombre_comun)
+        .append("nombre_cientifico", nombre_cientifico)
+        .append("stock", stock)
+
+    val resultado = coleccionPlantas.insertOne(doc)
+    println("Planta insertada con _id: ${resultado.insertedId}")
+    ```
+    
+    **Al construir el objeto `Document` no se ha establecido explícitamente el campo `_id`. ¿Qué ocurrirá durante la ejecución de `insertOne()` y cómo se obtiene el valor mostrado en `resultado.insertedId`?**
+    
+    A) El driver de MongoDB comprueba que el documento carece de la clave `_id` y genera automáticamente un identificador único de tipo `ObjectId` antes de persistirlo, el cual queda registrado en la base de datos y disponible en la propiedad `resultado.insertedId`.
+    
+    B) Se producirá una excepción de tipo `MongoWriteException` al ejecutar la inserción, ya que en MongoDB es un requisito obligatorio que el desarrollador defina manualmente el valor del campo `_id` en el código.
+    
+    C) El motor de la base de datos renombrará internamente el atributo `id_planta` como `_id` para utilizarlo como clave primaria, eliminando el campo numérico original del documento.
+    
+    D) El documento se guardará sin ningún campo identificador en la colección y `resultado.insertedId` devolverá un valor nulo (`null`), a menos que se haya configurado previamente una secuencia autonumérica en el servidor.
+    
+    ??? quote "Solución"
+    
+        ✅ A) En MongoDB, todo documento requiere obligatoriamente una clave primaria denominada `_id`. Si al instanciar el objeto `Document` en Kotlin no se añade dicha clave, el driver oficial genera de forma transparente un identificador único de tipo `ObjectId` (compuesto por una marca de tiempo, identificador de máquina, proceso y contador) antes de transmitir la orden al servidor, permitiendo acceder a él inmediatamente a través de `resultado.insertedId`.
+        
+        ❌ B) No se produce ninguna excepción. La generación automática del campo `_id` es una de las características básicas del driver de persistencia de MongoDB cuando este se omite en la inserción.
+        
+        ❌ C) MongoDB no altera los nombres de los atributos proporcionados por el programador. El campo `id_planta` se guardará como un campo entero independiente conviviendo junto al nuevo campo `_id`.
+        
+        ❌ D) En MongoDB ningún documento puede almacenarse sin un identificador primario `_id`. Por ello, `resultado.insertedId` nunca será nulo tras una inserción completada con éxito.
+
+    
+    **Pregunta 10: En la función `actualizarStock()` se ejecuta la actualización del inventario y se comprueba el resultado de la siguiente manera:**
+    
+    ```kotlin
+    val result = coleccionPlantas.updateOne(
+        Filters.eq("id_planta", id_planta),
+        Document("\$set", Document("stock", stock))
+    )
+
+    if (result.modifiedCount > 0) {
+        println("Stock actualizado correctamente (${result.modifiedCount} documento modificado).")
+    } else {
+        println("No se modificó ningún documento (quizá se ha indicado el mismo stock).")
+    }
+    ```
+    
+    **Supongamos que el usuario busca una planta que existe en la colección con `stock: 50` y, al solicitarle el nuevo stock por consola, introduce nuevamente el valor `50`. ¿Cuál será el comportamiento del programa y el estado de las propiedades del objeto `result`?**
+    
+    A) Se lanzará una excepción de ejecución en el driver, dado que MongoDB considera un error de redundancia enviar una orden de actualización con valores idénticos a los existentes.
+    
+    B) La propiedad `result.modifiedCount` valdrá 1 porque el comando `updateOne` sobrescribe físicamente el documento en disco sin evaluar previamente si los datos cambiaron.
+    
+    C) La propiedad `result.matchedCount` valdrá 0 debido a que el motor ignora la coincidencia al detectar que no hay variaciones en el contenido de los campos.
+    
+    D) El documento será localizado con éxito por el filtro (`matchedCount == 1`), pero al comprobar el motor que el valor de `stock` ya era 50 no efectuará ninguna modificación en el registro (`modifiedCount == 0`), por lo que el programa mostrará el mensaje de la rama `else`.
+    
+    ??? quote "Solución"
+    
+        ❌ A) Enviar los mismos valores no provoca ningún fallo de red ni lanza excepciones; el servidor procesa la instrucción con total normalidad como una operación válida.
+        
+        ❌ B) MongoDB optimiza el uso de disco y de logs de replicación comprobando los datos antes de escribir. Si los valores indicados en `$set` coinciden exactamente con los que ya contiene el documento, no realiza la escritura y, por tanto, `modifiedCount` permanece en 0.
+        
+        ❌ C) `matchedCount` refleja el número de documentos que cumplen el criterio del filtro (`Filters.eq`), independientemente de si sus campos se ven modificados o no. En este caso, al encontrar la planta, `matchedCount` será igual a 1.
+        
+        ✅ D) El objeto devuelto por `updateOne()` distingue entre documentos encontrados (`matchedCount`) y documentos realmente alterados (`modifiedCount`). Si se introduce el mismo stock, el documento coincide con el filtro (`matchedCount == 1`), pero al no haber cambios netos en la información almacenada, `modifiedCount` es 0, derivando el flujo de ejecución hacia el bloque `else` tal como refleja la lógica del ejemplo.
 
 
 <span class="mis_ejemplos">Ejemplo 6: Consultas avanzadas</span>
@@ -790,6 +1161,78 @@ fun stockMedio(){
     2. Prueba el código de ejemplo y verifica que funciona correctamente.
 
 
+
+!!! example "Autoevaluación"
+
+    **Pregunta 11: En la función `nombreComun()` se realiza una consulta que emplea la utilidad `Projections.include` del driver de MongoDB de la siguiente forma:**
+    
+    ```kotlin
+    fun nombreComun() {
+        if (conectarBD()) {
+            println("*****Nombre común de todas las plantas")
+            coleccionPlantas.find()
+                .projection(Projections.include("nombre_comun"))
+                .forEach { doc -> 
+                    println(doc.toJson()) 
+                }
+            desconectarBD()
+        }
+    }
+    ```
+    
+    **Al ejecutar este código, ¿cuál será la estructura exacta de cada uno de los documentos JSON impresos por consola a través de `doc.toJson()`?**
+    
+    A) Mostrará documentos que contienen únicamente el atributo `nombre_comun`, ya que `Projections.include()` limita de forma estricta la salida y elimina automáticamente cualquier otro campo del documento original.
+    
+    B) Se producirá un error de ejecución (`IllegalArgumentException`), ya que no es válido aplicar una proyección con `Projections.include()` sobre un cursor de búsqueda `find()` sin haber especificado antes un filtro de coincidencia.
+    
+    C) Mostrará documentos que contienen tanto el campo `nombre_comun` como el identificador `_id`, debido a que MongoDB siempre incluye por defecto la clave primaria `_id` en las proyecciones a menos que se excluya de manera explícita (por ejemplo, con `Projections.excludeId()`).
+    
+    D) La llamada a `doc.toJson()` devolverá una cadena vacía porque los métodos de serialización JSON del driver solo pueden invocarse sobre documentos completos que no hayan sufrido recortes por proyección.
+    
+    ??? quote "Solución"
+    
+        ❌ A) Es un error común asumir que incluir un campo excluye automáticamente todos los demás. En MongoDB, el atributo `_id` es una excepción a esta regla y viaja siempre en el documento resultante salvo orden expresa en contra.
+        
+        ❌ B) La sintaxis es plenamente válida. Las proyecciones pueden encadenarse sobre cualquier consulta `find()`, tenga o no parámetros de filtrado previos.
+        
+        ✅ C) En el modelo de consultas de MongoDB, el campo `_id` forma parte por defecto de cualquier resultado proyectado. Al indicar `Projections.include("nombre_comun")`, se activa la proyección inclusiva para ese campo, pero el motor conserva el campo `_id`. Si se deseara obtener únicamente el nombre, sería necesario combinar la inclusión con una exclusión explícita del identificador: `Projections.fields(Projections.include("nombre_comun"), Projections.excludeId())`.
+        
+        ❌ D) El método `.toJson()` funciona correctamente con cualquier objeto `Document` en memoria, con independencia del número de campos o transformaciones que haya sufrido durante la proyección.
+
+    
+    **Pregunta 12: Para calcular el stock medio en la función `stockMedio()`, se recurre a una canalización de agregación y al uso de un cursor iterador en Kotlin:**
+    
+    ```kotlin
+    val pipeline = listOf(
+        Document("\$group", Document("_id", null).append("stockMedio",
+            Document("\$avg", "\$stock")))
+    )
+    val aggCursor = coleccionPlantas.aggregate(pipeline).iterator()
+    aggCursor.use {
+        while (it.hasNext()) println(it.next().toJson())
+    }
+    ```
+    
+    **¿Por qué se debe anteponer la barra invertida `\` en las cadenas como `"\$group"`, `"\$avg"` o `"\$stock"`, y cuál es el propósito de envolver el iterador en el bloque `.use { ... }`?**
+    
+    A) La barra invertida indica al servidor MongoDB que los operadores deben ejecutarse en modo concurrente, y `.use` bloquea la colección para evitar lecturas sucias durante el cómputo de la media.
+    
+    B) La barra invertida escapa el símbolo `$` para que el compilador de Kotlin no lo interprete como una plantilla de interpolación de variables (*string template*), mientras que `.use` garantiza que el cursor abierto en el servidor (`MongoCursor`) se cierre automáticamente al finalizar el recorrido, liberando los recursos de memoria.
+    
+    C) El carácter `\` es obligatorio porque el símbolo `$` es una palabra reservada en la gramática de Kotlin que no puede formar parte de ningún literal de texto, y `.use` delega la ejecución de la consulta en una corrutina en segundo plano.
+    
+    D) La barra `\` es un delimitador exigido por el protocolo BSON para cifrar las funciones de agregación, mientras que `.use` reactiva la conexión en caso de que la respuesta supere el tiempo de espera por defecto (*timeout*).
+    
+    ??? quote "Solución"
+    
+        ❌ A) MongoDB no utiliza barras invertidas en sus protocolos de agregación para gestionar la concurrencia, ni `.use` tiene relación alguna con bloqueos de colecciones en el gestor.
+        
+        ✅ B) En Kotlin, el símbolo `$` se reserva para la interpolación de expresiones dentro de cadenas (ej. `"$variable"`). Dado que los operadores y acumuladores de MongoDB comienzan obligatoriamente por `$`, si no se escapa como `"\$"`, el compilador buscará variables inexistentes (como `group` o `stock`), provocando un error de compilación (`Unresolved reference`). Por su parte, `MongoCursor` implementa la interfaz `Closeable`; invocar `.use` garantiza que el cursor se cierre automáticamente al terminar la lectura, evitando el agotamiento de cursores y recursos en el servidor de base de datos.
+        
+        ❌ C) El símbolo `$` puede incluirse perfectamente en cualquier cadena literal siempre que se escape mediante `\$` para anular su significado como plantilla de interpolación. Asimismo, `.use` es una función de alcance síncrona estándar de la biblioteca de Java/Kotlin para liberar recursos cerrables, no un despachador de corrutinas.
+        
+        ❌ D) No interviene ningún proceso de cifrado en la sintaxis de las etapas; se trata de una simple necesidad de compatibilidad sintáctica entre el lenguaje Kotlin y la nomenclatura de MongoDB.
 
 
 
@@ -1185,6 +1628,84 @@ Tras pasar por `$unwind`, el campo `planta` pasa de ser una lista a ser un subdo
 
 
 
+
+!!! example "Autoevaluación"
+
+    **Pregunta 13: En el archivo de operaciones de nuestra aplicación se define la siguiente etapa `$lookup` para cruzar información entre las colecciones `facturas` y `plantas`:**
+    
+    ```kotlin
+    val etapaLookup = Document(
+        "\$lookup", Document()
+            .append("from", "plantas")
+            .append("localField", "id_planta")
+            .append("foreignField", "id_planta")
+            .append("as", "planta")
+    )
+    ```
+    
+    **Al analizar esta instrucción ejecutada dentro del *pipeline* sobre `facturas`, ¿cuál es el significado de sus parámetros y qué estructura genera en el documento resultante antes de aplicar etapas posteriores?**
+    
+    A) Busca en la colección `plantas` (`from`) aquellos documentos cuyo `id_planta` (`foreignField`) coincida con el `id_planta` de la factura de origen (`localField`), incorporando las coincidencias en un nuevo campo denominado `planta` (`as`), el cual se crea por defecto siempre como una lista o array (`[ ... ]`), incluso si la relación produce una única coincidencia.
+    
+    B) Realiza una combinación interna estricta eliminando de forma física los registros de `facturas` que no coincidan, insertando el resultado como un subdocumento embebido plano en lugar de un array para ahorrar espacio.
+    
+    C) El parámetro `localField` hace referencia al campo identificador de la colección foránea (`plantas`), mientras que `foreignField` define el atributo de la colección base (`facturas`), volcando la combinación en una tabla temporal del servidor.
+    
+    D) Copia físicamente los documentos vinculados desde la colección `plantas` dentro del archivo persistente de `facturas` en el disco duro, sobrescribiendo el identificador `_id` de la factura original.
+    
+    ??? quote "Solución"
+    
+        ✅ A) En MongoDB, la etapa `$lookup` realiza una operación equivalente al `LEFT OUTER JOIN` de SQL. El parámetro `from` especifica la colección con la que se une, `localField` el campo en la colección actual (`facturas`), `foreignField` el campo en la colección de destino (`plantas`) y `as` el nombre del nuevo atributo. Por especificación del motor, `$lookup` siempre deposita el resultado de la búsqueda en un array o lista, independientemente de que se encuentre uno, varios o ningún documento coincidente.
+        
+        ❌ B) `$lookup` no altera ni borra documentos en disco, ni produce directamente un subdocumento plano por defecto. Si una factura no tiene coincidencia en `plantas`, el campo `planta` simplemente se genera como un array vacío `[]`.
+        
+        ❌ C) Los papeles de `localField` y `foreignField` están invertidos en esta opción: `localField` siempre pertenece a la colección receptora de la agregación (`facturas`), y `foreignField` a la colección remota consultada (`plantas`).
+        
+        ❌ D) Las agregaciones operan como consultas de lectura y transformación en memoria y streaming; en ningún caso alteran la estructura física ni sobrescriben los identificadores `_id` en el almacenamiento del servidor.
+
+    
+    **Pregunta 14: En la función `listaFacturas()`, la canalización de agregación y el posterior tratamiento de datos en Kotlin se implementan de la siguiente manera:**
+    
+    ```kotlin
+    val pipeline = listOf(
+        Document(
+            "\$lookup", Document()
+                .append("from", "plantas")
+                .append("localField", "id_planta")
+                .append("foreignField", "id_planta")
+                .append("as", "planta")
+        ),
+        Document("\$unwind", "\$planta")
+    )
+
+    coleccionFacturas.aggregate(pipeline).forEach { doc ->
+        val planta = doc["planta"] as Document
+        val nombreComun = planta.getString("nombre_comun")
+        // ...
+    }
+    ```
+    
+    **¿Por qué es indispensable incluir la etapa `Document("\$unwind", "\$planta")` en la canalización para que la lectura posterior en Kotlin funcione adecuadamente?**
+    
+    A) Porque `$unwind` es la instrucción encargada de disparar la ejecución asíncrona de la consulta; si se omite, el método `aggregate()` fallará lanzando una excepción `UnclosedCursorException`.
+    
+    B) Porque `$lookup` almacena el resultado como una lista (`List<Document>`), de modo que `$unwind` descompone el array extrayendo su único elemento y transformándolo en un subdocumento plano (`Document`), permitiendo realizar el *cast* directo `as Document` sin arrojar una excepción `ClassCastException`.
+    
+    C) Porque `$unwind` actúa como una cláusula `DISTINCT`, eliminando automáticamente del cursor las facturas que hagan referencia a una misma planta para evitar resultados duplicados en el bucle.
+    
+    D) Porque el compilador de Kotlin exige convertir todos los campos de tipo texto a representaciones BSON binarias antes de poder invocar métodos de acceso tipados como `getString()`.
+    
+    ??? quote "Solución"
+    
+        ❌ A) La etapa `$unwind` es un operador de transformación de documentos en la canalización, no un disparador de ejecución. La ejecución de la consulta la inicia el propio método `aggregate()` del driver.
+        
+        ✅ B) Dado que `$lookup` devuelve siempre una lista (un array de documentos: `planta: [ { ... } ]`), en Kotlin `doc["planta"]` es recibido como un objeto de tipo `java.util.List`. Si se intentara hacer `doc["planta"] as Document` sin `$unwind`, el programa se detendría con una excepción en tiempo de ejecución de tipo `ClassCastException` (no se puede convertir una lista a un `Document`). Al aplicar `$unwind`, el array se «desenrolla» y el atributo `planta` pasa a contener directamente el subdocumento plano (`planta: { ... }`), haciendo que el *cast* sea seguro y directo.
+        
+        ❌ C) `$unwind` no elimina duplicados ni filtra registros; al contrario, si un array contuviera varios elementos, duplicaría el documento padre por cada elemento del array. En este caso de relación 1 a 1, simplemente extrae el objeto del array unitario.
+        
+        ❌ D) La invocación de `getString()` se realiza sobre el subdocumento ya parseado; no requiere ninguna conversión manual previa a binario por parte del desarrollador.
+
+
 <span class="mis_ejemplos">Ejemplo 8: Mostrar datos de una factura</span>
 
 En este ejemplo se pide un número de factura por consola y se muestran sus datos.
@@ -1282,6 +1803,75 @@ fun mostrarFactura() {
     1. Añade al menú del ejemplo anterior una opción para mostrar los datos de una factura.
     2. Prueba el código de ejemplo y verifica que funciona correctamente.
 
+
+
+!!! example "Autoevaluación"
+
+    **Pregunta 15: En el *pipeline* de agregación de la función `mostrarFactura()` se define la siguiente etapa `$project`:**
+    
+    ```kotlin
+    Document(
+        "\$project", Document()
+            .append("nombre_planta", "\$planta.nombre_comun")
+            .append("cantidad", 1)
+            .append("precio", 1)
+            .append("subtotal", Document("\$multiply", listOf("\$precio", "\$cantidad")))
+    )
+    ```
+    
+    **Al analizar esta etapa dentro de la canalización, ¿cuál es su función técnica y qué transformaciones aplica sobre los documentos de salida?**
+    
+    A) Modela la proyección de cada línea: extrae el nombre de la planta accediendo al subdocumento mediante la notación de punto (`"\$planta.nombre_comun"`), conserva los atributos `cantidad` y `precio` (al indicarse con `1`), y genera dinámicamente un nuevo campo `subtotal` calculando el producto de ambos valores en el servidor mediante el operador `$multiply`.
+    
+    B) Actualiza de forma destructiva y permanente los documentos en la colección `facturas` del disco duro, añadiendo el campo físico `subtotal` para evitar recomputarlo en futuras consultas.
+    
+    C) Filtra y descarta todas las líneas de factura donde el producto de `precio` por `cantidad` sea igual a 1, renombrando la colección de origen como `nombre_planta`.
+    
+    D) Establece una restricción de validación en tiempo de compilación que fuerza a que `precio` y `cantidad` no admitan valores nulos, lanzando un error de tipo en el cliente si alguno de los operandos no es un número decimal (`Double`).
+    
+    ??? quote "Solución"
+    
+        ✅ A) La etapa `$project` cumple una doble función: por un lado, realiza una proyección y renombrado de campos (usando la notación de punto `"$planta.nombre_comun"` para "aplanar" el acceso a propiedades del subdocumento resultante del `$unwind`), y por otro, crea campos calculados al vuelo en el servidor. El operador aritmético de agregación `$multiply` toma una lista con las referencias a los dos campos (`"$precio"` y `"$cantidad"`) y genera el atributo dinámico `subtotal` en cada documento de salida sin modificar la colección persistida.
+        
+        ❌ B) Las etapas dentro de `aggregate()` operan en memoria durante la ejecución de la consulta; en ningún caso alteran ni persisten modificaciones en los documentos de la colección original en disco.
+        
+        ❌ C) El número `1` en una etapa `$project` representa la inclusión del campo en el resultado final (equivalente a `true`), no un valor numérico de comparación o filtrado.
+        
+        ❌ D) `$project` es una etapa evaluada internamente en el motor de base de datos durante el tiempo de ejecución (*runtime*), no una instrucción de validación estática del compilador de Kotlin.
+
+    
+    **Pregunta 16: Durante el recorrido de las líneas de la factura devueltas por la consulta de agregación en Kotlin, el campo calculado `subtotal` se recupera mediante la siguiente instrucción:**
+    
+    ```kotlin
+    lineas.forEach { linea ->
+        val nombre = linea["nombre_planta"] as String
+        val cantidad = linea["cantidad"] as Int
+        val precio = linea["precio"] as Int
+        val subtotal = (linea["subtotal"] as Number).toDouble()
+        totalFactura += subtotal
+        // ...
+    }
+    ```
+    
+    **¿Cuál es el motivo técnico por el que se realiza el casteo previo a `Number` antes de invocar `.toDouble()`, en lugar de hacer directamente `linea["subtotal"] as Double`?**
+    
+    A) En la jerarquía de tipos de Kotlin, la clase `Double` no hereda de `Number`, por lo que es obligatorio emplear este patrón como puente para formatear números en la consola.
+    
+    B) Porque el operador `$multiply` de MongoDB puede retornar el cálculo como `Integer`, `Long` o `Double` dependiendo de los tipos originales de los factores; un casteo directo `as Double` lanzaría una excepción `ClassCastException` si el resultado fuera entero, mientras que `Number` engloba a todos los tipos numéricos y permite una conversión segura con `.toDouble()`.
+    
+    C) Porque el driver síncrono de MongoDB serializa por defecto todos los campos resultantes de una agregación como texto plano (`String`), requiriendo que `Number` realice el parseo de los caracteres.
+    
+    D) Porque la función de salida `String.format` exige obligatoriamente que cualquier valor numérico sea instanciado como una referencia polimórfica estricta de `java.lang.Number`.
+    
+    ??? quote "Solución"
+    
+        ❌ A) En Kotlin y Java, `Double` sí hereda directamente de la clase abstracta `Number` (al igual que `Int`, `Long` o `Float`).
+        
+        ✅ B) En la base de datos, si tanto `precio` como `cantidad` son enteros (por ejemplo `13` y `3`), MongoDB calcula su producto como un valor entero (`Integer`). Si en Kotlin intentamos hacer `linea["subtotal"] as Double`, la máquina virtual arrojará un error en tiempo de ejecución: `ClassCastException: java.lang.Integer cannot be cast to java.lang.Double`. Al castear primero a la clase base común `Number` y llamar a su método polimórfico `.toDouble()`, el código se vuelve robusto y procesa con éxito tanto resultados enteros como flotantes.
+        
+        ❌ C) Los resultados calculados de operaciones aritméticas en MongoDB viajan como tipos numéricos nativos BSON en memoria (`BsonInt32`, `BsonInt64` o `BsonDouble`), no como cadenas de texto plano.
+        
+        ❌ D) `String.format` admite tipos primitivos (`Double`, `Int`, etc.) mediante *boxing* automático; el uso de `as Number` responde exclusivamente a la seguridad de tipos frente a las respuestas BSON del driver.
 
 
 
