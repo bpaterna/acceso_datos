@@ -8,8 +8,8 @@
 
 | Revisión | Fecha      | Descripción                                                   |
 |----------|------------|---------------------------------------------------------------|
-| 1.0      | 18-09-2026 | Adaptación de los materiales a markdown                       |
-| 1.1      | 19-09-2026 | Ampliación con preguntas de autoevaluación |
+| 1.0      | 15-09-2026 | Adaptación de los materiales a markdown                       |
+| 1.1      | 18-09-2026 | Ampliación con preguntas de autoevaluación |
 
 
 ## 1. Introducción
@@ -776,7 +776,7 @@ lateinit var cliente: MongoClient
 lateinit var db: MongoDatabase
 lateinit var coleccionPlantas: MongoCollection<Document>
 lateinit var coleccionFacturas: MongoCollection<Document>
-lateinit var coleccionClientes: MongoCollection<Document>
+
 
 //servidor y BD con la que se trabajará
 const val uri = "mongodb://admin:hola01@127.0.0.1:27017/admin"
@@ -799,7 +799,7 @@ fun conectarBD(): Boolean {
 
         coleccionPlantas = db.getCollection("plantas")
         coleccionFacturas = db.getCollection("facturas")
-        coleccionClientes = db.getCollection("clientes")
+        
 
         println("Servidor iniciado en $uri")
         true
