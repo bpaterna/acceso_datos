@@ -1256,8 +1256,8 @@ A continuación se muestra el código que exporta una colección a un archivo `.
 
 ```kotlin
 fun exportarColeccion(coleccion: MongoCollection<Document>, rutaJSON: String) {
-    val destino = File(rutaJSON)
-    destino.parentFile?.mkdirs()
+    val destino = File(rutaJSON) // Instancia la referencia al archivo de salida
+    destino.parentFile?.mkdirs() // Crea los directorios padre si no existen ('?.' evita fallos si la ruta no tiene carpetas)
     
     val settings = JsonWriterSettings.builder().indent(true).build()
     val file = File(rutaJSON)
