@@ -104,7 +104,7 @@ De la primera manera podríamos tener una colección llamada **Plantas**. Observ
         "nombre_comun": "Aloe Vera",
         "nombre_cientifico": "Aloe barbadensis miller",
         "stock": 7,
-        "precio": 0.6
+        "precio": 0.6,
         "jardinero": {
             "nombre": "Pol",
             "apellidos": "Ribas Colomer",
@@ -117,7 +117,7 @@ De la primera manera podríamos tener una colección llamada **Plantas**. Observ
         "nombre_comun": "Rosa silvestre",
         "nombre_cientifico": "Aloe barbadensis miller",
         "stock": 7,
-        "precio": 0.6
+        "precio": 0.6,
         "jardinero": {
             "nombre": "Eli",
             "apellidos": "Martínez Serra",
@@ -141,7 +141,7 @@ De la primera manera podríamos tener una colección llamada **Plantas**. Observ
 ]
 ```
 
-De la segunda manera tendríamos la colección **Jardineros** donde la información estaría organizasa por jardineros y cada uno de ellos tendría un array con las plantas que cuida (los corchetes: [ ]):
+De la segunda manera tendríamos la colección **Jardineros** donde la información estaría organizada por jardineros y cada uno de ellos tendría un array con las plantas que cuida (los corchetes: [ ]):
 
 ```json
 [
@@ -252,7 +252,7 @@ Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un n
 
 <span class="mis_ejemplos">Ejemplo 1: Crear una BD, insertar plantas y mostrarlas</span>
 
-Para el siguiente ejemplo se parte de un servidor mongoDB ya montado sobre un contenedor llamado `mongo-srv`. El siguiente ejemplo crea una base de datos llamada `florabotanica`. Crea una colección llamada `plantas` e inserta tres documentos con campos: `nombre_comun`, `nombre_cientifico`, `altura`. Por último muestra todas las bases de datos y las colecciones creadas.
+Para el siguiente ejemplo se parte de un servidor mongoDB ya montado sobre un contenedor llamado `mongo-srv`. El siguiente ejemplo crea una base de datos llamada `florabotanica`. Crea una colección llamada `plantas` e inserta tres documentos con campos: `nombre_comun`, `nombre_cientifico` y `stock`. Por último muestra todas las bases de datos y las colecciones creadas.
 
 ```js
 // Abrir el terminal dentro del contenedor
@@ -427,27 +427,27 @@ El siguiente ejemplo realiza las siguientes operaciones sobre la colección `pla
 
 1. Inserta tres nuevos documentos con `insertMany()`.
 2. Recupera todos los documentos con `find()`.
-3. Filtra aquellos cuya `altura` sea mayor de 100.
-4. Actualiza uno de los documentos cambiando la altura.
+3. Filtra aquellos cuyo `stock` sea mayor de 100.
+4. Actualiza uno de los documentos cambiando el stock.
 5. Elimina una planta específica mediante `deleteOne()`.
 
 
 ```js
 // 1) Insertar tres nuevos documentos
 db.plantas.insertMany([
-  { id_planta: 4, nombre_comun: "Lavanda", nombre_cientifico: "Lavandula", altura: 50, tipo: "arbusto" },
-  { id_planta: 5, nombre_comun: "Rosal", nombre_cientifico: "Rosa", altura: 120, tipo: "arbusto" },
-  { id_planta: 6, nombre_comun: "Olivo", nombre_cientifico: "Olea europaea", altura: 800, tipo: "árbol" }
+  { id_planta: 4, nombre_comun: "Lavanda", nombre_cientifico: "Lavandula", stock: 50, tipo: "arbusto" },
+  { id_planta: 5, nombre_comun: "Rosal", nombre_cientifico: "Rosa", stock: 120, tipo: "arbusto" },
+  { id_planta: 6, nombre_comun: "Olivo", nombre_cientifico: "Olea europaea", stock: 800, tipo: "árbol" }
 ])
 
 // 2) Recuperar todos los documentos
 db.plantas.find().pretty()
 
-// 3) Filtrar altura > 100
-db.plantas.find({ altura: { $gt: 100 } }).pretty()
+// 3) Filtrar stock > 100
+db.plantas.find({ stock: { $gt: 100 } }).pretty()
 
-// 4) Actualizar: cambiar altura de "Cactus" a 130
-db.plantas.updateOne({ nombre_comun: "Cactus" }, { $set: { altura: 130 } })
+// 4) Actualizar: cambiar stock de "Cactus" a 130
+db.plantas.updateOne({ nombre_comun: "Cactus" }, { $set: { stock: 130 } })
 
 // 5) Eliminar una planta por nombre
 db.plantas.deleteOne({ nombre_comun: "Rosal" })
@@ -457,7 +457,7 @@ El ejemplo funciona de la siguiente manera:
 
 - `insertMany` devuelve `acknowledged: true` con `insertedIds`.
 - `find().pretty()` muestra documentos en JSON formateado.
-- `find({ altura: { $gt: 100 }})` listará pinos, olivos, etc.
+- `find({ stock: { $gt: 100 }})` listará pinos, olivos, etc.
 - `updateOne` devuelve un objeto con `matchedCount` y `modifiedCount`.
 - `deleteOne` devuelve `deletedCount: 1` si eliminó un documento.
 
@@ -487,18 +487,18 @@ El ejemplo funciona de la siguiente manera:
     
     ```javascript
     db.plantas.find(
-        { altura: { $gt: 100 } },
+        { stock: { $gt: 100 } },
         { nombre_comun: 1, tipo: 1, _id: 0 }
     )
     ```
     
     **Teniendo en cuenta el funcionamiento de los filtros y proyecciones en MongoDB, ¿cuál será el resultado exacto de esta operación?**
     
-    A) Se obtendrán todos los documentos con altura mayor o igual a 100, mostrando todos sus atributos originales salvo el identificador `_id`, que se omite automáticamente al aplicar cualquier filtro.
+    A) Se obtendrán todos los documentos con stock mayor o igual a 100, mostrando todos sus atributos originales salvo el identificador `_id`, que se omite automáticamente al aplicar cualquier filtro.
     
     B) Se producirá un error de sintaxis en `mongosh`, ya que no está permitido proyectar campos (`nombre_comun: 1`) y al mismo tiempo excluir otros (`_id: 0`) dentro del mismo objeto de proyección.
     
-    C) Se recuperarán todos los documentos cuya altura sea estrictamente superior a 100, devolviendo únicamente los campos `nombre_comun` y `tipo`, y suprimiendo explícitamente el campo `_id` (el cual MongoDB incluye por defecto salvo que se indique `_id: 0`).
+    C) Se recuperarán todos los documentos cuyo stock sea estrictamente superior a 100, devolviendo únicamente los campos `nombre_comun` y `tipo`, y suprimiendo explícitamente el campo `_id` (el cual MongoDB incluye por defecto salvo que se indique `_id: 0`).
     
     D) Se devolverá únicamente el primer documento que coincida con el criterio de búsqueda, transformando el formato BSON en una cadena de texto plana sin procesar en memoria.
     
@@ -508,7 +508,7 @@ El ejemplo funciona de la siguiente manera:
         
         ❌ B) En las proyecciones de MongoDB no se permite mezclar inclusiones (`1`) y exclusiones (`0`), con una única excepción: el campo `_id`. Es completamente válido proyectar los campos deseados con `1` y apagar la inclusión por defecto del identificador con `_id: 0`.
         
-        ✅ C) El primer parámetro `{ altura: { $gt: 100 } }` actúa como filtro de selección (WHERE), seleccionando registros con altura superior a 100. El segundo parámetro `{ nombre_comun: 1, tipo: 1, _id: 0 }` corresponde a la proyección, permitiendo delimitar qué campos viajan al cliente y forzando la exclusión del `_id`.
+        ✅ C) El primer parámetro `{ stock: { $gt: 100 } }` actúa como filtro de selección (WHERE), seleccionando registros con stock superior a 100. El segundo parámetro `{ nombre_comun: 1, tipo: 1, _id: 0 }` corresponde a la proyección, permitiendo delimitar qué campos viajan al cliente y forzando la exclusión del `_id`.
         
         ❌ D) El método `find()` devuelve un cursor con todos los documentos coincidentes de la colección, no únicamente el primero (para obtener uno solo se emplearía `findOne()`), y mantiene la representación como documento BSON/JSON.
 
@@ -521,17 +521,16 @@ El ejemplo funciona de la siguiente manera:
       "id_planta": 3,
       "nombre_comun": "Cactus",
       "nombre_cientifico": "Cactaceae",
-      "stock": 120,
-      "altura": 100
+      "stock": 120
     }
     ```
     
-    **Un desarrollador desea modificar únicamente la altura del ejemplar y ejecuta por error la siguiente sentencia:**
+    **Un desarrollador desea modificar únicamente el stock del ejemplar y ejecuta por error la siguiente sentencia:**
     
     ```javascript
     db.plantas.replaceOne(
         { nombre_comun: "Cactus" },
-        { altura: 130 }
+        { stock: 130 }
     )
     ```
     
@@ -539,9 +538,9 @@ El ejemplo funciona de la siguiente manera:
     
     A) La operación fallará y cancelará los cambios, ya que toda modificación en MongoDB requiere obligatoriamente el operador `$set` para poder aplicarse.
     
-    B) El documento original se sustituirá por completo: conservará únicamente su `_id` original y el nuevo campo `altura: 130`, perdiéndose definitivamente el resto de campos (`id_planta`, `nombre_comun`, `nombre_cientifico`, `stock`).
+    B) El documento original se sustituirá por completo: conservará únicamente su `_id` original y el nuevo campo `stock: 130`, perdiéndose definitivamente el resto de campos (`id_planta`, `nombre_comun`, `nombre_cientifico`, `stock`).
     
-    C) El comando actualizará correctamente la altura a 130 y mantendrá intactos todos los demás campos, comportándose de manera idéntica a `updateOne`.
+    C) El comando actualizará correctamente el stock a 130 y mantendrá intactos todos los demás campos, comportándose de manera idéntica a `updateOne`.
     
     D) Se creará un documento duplicado en la colección con los nuevos datos, conservando el documento original en un histórico de versiones de la base de datos.
     
@@ -551,7 +550,7 @@ El ejemplo funciona de la siguiente manera:
         
         ✅ B) Este es el comportamiento característico de `replaceOne`: reemplaza el contenido entero del documento coincidente por el nuevo objeto pasado como segundo argumento, manteniendo únicamente el identificador inmutable `_id`. Para actualizar campos concretos sin perder el resto de la información, se debe utilizar `updateOne` junto con el operador `$set`.
         
-        ❌ C) Para modificar solo atributos concretos y preservar los demás se utiliza `updateOne(filtro, { $set: { altura: 130 } })`. Al haber invocado `replaceOne`, los campos ausentes en el nuevo objeto desaparecen del registro.
+        ❌ C) Para modificar solo atributos concretos y preservar los demás se utiliza `updateOne(filtro, { $set: { stock: 130 } })`. Al haber invocado `replaceOne`, los campos ausentes en el nuevo objeto desaparecen del registro.
         
         ❌ D) MongoDB no crea copias automáticas ni versiona documentos ante un reemplazo. La sustitución es destructiva sobre los campos no incluidos en el nuevo documento.
 
@@ -604,29 +603,29 @@ El método **`aggregate()`** permite realizar **consultas complejas** y **proces
 
 El siguiente ejemplo realiza lo siguiente:
 
-1. Usa `aggregate()` para calcular la altura media de las plantas.
+1. Usa `aggregate()` para calcular el stock medio de las plantas.
 2. Agrupa por tipo de planta con `$group` y ordena los resultados.
 3. Limita la salida a los tres resultados más altos con `$limit`.
 
 
 ```js
-// Calcular altura media de todas las plantas
+// Calcular stock medio de todas las plantas
 db.plantas.aggregate([
-  { $group: { _id: null, alturaMedia: { $avg: "$altura" } } }
+  { $group: { _id: null, stockMedio: { $avg: "stock" } } }
 ])
 
 // Agrupar por tipo y calcular media, ordenar descendente
 db.plantas.aggregate([
   { $match: { tipo: { $exists: true } } },
-  { $group: { _id: "$tipo", mediaAltura: { $avg: "$altura" }, cantidad: { $sum: 1 } } },
-  { $sort: { mediaAltura: -1 } }
+  { $group: { _id: "$tipo", mediaStock: { $avg: "stock" }, cantidad: { $sum: 1 } } },
+  { $sort: { mediaStock: -1 } }
 ])
 
 // Obtener los 3 más altos
 db.plantas.aggregate([
-  { $sort: { altura: -1 } },
+  { $sort: { stock: -1 } },
   { $limit: 3 },
-  { $project: { _id:0, nombre_comun:1, altura:1 } }
+  { $project: { _id:0, nombre_comun:1, stock:1 } }
 ])
 ```
 
@@ -634,15 +633,15 @@ db.plantas.aggregate([
 
 ```json
 // Resultado del primer aggregate
-{ "_id" : null, "alturaMedia" : 250.25 }
+{ "_id" : null, "stockMedio" : 250.25 }
 
 // Resultado del group
-{ "_id" : "árbol", "mediaAltura" : 540, "cantidad" : 1 }
+{ "_id" : "árbol", "mediaStock" : 540, "cantidad" : 1 }
 
 // Resultado del limit
-{ "nombre_comun" : "Olivo", "altura" : 800 }
-{ "nombre_comun" : "Pino", "altura" : 330 }
-{ "nombre_comun" : "Cactus", "altura" : 130 }
+{ "nombre_comun" : "Olivo", "stock" : 800 }
+{ "nombre_comun" : "Pino", "stock" : 330 }
+{ "nombre_comun" : "Cactus", "stock" : 130 }
 ```
 
 
@@ -698,10 +697,10 @@ db.plantas.aggregate([
         { $match: { tipo: { $exists: true } } },
         { $group: { 
             _id: "$tipo", 
-            mediaAltura: { $avg: "$altura" }, 
+            mediaStock: { $avg: "stock" }, 
             cantidad: { $sum: 1 } 
         }},
-        { $sort: { mediaAltura: -1 } }
+        { $sort: { mediaStock: -1 } }
     ])
     ```
     
@@ -711,9 +710,9 @@ db.plantas.aggregate([
     
     B) La expresión `{ $sum: 1 }` actúa acumulando de forma incremental el valor numérico del campo `id_planta` de cada registro procesado en la fase de agrupamiento.
     
-    C) La fase `$sort` causará un fallo de ejecución porque no es posible ordenar por `mediaAltura`, ya que las ordenaciones únicamente pueden aplicarse sobre campos físicos indexados en la colección original.
+    C) La fase `$sort` causará un fallo de ejecución porque no es posible ordenar por `mediaStock`, ya que las ordenaciones únicamente pueden aplicarse sobre campos físicos indexados en la colección original.
     
-    D) La canalización opera secuencialmente de modo que la salida de cada etapa sirve de entrada a la siguiente: descarta documentos sin el campo `tipo`, agrupa por categoría calculando la altura media y el conteo de elementos (sumando 1 por documento), y finalmente ordena las categorías de mayor a menor altura media.
+    D) La canalización opera secuencialmente de modo que la salida de cada etapa sirve de entrada a la siguiente: descarta documentos sin el campo `tipo`, agrupa por categoría calculando el stock medio y el conteo de elementos (sumando 1 por documento), y finalmente ordena las categorías de mayor a menor stock medio.
     
     ??? quote "Solución"
     
@@ -1251,10 +1250,9 @@ import com.mongodb.client.MongoClients
 import org.bson.json.JsonWriterSettings
 import java.io.File
 
-import com.mongodb.client.MongoClients
 import org.bson.Document
 import org.json.JSONArray
-import java.io.File
+
 ```
 
 
@@ -1341,7 +1339,8 @@ fun importarColeccion(rutaJSON: String, coleccion: MongoCollection<Document>) {
     val nombreColeccion =coleccion.namespace.collectionName
 
     // Borrar colección si existe
-    if (db.listCollectionNames().contains(nombreColeccion)) {
+    //if (db.listCollectionNames().contains(nombreColeccion)) {
+    if (db.listCollectionNames().toList().contains(nombreColeccion)) {
         db.getCollection(nombreColeccion).drop()
         println("Colección '$nombreColeccion' eliminada antes de importar.")
     }
@@ -1406,7 +1405,7 @@ fun importar(){
         [3] Cactus (Cactaceae): 120 cm
         ```
 
-    - Opción **AÑADIR**: Pide el ID y comprueba se quea válido (para ser válido ha de ser un número y no existir en la colección de la BD), si no es válido lo vuelve a pedir hasta que lo sea. Después pide el resto de campos (los campos numéricos se pedirán hasta que sean válidos, es decir, ser número y ser del tipo correcto). Por último añade un documento a la colección de la BD con toda la información.
+    - Opción **AÑADIR**: Pide el ID y comprueba se sea válido (para ser válido ha de ser un número y no existir en la colección de la BD), si no es válido lo vuelve a pedir hasta que lo sea. Después pide el resto de campos (los campos numéricos se pedirán hasta que sean válidos, es decir, ser número y ser del tipo correcto). Por último añade un documento a la colección de la BD con toda la información.
     - Opción **MODIFICAR**: Pide ID hasta que sea válido (debe ser un número entero) y comprueba si existe en la colección, si no lo encuentra informa con un mensaje y no realiza ningún cambio pero si lo encuentra muestra el nombre o algún otro campo representativo, pide alguno de los otros campos (comprobando que es correcto) y actualiza la información informando con un mensaje.
     - Opción **ELIMINAR**: Pide ID hasta que sea válido (debe ser un número entero) y comprueba si existe en la colección, si no lo encuentra informa con un mensaje pero si lo encuentra muestra el nombre o algún otro campo representativo y pide confirmación para eliminar, entonces, si se confirma el borrado se elimina el documento y en caso contrario no se elimina (en ambos casos se informa con un mensaje).
     - (Operación utilizando filtros) se realiza utilizando filtros con `Filters.eq`, `Filters.gt`, etc.
@@ -1593,14 +1592,14 @@ Por defecto, `$lookup` siempre genera un **array**, incluso cuando la coincidenc
     {
       "nombre_comun": "Aloe",
       "nombre_cientifico": "Aloe barbadensis miller",
-      "altura": 60,
+      "stock": 60,
       "id_planta": 1
     }
   ]
 }
 ```
 
-Etapa 2: `$unwind` (concersión del array a un objeto normal)
+Etapa 2: `$unwind` (conversión del array a un objeto normal)
 
 Tener `planta` como un array con un único elemento (`[ { ... } ]`) dificulta la lectura directa de sus propiedades en Kotlin. Para convertir ese array en un objeto/documento normal utilizamos `$unwind`:
 
@@ -1614,7 +1613,7 @@ Tras pasar por `$unwind`, el campo `planta` pasa de ser una lista a ser un subdo
 "planta": {
   "nombre_comun": "Aloe",
   "nombre_cientifico": "Aloe barbadensis miller",
-  "altura": 60,
+  "stock": 60,
   "id_planta": 1
 }
 ```
@@ -1891,7 +1890,7 @@ fun mostrarFactura() {
 
     | <span class="mi_sombreado_entrega">Bloque de evaluación</span>             | <span class="mi_sombreado_entrega">Criterios de calificación</span>          | <span class="mi_sombreado_entrega">Puntos</span>                            |
     | :------------------------- | :--------------------------------------- | :-----------------------------: |
-    | **Requisitos técnicos y funcionamiento** | \- La entrega cumple el formato solicitado (un `.zip` con carpeta `src` y archivo `.json`).<br>\- La aplicación compila, es funcional y cumple con todo lo solicitado en el enunciado.<br>\- No contiene código muerto ni restos de prácticas anteriores.                 | 2,5 |
+    | **Requisitos técnicos y funcionamiento** | \- La entrega cumple el formato solicitado (un `.zip` con la carpeta `src` y la carpeta `datos`).<br>\- La aplicación compila, es funcional y cumple con todo lo solicitado en el enunciado.<br>\- No contiene código muerto ni restos de prácticas anteriores.                 | 2,5 |
     | **Prueba escrita de autoría**            | \- Respuestas correctas a las preguntas conceptuales y técnicas sobre tu propio código.<br>\- Capacidad para explicar el flujo del programa. | 7,5 |
 
     
