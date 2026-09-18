@@ -605,13 +605,13 @@ El siguiente ejemplo realiza lo siguiente:
 
 1. Usa `aggregate()` para calcular el stock medio de las plantas.
 2. Agrupa por tipo de planta con `$group` y ordena los resultados.
-3. Limita la salida a los tres resultados más altos con `$limit`.
+3. Limita la salida a los tres resultados con más stock usando `$limit`.
 
 
 ```js
 // Calcular stock medio de todas las plantas
 db.plantas.aggregate([
-  { $group: { _id: null, stockMedio: { $avg: "stock" } } }
+  { $group: { _id: null, stockMedio: { $avg: "$stock" } } }
 ])
 
 // Agrupar por tipo y calcular media, ordenar descendente
@@ -621,7 +621,7 @@ db.plantas.aggregate([
   { $sort: { mediaStock: -1 } }
 ])
 
-// Obtener los 3 más altos
+// Obtener los 3 con más stock
 db.plantas.aggregate([
   { $sort: { stock: -1 } },
   { $limit: 3 },
@@ -740,7 +740,7 @@ db.plantas.aggregate([
     10. Elimina un documento específico mediante `deleteOne()`.
     11. Usa `aggregate()` para realizar algún cálculo.
     12. Agrupa por tipo o categoría utilizando `$group` y ordena los resultados.
-    13. Limita la salida a los tres resultados más altos con `$limit`.
+    13. Limita la salida a los tres resultados con más stock usando con `$limit`.
 
 
 
