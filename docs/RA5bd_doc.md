@@ -770,8 +770,6 @@ import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.MongoDatabase
 import org.bson.Document
-import java.util.Scanner
-
 
 //variables globales definidas sin inicializar
 lateinit var cliente: MongoClient
@@ -934,11 +932,13 @@ fun mostrarPlantas() {
 
 El siguiente ejemplo amplía el anterior para realizar inserción, actualización y eliminación de documentos sobre la colección `plantas`de la BD `florabotanica`.
 
-
 Para pedir la información por consola se declara un scanner de forma global y una función para pedir un número entero que comprueba si el dato introducido es correcto y, si no lo es, lo vuelve a pedir hasta que lo sea.
 
-```kotlin
+Para poder utilizar filtros se importa la librería correspondiente.
 
+
+```kotlin
+import com.mongodb.client.model.Filters
 import java.util.Scanner
 
 // Creamos el Scanner de forma global
@@ -957,8 +957,6 @@ fun pedirEntero(mensaje: String): Int {
     }
 }
 ```
-
-
 
 
 **Funciones para insertar, actualizar y eliminar información**
@@ -1246,11 +1244,9 @@ implementation("org.json:json:20231013")
 Además hemos de importar las siguientes librerías:
 
 ```kotlin
-import com.mongodb.client.MongoClients
 import org.bson.json.JsonWriterSettings
 import java.io.File
 
-import org.bson.Document
 import org.json.JSONArray
 
 ```
@@ -1260,6 +1256,9 @@ A continuación se muestra el código que exporta una colección a un archivo `.
 
 ```kotlin
 fun exportarColeccion(coleccion: MongoCollection<Document>, rutaJSON: String) {
+    val destino = File(rutaJSON)
+    destino.parentFile?.mkdirs()
+    
     val settings = JsonWriterSettings.builder().indent(true).build()
     val file = File(rutaJSON)
     file.printWriter().use { out ->
@@ -1339,7 +1338,6 @@ fun importarColeccion(rutaJSON: String, coleccion: MongoCollection<Document>) {
     val nombreColeccion =coleccion.namespace.collectionName
 
     // Borrar colección si existe
-    //if (db.listCollectionNames().contains(nombreColeccion)) {
     if (db.listCollectionNames().toList().contains(nombreColeccion)) {
         db.getCollection(nombreColeccion).drop()
         println("Colección '$nombreColeccion' eliminada antes de importar.")
