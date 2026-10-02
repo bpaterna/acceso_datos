@@ -1520,16 +1520,8 @@ Toda nuestra interfaz de usuario y nuestras rutas de red seguirán funcionando e
 
 
 !!! warning "Reto 1: CRUD con Spring MVC y Thymeleaf sobre un CSV"
-   
-    El trabajo a realizar por cada equipo es el siguiente:
 
-    1. Crear un nuevo proyecto utilizando Spring Initializr con las mismas dependencias que el `Ejemplo 2`.
-    2. Guardar el archivo `.csv` que se utilizó en el RA1 en la carpeta de recursos (`src/main/resources/data/`). 
-    3. Modificar el repositorio para que use las librerías de lectura y escritura de archivos de Kotlin (`java.io.File`) para:
-        -   **Leer el CSV** y transformarlo en una lista de objetos cuando se solicite listar.
-        -   **Escribir en el CSV** volcando toda la lista cada vez que se cree, edite o borre un registro.
-    4. Modificar el servicio para que, en lugar de recibir el repositorio de memoria, reciba el nuevo repositorio de archivos.
-    5. Utilizar Bootstrap para que el estilo del proyecto quede totalmente diferente del `Ejemplo 2`.  
+    Sigue las instrucciones disponibles en la tarea de Aules. 
 
 
 
