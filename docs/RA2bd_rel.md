@@ -909,11 +909,9 @@ fun main() {
     
     3. Declara una constante con la ruta a la BD.
     
-    4. Declara una función para conectar a la BD.
-    
-    5. Conecta con la BD.
+    4. Declara una función para conectar a la BD y comprueba que puedes conectar correctamente.
 
-    6. Crea un menú con las opciones siguientes:
+    5. Crea un menú con las opciones siguientes:
 
         ```text
         --------------------------------------        
@@ -927,7 +925,7 @@ fun main() {
         0. Salir
         ```
 
-    7. Añade a tu proyecto un objeto de acceso a datos (DAO) con todas las funciones necesarias para manejar la importación de datos y las operaciones CRUD de la tabla de tu BD y realiza las llamadas correctas a cada función desde cada opción del menú.
+    6. Añade a tu proyecto un objeto de acceso a datos (DAO) con todas las funciones necesarias para manejar la importación de datos y las operaciones CRUD de la tabla de tu BD y realiza las llamadas correctas a cada función desde cada opción del menú.
 
 
     **Requisitos de funcionamiento:**
@@ -950,7 +948,6 @@ fun main() {
     - El menú solamente contiene las llamadas a las funciones. Toda la lógica de cada operación debe implementarse en funciones separadas.
 
 
-    
 
 
 ## 5. Transacciones y excepciones
