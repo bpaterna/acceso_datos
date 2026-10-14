@@ -635,28 +635,6 @@ fun main() {
     
 
 
-
-!!! warning "Práctica 1: crea la base de tu proyecto"
-    En esta práctica daremos forma a la base de nuestro proyecto. Diseñaremos nuestra BD a partir del archivo `csv` de nuestro proyecto anterior y verificaremos que podemos conectar a ella correctamente y leer su información. A medida que avancemos iremos añadiendo funciones a este proyecto.
-
-    **Realiza los siguientes pasos:**
-
-    1. Crea un proyecto kotlin con `Gradle` y añade las dependencias para trabajar con SQLite.
-    2. A partir del fichero de información `csv` utilizado en el proyecto de la unidad anterior, crea una base de datos SQLite **nombre_de_tu_BD.sqlite** con una tabla que tenga una estructura acorde a la información del fichero y guárdala en la carpeta `datos` en la raíz de tu proyecto. Guarda también, en la misma carpeta, el fichero `csv`. Puedes utilizar la herramienta [DBeaver](dbeaver.html).
-    3. Declara una constante con la ruta a la BD. 
-    4. Declara una función para conectar a la BD. 
-    5. Conecta con la BD y realiza una consulta sobre tus datos utilizando .use (para no tener que cerrar recursos manualmente).
-
-
-    **Aspectos técnicos:**
-    
-    - Se añaden las librerías necesarias en las dependencias del archivo `build.gradle.kts`.
-    - Se gestionan adecuadamente las excepciones y la aplicación no se detiene inesperadamente.
-    - Se controlan fallos de formato (ej. datos corruptos al parsear números) para asegurar que el programa no cae de forma inesperada si un fichero contiene errores.
-    - El código es legible, con nombres descriptivos y bien organizado. Los mensajes informativos son claros.
-
-
-
 ## 4. Objetos de acceso a datos (DAO)
 Los objetos de acceso a datos son una buena forma de organizar nuestro código para manejar las diferentes operaciones CRUD de acceso a los datos. Es el Data Access Object (DAO) y algunas de las ventajas de utilizar estos objetos son las siguientes:
 
@@ -917,16 +895,25 @@ fun main() {
         ❌ C) El mapeo de datos no previene fallos ni excepciones. Si hay un error de sintaxis SQL o si se intenta leer una columna inexistente mediante `rs.getString()`, se lanzará una excepción `SQLException` de igual manera.
         
         ❌ D) El objeto DAO no elimina ni reemplaza el almacenamiento en el disco duro; actúa únicamente como un puente e intermediario para leer, insertar o modificar los datos persistentes de la base de datos real.
-    
-    
 
 
-!!! warning "Práctica 2: amplía tu proyecto"
-    En esta práctica ampliarás tu proyecto con un menú para que el usuario interactúe con la aplicación por consola. El menú tendrá una opción para importar la información del fichero `csv` y las opciones **CRUD**, es decir, **C**reate (crear), **R**ead (Leer), **U**pdate (Actualizar) y **D**elete (Borrar).
+!!! warning "Práctica 1: crea tu proyecto"
+    En esta práctica daremos forma a la base de nuestro proyecto. Diseñaremos nuestra BD a partir del archivo `csv` de nuestro proyecto anterior y verificaremos que podemos conectar a ella correctamente. Además crearemos un menú para que el usuario interactúe con la aplicación por consola. El menú tendrá una opción para importar la información del fichero `csv` y las opciones **CRUD**, es decir, **C**reate (crear), **R**ead (Leer), **U**pdate (Actualizar) y **D**elete (Borrar). 
 
     **Realiza los siguientes pasos:**
 
-    1. Crea un menú con las opciones siguientes:
+
+    1. Crea un proyecto kotlin con `Gradle` y añade las dependencias para trabajar con SQLite.
+    
+    2. A partir del fichero de información `csv` utilizado en el proyecto de la unidad anterior, crea una base de datos SQLite **nombre_de_tu_BD.sqlite** con una tabla que tenga una estructura acorde a la información del fichero y guárdala en la carpeta `datos` en la raíz de tu proyecto. Guarda también, en la misma carpeta, el fichero `csv`. Puedes utilizar la herramienta [DBeaver](dbeaver.html).
+    
+    3. Declara una constante con la ruta a la BD.
+    
+    4. Declara una función para conectar a la BD.
+    
+    5. Conecta con la BD.
+
+    6. Crea un menú con las opciones siguientes:
 
         ```text
         --------------------------------------        
@@ -940,9 +927,7 @@ fun main() {
         0. Salir
         ```
 
-    2. Añade a tu proyecto un objeto de acceso a datos (DAO) con todas las funciones necesarias para manejar la importación de datos y las operaciones CRUD de la tabla de tu BD y realiza las llamadas correctas a cada función desde cada opción del menú.
-
-    3. Utiliza .use en todas tus operaciones para asegurarte de que se cierran correctamente todos los recursos.
+    7. Añade a tu proyecto un objeto de acceso a datos (DAO) con todas las funciones necesarias para manejar la importación de datos y las operaciones CRUD de la tabla de tu BD y realiza las llamadas correctas a cada función desde cada opción del menú.
 
 
     **Requisitos de funcionamiento:**
@@ -957,8 +942,15 @@ fun main() {
 
     **Aspectos técnicos:** mismos que en la práctica anterior. Además:
 
+    - Se añaden las librerías necesarias en las dependencias del archivo `build.gradle.kts`.
+    - Se gestionan adecuadamente las excepciones y la aplicación no se detiene inesperadamente.
+    - Se controlan fallos de formato (ej. datos corruptos al parsear números) para asegurar que el programa no cae de forma inesperada si un fichero contiene errores.
+    - El código es legible, con nombres descriptivos y bien organizado. Los mensajes informativos son claros.
+    - Se utiliza .use en todas las operaciones para asegurar que se cierran correctamente todos los recursos.
     - El menú solamente contiene las llamadas a las funciones. Toda la lógica de cada operación debe implementarse en funciones separadas.
 
+
+    
 
 
 ## 5. Transacciones y excepciones
@@ -1198,7 +1190,7 @@ Si no se produce ningún error se hará el `commit` y en caso contrario el `roll
     
 
 
-!!! warning "Práctica 3: finaliza tu aplicación"
+!!! warning "Práctica 2: finaliza tu aplicación"
     En esta práctica ampliarás tu BD y crearás el código necesario para gestionar la información empleando transacciones y controlando posibles excepciones. También reestructurarás la interacción con el usuario modificando el menú principal y creando dos submenús.
 
     **Realiza los siguientes pasos:**
@@ -1831,7 +1823,7 @@ fun llamar_sp_agregar_planta_a_jardin(id_j:Int, id_p:Int, cant:Int){
         ✅ D) La forma estándar y correcta en la especificación de JDBC para interactuar con procedimientos almacenados de la base de datos es preparar el comando mediante el método `prepareCall` de la interfaz `Connection`, proporcionando la sintaxis normalizada `"{CALL ...}"`. La clase resultante, `CallableStatement`, hereda de `PreparedStatement` y nos permite configurar los parámetros de manera posicional para finalmente recuperar la información iterando sobre un `ResultSet`.
     
 
-!!! warning "Práctica 4: Proyecto con MySQL"
+!!! warning "Práctica 3: Proyecto con MySQL"
     En esta práctica migraremos nuestra BD SQLite del proyecto anterior a nuestro servidor MySQL que hemos montado con docker. Luego crearemos un nuevo proyecto para gestionar sus datos.
 
     **Realiza los siguientes pasos:**
