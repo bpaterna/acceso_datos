@@ -1532,19 +1532,28 @@ Seguiremos trabajando con la **arquitectura en capas** que ya aprendimos: el Con
 
 A continuación se describen los pasos para crear una aplicación que accede a la base de datos **florabotanica** que tenemos en nuestro servidor MySQL dockerizado.
 
+Para este ejemplo hemos ampliado la tabla `plantas` con un nuevo campo para almacenar la foto de la planta. Su estructura con algunos registros de ejemplo queda así:
+
+| id_planta  | nombre_comun | nombre_cientifico       | stock | precio | foto |
+|:-----------|:-------------|:------------------------|:-------|:-------| :-------|
+| 1          | Aloe Vera    | Aloe barbadensis miller | 20    | 10.5   | aloe.jpg   |
+| 2          | Lavanda      | Lavandula angustifolia  | 40    | 4.75   | lavanda.jpg   |
+
+
+
 <span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
 
-Accedemos a Spring Initializr desde la url https://start.spring.io/, indicamos el nombre de la aplicación `plantasCSV` y, en este caso, añadimos las dependencias para trabajar con **SQL** siguientes:
+Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación `plantasSQL` y añadimos las dependencias siguientes:
 
 - JDBC API
-- MySQL Driver (Buscando "MySQL").
+- MySQL Driver
 
 <img class="con_borde" src="img/RA6/SQL-1.jpg" alt="springboot SQL">
 
 
 <span class="mi_sombreado">**PASO 2: Añadir configuración de conexión a nuestra BD**</span>
 
-Añadimos las siguientes líneas al archivo application.properties sustituyendo `BD` por el nombre de nuestra base de datos, `user` por el nombre de usuario y `pass` por la contraseña (los que creamos al montar el servidor y crear la base de datos):
+Añadimos las siguientes líneas al archivo `application.properties` sustituyendo `BD` por el nombre de nuestra base de datos, `user` por el nombre de usuario y `pass` por la contraseña (los que creamos al montar el servidor y crear la base de datos):
 
 
 ```properties
@@ -1611,8 +1620,8 @@ class PlantaRepository(private val jdbcClient: JdbcClient) {
             .orElse(null)
     }
 
-    // 3. INSERT: Guardar una nueva planta
-    fun guardar(planta: Planta): Int {
+    // 3. INSERT: Crear una nueva planta
+    fun crear(planta: Planta): Int {
         val sql = """
             INSERT INTO plantas (nombre_comun, nombre_cientifico, stock, precio, foto) 
             VALUES (:nombre_comun, :nombre_cientifico, :stock, :precio, :foto)
@@ -1660,9 +1669,7 @@ class PlantaRepository(private val jdbcClient: JdbcClient) {
 
 <span class="mi_h3">Añadir el servicio</span>
 
-El servicio ahora hace uso del `PlantaRepository` y ha de decidir si hacer un `save` (INSERT) o un `update` (UPDATE) según si el ID viene con valor o es nulo.
-
-Creamos el archivo `PlantaService.kt` dentro de la carpeta `src/main/kotlin/com/example/plantasSQL/service/` con el código siguiente:
+El servicio usa el `PlantaRepository` para crear (INSERT) o actualizar (UPDATE) dependiendo de si el ID viene con valor o es nulo. Creamos el archivo `PlantaService.kt` dentro de la carpeta `src/main/kotlin/com/example/plantasSQL/service/` con el código siguiente:
 
 
 ```kotlin
@@ -1681,7 +1688,7 @@ class PlantaService(private val repository: PlantaRepository) {
 
     fun guardar(planta: Planta) {
         if (planta.id_planta == null || planta.id_planta == 0) {
-            repository.guardar(planta)
+            repository.crear(planta)
         } else {
             repository.actualizar(planta)
         }
@@ -1948,13 +1955,13 @@ El archivo que mostrará el aviso en caso de error será `errorPlanta.html` y su
 
 
 
-<span class="mi_sombreado">**PASO 4: Añadir las fotos de las plantas**</span>
+<span class="mi_sombreado">**PASO 5: Añadir las fotos de las plantas**</span>
 
 Para poder mostrar las fotos de nuestras plantas en la vista de detalle, hemos guardado las fotos en una carpeta llamada `fotos` dentro de `src/main/resources/static/`.
 
 
 
-<span class="mi_sombreado">**PASO 5: Añadir la página de inicio**</span>
+<span class="mi_sombreado">**PASO 6: Añadir la página de inicio**</span>
 
 Además, si queremos que nuestra aplicación responda a [http://localhost:8080](http://localhost:8080) necesitamos un archivo llamado `index.html` dentro de la carpeta `src/main/resources/static/`. Por ejemplo, con el siguiente contenido:
 
@@ -2020,8 +2027,7 @@ Además, si queremos que nuestra aplicación responda a [http://localhost:8080](
 
 
 !!! success "Prueba y analiza el ejemplo"
-Prueba el código del ejemplo y verifica que el comportamiento es correcto.
-
+    Prueba el código del ejemplo y verifica que el comportamiento es correcto.
 
 
 
