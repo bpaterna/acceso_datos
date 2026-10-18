@@ -1519,7 +1519,7 @@ Toda nuestra interfaz de usuario y nuestras rutas de red seguirán funcionando e
 
 
 
-## 4. Acceso a bases de datos relacionales
+## 4. Spring JDBC
 
 Hasta ahora hemos trabajado con datos en memoria y con ficheros CSV. En las aplicaciones reales, la información suele almacenarse en **Sistemas de Gestión de Bases de Datos Relacionales (SGBD)** como **MySQL**.
 
@@ -2028,6 +2028,232 @@ Además, si queremos que nuestra aplicación responda a [http://localhost:8080](
 
 !!! success "Prueba y analiza el ejemplo"
     Prueba el código del ejemplo y verifica que el comportamiento es correcto.
+
+
+
+
+<span class="mis_ejemplos">Ejemplo 4: Aplicación que gestiona información de varias tablas</span>
+
+Además de la tabla `plantas` tenemos otras dos tablas en nuestr BD, son las siguientes:
+
+
+**Tabla `jardines`:**
+
+| id_jardin | nombre | ciudad |
+|:----------|:-------| :--- |
+| 1         | Atenea | Castellón |
+| 2         | Olimpo | Valencia |
+
+
+
+**Tabla `jardines_plantas`:**
+
+|  id_jardin | id_planta | cantidad |
+|:----------| :--- |:---------|
+|  1         | 1 | 8        |
+|  1         | 2 | 12       |
+
+
+Vamos a ampliar la aplicación para poder consultar el contenido de cada jardín, es decir las plantas que hay en él. Para ello crearemos una pantalla con un **desplegable para elegir el jardín** y una **tabla con las plantas asociadas** lo que requiere modificar y crear los siguientes ficheros:
+
+ 
+
+<span class="mi_h4">1. Añadir el modelo</span>
+
+Creamos `Jardin.kt` dentro de `src/main/kotlin/com/example/plantas/model` para rellenar las opciones del desplegable con los jardines que hay en la BD
+
+
+```kotlin
+package com.example.plantas.model
+
+data class Jardin(
+    var id_jardin: Int? = null,
+    var nombre: String = "",
+    var ubicacion: String? = null
+)
+```
+
+<span class="mi_h4">2. Añadir la consulta</span>
+
+Añadimos la consulta para listar jardines en el archivo `src/main/kotlin/com/example/plantas/repository/PlantaSqlRepository.kt`:
+
+
+```kotlin
+// ... imports existentes ...
+import com.example.plantas.model.Jardin
+import com.example.plantas.model.PlantaEnJardinDTO
+
+// Añadir dentro de la clase PlantaSqlRepository:
+
+// 1. Obtener la lista de jardines para el desplegable
+fun findAllJardines(): List<Jardin> {
+    val sql = "SELECT id_jardin, nombre, ubicacion FROM jardines ORDER BY nombre ASC"
+    return jdbcClient.sql(sql)
+        .query(Jardin::class.java)
+        .list()
+}
+
+// 2. Consulta con JOIN (la que ya preparaste)
+fun obtenerInformePlantasPorJardin(idJardin: Int): List<PlantaEnJardinDTO> {
+    val sql = """
+        SELECT p.nombre AS nombrePlanta, j.nombre AS nombreJardin, jp.cantidad
+        FROM jardines_plantas jp
+        INNER JOIN plantas p ON jp.id_planta = p.id_planta
+        INNER JOIN jardines j ON jp.id_jardin = j.id_jardin
+        WHERE j.id_jardin = :idJardin
+        ORDER BY p.nombre ASC
+    """
+    return jdbcClient.sql(sql)
+        .param("idJardin", idJardin)
+        .query(PlantaEnJardinDTO::class.java)
+        .list()
+}
+```
+
+<span class="mi_h4">3. Modificar el servicio</span>
+
+Añadir métodos de negocio en la capa de servicio añadiendo el siguiente código al archivo `src/main/kotlin/com/example/plantas/service/PlantaService.kt` 
+
+```kotlin
+// Añadir dentro de PlantaService:
+
+fun listarJardines(): List<Jardin> = repository.findAllJardines()
+
+fun obtenerPlantasPorJardin(idJardin: Int): List<PlantaEnJardinDTO> =
+    repository.obtenerInformePlantasPorJardin(idJardin)
+```
+
+<span class="mi_h4">4. Modificar el controlador</span>
+
+Modificamos el archivo `src/main/kotlin/com/example/plantas/controller/PlantaController.kt` para añadir la ruta que cargará la vista. Usamos una petición **`GET`** con parámetro opcional `idJardin`:
+
+- Si el usuario aún no ha seleccionado nada (`idJardin == null`), solo se carga el desplegable.
+- Si el usuario selecciona un jardín, se ejecuta la consulta y se envían las plantas a la tabla.
+
+```kotlin
+// Añadir dentro de PlantaController:
+
+@GetMapping("/informe/plantas-por-jardin")
+fun informePlantasPorJardin(
+    @RequestParam(name = "idJardin", required = false) idJardin: Int?,
+    model: Model
+): String {
+    // 1. Enviamos siempre los jardines para llenar el <select>
+    model.addAttribute("jardines", plantaService.listarJardines())
+    model.addAttribute("idJardinSeleccionado", idJardin)
+
+    // 2. Si se ha enviado un idJardin, buscamos sus plantas con el JOIN
+    if (idJardin != null) {
+        val relaciones = plantaService.obtenerPlantasPorJardin(idJardin)
+        model.addAttribute("relaciones", relaciones)
+    }
+
+    return "plantasPorJardin" // Nombre del archivo HTML en templates/
+}
+```
+
+<span class="mi_h4">5. Crear la nueva vista</span>
+
+Creamos `src/main/resources/templates/plantasPorJardin.html` que incluye el formulario de selección y la tabla que muestra los datos combinados:
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Informe de Plantas por Jardín</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-success fw-bold">🌿 Plantas por Jardín (Consulta SQL con JOIN)</h1>
+        <a th:href="@{/plantas}" class="btn btn-outline-secondary">Volver al Catálogo</a>
+    </div>
+
+    <!-- Tarjeta con el selector de Jardín -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body p-4">
+            <form th:action="@{/informe/plantas-por-jardin}" method="get" class="row g-3 align-items-end">
+                <div class="col-md-8">
+                    <label for="jardinSelect" class="form-label fw-bold">Selecciona un Jardín:</label>
+                    <select id="jardinSelect" name="idJardin" class="form-select" required>
+                        <option value="" disabled th:selected="${idJardinSeleccionado == null}">-- Elige un jardín --</option>
+                        <option th:each="j : ${jardines}"
+                                th:value="${j.id_jardin}"
+                                th:text="${j.nombre + ' (' + j.ubicacion + ')'}"
+                                th:selected="${j.id_jardin == idJardinSeleccionado}">
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-success w-100">Consultar Plantas</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla con el resultado del JOIN -->
+    <div th:if="${relaciones != null}">
+        <div th:if="${relaciones.size() > 0}" class="table-responsive">
+            <table class="table table-striped table-hover shadow-sm bg-white rounded align-middle">
+                <thead class="table-success">
+                    <tr>
+                        <th>Jardín</th>
+                        <th>Planta</th>
+                        <th class="text-center">Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="r : ${relaciones}">
+                        <td class="fw-bold" th:text="${r.nombreJardin}">Jardín Botánico</td>
+                        <td th:text="${r.nombrePlanta}">Rosa</td>
+                        <td class="text-center">
+                            <span class="badge bg-primary fs-6" th:text="${r.cantidad}">10</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Mensaje si el jardín no tiene plantas asignadas -->
+        <div th:unless="${relaciones.size() > 0}" class="alert alert-warning text-center shadow-sm">
+            Este jardín todavía no tiene ninguna planta asignada en la base de datos.
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+```
+
+<span class="mi_h4">6. Añadir el acceso a la consulta</span>
+
+Modificamos `src/main/resources/templates/plantas.html` añadiendo un botón para acceder a la vista creada en el punto anterior con el resultado de la consulta
+
+```html
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-success fw-bold">Catálogo de Plantas</h1>
+    <div>
+        <!-- Botón nuevo que lleva al informe con JOIN -->
+        <a th:href="@{/informe/plantas-por-jardin}" class="btn btn-outline-success me-2">Ver Plantas por Jardín</a>
+        <a href="/plantas/nueva" class="btn btn-success">Agregar Nueva Planta</a>
+    </div>
+</div>
+```
+
+
+
+
+
+!!! success "Prueba y analiza el ejemplo"
+    Prueba el código del ejemplo y verifica que el comportamiento es correcto.
+
+
+
 
 
 
