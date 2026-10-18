@@ -1525,7 +1525,7 @@ Hasta ahora hemos trabajado con datos en memoria y con ficheros CSV. En las apli
 
 En este apartado utilizaremos **Spring JDBC** con la herramienta **`JdbcClient`** para realizar consultas **SQL** (`SELECT`, `INSERT`, `UPDATE`, `DELETE`) sobre nuestra base de datos.
 
-Seguiremos trabajando con la **arquitectura en capas** que ya aprendimos: el Controlador y las Vistas siguen funcionando exactamente igual, solo cambia cómo el repositorio persiste los datos.
+Seguiremos trabajando con la **arquitectura en capas** que ya aprendimos: el Controlador y las Vistas siguen funcionando exactamente igual, solo cambia cómo el repositorio gestiona los datos.
 
 
 <span class="mis_ejemplos">Ejemplo 3: Aplicación utilizando Spring MVC, Thymeleaf y Spring JDBC</span>
