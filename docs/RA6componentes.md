@@ -842,10 +842,10 @@ class PlantaRepository {
 | Elemento / Método       | Descripción                                                                                                                                   |
 |:------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------|
 | `private val plantas`   | Lista mutable (`mutableListOf`) que almacena las plantas en la memoria RAM del servidor, actuando temporalmente como nuestra base de datos.   |
-| `findAll()`             | Recupera y devuelve la lista completa con todas las plantas almacenadas.                                                                      |
-| `findById(id)`          | Busca en la lista y devuelve la planta que coincida con el ID proporcionado, o `null` si no encuentra ninguna.                                |
-| `save(planta)`          | Comprueba si la planta ya existe buscando su ID. Si existe, la actualiza. Si no existe, calcula de forma automática un nuevo ID secuencial y la añade a la lista. |
-| `deleteById(id_planta)` | Elimina de la lista (en memoria) la planta que coincida con el ID proporcionado       |
+| `leerTodasPlantas()`    | Recupera y devuelve la lista completa con todas las plantas almacenadas.                                                                      |
+| `buscarPorID(id)`       | Busca en la lista y devuelve la planta que coincida con el ID proporcionado, o `null` si no encuentra ninguna.                                |
+| `guardarPlanta(planta)`    | Comprueba si la planta ya existe buscando su ID. Si existe, la actualiza. Si no existe, calcula de forma automática un nuevo ID secuencial y la añade a la lista. |
+| `borrarPorId(id_planta)` | Elimina de la lista (en memoria) la planta que coincida con el ID proporcionado       |
 
 
 <span class="mi_h3">Añadir el servicio</span>
@@ -882,8 +882,8 @@ class PlantaService(private val repository: PlantaRepository) {
 
 | Método              | Descripción                                                                            |
 |:--------------------|:---------------------------------------------------------------------------------------|
-| `listarPlantas()`   | Solicita al repositorio la lista de todas las plantas y se la devuelve al controlador. |
-| `buscarPorId(id)`   | Solicita al repositorio buscar una planta concreta por su identificador.               |
+| `listar()`   | Solicita al repositorio la lista de todas las plantas y se la devuelve al controlador. |
+| `buscar(id)`   | Solicita al repositorio buscar una planta concreta por su identificador.               |
 | `guardar(planta)`   | Ordena al repositorio que guarde o actualice la planta correspondiente.                |
 | `borrar(id_planta)` | Ordena al repositorio que borre la planta correspondiente.                 |
 
@@ -2034,15 +2034,16 @@ Además, si queremos que nuestra aplicación responda a [http://localhost:8080](
 
 <span class="mis_ejemplos">Ejemplo 4: Aplicación que gestiona información de varias tablas</span>
 
-Además de la tabla `plantas` tenemos otras dos tablas en nuestr BD, son las siguientes:
+Recuerda que, además de la tabla `plantas`, tenemos otras dos tablas más en nuestra BD, son las siguientes:
 
 
 **Tabla `jardines`:**
 
 | id_jardin | nombre | ciudad |
-|:----------|:-------| :--- |
+|:----------|:-------| :------ |
 | 1         | Atenea | Castellón |
 | 2         | Olimpo | Valencia |
+| 3         | Iris | Alicante |
 
 
 
@@ -2050,80 +2051,95 @@ Además de la tabla `plantas` tenemos otras dos tablas en nuestr BD, son las sig
 
 |  id_jardin | id_planta | cantidad |
 |:----------| :--- |:---------|
-|  1         | 1 | 8        |
-|  1         | 2 | 12       |
+|  1         | 1 | 3        |
+|  1         | 2 | 5        |
+|  2         | 5 | 7       |
 
 
 Vamos a ampliar la aplicación para poder consultar el contenido de cada jardín, es decir las plantas que hay en él. Para ello crearemos una pantalla con un **desplegable para elegir el jardín** y una **tabla con las plantas asociadas** lo que requiere modificar y crear los siguientes ficheros:
 
- 
 
-<span class="mi_h4">1. Añadir el modelo</span>
+<span class="mi_sombreado">**PASO 1: Añadir los modelos necesarios**</span>
 
-Creamos `Jardin.kt` dentro de `src/main/kotlin/com/example/plantas/model` para rellenar las opciones del desplegable con los jardines que hay en la BD
 
+Dentro de `src/main/kotlin/com/example/plantas/model` creamos los dos archivos siguientes:
+
+
+`Jardin.kt` con el código:
 
 ```kotlin
-package com.example.plantas.model
+package com.example.plantasSQL.model
 
-data class Jardin(
+data class Jardi(
     var id_jardin: Int? = null,
     var nombre: String = "",
-    var ubicacion: String? = null
+    var ciudad: String? = null
 )
 ```
 
-<span class="mi_h4">2. Añadir la consulta</span>
+
+`PlantaEnJardin.kt` con el código:
+
+```kotlin
+package com.example.plantasSQL.model
+
+data class PlantaEnJardin(
+    val nombrePlanta: String,
+    val nombreJardin: String,
+    val cantidad: Int
+)
+```
+
+
+
+<span class="mi_sombreado">**PASO 2: Ampliar el repositorio, el servicio y el controlador**</span>
+
 
 Añadimos la consulta para listar jardines en el archivo `src/main/kotlin/com/example/plantas/repository/PlantaSqlRepository.kt`:
 
 
 ```kotlin
-// ... imports existentes ...
-import com.example.plantas.model.Jardin
-import com.example.plantas.model.PlantaEnJardinDTO
+import com.example.plantasSQL.model.Jardi
+import com.example.plantasSQL.model.PlantaEnJardin
 
-// Añadir dentro de la clase PlantaSqlRepository:
-
-// 1. Obtener la lista de jardines para el desplegable
-fun findAllJardines(): List<Jardin> {
-    val sql = "SELECT id_jardin, nombre, ubicacion FROM jardines ORDER BY nombre ASC"
+// Lista de jardines para el desplegable
+fun leerJardines(): MutableList<Jardi?> {
+    val sql = "SELECT id_jardin, nombre, ciudad FROM jardines ORDER BY nombre ASC"
     return jdbcClient.sql(sql)
-        .query(Jardin::class.java)
-        .list()
+        .query(Jardi::class.java)
+        .list().toMutableList()
 }
 
-// 2. Consulta con JOIN (la que ya preparaste)
-fun obtenerInformePlantasPorJardin(idJardin: Int): List<PlantaEnJardinDTO> {
+// Consulta de las plantas que hay en un jardín
+fun PlantasPorJardin(idJardin: Int): MutableList<PlantaEnJardin?> {
     val sql = """
-        SELECT p.nombre AS nombrePlanta, j.nombre AS nombreJardin, jp.cantidad
+        SELECT p.nombre_comun AS nombrePlanta, j.nombre AS nombreJardin, jp.cantidad
         FROM jardines_plantas jp
-        INNER JOIN plantas p ON jp.id_planta = p.id_planta
-        INNER JOIN jardines j ON jp.id_jardin = j.id_jardin
+        LEFT JOIN plantas p ON jp.id_planta = p.id_planta
+        LEFT JOIN jardines j ON jp.id_jardin = j.id_jardin
         WHERE j.id_jardin = :idJardin
-        ORDER BY p.nombre ASC
+        ORDER BY nombrePlanta ASC
     """
     return jdbcClient.sql(sql)
         .param("idJardin", idJardin)
-        .query(PlantaEnJardinDTO::class.java)
-        .list()
+        .query(PlantaEnJardin::class.java)
+        .list().toMutableList()
 }
+
 ```
 
-<span class="mi_h4">3. Modificar el servicio</span>
 
-Añadir métodos de negocio en la capa de servicio añadiendo el siguiente código al archivo `src/main/kotlin/com/example/plantas/service/PlantaService.kt` 
+Añadimos los métodos de negocio al archivo `src/main/kotlin/com/example/plantas/service/PlantaService.kt` 
 
 ```kotlin
-// Añadir dentro de PlantaService:
+import com.example.plantasSQL.model.Jardi
+import com.example.plantasSQL.model.PlantaEnJardin
 
-fun listarJardines(): List<Jardin> = repository.findAllJardines()
+fun listarJardines(): MutableList<Jardi?> = repository.leerJardines()
 
-fun obtenerPlantasPorJardin(idJardin: Int): List<PlantaEnJardinDTO> =
-    repository.obtenerInformePlantasPorJardin(idJardin)
+fun obtenerPlantasPorJardin(idJardin: Int): MutableList<PlantaEnJardin?> = repository.PlantasPorJardin(idJardin)
 ```
 
-<span class="mi_h4">4. Modificar el controlador</span>
 
 Modificamos el archivo `src/main/kotlin/com/example/plantas/controller/PlantaController.kt` para añadir la ruta que cargará la vista. Usamos una petición **`GET`** con parámetro opcional `idJardin`:
 
@@ -2131,9 +2147,7 @@ Modificamos el archivo `src/main/kotlin/com/example/plantas/controller/PlantaCon
 - Si el usuario selecciona un jardín, se ejecuta la consulta y se envían las plantas a la tabla.
 
 ```kotlin
-// Añadir dentro de PlantaController:
-
-@GetMapping("/informe/plantas-por-jardin")
+@GetMapping("/plantas-por-jardin")
 fun informePlantasPorJardin(
     @RequestParam(name = "idJardin", required = false) idJardin: Int?,
     model: Model
@@ -2152,9 +2166,10 @@ fun informePlantasPorJardin(
 }
 ```
 
-<span class="mi_h4">5. Crear la nueva vista</span>
+<span class="mi_sombreado">**PASO 3: Vistas**</span>
 
-Creamos `src/main/resources/templates/plantasPorJardin.html` que incluye el formulario de selección y la tabla que muestra los datos combinados:
+
+Creamos una nueva vista llamada `src/main/resources/templates/plantasPorJardin.html` que incluye el formulario de selección y la tabla que muestra los datos combinados:
 
 ```html
 <!DOCTYPE html>
@@ -2184,7 +2199,7 @@ Creamos `src/main/resources/templates/plantasPorJardin.html` que incluye el form
                         <option value="" disabled th:selected="${idJardinSeleccionado == null}">-- Elige un jardín --</option>
                         <option th:each="j : ${jardines}"
                                 th:value="${j.id_jardin}"
-                                th:text="${j.nombre + ' (' + j.ubicacion + ')'}"
+                                th:text="${j.nombre + ' (' + j.ciudad + ')'}"
                                 th:selected="${j.id_jardin == idJardinSeleccionado}">
                         </option>
                     </select>
@@ -2201,20 +2216,18 @@ Creamos `src/main/resources/templates/plantasPorJardin.html` que incluye el form
         <div th:if="${relaciones.size() > 0}" class="table-responsive">
             <table class="table table-striped table-hover shadow-sm bg-white rounded align-middle">
                 <thead class="table-success">
-                    <tr>
-                        <th>Jardín</th>
-                        <th>Planta</th>
-                        <th class="text-center">Cantidad</th>
-                    </tr>
+                <tr>
+                    <th>Planta</th>
+                    <th class="text-center">Cantidad</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="r : ${relaciones}">
-                        <td class="fw-bold" th:text="${r.nombreJardin}">Jardín Botánico</td>
-                        <td th:text="${r.nombrePlanta}">Rosa</td>
-                        <td class="text-center">
-                            <span class="badge bg-primary fs-6" th:text="${r.cantidad}">10</span>
-                        </td>
-                    </tr>
+                <tr th:each="r : ${relaciones}">
+                    <td th:text="${r.nombrePlanta}">Rosa</td>
+                    <td class="text-center">
+                        <span class="badge bg-primary fs-6" th:text="${r.cantidad}">10</span>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -2230,31 +2243,16 @@ Creamos `src/main/resources/templates/plantasPorJardin.html` que incluye el form
 </html>
 ```
 
-<span class="mi_h4">6. Añadir el acceso a la consulta</span>
 
-Modificamos `src/main/resources/templates/plantas.html` añadiendo un botón para acceder a la vista creada en el punto anterior con el resultado de la consulta
+Añadimos un botón en `src/main/resources/templates/plantas.html` para acceder a la vista creada en el punto anterior:
 
 ```html
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="text-success fw-bold">Catálogo de Plantas</h1>
-    <div>
-        <!-- Botón nuevo que lleva al informe con JOIN -->
-        <a th:href="@{/informe/plantas-por-jardin}" class="btn btn-outline-success me-2">Ver Plantas por Jardín</a>
-        <a href="/plantas/nueva" class="btn btn-success">Agregar Nueva Planta</a>
-    </div>
-</div>
+ <a th:href="@{/plantas-por-jardin}" class="btn btn-outline-success me-2">Ver Plantas por Jardín</a>
 ```
-
-
-
 
 
 !!! success "Prueba y analiza el ejemplo"
     Prueba el código del ejemplo y verifica que el comportamiento es correcto.
-
-
-
-
 
 
 
