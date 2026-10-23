@@ -182,7 +182,7 @@ Una vez creado el proyecto tendremos las configuraciones y dependencias en los a
 
 A continuación se describen los pasos para a crear una aplicación utilizando Spring Web.
 
-<span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
+<span class="mi_sombreado">**EJ1 - PASO 1: Crear el proyecto**</span>
 
 Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación y añadimos la dependencia **Spring Web** (el resto de opciones las podemos dejar como se ve en la imagen). Por último hacemos clic en el botón `GENERATE`. Esto hará que se cree el proyecto y se descargue en un archivo .zip.
 
@@ -190,7 +190,7 @@ Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://st
 <img class="con_borde" src="img/RA6/springboot1.jpg" alt="springboot1">
 
 
-<span class="mi_sombreado">**PASO 2: Abrir el proyecto y ejecutarlo**</span>
+<span class="mi_sombreado">**EJ1 - PASO 2: Abrir el proyecto y ejecutarlo**</span>
 
 Descomprimimos el archivo obtenido en el paso anterior y lo abrimos con IntelliJ. Vemos que, además de los archivos **application.properties** y **pom.xml** se ha creado automaticamente la clase **Plantas1Application** (con la anotación **@SpringBootApplication**) y la función de extensión **runApplication** que sirve para lanzar la aplicación.
 
@@ -264,7 +264,7 @@ Abrimos nuestro navegador web y accedemos a la dirección [http://localhost:8080
 Hemos comentado anteriormente que Spring Boot permite funcionar a partir de rutas dinámicas y de archivos estáticos. En los pasos siguientes añadiremos esas funcionalidades a nuestra aplicación
 
 
-<span class="mi_sombreado">**PASO 3: Añadir una ruta dinámica a nuestra aplicación**</span>
+<span class="mi_sombreado">**EJ1 - PASO 3: Añadir una ruta dinámica a nuestra aplicación**</span>
 
 Para que nuestra aplicación empiece a hacer algo útil, añadimos una función a la clase principal `Plantas1Application.kt`. Sustituimos su código por el siguiente:
 
@@ -310,7 +310,7 @@ fun main(args: Array<String>) {
     * Si el cliente no incluye `nombre` en la solicitud, el valor predeterminado será "Helecho", gracias a defaultValue = "Helecho".
 
 
-<span class="mi_sombreado">**PASO 4: Volvemos a ejecutar la aplicación**</span>
+<span class="mi_sombreado">**EJ1 - PASO 4: Volvemos a ejecutar la aplicación**</span>
 
 Ejecutamos la aplicación para levantar el servidor y comprobamos el comportamiento del navegador con estas dos direcciones:
 
@@ -380,7 +380,7 @@ Nuestra ruta dinámica `/planta` funciona correctamente porque la hemos mapeado 
 
 
 
-<span class="mi_sombreado">**PASO 5: Añadir una página de inicio HTML**</span>
+<span class="mi_sombreado">**EJ1 - PASO 5: Añadir una página de inicio HTML**</span>
 
 Como hemos visto en los pasos anteriores, necesitamos que la dirección raíz [http://localhost:8080](http://localhost:8080)  muestre una pantalla de inicio amigable en lugar de un error de "página no encontrada". Para solucionar esto, nos apoyaremos en la carpeta de recursos estáticos de Spring Boot `src/main/resources/static/`. Cualquier archivo que guardemos en esta carpeta (imágenes, CSS, HTML sencillos) será servido directamente por el servidor web sin necesidad de escribir código Java o Kotlin adicional.
 
@@ -473,7 +473,7 @@ Al rellenar el cuadro de texto y pulsar "Consultar", el formulario redirigirá a
         ❌ D) El identificador de la etiqueta `<form>` sirve para dar estilo u organizar la estructura de la página, pero el framework Spring Boot es completamente ajeno a este valor y no lo utiliza en ningún momento para vincular los parámetros de consulta.
 
 
-<span class="mi_sombreado">**PASO 6: Mejorar el aspecto**</span>
+<span class="mi_sombreado">**EJ1 - PASO 6: Mejorar el aspecto**</span>
 
 Ahora vamos a darle a nuestra aplicación un aspecto más profesional utilizando `Bootstrap`. Podemos encontrar mucha documentacion en internet sobre como utilizarlo. Por ejemplo en:
 
@@ -735,7 +735,7 @@ A continuación se describen los pasos para crear una aplicación que es un CRUD
 - Formulario con campos para modificar la información de un planta o añadir una nueva.
 
 
-<span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
+<span class="mi_sombreado">**EJ2 - PASO 1: Crear el proyecto**</span>
 
 Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación `plantas` y, en este caso, además de la dependencia **Spring Web** necesitamos también **Thymeleaf** (el resto de opciones las podemos dejar como se ve en la imagen). Por último hacemos clic en el botón `GENERATE` para descargar nuestro nuevo proyecto.
 
@@ -760,7 +760,7 @@ Descomprimimos el archivo obtenido en el paso anterior y lo abrimos con IntelliJ
 <img class="con_borde" src="img/RA6/springboot9.jpg" alt="springboot9">
 
 
-<span class="mi_sombreado">**PASO 2: Añadir modelo, repositorio, servicio y controlador**</span>
+<span class="mi_sombreado">**EJ2 - PASO 2: Añadir modelo, repositorio, servicio y controlador**</span>
 
 <span class="mi_h3">Añadir el modelo</span>
 
@@ -977,7 +977,7 @@ class PlantaController(private val plantaService: PlantaService) {
 `@PathVariable` Anotación que se utiliza para extraer y leer parámetros directamente desde la ruta de la URL (en este caso, `{id_planta}`).
 
 
-<span class="mi_sombreado">**PASO 3: Añadir las vistas con Thymeleaf**</span>
+<span class="mi_sombreado">**EJ2 - PASO 3: Añadir las vistas con Thymeleaf**</span>
 
 Para nuestra aplicación necesitamos cuatro vistas, una para la lista de plantas, otra para el detalle de una planta, una tercera para el formulario que sirve para añadir una planta nueva o para modificar la información de una ya existente y una última para avisar en caso de producirse un error. Por tanto tendremos cuatro archivos `html` todos ellos dentro de la carpeta `src/main/resources/templates/`. 
 
@@ -1199,13 +1199,13 @@ Formulario:
 
 
 
-<span class="mi_sombreado">**PASO 4: Añadir las fotos de las plantas**</span>
+<span class="mi_sombreado">**EJ2 - PASO 4: Añadir las fotos de las plantas**</span>
 
 Para poder mostrar las fotos de nuestras plantas en la vista de detalle, hemos guardado las fotos en una carpeta llamada `fotos` dentro de `src/main/resources/static/`.
 
 
 
-<span class="mi_sombreado">**PASO 5: Añadir la página de inicio**</span>
+<span class="mi_sombreado">**EJ2 - PASO 5: Añadir la página de inicio**</span>
 
 Además, si queremos que nuestra aplicación responda a [http://localhost:8080](http://localhost:8080) necesitamos un archivo llamado `index.html` dentro de la carpeta `src/main/resources/static/`. Por ejemplo, con el siguiente contenido:
 
@@ -1541,7 +1541,7 @@ Para este ejemplo hemos ampliado la tabla `plantas` con un nuevo campo para alma
 
 
 
-<span class="mi_sombreado">**PASO 1: Crear el proyecto**</span>
+<span class="mi_sombreado">**EJ3 - PASO 1: Crear el proyecto**</span>
 
 Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://start.spring.io/), indicamos el nombre de la aplicación `plantasSQL` y añadimos las dependencias siguientes:
 
@@ -1551,7 +1551,7 @@ Accedemos a Spring Initializr desde la url [https://start.spring.io/](https://st
 <img class="con_borde" src="img/RA6/SQL-1.jpg" alt="springboot SQL">
 
 
-<span class="mi_sombreado">**PASO 2: Añadir configuración de conexión a nuestra BD**</span>
+<span class="mi_sombreado">**EJ3 - PASO 2: Añadir configuración de conexión a nuestra BD**</span>
 
 Añadimos las siguientes líneas al archivo `application.properties` sustituyendo `BD` por el nombre de nuestra base de datos, `user` por el nombre de usuario y `pass` por la contraseña (los que creamos al montar el servidor y crear la base de datos):
 
@@ -1566,7 +1566,7 @@ spring.datasource.password=pass
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 ```
 
-<span class="mi_sombreado">**PASO 3: Añadir modelo, repositorio, servicio y controlador**</span>
+<span class="mi_sombreado">**EJ3 - PASO 3: Añadir modelo, repositorio, servicio y controlador**</span>
 
 <span class="mi_h3">Añadir el modelo</span>
 
@@ -1766,7 +1766,7 @@ class PlantaController(private val plantaService: PlantaService) {
 ```
 
 
-<span class="mi_sombreado">**PASO 4: Añadir las vistas con Thymeleaf**</span>
+<span class="mi_sombreado">**EJ3 - PASO 4: Añadir las vistas con Thymeleaf**</span>
 
 <span class="mi_h3">Lista de plantas</span>
 
@@ -1955,13 +1955,13 @@ El archivo que mostrará el aviso en caso de error será `errorPlanta.html` y su
 
 
 
-<span class="mi_sombreado">**PASO 5: Añadir las fotos de las plantas**</span>
+<span class="mi_sombreado">**EJ3 - PASO 5: Añadir las fotos de las plantas**</span>
 
 Para poder mostrar las fotos de nuestras plantas en la vista de detalle, hemos guardado las fotos en una carpeta llamada `fotos` dentro de `src/main/resources/static/`.
 
 
 
-<span class="mi_sombreado">**PASO 6: Añadir la página de inicio**</span>
+<span class="mi_sombreado">**EJ3 - PASO 6: Añadir la página de inicio**</span>
 
 Además, si queremos que nuestra aplicación responda a [http://localhost:8080](http://localhost:8080) necesitamos un archivo llamado `index.html` dentro de la carpeta `src/main/resources/static/`. Por ejemplo, con el siguiente contenido:
 
@@ -2032,7 +2032,7 @@ Además, si queremos que nuestra aplicación responda a [http://localhost:8080](
 
 
 
-<span class="mis_ejemplos">Ejemplo 4: Aplicación que gestiona información de varias tablas</span>
+<span class="mis_ejemplos">Ejemplo 4: Trabajando con información de varias tablas</span>
 
 Recuerda que, además de la tabla `plantas`, tenemos otras dos tablas más en nuestra BD, son las siguientes:
 
@@ -2059,7 +2059,7 @@ Recuerda que, además de la tabla `plantas`, tenemos otras dos tablas más en nu
 Vamos a ampliar la aplicación para poder consultar el contenido de cada jardín, es decir las plantas que hay en él. Para ello crearemos una pantalla con un **desplegable para elegir el jardín** y una **tabla con las plantas asociadas** lo que requiere modificar y crear los siguientes ficheros:
 
 
-<span class="mi_sombreado">**PASO 1: Añadir los modelos necesarios**</span>
+<span class="mi_sombreado">**EJ4 - PASO 1: Añadir los modelos necesarios**</span>
 
 
 Dentro de `src/main/kotlin/com/example/plantas/model` creamos los dos archivos siguientes:
@@ -2092,7 +2092,7 @@ data class PlantaEnJardin(
 
 
 
-<span class="mi_sombreado">**PASO 2: Ampliar el repositorio, el servicio y el controlador**</span>
+<span class="mi_sombreado">**EJ4 - PASO 2: Ampliar el repositorio, el servicio y el controlador**</span>
 
 
 Añadimos la consulta para listar jardines en el archivo `src/main/kotlin/com/example/plantas/repository/PlantaSqlRepository.kt`:
@@ -2166,7 +2166,7 @@ fun informePlantasPorJardin(
 }
 ```
 
-<span class="mi_sombreado">**PASO 3: Vistas**</span>
+<span class="mi_sombreado">**EJ4 - PASO 3: Vistas**</span>
 
 
 Creamos una nueva vista llamada `src/main/resources/templates/plantasPorJardin.html` que incluye el formulario de selección y la tabla que muestra los datos combinados:
