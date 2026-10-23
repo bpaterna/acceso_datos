@@ -2026,9 +2026,94 @@ Además, si queremos que nuestra aplicación responda a [http://localhost:8080](
 ```
 
 
+
 !!! success "Prueba y analiza el ejemplo"
     Prueba el código del ejemplo y verifica que el comportamiento es correcto.
 
+
+
+!!! example "Autoevaluación"
+
+    **Pregunta 17: En el archivo `application.properties` del Ejemplo 3 configuramos las propiedades `spring.datasource.url`, `spring.datasource.username`, `spring.datasource.password` y `spring.datasource.driver-class-name`. ¿Cuál es el propósito fundamental de estas líneas en una aplicación Spring Boot con Spring JDBC?**
+    
+    A) Indican a Spring Boot que debe crear y reestructurar de forma automática la base de datos `BD` y todas sus tablas relacionales en MySQL cada vez que se reinicia el servidor.
+
+    B) Proporcionan los parámetros necesarios para que Spring Boot autoconfigure el objeto `DataSource` (gestor del pool de conexiones), permitiendo inicializar e inyectar automáticamente la herramienta `JdbcClient` en el repositorio.
+
+    C) Establecen una conexión estática y bloqueante que solo admite operaciones de lectura (`SELECT`), siendo necesario configurar un archivo adicional para habilitar permisos de escritura (`INSERT`/`UPDATE`).
+
+    D) Configuran el servidor web embebido Tomcat para que intercepte directamente las peticiones HTTP y las traduzca de forma nativa a sentencias SQL sin pasar por el código Kotlin.
+
+    ??? quote "Solución"
+
+        ❌ A) A diferencia de JPA/Hibernate (que dispone de opciones como `ddl-auto`), Spring JDBC no genera ni modifica automáticamente las tablas del esquema relacional a partir de las clases de Kotlin. Las tablas deben estar previamente creadas en MySQL.
+        
+        ✅ B) El archivo `application.properties` centraliza la configuración de acceso. A partir del prefijo `spring.datasource.*`, Spring Boot inicializa un bean de tipo `DataSource` (habitualmente gestionado por HikariCP). Con este origen de datos disponible, el contenedor de dependencias instancia y facilita de forma transparente el componente `JdbcClient` donde se solicite por constructor.
+        
+        ❌ C) Las conexiones gestionadas a través del `DataSource` no están limitadas a lectura; admiten cualquier sentencia SQL válida soportada por el motor y los privilegios del usuario de la base de datos (SELECT, INSERT, UPDATE, DELETE).
+        
+        ❌ D) El servidor Tomcat se encarga exclusivamente de despachar peticiones web en la capa de transporte HTTP; no tiene conocimiento ni interactúa directamente con la capa de base de datos ni con los drivers JDBC.
+
+    **Pregunta 18: En `PlantaRepository.kt`, dentro de las sentencias SQL empleamos parámetros nombrados como `:id` o `:nombre_comun` asociados con `.param("nombre", valor)` en lugar de concatenar las variables directamente en la cadena SQL con `+`. ¿Cuál es la razón principal de esta práctica?**
+    
+    A) Porque Kotlin no admite la concatenación de variables mediante el operador `+` dentro de cadenas multilínea delimitadas por comillas triples (`"""`).
+
+    B) Porque de este modo se delega la compilación y validación de la sintaxis SQL en el motor de plantillas Thymeleaf antes de enviarla a MySQL.
+
+    C) Porque previene ataques de Inyección SQL (SQL Injection), asegurando que el driver trate los valores recibidos de forma estricta como datos y nunca como código SQL ejecutable.
+
+    D) Porque es el único mecanismo que permite a MySQL saber qué columna debe comportarse como clave primaria autoincremental (`AUTO_INCREMENT`).
+
+    ??? quote "Solución"
+
+        ❌ A) En Kotlin se pueden concatenar variables o usar plantillas de cadenas (`$variable`) libremente dentro de cadenas triples, pero hacerlo en consultas SQL supone un riesgo crítico de seguridad.
+        
+        ❌ B) Thymeleaf opera únicamente en la capa de presentación (vistas HTML) en el servidor; es completamente ajeno a las consultas y a la comunicación JDBC con la base de datos.
+        
+        ✅ C) La concatenación directa de parámetros procedentes de entradas de usuario permite que un atacante altere la lógica de la sentencia SQL (Inyección SQL). Al utilizar parámetros nombrados con `.param()`, `JdbcClient` construye internamente sentencias parametrizadas (*Prepared Statements*), escapando los caracteres especiales y tratando el contenido exclusivamente como un valor literal.
+        
+        ❌ D) La condición de clave primaria y la propiedad autoincremental se definen en el esquema de la tabla dentro del propio SGBD (MySQL), siendo totalmente independiente de si las consultas de inserción utilizan parámetros nombrados o literales.
+
+    **Pregunta 19: En el método `leerPlantas()` de nuestro repositorio ejecutamos la instrucción `jdbcClient.sql(sql).query(Planta::class.java).list()`. ¿Cómo realiza `JdbcClient` la conversión entre las filas devueltas por MySQL y los objetos de la clase `Planta`?**
+    
+    A) Mapea automáticamente cada columna devuelta en la sentencia `SELECT` con el atributo de la clase `Planta` que comparta el mismo nombre (o su convención equivalente), instanciando los objetos correspondientes en memoria.
+
+    B) Requiere de forma obligatoria que la clase `Planta` esté anotada con `@Entity` y `@Table` de JPA para poder mapear los datos mediante el motor de Hibernate.
+      
+    C) Convierte el conjunto de resultados a un archivo temporal JSON en el disco duro del servidor y luego lo deserializa mediante la biblioteca Jackson.  
+
+    D) Asocia los campos basándose de forma estricta en el orden posicional de las columnas (columna 1 con atributo 1, columna 2 con atributo 2...), independientemente de los nombres que tengan en la consulta.
+
+    ??? quote "Solución"
+
+        ✅ A) Al pasarle la clase de destino a `.query(Planta::class.java)`, `JdbcClient` utiliza internamente un mecanismo de mapeo (como `DataClassRowMapper` en Kotlin) que asocia los nombres de las columnas del `ResultSet` de SQL con los nombres de las propiedades declaradas en el constructor del `data class`.
+        
+        ❌ B) Las anotaciones `@Entity` y `@Table` pertenecen a la especificación JPA/Hibernate (`spring-boot-starter-data-jpa`). En Spring JDBC trabajamos con clases de datos planas (POJOs o `data class` de Kotlin) sin necesidad de anotaciones de persistencia complejas.
+        
+        ❌ C) `JdbcClient` lee directamente los tipos de datos nativos de JDBC desde memoria a través del socket de conexión con MySQL; Jackson se utiliza en Spring Web para serializar respuestas hacia el cliente HTTP, no en el mapeo JDBC interno.
+        
+        ❌ D) El mapeo no se realiza por posición ordinal, sino por coincidencia de nombres entre columnas y propiedades. Esto garantiza que la consulta sea robusta aunque el orden de los campos cambie en el `SELECT`.
+
+
+    **Pregunta 20: En `PlantaRepository.kt`, tanto al crear como al actualizar o borrar registros invocamos al final el método `.update()`. ¿Cuál es la función de este método y qué información devuelve?**
+    
+    A) Realiza una consulta `SELECT` de confirmación tras modificar el registro y devuelve el objeto `Planta` completo con los datos actualizados.
+
+    B) Devuelve un valor booleano (`true` o `false`) que indica si la conexión física con el contenedor de MySQL continúa abierta y disponible.
+
+    C) Vuelca los datos en la memoria RAM del servidor y devuelve directamente el nuevo identificador numérico generado de forma autoincremental.
+
+    D) Ejecuta la instrucción DML (INSERT, UPDATE o DELETE) contra la base de datos y devuelve un valor entero (`Int`) que indica el número de filas afectadas por la operación.
+
+    ??? quote "Solución"
+
+        ❌ A) Para recuperar datos tras una modificación se requeriría una llamada explícita a `.query(...)`. El método `.update()` se limita a ejecutar la sentencia de modificación de datos.
+        
+        ❌ B) No devuelve un valor booleano sobre el estado de la conexión. Si surge algún fallo de red o error de sintaxis SQL, Spring JDBC lanzará una excepción de la jerarquía `DataAccessException`.
+        
+        ❌ C) La obtención de claves generadas automáticamente exige una configuración adicional mediante un capturador de claves (`KeyHolder`); la llamada estándar a `.update()` no retorna el nuevo ID, sino el número de registros insertados o modificados.
+        
+        ✅ D) En JDBC y en `JdbcClient`, el método `.update()` se reserva para sentencias de manipulación de datos (DML: INSERT, UPDATE y DELETE). Su retorno es un entero (`Int`) correspondiente al conteo de filas que fueron insertadas, modificadas o eliminadas por la base de datos (por ejemplo, `1` si se actualizó una planta, o `0` si el ID buscado no existía).
 
 
 
