@@ -350,6 +350,7 @@ A continuación se muestra el comportamiento de cada método frente a los distin
 **Valores `NULL`**
 
 Los tipos primitivos de Java no admiten nulos. Por eso, si una columna en la base de datos contiene `NULL`:
+
 - `rs.getInt("columna")` devuelve `0`.
 - `rs.getDouble("columna")` devuelve `0.0`.
 - `rs.getBoolean("columna")` devuelve `false`.
