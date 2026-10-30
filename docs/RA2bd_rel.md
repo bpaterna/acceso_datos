@@ -705,6 +705,24 @@ object PlantasDAO {
         } ?: println("No se pudo establecer la conexión.")
         return planta
     }
+    
+    
+    fun consultarValorPlanta(id: Int ):Double {
+        var valorPlanta = 0.0
+        conectarBD()?.use { conn ->
+            conn.prepareStatement("SELECT (stock*precio) as valor FROM plantas WHERE id_planta = ?").use { pstmt ->
+                pstmt.setInt(1, id)
+                pstmt.executeQuery().use { rs ->
+                    if (rs.next()) {
+                        valorPlanta = rs.getDouble("valor")
+                    }
+                }
+            }
+        } ?: println("No se pudo establecer la conexión.")
+        return valorPlanta
+    }
+    
+
 
     fun insertarPlanta(planta: Planta) {
         conectarBD()?.use { conn ->
