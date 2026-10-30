@@ -316,6 +316,48 @@ Método|	Uso principal|	Tipo de sentencia SQL|	Resultado que devuelve
 **execute()**|No se sabe de antemano qué tipo de sentencia SQL se va a ejecutar (consulta o modificación)| Sentencias SQL que pueden devolver varios resultados| Booleano **true** si el resultado es un ResultSet (SELECT) y **false** si el resultado es un entero (INSERT, UPDATE, DELETE,CREATE, ALTER)
 
 
+
+
+
+Para recuperar los datos de la fila a la que apunta actualmente el cursor del `ResultSet`, se utilizan los métodos de acceso (*getters*). Estos métodos reciben como parámetro el **nombre de la columna** (como `String`) o su **posición numérica** (empezando en 1):
+
+| Método | Descripción del método |
+| :--- | :--- |
+| **`getInt(...)`** | Lee el valor de la columna indicada y lo devuelve como un número entero de 32 bits (`Int`). Se utiliza habitualmente para claves primarias numéricas, cantidades o contadores. |
+| **`getLong(...)`** | Lee el valor de la columna y lo devuelve como un entero largo de 64 bits (`Long`). Ideal para identificadores muy grandes, marcas de tiempo (*timestamps*) o claves autonuméricas extensas. |
+| **`getDouble(...)`** | Lee el valor de la columna y lo devuelve como un número decimal de doble precisión (`Double`). Es el método estándar para importes económicos, precios, porcentajes y coordenadas geográficas. |
+| **`getFloat(...)`** | Lee el valor de la columna y lo devuelve como un número decimal de precisión simple (`Float`). Útil cuando se necesita optimizar memoria con valores decimales pequeños. |
+| **`getString(...)`** | Lee el valor de la columna y lo devuelve como una cadena de texto (`String`). Se utiliza para nombres, descripciones, correos, fechas en formato texto o cualquier dato alfanumérico. |
+| **`getBoolean(...)`** | Lee el valor de la columna y lo devuelve como un valor lógico verdadero o falso (`Boolean`). Se utiliza para campos de activación, flags de estado (*activo/inactivo*, *pagado/pendiente*). |
+| **`wasNull()`** | Método especial de comprobación. Informa si la **última columna leída** mediante cualquier método `get...` contenía en realidad un valor `NULL` en la base de datos (devuelve `Boolean`). |
+
+
+Cuando leemos datos con métodos como `getInt()`, `getDouble()`, etc., la API JDBC no exige que el método coincida al 100% con el tipo físico de la base de datos; **intenta convertir el dato automáticamente** siempre que sea matemáticamente posible antes de lanzar un error. Pero hay que tener en cuenta que leer un tipo grande (por ejemplo un Double) en un método pequeño (por getInt()) no da error, pero destruye información ya que se come los decimales.
+
+
+A continuación se muestra el comportamiento de cada método frente a los distintos tipos de datos:
+
+| Método usado | Tipo real en la BD y qué sucede al ejecutarlo |
+| :--- | :--- |
+| **`getInt(...)`** | • **Sobre un número entero (`INT`, `BIGINT`):** Devuelve el valor con normalidad.<br>• **Sobre un decimal (`DOUBLE`, `FLOAT`, `REAL`):** **Trunca** los decimales (pierde la parte decimal sin redondear). Ej: `10.85` pasa a ser `10`.<br>• **Sobre un texto numérico (`VARCHAR` con dígitos):** Lo parsea a entero. Ej: `"42"` pasa a ser `42`.<br>• **Sobre un texto con letras (ej: `"Aloe"`):** Lanza `SQLException` (*NumberFormatException interna*).<br>• **Sobre un valor `NULL` de la BD:** **Devuelve `0`** (¡Cuidado! No devuelve `null`). |
+| **`getDouble(...)`** / **`getFloat(...)`** | • **Sobre un decimal (`DOUBLE`, `REAL`):** Devuelve el valor con normalidad.<br>• **Sobre un entero (`INT`):** Lo convierte a decimal añadiendo `.0`. Ej: `20` pasa a ser `20.0`.<br>• **Sobre un texto numérico:** Lo parsea a decimal. Ej: `"10.5"` pasa a ser `10.5`.<br>• **Sobre un texto con letras:** Lanza `SQLException`.<br>• **Sobre un valor `NULL` de la BD:** **Devuelve `0.0`**. |
+| **`getString(...)`** | • **Sobre cualquier tipo (Enteros, Decimales, Fechas, Booleanos):** **El método universal más seguro.** Convierte cualquier valor a su representación en texto plano. Ej: el double `10.5` pasa a ser el String `"10.5"`.<br>• **Sobre un valor `NULL` de la BD:** **Devuelve `null`** (a diferencia de los numéricos, aquí sí devuelve el nulo real de Kotlin/Java). |
+| **`getBoolean(...)`** | • **Sobre un booleano real:** Devuelve `true` o `false`.<br>• **Sobre un entero (`INT`):** Devuelve `false` si vale `0`. Si vale **cualquier otro número** (1, -1, 42), devuelve `true`.<br>• **Sobre un texto (`VARCHAR`):** Devuelve `true` si el texto es `"true"`, `"1"` o `"yes"` (ignora mayúsculas). Cualquier otra cadena devuelve `false`.<br>• **Sobre un valor `NULL` de la BD:** **Devuelve `false`**. |
+| **`getLong(...)`** | • Idéntico a `getInt()`, pero admite enteros de hasta 64 bits (útil para IDs gigantes o marcas de tiempo en milisegundos). Si se aplica sobre decimales, también **trunca** la parte decimal. |
+
+
+
+**Valores `NULL`**
+
+Los tipos primitivos de Java no admiten nulos. Por eso, si una columna en la base de datos contiene `NULL`:
+- `rs.getInt("columna")` devuelve `0`.
+- `rs.getDouble("columna")` devuelve `0.0`.
+- `rs.getBoolean("columna")` devuelve `false`.
+- Solo `rs.getString("columna")` es capaz de devolver `null` directamente
+- Para saber si un número era realmente nulo o era un cero de verdad, se debe llamar inmediatamente a `rs.wasNull()`.
+
+
+
 <span class="mi_h3">Liberación de recursos</span>
 
 Cuando una aplicación accede a una base de datos, el sistema operativo y el SGBD abren varios recursos internos que consumen memoria y canales de comunicación activos:
