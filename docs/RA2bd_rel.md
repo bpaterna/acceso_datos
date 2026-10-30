@@ -324,6 +324,8 @@ Cuando una aplicación accede a una base de datos, el sistema operativo y el SGB
 - **Las sentencias SQL** preparadas para ejecutarse (`Statement` o `PreparedStatement`).
 - **El resultado** de las consultas almacenado en memoria (`ResultSet`).
 
+Según la especificación JDBC, un objeto `Statement` solo puede mantener abierto un `ResultSet` a la vez. Abrir un segundo cerraría el primero.
+
 En tecnologías como Java o Kotlin (usando JDBC), **estos recursos no se liberan automáticamente** al terminar de usarse. Si olvidamos cerrarlos de forma explícita, podemos provocar graves problemas en la aplicación:
 
 - **Fugas de memoria:** acumulación de objetos en la RAM que degradan el rendimiento general.
@@ -331,7 +333,6 @@ En tecnologías como Java o Kotlin (usando JDBC), **estos recursos no se liberan
 - **Errores inesperados:** comportamientos inestables en la aplicación al intentar operar con recursos que han quedado "huérfanos".
 
 Para liberar estos recursos, tradicionalmente se ha seguido un enfoque manual que hoy en día ha evolucionado hacia soluciones mucho más seguras. A continuación, analizamos ambos métodos.
-
 
 
 **Opción 1: El enfoque tradicional (cierre manual con close())**
@@ -1079,6 +1080,10 @@ fun llevarPlantasAJardin(id_jardin: Int, id_planta: Int, cantidad: Int) {
     }
 }
 ```
+
+> **IMPORTANTE:** Un objeto `Statement` solo puede mantener abierto un `ResultSet` a la vez. Abrir un segundo cerraría el primero y el programa no funcionara correctamente. Por eso se utilian dos diferentes `stockStmt` y `plantarStmt`.
+ 
+
 
 Si no se produce ningún error se hará el `commit` y en caso contrario el `rollback`
 
