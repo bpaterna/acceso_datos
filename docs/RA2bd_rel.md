@@ -1306,10 +1306,10 @@ Si no se produce ningún error se hará el `commit` y en caso contrario el `roll
     5. No olvides controlar los posibles errores mediante la captura de excepciones.
     6. Añade a tu proyecto un fichero LEEME.md las siguientes secciones:
 
-    -   **Nombre del proyecto y breve descripción.**
-    -   **Estructura de Datos:** En esta sección se explica el diseño de los datos y su representación en memoria.
-    -   **Instrucciones de Ejecución:** Pasos claros y sencillos para que otra persona pueda ejecutar nuestro programa.
-    -   **Decisiones de Diseño:** Un pequeño apartado para explicar brevemente por qué tomamos ciertas decisiones de implementación.
+        -   **Nombre del proyecto y breve descripción.**
+        -   **Estructura de Datos:** En esta sección se explica el diseño de los datos y su representación en memoria.
+        -   **Instrucciones de Ejecución:** Pasos claros y sencillos para que otra persona pueda ejecutar nuestro programa.
+        -   **Decisiones de Diseño:** Un pequeño apartado para explicar brevemente por qué tomamos ciertas decisiones de implementación.
 
 
     **Requisitos de funcionamiento:** mismos que en la práctica anterior. Además:
@@ -1324,8 +1324,8 @@ Si no se produce ningún error se hará el `commit` y en caso contrario el `roll
 
     - Carpeta `src`
     - Carpeta `datos`
-    - Fichero build.gradle.kts
-    - Fichero LEEME.md
+    - Fichero `build.gradle.kts`
+    - Fichero `LEEME.md`
 
 
 
