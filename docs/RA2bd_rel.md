@@ -1304,19 +1304,30 @@ Si no se produce ningún error se hará el `commit` y en caso contrario el `roll
     3. Añade el DAO para gestionar la información de la segunda tabla.
     4. Implementa alguna operación sobre la BD (parecida a la del ejemplo) que requiera el control mediante transacciones.
     5. No olvides controlar los posibles errores mediante la captura de excepciones.
+    6. Añade a tu proyecto un fichero LEEME.md las siguientes secciones:
+
+    -   **Nombre del proyecto y breve descripción.**
+    -   **Estructura de Datos:** En esta sección se explica el diseño de los datos y su representación en memoria.
+    -   **Instrucciones de Ejecución:** Pasos claros y sencillos para que otra persona pueda ejecutar nuestro programa.
+    -   **Decisiones de Diseño:** Un pequeño apartado para explicar brevemente por qué tomamos ciertas decisiones de implementación.
 
 
     **Requisitos de funcionamiento:** mismos que en la práctica anterior. Además:
 
     - TRANSACCIONES: Pedir por teclado los id de las dos tablas relacionadas y el otro campo (equivalente a la cantidada del ejemplo de plantas). Comprobar que los dos id existen en las respectivas tablas antes de hacer el insert en la tercera tabla.
 
-
     **Aspectos técnicos:** mismos que en la páctica anterior.
 
 
-
 !!! danger "Entrega optativa"
-    Entrega en Aules un solo archivo comprimido en formato `.zip` que contenga únicamente las carpetas `src` y `datos` de tu proyecto.
+    Entrega en Aules el código fuente del proyecto comprimido en un único archivo `.zip` con:
+
+    - Carpeta `src`
+    - Carpeta `datos`
+    - Fichero build.gradle.kts
+    - Fichero LEEME.md
+
+
 
     **IMPORTANTE:**
 
