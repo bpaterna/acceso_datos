@@ -11,7 +11,7 @@
 
 
 
-<span class="mi_h3">1. Fauna (Reino Animal)</span>
+<span class="mi_h3">1. Fauna</span>
 
 * **Entidad 1 (Animales):**
     * `id_animal (Int)` - Identificador único.
@@ -39,7 +39,7 @@
     * `salario (Double)` - Salario mensual aproximado en euros.
 
 
-<span class="mi_h3">2. Astronomía (Cuerpos Celestes)</span>
+<span class="mi_h3">2. Astronomía</span>
 
 * **Entidad 1 (Cuerpos):**
     * `id_cuerpo (Int)` - Identificador único.
@@ -68,7 +68,7 @@
 
 
     
-<span class="mi_h3">3. Vehículos (Coches)</span>
+<span class="mi_h3">3. Vehículos</span>
 
 * **Entidad 1 (Coches):**
     * `id_coche (Int)` - Identificador único.
@@ -95,7 +95,7 @@
     * `stock (Int)` - Unidades disponibles en almacén.
     * `precio (Double)` - Precio de venta en euros.
 
-<span class="mi_h3">4. Cine (Películas)</span>
+<span class="mi_h3">4. Cine</span>
 
 * **Entidad 1 (Películas):**
     * `id_pelicula (Int)` - Identificador único.
@@ -122,7 +122,7 @@
     * `edicion_actual (Int)` - Número de la última edición celebrada.
     * `dotacion_premio (Double)` - Premio al ganador en miles de euros.
 
-<span class="mi_h3">5. Química (Tabla Periódica)</span>
+<span class="mi_h3">5. Química</span>
 
 * **Entidad 1 (Elementos):**
     * `id_elemento (Int)` - Número atómico.
@@ -150,7 +150,7 @@
     * `capacidad_ml (Double)` - Capacidad volumétrica en mililitros.
 
 
-<span class="mi_h3">6. Videojuegos</span>
+<span class="mi_h3">6. Gaming </span>
 
 * **Entidad 1 (Videojuegos):**
     * `id_videojuego (Int)` - Identificador único.
@@ -177,7 +177,7 @@
     * `dpi_maximo (Int)` - Sensibilidad máxima del sensor (DPI).
     * `peso_gramos (Double)` - Peso neto en gramos.
 
-<span class="mi_h3">7. Geografía (Países)</span>
+<span class="mi_h3">7. Geografía</span>
 
 * **Entidad 1 (Países):**
     * `id_pais (Int)` - Código numérico internacional.
@@ -205,7 +205,7 @@
     * `altura (Double)` - Altitud oficial en metros.
 
 
-<span class="mi_h3">8. Nutrición (Alimentos)</span>
+<span class="mi_h3">8. Nutrición</span>
 
 * **Entidad 1 (Alimentos):**
     * `id_alimento (Int)` - Código de barras interno.
@@ -232,7 +232,7 @@
     * `numero_colegiado (Int)` - Código de colegiación profesional.
     * `tarifa_consulta (Double)` - Precio de la sesión en euros.
 
-<span class="mi_h3">9. Historia (Monumentos Históricos)</span>
+<span class="mi_h3">9. Historia</span>
 
 * **Entidad 1 (Monumentos):**
     * `id_monumento (Int)` - Identificador único.
@@ -259,7 +259,7 @@
     * `piezas_totales (Int)` - Número de piezas catalogadas en miles.
     * `precio_entrada (Double)` - Precio del ticket de entrada en euros.
 
-<span class="mi_h3">10. Música (Instrumentos Musicales)</span>
+<span class="mi_h3">10. Música</span>
 
 * **Entidad 1 (Instrumentos):**
     * `id_instrumento (Int)` - Identificador único.
