@@ -10,7 +10,7 @@
 
 A continuación tienes los scripts para replicar la BD de ejemplo MySQL que se está utilizando en estos apuntes:
 
-## 1. Tabla plantas
+<span class="mi_h3">Tabla plantas</span>
 
 ```sql
 DROP TABLE IF EXISTS plantas;
@@ -33,7 +33,7 @@ INSERT INTO plantas (id_planta, nombre_comun, nombre_cientifico, stock, precio) 
 ```
 
 
-## 2. Tabla jardines
+<span class="mi_h3">Tabla jardines</span>
 
 ```sql
 DROP TABLE IF EXISTS jardines;
@@ -51,8 +51,7 @@ INSERT INTO jardines (id_jardin, nombre, ciudad) VALUES (2, "Atenea", "Valencia"
 INSERT INTO jardines (id_jardin, nombre, ciudad) VALUES (3, "Iris", "Alicante");
 ```
 
-
-## 3. Tabla jardines_plantas 
+<span class="mi_h3">Tabla jardines_plantas</span> 
 
 ```sql
 DROP TABLE IF EXISTS jardines_plantas;
