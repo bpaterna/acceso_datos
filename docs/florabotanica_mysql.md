@@ -8,6 +8,7 @@
 | 1.0      | 12-11-2026 | Adaptación de los materiales a markdown |
 
 
+A continuación tienes los scripts para replicar la BD de ejemplo MySQL que se está utilizando en estos apuntes:
 
 ## 1. Tabla plantas
 
