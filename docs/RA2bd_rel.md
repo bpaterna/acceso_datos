@@ -1410,13 +1410,18 @@ fun listarPlantas(){
 ```
 
 !!! success "Prueba y analiza el ejemplo"
-    1. Monta tu servidor MySQL en docker siguiendo los pasos del documento [Docker](docker.html).
-    2. Copia el archivo con la BD de ejemplo al contenedor que acabas de crear. Puedes descargar el archivo con la copia de seguridad aquí: [florabotanica.sql](recursos/florabotanica.sql){:florabotanica.sql}
-    3. Crea una BD llamada `florabotanica` dentro de tu servior MySQL y restaura la copia de seguridad (archivo del paso anterior).
-    4. Comprueba que puedes conectar a la BD utilizando `DBeaver`. Tienes los pasos a seguir en el documento [DBeaver](dbeaver.html).
-    5. Crea un proyecto kotlin con `Gradle` y añade las dependencias para trabajar con `MySQL`.
-    6. Ejecuta el programa de ejemplo y verifica que la conexión con la BD se establece correctamente y se listan los nombres de las plantas.
+    1. Monta tu servidor MySQL en docker siguiendo los pasos del apartado `4.1. Crear contenedor y BD` del documento [Docker](docker.html).
+    2. Comprueba que puedes conectar a la BD utilizando `DBeaver`. Tienes los pasos a seguir en el documento [DBeaver](dbeaver.html).
+    3. Crea un proyecto kotlin con `Gradle` y añade las dependencias para trabajar con `MySQL`.
+    4. Ejecuta el programa de ejemplo y verifica que la conexión con la BD se establece correctamente y se listan los nombres de las plantas.
 
+
+
+!!! success "Crea tu BD e intercámbiala con algún compañero"
+    1. Crea tu BD con una tabla (con la temática que estás utilizando durante este curso) en el servidor que acabas de montar en docker.
+    2. Comprueba que puedes conectar a la nueva BD utilizando `DBeaver`.
+    4. Exporta la BD y mándala a algún compañero para que la importe en su servidor.
+    5. Dile que te mande la suya e impórtala en el tuyo.
 
 
 <span class="mi_h3">Funciones</span>
@@ -1646,6 +1651,16 @@ DELIMITER ;
 | `DELIMITER ;`                                    | Restablece el delimitador normal.                                     |
 
 
+
+
+A la hora de llamar a los procedimientos desde Kotlin, utilizaremos:
+
+    - Procedimientos de consulta (con SELECT): se ejecutan con `call.executeQuery()` y devuelven un ResultSet.
+    - Procedimientos de acción/modificación (con UPDATE, INSERT, DELETE): se ejecutan con `call.executeUpdate()` y devuelven un Int con las filas afectadas.
+
+A continuación veremos algunos ejemplos:
+
+
 <span class="mis_ejemplos">Ejemplo 8: Trabajar con procedimientos</span>
 
 El siguiente ejemplo crea un procedimiento que devuelve un listado con las plantas y cantidades que hay en un jardín determinado.
@@ -1800,11 +1815,63 @@ fun llamar_sp_agregar_planta_a_jardin(id_j:Int, id_p:Int, cant:Int){
 ```
 
 
-
 !!! success "Prueba y analiza el ejemplo"
     1. Conecta a la BD utilizando `DBeaver` y crea el procedimiento del ejemplo.
     2. Comprueba que se ejecuta correctamente utilizando `DBeaver`.
     3. Añade el código de este ejemplo al proyecto del ejemplo anterior y comprueba que funciona correctamente.
+
+
+
+
+<span class="mis_ejemplos">Ejemplo 10: Otro ejemplo de procedimientos</span>
+
+El siguiente ejemplo cambia el precio a una planta.
+
+Ejecutamos el siguiente script en DBeaver sobre la BD florabotanica para almacenar el procedimiento dentro de ella.
+
+```sql
+DROP PROCEDURE IF EXISTS sp_cambiar_precio;
+
+DELIMITER //
+CREATE PROCEDURE sp_cambiar_precio(
+    IN p_id_planta INT, 
+    IN p_nuevo_precio DOUBLE
+)
+BEGIN
+    UPDATE plantas 
+    SET precio = p_nuevo_precio 
+    WHERE id_planta = p_id_planta;
+END; //
+DELIMITER ;
+```
+
+
+Ahora ya podemos realizar la llamada desde Kotlin con el código siguiente:
+
+```kotlin
+fun llamar_sp_cambiar_precio(id: Int, nuevoPrecio: Double) {
+    conectarBD()?.use { conn ->
+        val sql = "{CALL sp_cambiar_precio(?, ?)}"
+        conn.prepareCall(sql).use { call ->
+            call.setInt(1, id)
+            call.setDouble(2, nuevoPrecio)
+            
+            // Al ser un procedimiento que realiza una modificación (UPDATE)
+            // y no devuelve registros, se ejecuta con executeUpdate()
+            val filasAfectadas = call.executeUpdate()
+            
+            println("Procedimiento ejecutado. Filas actualizadas: $filasAfectadas")
+        }
+    }
+}
+```
+
+
+> **IMPORTANTE:** Un procedimiento almacenado se prepara siempre con conn.prepareCall("{CALL ...}"), pero el método de ejecución depende de lo que haga internamente:
+>
+> - `call.executeQuery()` si el procedimiento contiene un SELECT que proyecta datos, devolviendo un objeto ResultSet que debemos recorrer con while (rs.next()).
+> - `call.executeUpdate()` si el procedimiento ejecuta sentencias DML de modificación (UPDATE, INSERT o DELETE) sin devolver tablas de datos. En este caso devuelve un número entero (Int) con el recuento de filas afectadas.
+
 
 
 !!! example "Autoevaluación"
