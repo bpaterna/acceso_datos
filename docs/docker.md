@@ -216,6 +216,11 @@ INSERT INTO plantas (nombre_comun, nombre_cientifico, stock, precio)
 VALUES ('Lavanda', 'Lavandula angustifolia',3,1.8);
 ```
 
+```sql
+INSERT INTO plantas (nombre_comun, nombre_cientifico, stock, precio)
+VALUES ('Palmera', 'Arecaceae',15,4.6);
+```
+
 
 
 **9. Comprobar los datos**
@@ -242,15 +247,15 @@ exit
 
 
 
-<span class="mi_h3">4.2. Copiar la BD a otro contenedor</span>
+<span class="mi_h3">4.2. Copiar la BD a otro servidor</span>
 
-Para llevar la base de datos a otro contenedor (por ejemplo, uno ubicado en otro equipo), es necesario exportarla desde el contenedor de origen e importarla en el contenedor de destino.
+Para llevar la base de datos a otro servidor es necesario exportarla desde el servidor de origen e importarla en servidor de destino.
 
 
 
-**1. Exportar la base de datos (dump) en el contenedor origen**
+**1. Exportar la base de datos (dump) en el servidor de origen**
 
-La siguiente instrucción generará un archivo llamado `florabotanica.sql` en el directorio actual del anfitrión.
+La siguiente instrucción generará un archivo llamado `florabotanica.sql` en el directorio actual de nuestro servidor (en este caso en un contenedor llamado `mysql-srv`).
 
 > **Nota:** Se solicitará la contraseña del usuario root. Los caracteres introducidos no se mostrarán en pantalla.
 
@@ -266,9 +271,9 @@ ls -l
 
 
 
-**2. Copiar el archivo al contenedor destino**
+**2. Copiar el archivo al servidor de destino**
 
-Se asume que el contenedor de destino se llama `mysql-srv2`.
+Se asume que el servidor de destino está en un contenedor llamado `mysql-srv2`.
 
 ```bash
 docker cp florabotanica.sql mysql-srv2:/tmp/florabotanica.sql
