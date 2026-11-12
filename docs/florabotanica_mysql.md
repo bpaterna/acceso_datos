@@ -12,7 +12,7 @@
 ## 1. Tabla plantas
 
 ```sql
-DROP TABLE IF EXISTS plantas;`
+DROP TABLE IF EXISTS plantas;
 
 CREATE TABLE plantas (
   id_planta int NOT NULL AUTO_INCREMENT,
