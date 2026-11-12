@@ -192,35 +192,7 @@ USE florabotanica;
 
 **8. Crear una tabla e insertar datos**
 
-Crear la tabla
-
-```sql
-CREATE TABLE plantas (
-    id_planta INT AUTO_INCREMENT PRIMARY KEY,
-	nombre_comun TEXT,
-	nombre_cientifico TEXT,
-	stock INT,
-	precio DOUBLE
-);
-```
-
-Insertar registros
-
-```sql
-INSERT INTO plantas (nombre_comun, nombre_cientifico, stock, precio)
-VALUES ('Aloe Vera', 'Aloe barbadensis miller', 7,2.5);
-```
-
-```sql
-INSERT INTO plantas (nombre_comun, nombre_cientifico, stock, precio)
-VALUES ('Lavanda', 'Lavandula angustifolia',3,1.8);
-```
-
-```sql
-INSERT INTO plantas (nombre_comun, nombre_cientifico, stock, precio)
-VALUES ('Palmera', 'Arecaceae',15,4.6);
-```
-
+Puedes copiar y pegar los scripts SQL que encotrarás en el documetno [ejemplo BD MySQL](florabotanica_mysql.html)).
 
 
 **9. Comprobar los datos**

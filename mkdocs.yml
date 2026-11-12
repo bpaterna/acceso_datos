@@ -28,6 +28,7 @@ nav:
     - Kotlin: kotlin.md
     - Docker: docker.md
     - DBeaver: dbeaver.md
+    - Ejemplo MySQL: florabotanica_mysql.md
 markdown_extensions:
   - attr_list
   - admonition

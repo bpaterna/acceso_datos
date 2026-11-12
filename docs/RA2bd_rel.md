@@ -1416,14 +1416,6 @@ fun listarPlantas(){
     4. Ejecuta el programa de ejemplo y verifica que la conexión con la BD se establece correctamente y se listan los nombres de las plantas.
 
 
-
-!!! success "Crea tu BD e intercámbiala con algún compañero"
-    1. Crea tu BD con una tabla (con la temática que estás utilizando durante este curso) en el servidor que acabas de montar en docker.
-    2. Comprueba que puedes conectar a la nueva BD utilizando `DBeaver`.
-    4. Exporta la BD y mándala a algún compañero para que la importe en su servidor.
-    5. Dile que te mande la suya e impórtala en el tuyo.
-
-
 <span class="mi_h3">Funciones</span>
 
 Una **función** está diseñada para **calcular y devolver un resultado**. Se puede usar directamente dentro de una consulta SQL como parte de un SELECT, WHERE, ORDER BY, etc. Las funciones siempre devuelven un valor. La sintaxis general para crear una función en MySQL es la siguiente:
