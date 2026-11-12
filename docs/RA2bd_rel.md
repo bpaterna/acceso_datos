@@ -1464,7 +1464,7 @@ DELIMITER ;
 
 <span class="mis_ejemplos">Ejemplo 7: Trabajar con funciones</span>
 
-El siguiente ejemplo crea una función que devuelve el valor total en € del stock de una planta (stock × precio).
+El siguiente script crea una función que devuelve el valor total en € del stock de una planta (stock × precio). Para que la función se guarde en la BD hay que ejecutarlo.
 
 ```sql
 DROP FUNCTION IF EXISTS fn_total_valor_planta;
@@ -1486,7 +1486,16 @@ END; //
 DELIMITER ;
 ```
 
-Para que la función se guarde en la BD hay que ejecutar el código anterior como un script SQL. El resultado será el siguiente:
+Lo podemos ejecutar directamente sobre el servidor y luego comprobar que se ha guardado correctamente con el comando:
+
+```sql
+SELECT ROUTINE_TYPE, ROUTINE_NAME
+FROM information_schema.ROUTINES
+WHERE ROUTINE_SCHEMA = DATABASE();
+```
+
+
+También podemos ejecutar el script a través de un cliente. En nuestro caso estamos utilizando DBeaver y el resultado de dicha ejecución será el siguiente:
 
 <img class="con_borde" src="img/RA2/fun1.png" alt="funciones">
 
@@ -1501,7 +1510,7 @@ En este caso el resultado de la ejecución es el que se muestra en la siguiente 
 <img class="con_borde" src="img/RA2/fun2.png" alt="funciones">
 
 
-Una vez que la función está creada en la base de datos, se puede utilizar perfectamente desde Kotlin a través de JDBC, igual que se hace con cualquier consulta SQL. Se gestionan mediante objetos `PreparedStatement` y se invocan con `SELECT nombre_funcion(...)`. A continuación se muestra el código necesario para realizar la llamada desde Kotlin:
+Una vez que la función está almacenada en la base de datos, se puede utilizar perfectamente desde Kotlin a través de JDBC, igual que se hace con cualquier consulta SQL. Se gestionan mediante objetos `PreparedStatement` y se invocan con `SELECT nombre_funcion(...)`. A continuación se muestra el código necesario para realizar la llamada desde Kotlin:
 
 ```kotlin
 fun llamar_fn_total_valor_planta(id: Int){
@@ -1823,11 +1832,19 @@ fun llamar_sp_agregar_planta_a_jardin(id_j:Int, id_p:Int, cant:Int){
 
 
 
-<span class="mis_ejemplos">Ejemplo 10: Otro ejemplo de procedimientos</span>
+<span class="mis_ejemplos">Ejemplo 10: Procedimiento que cambia el precio a una planta.</span>
 
-El siguiente ejemplo cambia el precio a una planta.
 
-Ejecutamos el siguiente script en DBeaver sobre la BD florabotanica para almacenar el procedimiento dentro de ella.
+
+
+SELECT ROUTINE_TYPE, ROUTINE_NAME
+-> FROM information_schema.ROUTINES
+-> WHERE ROUTINE_SCHEMA = DATABASE();
+
+
+
+
+Ejecutamos el siguiente script sobre la BD florabotanica para almacenar el procedimiento dentro de ella.
 
 ```sql
 DROP PROCEDURE IF EXISTS sp_cambiar_precio;
