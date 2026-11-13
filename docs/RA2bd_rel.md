@@ -2006,6 +2006,7 @@ fun llamar_sp_cambiar_precio(id: Int, nuevoPrecio: Double) {
 
         - Carpeta `src`
         - Carpeta `datos`
+        - Fichero `.sql`
         - Fichero `build.gradle.kts`
         - Fichero `LEEME.md`
 
