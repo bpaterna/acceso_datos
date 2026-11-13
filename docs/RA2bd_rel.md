@@ -1980,11 +1980,22 @@ fun llamar_sp_cambiar_precio(id: Int, nuevoPrecio: Double) {
 
     1. Crea tu BD en el servidor MySQL y migra a ella tu BD SQLite del pryecto anterior utilizando [DBeaver](dbeaver.html)..
     2. Crea un proyecto kotlin con `Gradle` y añade las dependencias para trabajar con MySQL.
-    3. Reutiliza todo el código que puedas de tu anterior proyecto pero sin copiar la carpeta datos con el archivo `.SQLite`. En este caso la BD no está en local sino en un servidor.
+    3. Reutiliza todo el código que puedas de tu anterior proyecto pero sin copiar el archivo `.SQLite`. En este caso la BD no está en local sino en un servidor.
     4. Comprueba que la aplicación se está conectando a MySQL correctamente (debes tener las mismas opciones y funcionalidades que la aplicación que ya tenías pero esta vez sobre la BD MySQL del servidor en docker).
-    5. Crea al menos una función (que haga algún cálculo sobre la BD y devuelva el resultado) y dos procedimientos (uno que consulte y devuelva información de tu BD y otro que inserte información en una de las tablas).
+    5. Crea al menos una función (que haga algún cálculo sobre la BD y devuelva el resultado) y dos procedimientos (uno que consulte y devuelva información de tu BD y otro que modifique información en una de las tablas).
     6. Amplía el menú de tu proyecto y añade el código necesario para llamar a la función y a los procedimientos que acabas de crear.
 
+
+    **Requisitos de funcionamiento:** mismos que en la práctica anterior. 
+
+    **Aspectos técnicos:** mismos que en la páctica anterior. Además:
+    En la cabecera de cada clase (arriba de toso) debe figurar un comentario con el nombre y apellidos del autor/a y la entidad que gestiona:
+        ```
+        /*
+        @author Nombre y Apellidos
+        Entidad: nombre de la entidad
+        */
+        ```
 
 
 !!! danger "Entrega"
