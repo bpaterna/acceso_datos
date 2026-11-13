@@ -1826,16 +1826,6 @@ fun llamar_sp_agregar_planta_a_jardin(id_j:Int, id_p:Int, cant:Int){
 
 <span class="mis_ejemplos">Ejemplo 10: Procedimiento que cambia el precio a una planta.</span>
 
-
-
-
-SELECT ROUTINE_TYPE, ROUTINE_NAME
--> FROM information_schema.ROUTINES
--> WHERE ROUTINE_SCHEMA = DATABASE();
-
-
-
-
 Ejecutamos el siguiente script sobre la BD florabotanica para almacenar el procedimiento dentro de ella.
 
 ```sql
