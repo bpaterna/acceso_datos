@@ -2026,6 +2026,8 @@ Además, si queremos que nuestra aplicación responda a [http://localhost:8080](
 ```
 
 
+> Las capturas de pantalla de este ejemplo son exactamente las mismas en las del ejemplo anterior.
+
 
 !!! success "Prueba y analiza el ejemplo"
     Prueba el código del ejemplo y verifica que el comportamiento es correcto.
@@ -2180,14 +2182,14 @@ data class PlantaEnJardin(
 <span class="mi_sombreado">**EJ4 - PASO 2: Ampliar el repositorio, el servicio y el controlador**</span>
 
 
-Añadimos la consulta para listar jardines en el archivo `src/main/kotlin/com/example/plantas/repository/PlantaSqlRepository.kt`:
+Añadimos la consulta para listar jardines en el archivo `src/main/kotlin/com/example/plantas/repository/PlantaRepository.kt`:
 
 
 ```kotlin
 import com.example.plantasSQL.model.Jardi
 import com.example.plantasSQL.model.PlantaEnJardin
 
-// Lista de jardines para el desplegable
+// 1. Obtener la lista de jardines para el desplegable
 fun leerJardines(): MutableList<Jardi?> {
     val sql = "SELECT id_jardin, nombre, ciudad FROM jardines ORDER BY nombre ASC"
     return jdbcClient.sql(sql)
@@ -2195,13 +2197,13 @@ fun leerJardines(): MutableList<Jardi?> {
         .list().toMutableList()
 }
 
-// Consulta de las plantas que hay en un jardín
+// 2. Consulta con JOIN (la que ya preparaste)
 fun PlantasPorJardin(idJardin: Int): MutableList<PlantaEnJardin?> {
     val sql = """
         SELECT p.nombre_comun AS nombrePlanta, j.nombre AS nombreJardin, jp.cantidad
         FROM jardines_plantas jp
-        LEFT JOIN plantas p ON jp.id_planta = p.id_planta
-        LEFT JOIN jardines j ON jp.id_jardin = j.id_jardin
+        INNER JOIN plantas p ON jp.id_planta = p.id_planta
+        INNER JOIN jardines j ON jp.id_jardin = j.id_jardin
         WHERE j.id_jardin = :idJardin
         ORDER BY nombrePlanta ASC
     """
@@ -2210,7 +2212,6 @@ fun PlantasPorJardin(idJardin: Int): MutableList<PlantaEnJardin?> {
         .query(PlantaEnJardin::class.java)
         .list().toMutableList()
 }
-
 ```
 
 
@@ -2233,7 +2234,7 @@ Modificamos el archivo `src/main/kotlin/com/example/plantas/controller/PlantaCon
 
 ```kotlin
 @GetMapping("/plantas-por-jardin")
-fun informePlantasPorJardin(
+fun listadoPlantasPorJardin(
     @RequestParam(name = "idJardin", required = false) idJardin: Int?,
     model: Model
 ): String {
@@ -2254,14 +2255,14 @@ fun informePlantasPorJardin(
 <span class="mi_sombreado">**EJ4 - PASO 3: Vistas**</span>
 
 
-Creamos una nueva vista llamada `src/main/resources/templates/plantasPorJardin.html` que incluye el formulario de selección y la tabla que muestra los datos combinados:
+Creamos una nueva vista llamada `src/main/resources/templates/plantasPorJardin.html` que incluye el formulario de selección y la tabla que muestra los datos resultantes de la consulta:
 
 ```html
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Informe de Plantas por Jardín</title>
+    <title>Plantas por Jardín</title>
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -2277,7 +2278,7 @@ Creamos una nueva vista llamada `src/main/resources/templates/plantasPorJardin.h
     <!-- Tarjeta con el selector de Jardín -->
     <div class="card shadow-sm border-0 mb-4">
         <div class="card-body p-4">
-            <form th:action="@{/informe/plantas-por-jardin}" method="get" class="row g-3 align-items-end">
+            <form th:action="@{/plantas-por-jardin}" method="get" class="row g-3 align-items-end">
                 <div class="col-md-8">
                     <label for="jardinSelect" class="form-label fw-bold">Selecciona un Jardín:</label>
                     <select id="jardinSelect" name="idJardin" class="form-select" required>
@@ -2334,6 +2335,21 @@ Añadimos un botón en `src/main/resources/templates/plantas.html` para acceder 
 ```html
  <a th:href="@{/plantas-por-jardin}" class="btn btn-outline-success me-2">Ver Plantas por Jardín</a>
 ```
+
+
+Estas son las capturas de pantalla:
+
+- Botón para acceder a la pantalla de consulta
+
+<img class="con_borde" src="img/RA6/ej4-1.jpg" alt="ej4-1">
+
+- Pantalla de consulta en su estado inicial
+
+<img class="con_borde" src="img/RA6/ej4-2.jpg" alt="ej4-2">
+
+- Pantalla de consulta después de elegir un jardín en el desplegable
+
+<img class="con_borde" src="img/RA6/ej4-3.jpg" alt="ej4-3">
 
 
 !!! success "Prueba y analiza el ejemplo"
