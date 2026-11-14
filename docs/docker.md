@@ -232,7 +232,7 @@ La siguiente instrucción generará un archivo llamado `florabotanica.sql` en el
 > **Nota:** Se solicitará la contraseña del usuario root. Los caracteres introducidos no se mostrarán en pantalla.
 
 ```bash
-docker exec -i mysql-srv mysqldump --no-tablespaces -u root -p florabotanica > florabotanica.sql
+docker exec -i -e MYSQL_PWD=hola01 mysql-srv mysqldump --no-tablespaces --routines -u root florabotanica > florabotanica.sql
 ```
 
 Para comprobar que se ha creado el archivo:
