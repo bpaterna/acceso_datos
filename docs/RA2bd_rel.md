@@ -1978,7 +1978,7 @@ fun llamar_sp_cambiar_precio(id: Int, nuevoPrecio: Double) {
 
     **Requisitos de funcionamiento:** mismos que en la práctica anterior. Además:
 
-    - Crea un fichero `.csv` para la segunda entidad y añade a su menú la opción de importar (de manera que los menús de las dos entidades tengan las mismas opciones).
+    - Crea un fichero `.csv` para la segunda entidad y añade a su menú la opción de importar (de manera que los menús de las dos entidades tengan las mismas opciones). Recuerda que antes de hacer cualquier importación debes vaciar la tabla de destino para que no haya información duplicada.
 
     - A la hora de borrar registros de alguna de las tablas principales (no la que las relaciona) hay que comprobar primero si en la tabla que las relaciona existe algún registro con el id a borrar, si es así informar y borrar también ese registro (en caso de que se haya confirmado el borrado por parte del usuario).
 
