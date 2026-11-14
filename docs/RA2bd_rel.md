@@ -1656,8 +1656,8 @@ DELIMITER ;
 
 A la hora de llamar a los procedimientos desde Kotlin, utilizaremos:
 
-    - Procedimientos de consulta (con SELECT): se ejecutan con `call.executeQuery()` y devuelven un ResultSet.
-    - Procedimientos de acción/modificación (con UPDATE, INSERT, DELETE): se ejecutan con `call.executeUpdate()` y devuelven un Int con las filas afectadas.
+- Procedimientos de consulta (con SELECT): se ejecutan con `call.executeQuery()` y devuelven un ResultSet.
+- Procedimientos de acción/modificación (con UPDATE, INSERT, DELETE): se ejecutan con `call.executeUpdate()` y devuelven un Int con las filas afectadas.
 
 A continuación veremos algunos ejemplos:
 
@@ -1868,8 +1868,8 @@ fun llamar_sp_cambiar_precio(id: Int, nuevoPrecio: Double) {
 
 > **IMPORTANTE:** Un procedimiento almacenado se prepara siempre con conn.prepareCall("{CALL ...}"), pero el método de ejecución depende de lo que haga internamente:
 >
-> - `call.executeQuery()` si el procedimiento contiene un SELECT que proyecta datos, devolviendo un objeto ResultSet que debemos recorrer con while (rs.next()).
-> - `call.executeUpdate()` si el procedimiento ejecuta sentencias DML de modificación (UPDATE, INSERT o DELETE) sin devolver tablas de datos. En este caso devuelve un número entero (Int) con el recuento de filas afectadas.
+> - `call.executeQuery()` si el procedimiento devuelve un objeto ResultSet que debemos recorrer con while (rs.next()).
+> - `call.executeUpdate()` si el procedimiento ejecuta sentencias UPDATE, INSERT o DELETE sin devolver tablas de datos. En este caso devuelve un número entero (Int) con el recuento de filas afectadas.
 
 
 
@@ -1976,10 +1976,13 @@ fun llamar_sp_cambiar_precio(id: Int, nuevoPrecio: Double) {
     6. Amplía el menú de tu proyecto y añade el código necesario para llamar a la función y a los procedimientos que acabas de crear.
 
 
-    **Requisitos de funcionamiento:** mismos que en la práctica anterior. 
+    **Requisitos de funcionamiento:** mismos que en la práctica anterior. Además:
+
+    - A la hora de borrar registros de alguna de las tablas principales (no la que las relaciona) hay que comprobar primero si en la tabla que las relaciona existe algún registro con el id a borrar, si es así informar y borrar también ese registro (en caso de que se haya confirmado el borrado por parte del usuario).
 
     **Aspectos técnicos:** mismos que en la páctica anterior. Además:
-    En la cabecera de cada clase (arriba de toso) debe figurar un comentario con el nombre y apellidos del autor/a y la entidad que gestiona:
+
+    - En la cabecera de cada clase (arriba de toso) debe figurar un comentario con el nombre y apellidos del autor/a y la entidad que gestiona:
         ```
         /*
         @author Nombre y Apellidos

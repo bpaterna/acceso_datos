@@ -192,7 +192,7 @@ USE florabotanica;
 
 **8. Crear una tabla e insertar datos**
 
-Puedes copiar y pegar los scripts SQL que encotrarás en el documetno [ejemplo BD MySQL](florabotanica_mysql.html)).
+Puedes copiar y pegar los scripts SQL que encotrarás en el documetno [ejemplo BD MySQL](florabotanica_mysql.html).
 
 
 **9. Comprobar los datos**
