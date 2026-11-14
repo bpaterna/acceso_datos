@@ -229,8 +229,6 @@ Para llevar la base de datos a otro servidor es necesario exportarla desde el se
 
 La siguiente instrucción generará un archivo llamado `florabotanica.sql` en el directorio actual de nuestro servidor (en este caso en un contenedor llamado `mysql-srv`).
 
-> **Nota:** Se solicitará la contraseña del usuario root. Los caracteres introducidos no se mostrarán en pantalla.
-
 ```bash
 docker exec -i -e MYSQL_PWD=hola01 mysql-srv mysqldump --no-tablespaces --routines -u root florabotanica > florabotanica.sql
 ```
