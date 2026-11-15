@@ -98,8 +98,8 @@ wsl --install
 1. Abre **PowerShell**, **CMD** o **Ubuntu (WSL)**.
 2. Comprueba la versión instalada:
 
-```bash title="Tu ordenador ($)"
-docker --version
+```console
+$ docker --version
 ```
 
 3. Ejecuta la imagen de prueba:

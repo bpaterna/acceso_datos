@@ -41,4 +41,6 @@ markdown_extensions:
   - pymdownx.tabbed
 extra_css:
   - stylesheets/extra.css
+extra_javascript:
+  - javascripts/clean-copy.js
 use_directory_urls: false
