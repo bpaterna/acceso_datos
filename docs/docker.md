@@ -17,9 +17,8 @@
 
     * **`$`** *(en Linux/Mac/Git Bash)*, **`PS>`** *(en PowerShell)* o **`C:\>`** *(en CMD)* → En la **terminal de tu ordenador** (anfitrión).
     * **`#`** → En la **terminal dentro del contenedor** Docker (`bash` o `sh`).
-    * **`mysql>`** → Dentro del **cliente de MySQL**.
+    * **`mysql>`** → Dentro de la **consola de MySQL**.
     * **`mongosh>`** *(en pantalla verás `admin>` o `florabotanica>`)* → Dentro de la **consola de MongoDB**.
-
 
 
 
@@ -53,11 +52,10 @@ La siguiente tabla recoge algunos de los comandos que utilizaremos durante este 
 - Accede a: https://www.docker.com/products/docker-desktop/
 - Haz clic en **Download for Windows** y descarga el instalador (`Docker Desktop Installer.exe`).
 
-> **Nota:** Para saber si tienes Windows ARM o Intel/AMD (x64), ve a:
+> **Nota:** Para saber si tienes Windows ARM o Intel/AMD (x64):
 >
-> **Configuración → Sistema → Acerca de**
->
-> Revisa el campo **"Tipo de sistema"**:
+> Ve a **Configuración → Sistema → Acerca de** y revisa el campo **"Tipo de sistema"**:
+> 
 > - **Procesador basado en x64** → Intel/AMD.
 > - **Procesador basado en ARM** → Qualcomm, Microsoft SQ, etc.
 
@@ -90,31 +88,22 @@ PS> wsl --install
 **4. Configurar Docker para usar WSL 2**
 
 1. Abre **Docker Desktop**.
-2. Ve a:
-
-   **Settings → General**
-
-3. Comprueba que está activada la opción:
-
-    - `Use the WSL 2 based engine`
-
-4. Después ve a:
-
-   **Resources → WSL Integration**
-
+2. Ve a **Settings → General**
+3. Comprueba que está activada la opción `Use the WSL 2 based engine`
+4. Después ve a **Resources → WSL Integration**
 5. Activa tu distribución Linux (por ejemplo, **Ubuntu**).
 6. Haz clic en **Apply & Restart**.
 
 **5. Verificar que Docker funciona**
 
-1. Abre **PowerShell**, **CMD** o **Ubuntu (WSL)**.
-2. Comprueba la versión instalada:
+- Abre **PowerShell**, **CMD** o **Ubuntu (WSL)**.
+- Comprueba la versión instalada:
 
 ```console
 $ docker --version
 ```
 
-3. Ejecuta la imagen de prueba:
+- Ejecuta la imagen de prueba:
 
 ```console
 $ docker run hello-world
@@ -146,12 +135,11 @@ Explicación de las opciones utilizadas
 
 **2. Comprobar que el contenedor está funcionando**
 
-Deberías ver un contenedor llamado `mysql-srv` en la lista:
-
 ```console
 $ docker ps -a
 ```
 
+Deberías ver un contenedor llamado `mysql-srv` en la lista que ha aparecido.
 
 
 **3. Abrir una terminal dentro del contenedor**
@@ -355,11 +343,11 @@ $ docker run -d --name mongo-srv -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_IN
 
 **2. Comprobar que el contenedor está funcionando**
 
-Deberías ver un contenedor llamado `mongo-srv` en la lista:
-
 ```console
 $ docker ps -a
 ```
+
+Deberías ver un contenedor llamado `mongo-srv` en la lista que ha aparecido.
 
 **3. Abrir una terminal dentro del contenedor**
 
