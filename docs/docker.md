@@ -178,15 +178,11 @@ mysql> SHOW DATABASES;
 mysql> CREATE DATABASE florabotanica;
 ```
 
-
-
 **7. Seleccionar la base de datos**
 
 ```sql
 mysql> USE florabotanica;
 ```
-
-
 
 **8. Crear una tabla e insertar datos**
 
@@ -199,15 +195,11 @@ Puedes copiar y pegar los scripts SQL que encontrarás en el documento [ejemplo 
 mysql> SELECT * FROM plantas;
 ```
 
-
-
 **10. Desconectarse de MySQL**
 
 ```sql
 mysql> EXIT;
 ```
-
-
 
 **11. Salir de la terminal del contenedor**
 
@@ -254,11 +246,18 @@ $ docker exec mysql-srv2 ls -l /tmp/florabotanica.sql
 ```
 
 
-**3. Abrir una terminal dentro del segundo contenedor**
+**3. Abrir una terminal dentro del contenedor de destino**
 
 ```console
 $ docker exec -it mysql-srv2 bash
 ```
+
+> Si la imagen no dispone de `bash`, utiliza:
+>
+> ```console
+> $ docker exec -it mysql-srv2 sh
+> ```
+
 
 
 **4. Conectarse a MySQL**
@@ -447,11 +446,10 @@ florabotanica> exit
 
 
 
-
 <span class="mi_h3">5.2. Copiar la BD a otro contenedor</span>
 
 
-**1. Exporta la base de datos (dump) en el contenedor origen**
+**1. Exportar la base de datos (dump) en el contenedor origen**
 Se asume usuario y contraseña utilizados en la creación del contenedor.
 
 Este comando crea un dump de la DB `florabotanica` y lo escribe en un directorio temporal dentro del contenedor:
@@ -469,7 +467,7 @@ $ docker cp mongo-srv:/tmp/florabotanica.archive ./florabotanica.archive
 Para comprobar que se ha creado el archivo ejecuta el comando `ls -l` o `dir` si utilizas CMD o PowerShell en Windows.
 
 
-**2. Copia el archivo al contenedor destino**
+**2. Copiar el archivo al contenedor destino**
 Se asume que el contenedor destino se llama `mongo-srv2`.
 
 ```console
@@ -483,13 +481,20 @@ $ docker exec mongo-srv2 ls -l /tmp/florabotanica.archive
 ```
 
 
-**3. Abre shell dentro del contenedor destino**
+**3. Abrir una terminal dentro del contenedor de destino**
 
 ```console
 $ docker exec -it mongo-srv2 bash
 ```
 
-**4. Restaura la copia en el contenedor destino**
+> Si la imagen no dispone de `bash`, utiliza:
+>
+> ```console
+> $ docker exec -it mongo-srv2 sh
+> ```
+
+
+**4. Restaurar la copia en el contenedor destino**
 Restaura la DB `florabotanica` usando `mongorestore` (usa las credenciales root del destino). Esto importará la base de datos desde el archivo archivado y comprimido:
 
 ```console
