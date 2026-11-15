@@ -98,8 +98,8 @@ wsl --install
 1. Abre **PowerShell**, **CMD** o **Ubuntu (WSL)**.
 2. Comprueba la versión instalada:
 
-```console
-$ docker --version
+```bash title="Tu ordenador ($)"
+docker --version
 ```
 
 3. Ejecuta la imagen de prueba:
@@ -436,6 +436,26 @@ db.plantas.updateOne(
 ```javascript
 db.plantas.deleteOne({ nombre: "Pino" })
 ```
+
+
+
+**Desconectarse de MongoDB**
+
+```bash
+EXIT;
+```
+
+
+
+**Salir de la terminal del contenedor**
+
+```bash
+exit
+```
+
+
+
+
 
 
 <span class="mi_h3">5.2. Copiar la BD a otro contenedor</span>

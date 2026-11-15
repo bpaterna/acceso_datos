@@ -1,6 +1,4 @@
-/* para que no se copie el símbolo del prompt desde el botoncito de copiar código*/
 
-.highlight .gp { user-select: none; }
 
 /* color theme cyan = #00bdd6 */
 h1{color: #00bdd6 !important;}
