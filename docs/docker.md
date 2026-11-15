@@ -52,47 +52,45 @@ La siguiente tabla recoge algunos de los comandos que utilizaremos durante este 
 - Accede a: https://www.docker.com/products/docker-desktop/
 - Haz clic en **Download for Windows** y descarga el instalador (`Docker Desktop Installer.exe`).
 
-> **Nota:** Para saber si tienes Windows ARM o Intel/AMD (x64):
->
-> Ve a **Configuración → Sistema → Acerca de** y revisa el campo **"Tipo de sistema"**:
+> **Nota:** Para saber si tienes Windows ARM o Intel/AMD (x64) ve a **Configuración → Sistema → Acerca de** y revisa el campo **"Tipo de sistema"**:
 > 
 > - **Procesador basado en x64** → Intel/AMD.
 > - **Procesador basado en ARM** → Qualcomm, Microsoft SQ, etc.
 
 **2. Instalar Docker Desktop**
 
-1. Ejecuta el instalador.
-2. Marca las siguientes opciones:
+- Ejecuta el instalador.
+- Marca las siguientes opciones:
     - `Use WSL 2 instead of Hyper-V`
     - `Add shortcut to desktop` (opcional)
-3. Pulsa **OK / Install**.
-4. Espera a que finalice la instalación.
-5. Reinicia el equipo si el instalador lo solicita.
+- Pulsa **OK / Install**.
+- Espera a que finalice la instalación.
+- Reinicia el equipo si el instalador lo solicita.
 
 **3. Instalar WSL 2 (si no lo tienes)**
 
-1. Abre **PowerShell** como administrador.
-2. Ejecuta:
+- Abre **PowerShell** como administrador.
+- Ejecuta:
 
 ```powershell
 PS> wsl --install
 ```
 
-3. Asegúrate de instalar:
+- Asegúrate de instalar:
     - WSL
     - Linux Kernel
     - Ubuntu (distribución predeterminada)
 
-4. Reinicia el equipo si es necesario.
+- Reinicia el equipo si es necesario.
 
 **4. Configurar Docker para usar WSL 2**
 
-1. Abre **Docker Desktop**.
-2. Ve a **Settings → General**
-3. Comprueba que está activada la opción `Use the WSL 2 based engine`
-4. Después ve a **Resources → WSL Integration**
-5. Activa tu distribución Linux (por ejemplo, **Ubuntu**).
-6. Haz clic en **Apply & Restart**.
+- Abre **Docker Desktop**.
+- Ve a **Settings → General**
+- Comprueba que está activada la opción `Use the WSL 2 based engine`
+- Después ve a **Resources → WSL Integration**
+- Activa tu distribución Linux (por ejemplo, **Ubuntu**).
+- Haz clic en **Apply & Restart**.
 
 **5. Verificar que Docker funciona**
 
