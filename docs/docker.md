@@ -18,7 +18,7 @@ Docker es una plataforma para empaquetar aplicaciones y dependencias en contened
 
 ## 2. Comandos básicos
 
-La siguiente tabla recoge algunos de los comandos que utilizaremos durente este curso:
+La siguiente tabla recoge algunos de los comandos que utilizaremos durante este curso:
 
 | Comando | Ejemplo y descripción         |
 |---------|------------------|
@@ -98,14 +98,14 @@ wsl --install
 1. Abre **PowerShell**, **CMD** o **Ubuntu (WSL)**.
 2. Comprueba la versión instalada:
 
-```bash
-docker --version
+```console
+$ docker --version
 ```
 
 3. Ejecuta la imagen de prueba:
 
-```bash
-docker run hello-world
+```console
+$ docker run hello-world
 ```
 
 > **Nota:** Si aparece el mensaje de bienvenida de Docker, la instalación funciona correctamente.
@@ -117,8 +117,8 @@ docker run hello-world
 
 **1. Crear el contenedor**
 
-```bash
-docker run -d --name mysql-srv -e MYSQL_ROOT_PASSWORD=hola01 -p 3306:3306 mysql:8  
+```console
+$ docker run -d --name mysql-srv -e MYSQL_ROOT_PASSWORD=hola01 -p 3306:3306 mysql:8  
 ```
 
 Explicación de las opciones utilizadas
@@ -136,8 +136,8 @@ Explicación de las opciones utilizadas
 
 Deberías ver un contenedor llamado `mysql-srv` en la lista:
 
-```bash
-docker ps -a
+```console
+$ docker ps -a
 ```
 
 
@@ -192,7 +192,7 @@ USE florabotanica;
 
 **8. Crear una tabla e insertar datos**
 
-Puedes copiar y pegar los scripts SQL que encotrarás en el documetno [ejemplo BD MySQL](florabotanica_mysql.html).
+Puedes copiar y pegar los scripts SQL que encotrarás en el documento [ejemplo BD MySQL](florabotanica_mysql.html).
 
 
 **9. Comprobar los datos**
