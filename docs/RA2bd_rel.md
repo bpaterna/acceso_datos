@@ -1988,7 +1988,7 @@ fun llamar_sp_cambiar_precio(id: Int, nuevoPrecio: Double) {
         ```
         /*
         @author Nombre y Apellidos
-        Entidad: nombre de la entidad
+        Entidades: nombre de las entidades de tu aplicación
         */
         ```
 
