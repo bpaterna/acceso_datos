@@ -1984,7 +1984,7 @@ fun llamar_sp_cambiar_precio(id: Int, nuevoPrecio: Double) {
 
     **Aspectos técnicos:** mismos que en la páctica anterior. Además:
 
-    - En la cabecera de cada clase (arriba de toso) debe figurar un comentario con el nombre y apellidos del autor/a y la entidad que gestiona:
+    - En la cabecera de cada clase (arriba de todo) debe figurar un comentario con el nombre y apellidos del autor/a y la entidad que gestiona:
         ```
         /*
         @author Nombre y Apellidos
